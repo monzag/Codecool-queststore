@@ -28,8 +28,10 @@ public class Wallet {
     public boolean take(Integer amount) {
         if (this.has(amount)) {
             this.balance -= amount;
+            // if transaction was done return true
             return true;
         }
+        // if transaction failed return false
         return false
     }
 
