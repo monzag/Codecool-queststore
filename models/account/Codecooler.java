@@ -25,4 +25,24 @@ public abstract class Codecooler {
 
     }
 
+    public Integer getId() {
+        return this.id;
+    }
+    public Login getLogin() {
+        return this.login;
+    }
+    public Password getPassword() {
+        return this.password;
+    }
+    public Email getEmail() {
+        return this.email;
+    }
+    public String getName() {
+        return this.name;
+    }
+    public String getSurname() {
+        return this.surname;
+    }
+
+
 }
