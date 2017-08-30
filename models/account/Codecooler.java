@@ -3,7 +3,7 @@ package models.account;
 
 public abstract class Codecooler {
 
-    protected Integer ID;
+    protected Integer id;
     protected Login login;
     protected Password password;
     protected Email email;
@@ -11,6 +11,17 @@ public abstract class Codecooler {
     protected String surname;
 
     public Codecooler() {
+
+    }
+
+    public Codecooler(Integer id, Login login, Password password, Email email, String name, String surname) {
+
+        this.id = id;
+        this.login = login;
+        this.password = password;
+        this.email = email;
+        this.name = name;
+        this.surname = surname;
 
     }
 
