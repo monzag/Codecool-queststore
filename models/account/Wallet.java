@@ -8,4 +8,8 @@ public class Wallet {
     public Integer getBalance() {
         return this.balance;
     }
+
+    public Integer addTo(Integer amount) {
+        this.balance += amount;
+    }
 }
