@@ -9,6 +9,9 @@ public class Student extends Codecooler {
     public Integer getClassId() {
         return this.classId;
     }
+    public Integer getTeamId() {
+        return this.teamId;
+    }
 
 
 }
