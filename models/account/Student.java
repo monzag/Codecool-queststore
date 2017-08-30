@@ -13,5 +13,9 @@ public class Student extends Codecooler {
         return this.teamId;
     }
 
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
+
 
 }
