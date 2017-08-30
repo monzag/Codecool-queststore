@@ -32,7 +32,7 @@ public class Wallet {
             return true;
         }
         // if transaction failed return false
-        return false
+        return false;
     }
 
 
