@@ -53,4 +53,9 @@ public class Student extends Codecooler {
         return this.wallet.take(amount);
     }
 
+    public void earn(Integer amount) {
+        this.wallet.put(amount);
+    }
+
+
 }
