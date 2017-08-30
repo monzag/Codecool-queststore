@@ -19,5 +19,9 @@ public class Mentor extends Codecooler {
         return this.classId;
     }
 
+    public void setClassId(Integer classId) {
+        this.classId = classId;
+    }
+
 
 }
