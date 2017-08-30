@@ -9,6 +9,10 @@ public class Wallet {
         this.balance = 0;
     }
 
+    public Wallet(Integer balance) {
+        this.balance = balance;
+    }
+
     public Integer getBalance() {
         return this.balance;
     }
