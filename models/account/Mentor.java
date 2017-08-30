@@ -15,5 +15,9 @@ public class Mentor extends Codecooler {
         this.classId = classId;
     }
 
+    public Integer getClassId() {
+        return this.classId;
+    }
+
 
 }
