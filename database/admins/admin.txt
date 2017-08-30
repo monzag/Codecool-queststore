@@ -1,0 +1,6 @@
+ID: 0
+LOGIN: admin
+PASSWORD: password
+EMAIL: admin@codecool.pl
+NAME: jurek
+SURNAME: ogurek
