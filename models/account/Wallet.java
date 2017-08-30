@@ -9,12 +9,20 @@ public class Wallet {
         return this.balance;
     }
 
-    public Integer addTo(Integer amount) {
+    public void put(Integer amount) {
         this.balance += amount;
     }
 
-    public boolean has(Integer amount) {
+    private boolean has(Integer amount) {
         return this.balance >= amount;
+    }
+
+    public boolean take(Integer amount) {
+        if (this.has(amount)) {
+            this.balance -= amount;
+            return true;
+        }
+        return false
     }
 
 
