@@ -44,5 +44,24 @@ public abstract class Codecooler {
         return this.surname;
     }
 
+    public void setId(Integer id) {
+        this.id = id;
+    }
+    public void setLogin(Login login) {
+        this.login = login;
+    }
+    public void setPassword(Password password) {
+        this.password = password;
+    }
+    public void setEmail(Email email) {
+        this.email = email;
+    }
+    public void setName(String name) {
+        this.name = name;
+    }
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
 
 }
