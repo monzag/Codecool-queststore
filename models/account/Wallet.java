@@ -5,6 +5,10 @@ public class Wallet {
 
     private Integer balance;
 
+    public Wallet() {
+        this.balance = 0;
+    }
+
     public Integer getBalance() {
         return this.balance;
     }
