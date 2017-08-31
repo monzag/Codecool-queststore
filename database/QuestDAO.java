@@ -16,10 +16,10 @@ public class QuestDAO implements DAO {
     public Quest load(String id) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
             Quest quest = new Quest();
-            String rId = br.readline();
-            String rName = br.readline();
-            String rDescription = br.readline();
-            String rReward = br.readline();
+            String rId = br.readLine();
+            String rName = br.readLine();
+            String rDescription = br.readLine();
+            String rReward = br.readLine();
 
             if (rId.startsWith("ID: ")) {
                 quest.setId(rId.substring("ID: ".length()));
