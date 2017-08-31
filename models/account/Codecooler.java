@@ -5,7 +5,7 @@ import models.accountdata.Mail;
 import models.accountdata.Password;
 
 
-public abstract class Codecooler {
+public class Codecooler {
 
     protected Login login;
     protected Password password;
