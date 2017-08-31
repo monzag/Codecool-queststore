@@ -10,6 +10,9 @@ import models.accountdata.Email;
 import models.containers.MentorList;
 
 import views.CodecoolerView;
+import views.AdminView;
+
+import java.util.Scanner;
 
 
 public class AdminController {
@@ -32,5 +35,25 @@ public class AdminController {
 
         Mentor mentor = new Mentor(login, password, mail, name, surname);
         this.mentors.save(mentor);
+    }
+
+    public void menu() {
+        Scanner input = new Scanner(System.in);
+        AdminView.viewOptions();
+        boolean inMenu = true;
+
+        while (inMenu) {
+            String option = input.nextLine();
+
+            if (option.equals("1")) {
+                AdminView.showAllMentors();
+            }
+            else if (option.equals("2")) {
+                createMentor();
+            }
+            else if (option.equals("0")) {
+                inMenu = false;
+            }
+        }
     }
 }
