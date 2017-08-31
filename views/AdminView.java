@@ -1,8 +1,5 @@
 package views;
 
-import models.containers.MentorList;
-import models.containers.CodecoolerList;
-
 import database.MentorDAO;
 import java.util.ArrayList;
 import models.account.Mentor;
