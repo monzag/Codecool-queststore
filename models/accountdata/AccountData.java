@@ -25,17 +25,17 @@ public abstract class AccountData {
     }
 
     protected static boolean isUnique(String value){
-        StudentDAO studentData = new StudentDAO(value);
-        MentorDAO mentorData = new MentorDAO(value);
-        AdminDAO adminData = new AdminDAO(value);
+        StudentDAO studentData = new StudentDAO();
+        MentorDAO mentorData = new MentorDAO();
+        AdminDAO adminData = new AdminDAO();
 
-        if (!adminData.load().equals(null)){
+        if (!adminData.load(value).equals(null)){
             return false;
 
-        }else if (!mentorData.load().equals(null)){
+        }else if (!mentorData.load(value).equals(null)){
             return false;
 
-        }else if (!studentData.load().equals(null)){
+        }else if (!studentData.load(value).equals(null)){
             return false;
 
         } else {
