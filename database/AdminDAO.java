@@ -1,7 +1,9 @@
 package database;
 
 import models.account.Admin;
+import models.accountdata.*;
 
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -18,19 +20,12 @@ public class AdminDAO implements DAO {
     public Admin load(String login) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + login + ".txt"))) {
             Admin admin = new Admin();
-            String rId = br.readline();
             String rLogin = br.readline();
             String rPassword = br.readline();
             String rEmail = br.readline();
             String rName = br.readline();
             String rSurname = br.readline();
 
-            if (rId.startswith("ID: ")) {
-                admin.setId(rId.substring("ID: ".length()));
-            }
-            else {
-                return null;
-            }
             if (rLogin.startswith("LOGIN: ")) {
                 admin.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
@@ -82,7 +77,6 @@ public class AdminDAO implements DAO {
 
     public void save(Admin admin) {
         try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin() + ".txt")) {
-            fw.write("ID: " + admin.getId());
             fw.write("LOGIN: " + admin.getLogin().getValue());
             fw.write("PASSWORD: " + admin.getPassword().getValue());
             fw.write("EMAIL: " + admin.getEmail().getValue());

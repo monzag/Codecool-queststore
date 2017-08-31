@@ -1,8 +1,9 @@
 package database;
 
+import models.accountdata.*;
 import models.account.Student;
-import models.account.Wallet;
 
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -20,7 +21,6 @@ public class StudentDAO implements DAO {
     public Student load(String login) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + login + ".txt"))) {
             Student student = new Student();
-            String rId = br.readline();
             String rLogin = br.readline();
             String rPassword = br.readline();
             String rEmail = br.readline();
@@ -30,12 +30,6 @@ public class StudentDAO implements DAO {
             String rTeamId = br.readLine();
             String rBalance = br.readLine();
 
-            if (rId.startswith("ID: ")) {
-                student.setId(rId.substring("ID: ".length()));
-            }
-            else {
-                return null;
-            }
             if (rLogin.startswith("LOGIN: ")) {
                 student.setLogin(rLogin.substring("LOGIN: ".length()));
             }
@@ -104,7 +98,6 @@ public class StudentDAO implements DAO {
 
     public void save(Student student) {
         try (FileWriter fw = new FileWriter(FILEPATH + student.getLogin() + ".txt")) {
-            fw.write("ID: " + student.getId());
             fw.write("LOGIN: " + student.getLogin().getValue());
             fw.write("PASSWORD: " + student.getPassword().getValue());
             fw.write("EMAIL: " + student.getEmail().getValue());
