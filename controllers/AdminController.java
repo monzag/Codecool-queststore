@@ -15,10 +15,15 @@ public class AdminController {
         this.mentors = new MentorList<Mentor>();
     }
 
-    public void createMentor() {
+    public boolean addMentor(Mentor mentor) {
         this.mentors.load();
-        this.mentors.add(new Mentor());
-        this.mentors.save();
+        if (this.mentors.add(mentor)) {
+            this.mentors.save();
+            // report true if suceed
+            return true;
+        }
+        // reports false if failed
+        return false;
     }
 
 }
