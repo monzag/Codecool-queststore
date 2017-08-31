@@ -13,7 +13,7 @@ public class Student extends Codecooler {
     private Wallet wallet;
 
     public Student(){
-        
+
     }
 
     public Student(Login login, Password password, Mail email, String name, String surname, Wallet wallet) {
@@ -55,6 +55,10 @@ public class Student extends Codecooler {
     }
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     public boolean pay(Integer amount) {
