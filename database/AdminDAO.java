@@ -60,6 +60,7 @@ public class AdminDAO implements DAO {
 
         } catch (IOException e) {
             System.out.println("File not found.");
+            return null;
         }
     }
 
@@ -76,12 +77,13 @@ public class AdminDAO implements DAO {
     }
 
     public void save(Admin admin) {
-        try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin() + ".txt")) {
-            fw.write("LOGIN: " + admin.getLogin().getValue());
-            fw.write("PASSWORD: " + admin.getPassword().getValue());
-            fw.write("EMAIL: " + admin.getEmail().getValue());
-            fw.write("NAME: " + admin.getName());
-            fw.write("SURNAME: " + admin.getSurname());
+        try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin().getValue() + ".txt")) {
+            fw.write("LOGIN: " + admin.getLogin().getValue() + '\n');
+            fw.write("PASSWORD: " + admin.getPassword().getValue() + '\n');
+            fw.write("EMAIL: " + admin.getEmail().getValue() + '\n');
+            fw.write("NAME: " + admin.getName() + '\n');
+            fw.write("SURNAME: " + admin.getSurname() + '\n');
+            fw.write("CLASSID: " + admin.getClassId() + '\n');
         } catch (IOException e) {
             System.out.println("Filepath not found.");
         }
