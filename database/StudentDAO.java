@@ -55,7 +55,7 @@ public class StudentDAO implements DAO {
                 return null;
             }
             if (rSurname.startswith("SURNAME: ")) {
-                student.setSurname(rId.substring("SURNAME: ".length()));
+                student.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;
