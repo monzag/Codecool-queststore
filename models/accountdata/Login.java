@@ -10,11 +10,11 @@ public class Login extends AccountData {
         super(value);
     }
 
-    public boolean isValid(){
-        boolean isUnique = this.isUnique();
-        int valueLen = this.value.length();
+    public static boolean isValid(String value){
+        boolean isUnique = isUnique(value);
+        boolean isLengthValid = isLengthValid(value);
 
-        if (valueLen < 20 && isUnique) {
+        if (isLengthValid && isUnique) {
             return true;
 
         }else {
@@ -22,13 +22,31 @@ public class Login extends AccountData {
         }
     }
 
-    public boolean isUnique(){
-        AccountDAO accountData = new AccountDAO(this.value);
+    private static boolean isUnique(String value){
+        StudentDAO studentData = new StudenttDAO(value);
+        MentorDAO mentorData = new MentorDAO(value);
+        AdminDAO adminData = new AdminDAO(value);
 
-        if (!accountData.load().equals(null)){
+        if (!adminData.load().equals(null)){
             return false;
-        }else {
+
+        }else if (!mentorData.load().equals(null)){
+            return false;
+
+        }else if (!studentData.load().equals(null)){
+            return false;
+
+        } else {
             return true;
+        }
+    }
+
+    private static  boolean isLengthValid(String value) {
+        if (value.length() > 20 && value.length() < 20 ) {
+            return true;
+
+        }else {
+            return false;
         }
     }
 }

@@ -10,8 +10,6 @@ public abstract class AccountData {
         this.value = value;
     }
 
-    public abstract boolean isValid();
-
     public String getValue() {
         return this.value;
     }
