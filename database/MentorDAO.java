@@ -1,9 +1,16 @@
+package database;
+
+import java.io.FileWriter;
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+
+
 public class MentorDAO implements DAO {
 
     private final String FILEPATH = "database/mentors/";
 
-    public MentorDAO(String basePath) {
-        this.basePath = basePath;
+    public MentorDAO() {
     }
 
     public Mentor load(String login) {
@@ -68,13 +75,13 @@ public class MentorDAO implements DAO {
     public void save(Storable item) {
         try (FileWriter fw = new FileWriter(FILEPATH + item.getLogin() + ".txt")) {
             fw.write("ID: " + item.getId());
-            fw.write("LOGIN: " + item.getLogin());
-            fw.write("PASSWORD: " + item.getPassword());
-            fw.write("EMAIL: " + item.getEmail());
+            fw.write("LOGIN: " + item.getLogin().getValue());
+            fw.write("PASSWORD: " + item.getPassword().getValue());
+            fw.write("EMAIL: " + item.getEmail().getValue());
             fw.write("NAME: " + item.getName());
             fw.write("SURNAME: " + item.getSurname());
             fw.write("CLASSID: " + item.getClassId());
-        } catch (IOException) {
+        } catch (IOException e) {
             System.out.println("Filepath not found.");
         }
     }
