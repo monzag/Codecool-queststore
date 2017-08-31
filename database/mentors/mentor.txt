@@ -1,7 +1,6 @@
-ID: 1
 LOGIN: mentor
 PASSWORD: password
 EMAIL: mentor@codecool.pl
 NAME: janusz
 SURNAME: kwasniewski
-CLASSID: null
+CLASSID: 1
