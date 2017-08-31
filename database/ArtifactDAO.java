@@ -57,6 +57,18 @@ public class ArtifactDAO implements DAO {
         }
     }
 
+    public ArrayList<Artifact> loadAll() {
+        ArrayList<Artifact> artifactList = new ArrayList<>();
+
+        File[] files = new File(FILEPATH).listFiles();
+
+        for (File file : files) {
+            int dotPosition = file.getName().lastIndexOf(".");
+            artifactList.add(load(file.getName().substring(0, dotPosition)));
+        }
+        return artifactList;
+    }
+
     public void save(Artifact artifact) {
         try (FileWriter fw = new FileWriter(FILEPATH + artifact.getId() + ".txt")) {
             fw.write("ID: " + artifact.getId());

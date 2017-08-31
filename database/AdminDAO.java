@@ -67,6 +67,18 @@ public class AdminDAO implements DAO {
         }
     }
 
+    public ArrayList<Admin> loadAll() {
+        ArrayList<Admin> adminList = new ArrayList<>();
+
+        File[] files = new File(FILEPATH).listFiles();
+
+        for (File file : files) {
+            int dotPosition = file.getName().lastIndexOf(".");
+            adminList.add(load(file.getName().substring(0, dotPosition)));
+        }
+        return adminList;
+    }
+
     public void save(Admin admin) {
         try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin() + ".txt")) {
             fw.write("ID: " + admin.getId());
