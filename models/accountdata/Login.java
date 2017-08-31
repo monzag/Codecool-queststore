@@ -23,11 +23,20 @@ public class Login extends AccountData {
     }
 
     private static boolean isUnique(String value){
-        AccountDAO accountData = new AccountDAO(value);
+        StudentDAO studentData = new StudenttDAO(value);
+        MentorDAO mentorData = new MentorDAO(value);
+        AdminDAO adminData = new AdminDAO(value);
 
-        if (!accountData.load().equals(null)){
+        if (!adminData.load().equals(null)){
             return false;
-        }else {
+
+        }else if (!mentorData.load().equals(null)){
+            return false;
+
+        }else if (!studentData.load().equals(null)){
+            return false;
+
+        } else {
             return true;
         }
     }
@@ -35,6 +44,7 @@ public class Login extends AccountData {
     private static  boolean isLengthValid(String value) {
         if (value.length() > 20 && value.length() < 20 ) {
             return true;
+
         }else {
             return false;
         }
