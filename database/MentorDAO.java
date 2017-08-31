@@ -86,13 +86,13 @@ public class MentorDAO implements DAO {
     }
 
     public void save(Mentor mentor) {
-        try (FileWriter fw = new FileWriter(FILEPATH + mentor.getLogin() + ".txt")) {
-            fw.write("LOGIN: " + mentor.getLogin().getValue());
-            fw.write("PASSWORD: " + mentor.getPassword().getValue());
-            fw.write("EMAIL: " + mentor.getEmail().getValue());
-            fw.write("NAME: " + mentor.getName());
-            fw.write("SURNAME: " + mentor.getSurname());
-            fw.write("CLASSID: " + mentor.getClassId());
+        try (FileWriter fw = new FileWriter(FILEPATH + mentor.getLogin().getValue() + ".txt")) {
+            fw.write("LOGIN: " + mentor.getLogin().getValue() + '\n');
+            fw.write("PASSWORD: " + mentor.getPassword().getValue() + '\n');
+            fw.write("EMAIL: " + mentor.getEmail().getValue() + '\n');
+            fw.write("NAME: " + mentor.getName() + '\n');
+            fw.write("SURNAME: " + mentor.getSurname() + '\n');
+            fw.write("CLASSID: " + mentor.getClassId() + '\n');
         } catch (IOException e) {
             System.out.println("Filepath not found.");
         }
