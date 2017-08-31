@@ -6,12 +6,8 @@ import java.util.Scanner;
 public class CodecoolerView {
 
     public static String getString(String keyword) {
-        Scanner input = new Scanner(System.in);
-        String userInput;
-
         System.out.println("Provide " + keyword + ": ");
-        userInput = input.nextLine();
-        input.close();
+        String userInput = System.console().readLine();
 
         return userInput;
 
