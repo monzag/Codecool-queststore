@@ -18,8 +18,9 @@ public class MentorList<Mentor> extends CodecoolerList {
         this.codecoolers = db.loadAll();
     }
 
-    public void save() {
-        //TODO
+    public void save(Mentor mentor) {
+        db.save(mentor);
+        load();
     }
 
 
