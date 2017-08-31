@@ -10,7 +10,7 @@ public class Login extends AccountData {
         super(value);
     }
 
-    public boolean isValid(String value){
+    public static boolean isValid(String value){
         boolean isUnique = isUnique(value);
         boolean isLengthValid = this.isLengthValid(value);
 
