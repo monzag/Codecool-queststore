@@ -5,12 +5,15 @@ public class CodecoolerView {
 
     public static String getString(String keyword) {
         Scanner input = new Scanner(System.in);
+        String userInput;
 
         System.out.println("Provide " + keyword + ": ");
-        return input.nextLine();
+        userInput = input.nextLine();
+        input.close()
+
+        return userInput;
 
     }
-
 
     public static void reportResult(boolean state) {
         if (state) {
