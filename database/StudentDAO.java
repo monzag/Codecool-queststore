@@ -31,19 +31,19 @@ public class StudentDAO implements DAO {
             String rBalance = br.readLine();
 
             if (rLogin.startswith("LOGIN: ")) {
-                student.setLogin(rLogin.substring("LOGIN: ".length()));
+                student.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
             else {
                 return null;
             }
             if (rPassword.startswith("PASSWORD: ")) {
-                student.setPassword(rPassword.substring("PASSWORD: ".length()));
+                student.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
             }
             else {
                 return null;
             }
             if (rEmail.startswith("EMAIL: ")) {
-                student.setEmail(rEmail.substring("EMAIL: ".length()));
+                student.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
@@ -55,7 +55,7 @@ public class StudentDAO implements DAO {
                 return null;
             }
             if (rSurname.startswith("SURNAME: ")) {
-                student.setSurname(rId.substring("SURNAME: ".length()));
+                student.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;

@@ -39,7 +39,7 @@ public class AdminDAO implements DAO {
                 return null;
             }
             if (rEmail.startswith("EMAIL: ")) {
-                admin.setEmail(new Email(rEmail.substring("EMAIL: ".length())));
+                admin.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
@@ -51,7 +51,7 @@ public class AdminDAO implements DAO {
                 return null;
             }
             if (rSurname.startswith("SURNAME: ")) {
-                mentor.setSurname(rId.substring("SURNAME: ".length()));
+                mentor.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;

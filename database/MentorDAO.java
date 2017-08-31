@@ -41,7 +41,7 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rEmail.startswith("EMAIL: ")) {
-                mentor.setEmail(new Email(rEmail.substring("EMAIL: ".length())));
+                mentor.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
@@ -53,7 +53,7 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rSurname.startswith("SURNAME: ")) {
-                mentor.setSurname(rId.substring("SURNAME: ".length()));
+                mentor.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;
