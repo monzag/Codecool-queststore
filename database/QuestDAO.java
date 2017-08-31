@@ -50,6 +50,18 @@ public class QuestDAO implements DAO {
         }
     }
 
+    public ArrayList<Quest> loadAll() {
+        ArrayList<Quest> questList = new ArrayList<>();
+
+        File[] files = new File(FILEPATH).listFiles();
+
+        for (File file : files) {
+            int dotPosition = file.getName().lastIndexOf(".");
+            questList.add(load(file.getName().substring(0, dotPosition)));
+        }
+        return questList;
+    }
+
     public void save(Quest quest) {
         try (FileWriter fw = new FileWriter(FILEPATH + quest.getId() + ".txt")) {
             fw.write("ID: " + quest.getId());
