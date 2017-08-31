@@ -20,7 +20,6 @@ public class MentorList<Mentor> extends CodecoolerList {
 
     public void save(Mentor mentor) {
         db.save(mentor);
-        load();
     }
 
 
