@@ -41,7 +41,7 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rEmail.startswith("EMAIL: ")) {
-                mentor.setEmail(new Email(rEmail.substring("EMAIL: ".length())));
+                mentor.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
