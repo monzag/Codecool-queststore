@@ -15,34 +15,27 @@ import views.CodecoolerView;
 public class AdminController {
 
     private Admin admin;
+    private MentorList<Mentor> mentors;
 
     public AdminController(Admin admin) {
         this.admin = admin;
+        this.mentors = new MentorList<Mentor>();
     }
 
     public void createMentor() {
-        Integer id;
-        Login login;
-        Password password;
-        Email email;
-        String name;
-        String surname;
-        Mentor mentor;
 
         try {
-            name = CodecoolerView.getString("name");
-            surname = CodecoolerView.getString("surname");
-            login = new Login(CodecoolerView.getString("login"));
-            password = new Password(CodecoolerView.getString("password"));
-            email = new Email(CodecoolerView.getString("email"));
+            Login login = new Login(CodecoolerView.getString("login"));
+            Password password = new Password(CodecoolerView.getString("password"));
+            Mail mail = new Mail(CodecoolerView.getString("mail"));
+            String name = CodecoolerView.getString("name");
+            String surname = CodecoolerView.getString("surname");
 
-            CodecoolerView.reportResult(this.addMentor(mentor))
+            Mentor mentor = new Mentor(login, password, mail, name, surname);
+            this.mentors.save(mentor);
 
         } catch (Exception e) {
             CodecoolerView.reportResult(false);
         }
-
     }
-
-
 }
