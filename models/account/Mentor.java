@@ -1,5 +1,9 @@
 package models.account;
 
+import models.account.Login;
+import models.account.Email;
+import models.account.Password;
+
 
 public class Mentor extends Codecooler {
 
