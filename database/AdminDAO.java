@@ -83,7 +83,6 @@ public class AdminDAO implements DAO {
             fw.write("EMAIL: " + admin.getEmail().getValue() + '\n');
             fw.write("NAME: " + admin.getName() + '\n');
             fw.write("SURNAME: " + admin.getSurname() + '\n');
-            fw.write("CLASSID: " + admin.getClassId() + '\n');
         } catch (IOException e) {
             System.out.println("Filepath not found.");
         }

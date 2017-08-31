@@ -50,6 +50,10 @@ public class Student extends Codecooler {
         return this.teamId;
     }
 
+    public Integet getWallet() {
+        return this.wallet;
+    }
+
     public void setClassId(Integer classId) {
         this.classId = classId;
     }
