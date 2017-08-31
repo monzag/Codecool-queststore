@@ -25,7 +25,7 @@ public abstract class AccountData {
     }
 
     protected static boolean isUnique(String value){
-        StudentDAO studentData = new StudenttDAO(value);
+        StudentDAO studentData = new StudentDAO(value);
         MentorDAO mentorData = new MentorDAO(value);
         AdminDAO adminData = new AdminDAO(value);
 
