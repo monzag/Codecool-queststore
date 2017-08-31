@@ -9,6 +9,10 @@ public class Mentor extends Codecooler {
 
     private Integer classId;
 
+    public Mentor() {
+        
+    }
+
     public Mentor(Login login, Password password, Mail email, String name, String surname) {
         super(login, password, email, name, surname);
         this.classId = null;
