@@ -1,8 +1,8 @@
 package models.accountdata;
 
-import database.AdminDao;
-import database.MentorDao;
-import database.StudentDao;
+import database.AdminDAO;
+import database.MentorDAO;
+import database.StudentDAO;
 
 
 public abstract class AccountData {
