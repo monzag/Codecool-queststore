@@ -55,5 +55,6 @@ public class AdminController {
                 inMenu = false;
             }
         }
+        input.close();
     }
 }
