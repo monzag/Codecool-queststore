@@ -12,7 +12,7 @@ public class Login extends AccountData {
 
     public static boolean isValid(String value){
         boolean isUnique = isUnique(value);
-        boolean isLengthValid = this.isLengthValid(value);
+        boolean isLengthValid = isLengthValid(value);
 
         if (isLengthValid && isUnique) {
             return true;
@@ -22,7 +22,7 @@ public class Login extends AccountData {
         }
     }
 
-    public static boolean isUnique(String value){
+    private static boolean isUnique(String value){
         AccountDAO accountData = new AccountDAO(value);
 
         if (!accountData.load().equals(null)){
@@ -32,8 +32,8 @@ public class Login extends AccountData {
         }
     }
 
-    private boolean isLengthValid() {
-        if (this.value.length() > 20 && this.value.length() < 20 ) {
+    private static  boolean isLengthValid(String value) {
+        if (value.length() > 20 && value.length() < 20 ) {
             return true;
         }else {
             return false;
