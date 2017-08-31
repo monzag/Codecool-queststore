@@ -50,12 +50,12 @@ public class QuestDAO implements DAO {
         }
     }
 
-    public void save(Storable item) {
-        try (FileWriter fw = new FileWriter(FILEPATH + item.getId() + ".txt")) {
-            fw.write("ID: " + item.getId());
-            fw.write("NAME: " + item.getName());
-            fw.write("DESCRIPTION: " + item.getDescription());
-            fw.write("REWARD: " + item.getReward());
+    public void save(Quest quest) {
+        try (FileWriter fw = new FileWriter(FILEPATH + quest.getId() + ".txt")) {
+            fw.write("ID: " + quest.getId());
+            fw.write("NAME: " + quest.getName());
+            fw.write("DESCRIPTION: " + quest.getDescription());
+            fw.write("REWARD: " + quest.getReward());
         } catch (IOException e) {
             System.out.println("Filepath not found.");
         }
