@@ -1,5 +1,10 @@
 package models.account;
 
+import models.account.Login;
+import models.account.Email;
+import models.account.Password;
+import models.account.Wallet;
+
 
 public class Student extends Codecooler {
 

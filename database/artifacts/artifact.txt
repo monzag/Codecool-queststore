@@ -1,0 +1,4 @@
+NAME: artifact
+DESCRIPTION: super artifact
+VALUE: 50
+TYPE: basic
