@@ -2,6 +2,7 @@ package database;
 
 import models.account.Mentor;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -72,6 +73,18 @@ public class MentorDAO implements DAO {
         } catch (IOException e) {
             System.out.println("File not found.");
         }
+    }
+
+    public ArrayList<Mentor> loadAll() {
+        ArrayList<Mentor> mentorList = new ArrayList<>();
+
+        File[] files = new File(FILEPATH).listFiles();
+
+        for (File file : files) {
+            int dotPosition = file.getName().lastIndexOf(".");
+            mentorList.add(load(file.getName().substring(0, dotPosition)));
+        }
+        return mentorList;
     }
 
     public void save(Mentor mentor) {
