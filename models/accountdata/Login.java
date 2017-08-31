@@ -22,8 +22,8 @@ public class Login extends AccountData {
         }
     }
 
-    public boolean isUnique(){
-        AccountDAO accountData = new AccountDAO(this.value);
+    public static boolean isUnique(String value){
+        AccountDAO accountData = new AccountDAO(value);
 
         if (!accountData.load().equals(null)){
             return false;
