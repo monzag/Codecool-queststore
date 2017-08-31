@@ -39,7 +39,7 @@ public class AdminDAO implements DAO {
                 return null;
             }
             if (rEmail.startswith("EMAIL: ")) {
-                admin.setEmail(new Email(rEmail.substring("EMAIL: ".length())));
+                admin.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
