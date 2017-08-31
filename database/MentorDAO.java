@@ -31,19 +31,19 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rLogin.startswith("LOGIN: ")) {
-                mentor.setLogin(rLogin.substring("LOGIN: ".length()));
+                mentor.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
             else {
                 return null;
             }
             if (rPassword.startswith("PASSWORD: ")) {
-                mentor.setPassword(rPassword.substring("PASSWORD: ".length()));
+                mentor.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
             }
             else {
                 return null;
             }
             if (rEmail.startswith("EMAIL: ")) {
-                mentor.setEmail(rEmail.substring("EMAIL: ".length()));
+                mentor.setEmail(new Email(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
