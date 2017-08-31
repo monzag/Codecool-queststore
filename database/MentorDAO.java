@@ -1,7 +1,9 @@
 package database;
 
 import models.account.Mentor;
+import models.accountdata.*;
 
+import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
@@ -19,7 +21,6 @@ public class MentorDAO implements DAO {
     public Mentor load(String login) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + login + ".txt"))) {
             Mentor mentor = new Mentor();
-            String rId = br.readline();
             String rLogin = br.readline();
             String rPassword = br.readline();
             String rEmail = br.readline();
@@ -27,12 +28,6 @@ public class MentorDAO implements DAO {
             String rSurname = br.readline();
             String rClassId = br.readline();
 
-            if (rId.startswith("ID: ")) {
-                mentor.setId(rId.substring("ID: ".length()));
-            }
-            else {
-                return null;
-            }
             if (rLogin.startswith("LOGIN: ")) {
                 mentor.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
@@ -89,7 +84,6 @@ public class MentorDAO implements DAO {
 
     public void save(Mentor mentor) {
         try (FileWriter fw = new FileWriter(FILEPATH + mentor.getLogin() + ".txt")) {
-            fw.write("ID: " + mentor.getId());
             fw.write("LOGIN: " + mentor.getLogin().getValue());
             fw.write("PASSWORD: " + mentor.getPassword().getValue());
             fw.write("EMAIL: " + mentor.getEmail().getValue());
