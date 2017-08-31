@@ -1,4 +1,4 @@
-package models.account;
+package models.accountdata;
 
 
 public class Wallet {

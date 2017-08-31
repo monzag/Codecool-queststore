@@ -21,7 +21,13 @@ public class Mail extends AccountData {
     public static boolean isValid(final String value) {
         pattern = Pattern.compile(MAILPATTERN);
 		matcher = pattern.matcher(value);
+        boolean isUnique = isUnique(value);
 
-        return matcher.matches();
+
+        if (isUnique && matcher.matches()){
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -1,3 +1,4 @@
+ID: 1
 NAME: artifact
 DESCRIPTION: super artifact
 VALUE: 50
