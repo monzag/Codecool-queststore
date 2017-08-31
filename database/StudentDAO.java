@@ -81,6 +81,7 @@ public class StudentDAO implements DAO {
             return student;
         } catch (IOException e) {
             System.out.println("File not found.");
+            return null;
         }
     }
 
@@ -97,13 +98,13 @@ public class StudentDAO implements DAO {
     }
 
     public void save(Student student) {
-        try (FileWriter fw = new FileWriter(FILEPATH + student.getLogin() + ".txt")) {
-            fw.write("LOGIN: " + student.getLogin().getValue());
-            fw.write("PASSWORD: " + student.getPassword().getValue());
-            fw.write("EMAIL: " + student.getEmail().getValue());
-            fw.write("NAME: " + student.getName());
-            fw.write("SURNAME: " + student.getSurname());
-            fw.write("CLASSID: " + student.getClassId());
+        try (FileWriter fw = new FileWriter(FILEPATH + student.getLogin().getValue() + ".txt")) {
+            fw.write("LOGIN: " + student.getLogin().getValue() + '\n');
+            fw.write("PASSWORD: " + student.getPassword().getValue() + '\n');
+            fw.write("EMAIL: " + student.getEmail().getValue() + '\n');
+            fw.write("NAME: " + student.getName() + '\n');
+            fw.write("SURNAME: " + student.getSurname() + '\n');
+            fw.write("CLASSID: " + student.getClassId() + '\n');
         } catch (IOException e) {
             System.out.println("Filepath not found.");
         }
