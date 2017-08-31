@@ -17,11 +17,11 @@ public class ArtifactDAO implements DAO {
     public Artifact load(String id) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
             Artifact artifact = new Artifact();
-            String rId = br.readline();
-            String rName = br.readline();
-            String rDescription = br.readline();
-            String rValue = br.readline();
-            String rType = br.readline();
+            String rId = br.readLine();
+            String rName = br.readLine();
+            String rDescription = br.readLine();
+            String rValue = br.readLine();
+            String rType = br.readLine();
 
             if (rId.startsWith("ID: ")) {
                 artifact.setId(rId.substring("ID: ".length()));
