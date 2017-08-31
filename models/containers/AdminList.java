@@ -14,8 +14,12 @@ public class AdminList<Admin> implements Storable {
         this.admins = new ArrayList<Admin>();
     }
 
-    public Iterator getIterator() {
-        return this.admins.iterator();
+    public void load() {
+
+    }
+
+    public void save() {
+
     }
 
     public boolean add(Admin admin) {
@@ -24,6 +28,14 @@ public class AdminList<Admin> implements Storable {
             return true;
         }
         return false;
+    }
+
+    public Iterator getIterator() {
+        return this.admins.iterator();
+    }
+
+    public boolean remove(Admin admin) {
+        return this.admins.remove(admin);
     }
 
 
