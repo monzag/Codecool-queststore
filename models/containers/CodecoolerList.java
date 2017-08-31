@@ -3,10 +3,12 @@ package models.containers;
 import java.util.ArrayList;
 import java.util.Iterator;
 
+import models.account.Codecooler;
 
-public abstract class CodecoolerList<T> implements Storable {
 
-    private ArrayList<T> codecoolers;
+public abstract class CodecoolerList<T extends Codecooler> implements Storable<T> {
+
+    protected ArrayList<T> codecoolers;
 
     public CodecoolerList() {
         this.codecoolers = new ArrayList<T>();
