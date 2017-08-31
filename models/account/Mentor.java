@@ -1,7 +1,7 @@
 package models.account;
 
 import models.accountdata.Login;
-import models.accountdata.Email;
+import models.accountdata.Mail;
 import models.accountdata.Password;
 
 
