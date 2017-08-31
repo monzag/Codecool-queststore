@@ -89,6 +89,18 @@ public class StudentDAO implements DAO {
         }
     }
 
+    public ArrayList<Student> loadAll() {
+        ArrayList<Student> studentList = new ArrayList<>();
+
+        File[] files = new File(FILEPATH).listFiles();
+
+        for (File file : files) {
+            int dotPosition = file.getName().lastIndexOf(".");
+            studentList.add(load(file.getName().substring(0, dotPosition)));
+        }
+        return studentList;
+    }
+
     public void save(Student student) {
         try (FileWriter fw = new FileWriter(FILEPATH + student.getLogin() + ".txt")) {
             fw.write("ID: " + student.getId());
