@@ -49,7 +49,7 @@ public abstract class Codecooler {
     public void setPassword(Password password) {
         this.password = password;
     }
-    public void setEmail(Email email) {
+    public void setEmail(Mail email) {
         this.email = email;
     }
     public void setName(String name) {
