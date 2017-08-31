@@ -7,7 +7,6 @@ import models.account.Password;
 
 public abstract class Codecooler {
 
-    protected Integer id;
     protected Login login;
     protected Password password;
     protected Email email;
@@ -18,9 +17,8 @@ public abstract class Codecooler {
 
     }
 
-    public Codecooler(Integer id, Login login, Password password, Email email, String name, String surname) {
+    public Codecooler(Login login, Password password, Email email, String name, String surname) {
 
-        this.id = id;
         this.login = login;
         this.password = password;
         this.email = email;
@@ -29,9 +27,6 @@ public abstract class Codecooler {
 
     }
 
-    public Integer getId() {
-        return this.id;
-    }
     public Login getLogin() {
         return this.login;
     }
@@ -48,9 +43,6 @@ public abstract class Codecooler {
         return this.surname;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public void setLogin(Login login) {
         this.login = login;
     }
