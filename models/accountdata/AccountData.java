@@ -1,7 +1,7 @@
 package models.accountdata;
 
 public abstract class AccountData {
-    private String value;
+    String value;
 
     public AccountData() {
     }
