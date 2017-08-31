@@ -10,52 +10,51 @@ import models.accountdata.Email;
 import models.containers.MentorList;
 
 import views.CodecoolerView;
+import views.AdminView;
+
+import java.util.Scanner;
 
 
 public class AdminController {
 
-    private Admin user;
+    private Admin admin;
     private MentorList<Mentor> mentors;
 
-    public AdminController(Admin user) {
-        this.user = user;
+    public AdminController(Admin admin) {
+        this.admin = admin;
         this.mentors = new MentorList<Mentor>();
     }
 
-    public boolean addMentor(Mentor mentor) {
-        this.mentors.load();
-        if (this.mentors.add(mentor)) {
-            this.mentors.save();
-            // report true if suceed
-            return true;
-        }
-        // reports false if failed
-        return false;
-    }
-
     public void createMentor() {
-        Integer id;
-        Login login;
-        Password password;
-        Email email;
-        String name;
-        String surname;
-        Mentor mentor;
 
-        try {
-            name = CodecoolerView.getString("name");
-            surname = CodecoolerView.getString("surname");
-            login = new Login(CodecoolerView.getString("login"));
-            password = new Password(CodecoolerView.getString("password"));
-            email = new Email(CodecoolerView.getString("email"));
+        Login login = new Login(CodecoolerView.getString("login"));
+        Password password = new Password(CodecoolerView.getString("password"));
+        Mail mail = new Mail(CodecoolerView.getString("mail"));
+        String name = CodecoolerView.getString("name");
+        String surname = CodecoolerView.getString("surname");
 
-            CodecoolerView.reportResult(this.addMentor(mentor))
-
-        } catch (Exception e) {
-            CodecoolerView.reportResult(false);
-        }
-
+        Mentor mentor = new Mentor(login, password, mail, name, surname);
+        this.mentors.save(mentor);
     }
 
+    public void menu() {
+        Scanner input = new Scanner(System.in);
+        AdminView.viewOptions();
+        boolean inMenu = true;
 
+        while (inMenu) {
+            String option = input.nextLine();
+
+            if (option.equals("1")) {
+                AdminView.showAllMentors();
+            }
+            else if (option.equals("2")) {
+                createMentor();
+            }
+            else if (option.equals("0")) {
+                inMenu = false;
+            }
+        }
+        input.close();
+    }
 }
