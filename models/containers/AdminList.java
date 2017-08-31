@@ -18,5 +18,13 @@ public class AdminList<Admin> implements Storable {
         return this.admins.iterator();
     }
 
+    public boolean add(Admin admin) {
+        if (!this.admins.contains(admin)) {
+            admins.add(admin);
+            return true;
+        }
+        return false;
+    }
+
 
 }
