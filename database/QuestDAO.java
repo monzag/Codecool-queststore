@@ -1,5 +1,6 @@
 package database;
 
+import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -15,30 +16,30 @@ public class QuestDAO implements DAO {
     public Quest load(String id) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
             Quest quest = new Quest();
-            String rId = br.readline();
-            String rName = br.readline();
-            String rDescription = br.readline();
-            String rReward = br.readline();
+            String rId = br.readLine();
+            String rName = br.readLine();
+            String rDescription = br.readLine();
+            String rReward = br.readLine();
 
-            if (rId.startswith("ID: ")) {
+            if (rId.startsWith("ID: ")) {
                 quest.setId(rId.substring("ID: ".length()));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 quest.setLogin(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rDescription.startswith("DESCRIPTION: ")) {
+            if (rDescription.startsWith("DESCRIPTION: ")) {
                 quest.setDescription(rDescription.substring("DESCRIPTION: ".length()));
             }
             else {
                 return null;
             }
-            if (rReward.startswith("REWARD: ")) {
+            if (rReward.startsWith("REWARD: ")) {
                 quest.setReward(Integer.parseInt(rReward.substring("REWARD: ".length())));
             }
             else {

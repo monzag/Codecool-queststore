@@ -1,7 +1,10 @@
 package database;
 
 import models.account.Admin;
+import models.accountdata.*;
 
+import java.util.ArrayList;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -17,45 +20,38 @@ public class AdminDAO implements DAO {
     public Admin load(String login) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + login + ".txt"))) {
             Admin admin = new Admin();
-            String rId = br.readline();
-            String rLogin = br.readline();
-            String rPassword = br.readline();
-            String rEmail = br.readline();
-            String rName = br.readline();
-            String rSurname = br.readline();
+            String rLogin = br.readLine();
+            String rPassword = br.readLine();
+            String rEmail = br.readLine();
+            String rName = br.readLine();
+            String rSurname = br.readLine();
 
-            if (rId.startswith("ID: ")) {
-                admin.setId(rId.substring("ID: ".length()));
-            }
-            else {
-                return null;
-            }
-            if (rLogin.startswith("LOGIN: ")) {
+            if (rLogin.startsWith("LOGIN: ")) {
                 admin.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
             else {
                 return null;
             }
-            if (rPassword.startswith("PASSWORD: ")) {
+            if (rPassword.startsWith("PASSWORD: ")) {
                 admin.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
             }
             else {
                 return null;
             }
-            if (rEmail.startswith("EMAIL: ")) {
-                admin.setEmail(new Email(rEmail.substring("EMAIL: ".length())));
+            if (rEmail.startsWith("EMAIL: ")) {
+                admin.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 admin.setName(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rSurname.startswith("SURNAME: ")) {
-                mentor.setSurname(rId.substring("SURNAME: ".length()));
+            if (rSurname.startsWith("SURNAME: ")) {
+                admin.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;
@@ -81,7 +77,6 @@ public class AdminDAO implements DAO {
 
     public void save(Admin admin) {
         try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin() + ".txt")) {
-            fw.write("ID: " + admin.getId());
             fw.write("LOGIN: " + admin.getLogin().getValue());
             fw.write("PASSWORD: " + admin.getPassword().getValue());
             fw.write("EMAIL: " + admin.getEmail().getValue());

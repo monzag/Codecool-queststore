@@ -1,5 +1,7 @@
 package views;
 
+import java.util.Scanner;
+
 
 public class CodecoolerView {
 
@@ -9,7 +11,7 @@ public class CodecoolerView {
 
         System.out.println("Provide " + keyword + ": ");
         userInput = input.nextLine();
-        input.close()
+        input.close();
 
         return userInput;
 

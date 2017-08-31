@@ -1,5 +1,7 @@
 package database;
 
+import java.util.ArrayList;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -15,37 +17,37 @@ public class ArtifactDAO implements DAO {
     public Artifact load(String id) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
             Artifact artifact = new Artifact();
-            String rId = br.readline();
-            String rName = br.readline();
-            String rDescription = br.readline();
-            String rValue = br.readline();
-            String rType = br.readline();
+            String rId = br.readLine();
+            String rName = br.readLine();
+            String rDescription = br.readLine();
+            String rValue = br.readLine();
+            String rType = br.readLine();
 
-            if (rId.startswith("ID: ")) {
+            if (rId.startsWith("ID: ")) {
                 artifact.setId(rId.substring("ID: ".length()));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 artifact.setLogin(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rDescription.startswith("DESCRIPTION: ")) {
+            if (rDescription.startsWith("DESCRIPTION: ")) {
                 artifact.setDescription(rDescription.substring("DESCRIPTION: ".length()));
             }
             else {
                 return null;
             }
-            if (rValue.startswith("VALUE: ")) {
+            if (rValue.startsWith("VALUE: ")) {
                 artifact.setValue(Integer.parseInt(rValue.substring("VALUE: ".length())));
             }
             else {
                 return null;
             }
-            if (rType.startswith("TYPE: ")) {
+            if (rType.startsWith("TYPE: ")) {
                 artifact.setType(rType.substring("TYPE: ".length()));
             }
             else {

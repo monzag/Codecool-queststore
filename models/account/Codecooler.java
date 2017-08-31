@@ -1,16 +1,15 @@
 package models.account;
 
-import models.account.Login;
-import models.account.Email;
-import models.account.Password;
+import models.accountdata.Login;
+import models.accountdata.Mail;
+import models.accountdata.Password;
 
 
 public abstract class Codecooler {
 
-    protected Integer id;
     protected Login login;
     protected Password password;
-    protected Email email;
+    protected Mail email;
     protected String name;
     protected String surname;
 
@@ -18,9 +17,8 @@ public abstract class Codecooler {
 
     }
 
-    public Codecooler(Integer id, Login login, Password password, Email email, String name, String surname) {
+    public Codecooler(Login login, Password password, Mail email, String name, String surname) {
 
-        this.id = id;
         this.login = login;
         this.password = password;
         this.email = email;
@@ -29,16 +27,13 @@ public abstract class Codecooler {
 
     }
 
-    public Integer getId() {
-        return this.id;
-    }
     public Login getLogin() {
         return this.login;
     }
     public Password getPassword() {
         return this.password;
     }
-    public Email getEmail() {
+    public Mail getEmail() {
         return this.email;
     }
     public String getName() {
@@ -48,16 +43,13 @@ public abstract class Codecooler {
         return this.surname;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
-    }
     public void setLogin(Login login) {
         this.login = login;
     }
     public void setPassword(Password password) {
         this.password = password;
     }
-    public void setEmail(Email email) {
+    public void setEmail(Mail email) {
         this.email = email;
     }
     public void setName(String name) {

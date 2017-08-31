@@ -1,9 +1,9 @@
 package models.account;
 
-import models.account.Login;
-import models.account.Email;
-import models.account.Password;
-import models.account.Wallet;
+import models.accountdata.Login;
+import models.accountdata.Mail;
+import models.accountdata.Password;
+import models.accountdata.Wallet;
 
 
 public class Student extends Codecooler {
@@ -12,27 +12,31 @@ public class Student extends Codecooler {
     private Integer teamId;
     private Wallet wallet;
 
-    public Student(Integer id, Login login, Password password, Email email, String name, String surname, Wallet wallet) {
+    public Student(){
 
-        super(id, login, password, email, name, surname);
+    }
+
+    public Student(Login login, Password password, Mail email, String name, String surname, Wallet wallet) {
+
+        super(login, password, email, name, surname);
         this.classId = null;
         this.teamId = null;
         this.wallet = wallet;
 
     }
 
-    public Student(Integer id, Login login, Password password, Email email, String name, String surname, Integer classId, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Integer classId, Wallet wallet) {
 
-        super(id, login, password, email, name, surname);
+        super(login, password, email, name, surname);
         this.classId = classId;
         this.teamId = null;
         this.wallet = wallet;
 
     }
 
-    public Student(Integer id, Login login, Password password, Email email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
 
-        super(id, login, password, email, name, surname);
+        super(login, password, email, name, surname);
         this.classId = classId;
         this.teamId = teamId;
         this.wallet = wallet;
@@ -51,6 +55,10 @@ public class Student extends Codecooler {
     }
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
+    }
+
+    public void setWallet(Wallet wallet) {
+        this.wallet = wallet;
     }
 
     public boolean pay(Integer amount) {
