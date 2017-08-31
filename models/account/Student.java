@@ -12,6 +12,10 @@ public class Student extends Codecooler {
     private Integer teamId;
     private Wallet wallet;
 
+    public Student(){
+        
+    }
+
     public Student(Login login, Password password, Mail email, String name, String surname, Wallet wallet) {
 
         super(login, password, email, name, surname);
