@@ -21,12 +21,12 @@ public class StudentDAO implements DAO {
     public Student load(String login) {
         try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + login + ".txt"))) {
             Student student = new Student();
-            String rLogin = br.readline();
-            String rPassword = br.readline();
-            String rEmail = br.readline();
-            String rName = br.readline();
-            String rSurname = br.readline();
-            String rClassId = br.readline();
+            String rLogin = br.readLine();
+            String rPassword = br.readLine();
+            String rEmail = br.readLine();
+            String rName = br.readLine();
+            String rSurname = br.readLine();
+            String rClassId = br.readLine();
             String rTeamId = br.readLine();
             String rBalance = br.readLine();
 
