@@ -69,6 +69,7 @@ public class MentorDAO implements DAO {
 
         } catch (IOException e) {
             System.out.println("File not found.");
+            return null;
         }
     }
 
