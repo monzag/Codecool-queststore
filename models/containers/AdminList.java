@@ -14,12 +14,16 @@ public class AdminList<Admin> implements Storable {
         this.admins = new ArrayList<Admin>();
     }
 
-    public void load() {
+    public ArrayList<Admin> getAll() {
+        return this.admins;
+    }
 
+    public void load() {
+        //TODO
     }
 
     public void save() {
-
+        //TODO
     }
 
     public boolean add(Admin admin) {
