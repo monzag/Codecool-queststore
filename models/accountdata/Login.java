@@ -12,7 +12,7 @@ public class Login extends AccountData {
 
     public static boolean isValid(String value){
         boolean isUnique = isUnique(value);
-        boolean isLengthValid = isLengthValid(value);
+        boolean isLengthValid = isLengthValid(value, 5, 20);
 
         if (isLengthValid && isUnique) {
             return true;
@@ -38,15 +38,6 @@ public class Login extends AccountData {
 
         } else {
             return true;
-        }
-    }
-
-    private static  boolean isLengthValid(String value) {
-        if (value.length() > 20 && value.length() < 20 ) {
-            return true;
-
-        }else {
-            return false;
         }
     }
 }
