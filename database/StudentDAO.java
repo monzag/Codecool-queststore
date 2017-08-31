@@ -30,49 +30,49 @@ public class StudentDAO implements DAO {
             String rTeamId = br.readLine();
             String rBalance = br.readLine();
 
-            if (rLogin.startswith("LOGIN: ")) {
+            if (rLogin.startsWith("LOGIN: ")) {
                 student.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
             else {
                 return null;
             }
-            if (rPassword.startswith("PASSWORD: ")) {
+            if (rPassword.startsWith("PASSWORD: ")) {
                 student.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
             }
             else {
                 return null;
             }
-            if (rEmail.startswith("EMAIL: ")) {
+            if (rEmail.startsWith("EMAIL: ")) {
                 student.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 student.setName(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rSurname.startswith("SURNAME: ")) {
+            if (rSurname.startsWith("SURNAME: ")) {
                 student.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rClassId.startswith("CLASSID: ")) {
+            if (rClassId.startsWith("CLASSID: ")) {
                 student.setClassId(rClassId.substring("CLASSID: ".length()));
             }
             else {
                 return null;
             }
-            if (rTeamId.startswith("TEAMID: ")) {
+            if (rTeamId.startsWith("TEAMID: ")) {
                 student.setTeamId(rTeamId.substring("TEAMID: ".length()));
             }
             else {
                 return null;
             }
-            if (rBalance.startswith("BALANCE: ")) {
+            if (rBalance.startsWith("BALANCE: ")) {
                 student.setWallet(new Wallet(Integer.parseInt(rBalance.substring("BALANCE: ".length()))));
             }
             else {

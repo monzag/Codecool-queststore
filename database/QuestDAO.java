@@ -21,25 +21,25 @@ public class QuestDAO implements DAO {
             String rDescription = br.readline();
             String rReward = br.readline();
 
-            if (rId.startswith("ID: ")) {
+            if (rId.startsWith("ID: ")) {
                 quest.setId(rId.substring("ID: ".length()));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 quest.setLogin(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rDescription.startswith("DESCRIPTION: ")) {
+            if (rDescription.startsWith("DESCRIPTION: ")) {
                 quest.setDescription(rDescription.substring("DESCRIPTION: ".length()));
             }
             else {
                 return null;
             }
-            if (rReward.startswith("REWARD: ")) {
+            if (rReward.startsWith("REWARD: ")) {
                 quest.setReward(Integer.parseInt(rReward.substring("REWARD: ".length())));
             }
             else {

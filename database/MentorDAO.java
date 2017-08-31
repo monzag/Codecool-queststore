@@ -28,37 +28,37 @@ public class MentorDAO implements DAO {
             String rSurname = br.readline();
             String rClassId = br.readline();
 
-            if (rLogin.startswith("LOGIN: ")) {
+            if (rLogin.startsWith("LOGIN: ")) {
                 mentor.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
             else {
                 return null;
             }
-            if (rPassword.startswith("PASSWORD: ")) {
+            if (rPassword.startsWith("PASSWORD: ")) {
                 mentor.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
             }
             else {
                 return null;
             }
-            if (rEmail.startswith("EMAIL: ")) {
+            if (rEmail.startsWith("EMAIL: ")) {
                 mentor.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 mentor.setName(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rSurname.startswith("SURNAME: ")) {
+            if (rSurname.startsWith("SURNAME: ")) {
                 mentor.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rClassId.startswith("CLASSID: ")) {
+            if (rClassId.startsWith("CLASSID: ")) {
                 mentor.setClassId(rClassId.substring("CLASSID: ".length()));
             }
             else {

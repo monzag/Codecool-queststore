@@ -23,31 +23,31 @@ public class ArtifactDAO implements DAO {
             String rValue = br.readline();
             String rType = br.readline();
 
-            if (rId.startswith("ID: ")) {
+            if (rId.startsWith("ID: ")) {
                 artifact.setId(rId.substring("ID: ".length()));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 artifact.setLogin(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rDescription.startswith("DESCRIPTION: ")) {
+            if (rDescription.startsWith("DESCRIPTION: ")) {
                 artifact.setDescription(rDescription.substring("DESCRIPTION: ".length()));
             }
             else {
                 return null;
             }
-            if (rValue.startswith("VALUE: ")) {
+            if (rValue.startsWith("VALUE: ")) {
                 artifact.setValue(Integer.parseInt(rValue.substring("VALUE: ".length())));
             }
             else {
                 return null;
             }
-            if (rType.startswith("TYPE: ")) {
+            if (rType.startsWith("TYPE: ")) {
                 artifact.setType(rType.substring("TYPE: ".length()));
             }
             else {
