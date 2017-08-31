@@ -26,31 +26,31 @@ public class AdminDAO implements DAO {
             String rName = br.readline();
             String rSurname = br.readline();
 
-            if (rLogin.startswith("LOGIN: ")) {
+            if (rLogin.startsWith("LOGIN: ")) {
                 admin.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
             }
             else {
                 return null;
             }
-            if (rPassword.startswith("PASSWORD: ")) {
+            if (rPassword.startsWith("PASSWORD: ")) {
                 admin.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
             }
             else {
                 return null;
             }
-            if (rEmail.startswith("EMAIL: ")) {
+            if (rEmail.startsWith("EMAIL: ")) {
                 admin.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
             }
             else {
                 return null;
             }
-            if (rName.startswith("NAME: ")) {
+            if (rName.startsWith("NAME: ")) {
                 admin.setName(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
             }
-            if (rSurname.startswith("SURNAME: ")) {
+            if (rSurname.startsWith("SURNAME: ")) {
                 mentor.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
