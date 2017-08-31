@@ -12,27 +12,27 @@ public class Student extends Codecooler {
     private Integer teamId;
     private Wallet wallet;
 
-    public Student(Integer id, Login login, Password password, Email email, String name, String surname, Wallet wallet) {
+    public Student(Login login, Password password, Email email, String name, String surname, Wallet wallet) {
 
-        super(id, login, password, email, name, surname);
+        super(login, password, email, name, surname);
         this.classId = null;
         this.teamId = null;
         this.wallet = wallet;
 
     }
 
-    public Student(Integer id, Login login, Password password, Email email, String name, String surname, Integer classId, Wallet wallet) {
+    public Student(Login login, Password password, Email email, String name, String surname, Integer classId, Wallet wallet) {
 
-        super(id, login, password, email, name, surname);
+        super(login, password, email, name, surname);
         this.classId = classId;
         this.teamId = null;
         this.wallet = wallet;
 
     }
 
-    public Student(Integer id, Login login, Password password, Email email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
+    public Student(Login login, Password password, Email email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
 
-        super(id, login, password, email, name, surname);
+        super(login, password, email, name, surname);
         this.classId = classId;
         this.teamId = teamId;
         this.wallet = wallet;
