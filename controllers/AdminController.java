@@ -24,18 +24,13 @@ public class AdminController {
 
     public void createMentor() {
 
-        try {
-            Login login = new Login(CodecoolerView.getString("login"));
-            Password password = new Password(CodecoolerView.getString("password"));
-            Mail mail = new Mail(CodecoolerView.getString("mail"));
-            String name = CodecoolerView.getString("name");
-            String surname = CodecoolerView.getString("surname");
+        Login login = new Login(CodecoolerView.getString("login"));
+        Password password = new Password(CodecoolerView.getString("password"));
+        Mail mail = new Mail(CodecoolerView.getString("mail"));
+        String name = CodecoolerView.getString("name");
+        String surname = CodecoolerView.getString("surname");
 
-            Mentor mentor = new Mentor(login, password, mail, name, surname);
-            this.mentors.save(mentor);
-
-        } catch (Exception e) {
-            CodecoolerView.reportResult(false);
-        }
+        Mentor mentor = new Mentor(login, password, mail, name, surname);
+        this.mentors.save(mentor);
     }
 }
