@@ -105,6 +105,8 @@ public class StudentDAO implements DAO {
             fw.write("NAME: " + student.getName() + '\n');
             fw.write("SURNAME: " + student.getSurname() + '\n');
             fw.write("CLASSID: " + student.getClassId() + '\n');
+            fw.write("TEAMID: " + student.getTeamId() + '\n');
+            fw.write("BALANCE: " + student.getWallet().getBalance() + '\n');            
         } catch (IOException e) {
             System.out.println("Filepath not found.");
         }
