@@ -12,5 +12,9 @@ public class AdminList<Admin> implements Storable {
         this.admins = new ArrayList<Admin>();
     }
 
+    public Iterator getIterator() {
+        return this.admins.iterator();
+    }
+
 
 }
