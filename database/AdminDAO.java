@@ -1,5 +1,7 @@
 package database;
 
+import models.account.Admin;
+
 import java.io.FileWriter;
 import java.io.FileReader;
 import java.io.BufferedReader;
@@ -63,7 +65,7 @@ public class AdminDAO implements DAO {
         } catch (IOException e) {
             System.out.println("File not found.");
         }
-    }    
+    }
 
     public void save(Admin admin) {
         try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin() + ".txt")) {
