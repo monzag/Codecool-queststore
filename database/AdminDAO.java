@@ -51,7 +51,7 @@ public class AdminDAO implements DAO {
                 return null;
             }
             if (rSurname.startsWith("SURNAME: ")) {
-                mentor.setSurname(rSurname.substring("SURNAME: ".length()));
+                admin.setSurname(rSurname.substring("SURNAME: ".length()));
             }
             else {
                 return null;
