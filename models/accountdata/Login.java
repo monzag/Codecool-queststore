@@ -12,9 +12,9 @@ public class Login extends AccountData {
 
     public boolean isValid(){
         boolean isUnique = this.isUnique();
-        int valueLen = this.value.length();
+        boolean isLengthValid = this.isLengthValid();
 
-        if (valueLen < 20 && isUnique) {
+        if (isLengthValid && isUnique) {
             return true;
 
         }else {
@@ -29,6 +29,14 @@ public class Login extends AccountData {
             return false;
         }else {
             return true;
+        }
+    }
+
+    private boolean isLengthValid() {
+        if (this.value.length() > 20 && this.value.length() < 20 ) {
+            return true;
+        }else {
+            return false;
         }
     }
 }
