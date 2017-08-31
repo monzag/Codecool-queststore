@@ -7,7 +7,7 @@ import java.io.IOException;
 
 public class AdminDAO implements DAO {
 
-    private final String FILEPATH = "database/mentors/";
+    private final String FILEPATH = "database/admins/";
 
     public AdminDAO() {
     }
@@ -59,7 +59,21 @@ public class AdminDAO implements DAO {
                 return null;
             }
             return admin;
+
         } catch (IOException e) {
             System.out.println("File not found.");
         }
+
+    public void save(Admin admin) {
+        try (FileWriter fw = new FileWriter(FILEPATH + admin.getLogin() + ".txt")) {
+            fw.write("ID: " + admin.getId());
+            fw.write("LOGIN: " + admin.getLogin().getValue());
+            fw.write("PASSWORD: " + admin.getPassword().getValue());
+            fw.write("EMAIL: " + admin.getEmail().getValue());
+            fw.write("NAME: " + admin.getName());
+            fw.write("SURNAME: " + admin.getSurname());
+        } catch (IOException e) {
+            System.out.println("Filepath not found.");
+        }
+    }
 }
