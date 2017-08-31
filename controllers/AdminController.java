@@ -1,28 +1,29 @@
 package controllers;
 
+import database.MentorDAO;
+
 import models.account.Admin;
 import models.account.Mentor;
 
 import models.accountdata.Login;
 import models.accountdata.Password;
-import models.accountdata.Email;
-
-import models.containers.MentorList;
+import models.accountdata.Mail;
 
 import views.CodecoolerView;
 import views.AdminView;
 
 import java.util.Scanner;
-
+import java.util.ArrayList;
 
 public class AdminController {
 
     private Admin admin;
-    private MentorList<Mentor> mentors;
+    private MentorDAO mentorData = new MentorDAO();
+    ArrayList<Mentor> mentors;
 
     public AdminController(Admin admin) {
         this.admin = admin;
-        this.mentors = new MentorList<Mentor>();
+        this.mentors = mentorData.loadAll();
     }
 
     public void createMentor() {
@@ -34,16 +35,16 @@ public class AdminController {
         String surname = CodecoolerView.getString("surname");
 
         Mentor mentor = new Mentor(login, password, mail, name, surname);
-        this.mentors.save(mentor);
+        mentorData.save(mentor);
     }
 
     public void menu() {
         Scanner input = new Scanner(System.in);
-        AdminView.viewOptions();
         boolean inMenu = true;
 
         while (inMenu) {
-            String option = input.nextLine();
+            AdminView.viewOptions();
+            String option = System.console().readLine();
 
             if (option.equals("1")) {
                 AdminView.showAllMentors();
@@ -55,6 +56,5 @@ public class AdminController {
                 inMenu = false;
             }
         }
-        input.close();
     }
 }
