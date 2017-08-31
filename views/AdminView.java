@@ -1,7 +1,11 @@
 package views;
 
+import models.containers.MentorList;
+import models.containers.CodecoolerList;
+
 import database.MentorDAO;
 import java.util.ArrayList;
+import models.account.Mentor;
 
 public class AdminView extends CodecoolerView {
 
@@ -15,15 +19,9 @@ public class AdminView extends CodecoolerView {
 
     public static void showAllMentors() {
         MentorDAO mentors = new MentorDAO();
-        ArrayList<Mentor> mentorsList = mentors.loadAll();
-
-        if (!(mentorsList.size() == 0)) {
-
-            for (Mentor mentor : mentorsList) {
-                System.out.println(mentor);
-            }
-        } else {
-            System.out.println("There is no data to show");
+        ArrayList<Mentor> mentorList = mentors.loadAll();
+        for (Mentor mentor : mentorList) {
+            System.out.println(mentor.getName() + mentor.getSurname());
         }
     }
 }
