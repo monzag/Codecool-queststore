@@ -11,7 +11,15 @@ public class Login extends AccountData {
     }
 
     public boolean isValid(){
+        boolean isUnique = this.isUnique();
+        int valueLen = this.value.length();
 
+        if (valueLen < 20 && isUnique) {
+            return true;
+
+        }else {
+            return false;
+        }
     }
 
     public boolean isUnique(){
