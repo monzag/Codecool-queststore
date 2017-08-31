@@ -3,7 +3,7 @@ public class MentorDAO implements DAO {
     private final String FILEPATH = "database/mentors/";
 
     public MentorDAO(String basePath) {
-        this.basePath = basePath
+        this.basePath = basePath;
     }
 
     public Mentor load(String login) {
