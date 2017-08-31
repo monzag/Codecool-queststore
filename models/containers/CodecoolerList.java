@@ -8,7 +8,7 @@ public abstract class CodecoolerList<T> implements Storable {
 
     private ArrayList<T> codecoolers;
 
-    public CodecoolersList() {
+    public CodecoolerList() {
         this.codecoolers = new ArrayList<T>();
     }
 
