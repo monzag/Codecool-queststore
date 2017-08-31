@@ -9,6 +9,8 @@ import models.accountdata.Email;
 
 import models.containers.MentorList;
 
+import views.CodecoolerView;
+
 
 public class AdminController {
 
@@ -40,14 +42,20 @@ public class AdminController {
         String surname;
         Mentor mentor;
 
-        name = CodecoolerView.getString();
-        surname = CodecoolerView.getString();
-        login = new Login(CodecoolerView.getLogin());
-        password = new Password(CodecoolerView.getLogin());
-        email = new Email(CodecoolerView.getEmail());
+        try {
+            name = CodecoolerView.getString("name");
+            surname = CodecoolerView.getString("surname");
+            login = new Login(CodecoolerView.getString("login"));
+            password = new Password(CodecoolerView.getString("password"));
+            email = new Email(CodecoolerView.getString("email"));
 
-        CodecoolerView.reportResult(this.addMentor(mentor))
+            CodecoolerView.reportResult(this.addMentor(mentor))
+
+        } catch (Exception e) {
+            CodecoolerView.reportResult(false);
+        }
 
     }
+
 
 }
