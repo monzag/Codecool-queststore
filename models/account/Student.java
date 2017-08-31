@@ -1,9 +1,9 @@
 package models.account;
 
-import models.account.Login;
-import models.account.Email;
-import models.account.Password;
-import models.account.Wallet;
+import models.accountdata.Login;
+import models.accountdata.Mail;
+import models.accountdata.Password;
+import models.accountdata.Wallet;
 
 
 public class Student extends Codecooler {
@@ -12,7 +12,7 @@ public class Student extends Codecooler {
     private Integer teamId;
     private Wallet wallet;
 
-    public Student(Login login, Password password, Email email, String name, String surname, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.classId = null;
@@ -21,7 +21,7 @@ public class Student extends Codecooler {
 
     }
 
-    public Student(Login login, Password password, Email email, String name, String surname, Integer classId, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Integer classId, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.classId = classId;
@@ -30,7 +30,7 @@ public class Student extends Codecooler {
 
     }
 
-    public Student(Login login, Password password, Email email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.classId = classId;
