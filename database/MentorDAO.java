@@ -49,7 +49,7 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rName.startswith("NAME: ")) {
-                mentor.setId(rName.substring("NAME: ".length()));
+                mentor.setName(rName.substring("NAME: ".length()));
             }
             else {
                 return null;
