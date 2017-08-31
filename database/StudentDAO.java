@@ -61,13 +61,13 @@ public class StudentDAO implements DAO {
                 return null;
             }
             if (rClassId.startsWith("CLASSID: ")) {
-                student.setClassId(rClassId.substring("CLASSID: ".length()));
+                student.setClassId(Integer.parseInt(rClassId.substring("CLASSID: ".length())));
             }
             else {
                 return null;
             }
             if (rTeamId.startsWith("TEAMID: ")) {
-                student.setTeamId(rTeamId.substring("TEAMID: ".length()));
+                student.setTeamId(Integer.parseInt(rTeamId.substring("TEAMID: ".length())));
             }
             else {
                 return null;

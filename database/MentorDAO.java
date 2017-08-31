@@ -59,12 +59,14 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rClassId.startsWith("CLASSID: ")) {
-                mentor.setClassId(rClassId.substring("CLASSID: ".length()));
+                mentor.setClassId(Integer.parseInt(ClassId.substring("CLASSID: ".length())));
             }
             else {
                 return null;
             }
+
             return mentor;
+
         } catch (IOException e) {
             System.out.println("File not found.");
         }
