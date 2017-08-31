@@ -3,7 +3,7 @@ package models.containers;
 import models.account.Student;
 
 
-public class MentorList<Student> extends CodecoolerList {
+public class StudentList<Student> extends CodecoolerList {
 
     public void load() {
         //TODO
