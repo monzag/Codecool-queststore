@@ -20,17 +20,6 @@ public class AdminController {
         this.admin = admin;
     }
 
-    public boolean addMentor(Mentor mentor) {
-        this.mentors.load();
-        if (this.mentors.add(mentor)) {
-            this.mentors.save();
-            // report true if suceed
-            return true;
-        }
-        // reports false if failed
-        return false;
-    }
-
     public void createMentor() {
         Integer id;
         Login login;
