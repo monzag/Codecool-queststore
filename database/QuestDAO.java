@@ -33,13 +33,13 @@ public class QuestDAO implements DAO {
                 return null;
             }
             if (rDescription.startswith("DESCRIPTION: ")) {
-                quest.setPassword(rDescription.substring("DESCRIPTION: ".length()));
+                quest.setDescription(rDescription.substring("DESCRIPTION: ".length()));
             }
             else {
                 return null;
             }
             if (rReward.startswith("REWARD: ")) {
-                quest.setPassword(rReward.substring("REWARD: ".length()));
+                quest.setReward(Integer.parseInt(rReward.substring("REWARD: ".length())));
             }
             else {
                 return null;
