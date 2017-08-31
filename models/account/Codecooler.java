@@ -9,7 +9,7 @@ public abstract class Codecooler {
 
     protected Login login;
     protected Password password;
-    protected Email email;
+    protected Mail email;
     protected String name;
     protected String surname;
 
@@ -17,7 +17,7 @@ public abstract class Codecooler {
 
     }
 
-    public Codecooler(Login login, Password password, Email email, String name, String surname) {
+    public Codecooler(Login login, Password password, Mail email, String name, String surname) {
 
         this.login = login;
         this.password = password;
@@ -33,7 +33,7 @@ public abstract class Codecooler {
     public Password getPassword() {
         return this.password;
     }
-    public Email getEmail() {
+    public Mail getEmail() {
         return this.email;
     }
     public String getName() {
