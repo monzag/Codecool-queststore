@@ -1,8 +1,8 @@
 package models.account;
 
-import models.account.Login;
-import models.account.Email;
-import models.account.Password;
+import models.accountdata.Login;
+import models.accountdata.Mail;
+import models.accountdata.Password;
 
 
 public abstract class Codecooler {
