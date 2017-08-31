@@ -14,12 +14,10 @@ import views.CodecoolerView;
 
 public class AdminController {
 
-    private Admin user;
-    private MentorList<Mentor> mentors;
+    private Admin admin;
 
-    public AdminController(Admin user) {
-        this.user = user;
-        this.mentors = new MentorList<Mentor>();
+    public AdminController(Admin admin) {
+        this.admin = admin;
     }
 
     public boolean addMentor(Mentor mentor) {
