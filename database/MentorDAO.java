@@ -59,7 +59,7 @@ public class MentorDAO implements DAO {
                 return null;
             }
             if (rClassId.startsWith("CLASSID: ")) {
-                mentor.setClassId(Integer.parseInt(ClassId.substring("CLASSID: ".length())));
+                mentor.setClassId(Integer.parseInt(rClassId.substring("CLASSID: ".length())));
             }
             else {
                 return null;
