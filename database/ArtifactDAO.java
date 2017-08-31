@@ -57,5 +57,16 @@ public class ArtifactDAO implements DAO {
         }
     }
 
-    
+    public void save(Artifact artifact) {
+        try (FileWriter fw = new FileWriter(FILEPATH + artifact.getId() + ".txt")) {
+            fw.write("ID: " + artifact.getId());
+            fw.write("NAME: " + artifact.getName());
+            fw.write("DESCRIPTION: " + artifact.getDescription());
+            fw.write("VALUE: " + artifact.getValue());
+            fw.write("TYPE: " + artifact.getType());
+        } catch (IOException e) {
+            System.out.println("Filepath not found.");
+        }
+    }
+
 }
