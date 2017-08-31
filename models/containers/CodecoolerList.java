@@ -4,15 +4,15 @@ import java.util.ArrayList;
 import java.util.Iterator;
 
 
-public abstract class CodecoolerList<T> implements Storable {
+public abstract class CodecoolerList<Codecooler> implements Storable {
 
-    private ArrayList<T> codecoolers;
+    private ArrayList<Codecooler> codecoolers;
 
     public CodecoolerList() {
-        this.codecoolers = new ArrayList<T>();
+        this.codecoolers = new ArrayList<Codecooler>();
     }
 
-    public ArrayList<T> getAll() {
+    public ArrayList<Codecooler> getAll() {
         return this.codecoolers;
     }
 
@@ -20,7 +20,7 @@ public abstract class CodecoolerList<T> implements Storable {
 
     public abstract void save();
 
-    public boolean add(T codecooler) {
+    public boolean add(Codecooler codecooler) {
         if (!this.codecoolers.contains(codecooler)) {
             codecoolers.add(codecooler);
             return true;
@@ -32,7 +32,7 @@ public abstract class CodecoolerList<T> implements Storable {
         return this.codecoolers.iterator();
     }
 
-    public boolean remove(T codecooler) {
+    public boolean remove(Codecooler codecooler) {
         return this.codecoolers.remove(codecooler);
     }
 
