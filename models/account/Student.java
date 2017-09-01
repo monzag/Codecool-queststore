@@ -50,7 +50,7 @@ public class Student extends Codecooler {
         return this.teamId;
     }
 
-    public Integer getWallet() {
+    public Wallet getWallet() {
         return this.wallet;
     }
 
