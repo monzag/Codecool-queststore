@@ -59,7 +59,6 @@ public class AdminDAO implements DAO {
             return admin;
 
         } catch (IOException e) {
-            System.out.println("File not found.");
             return null;
         }
     }
