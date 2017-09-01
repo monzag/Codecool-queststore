@@ -5,7 +5,6 @@
 ./models/account/Codecooler.java
 ./models/accountdata/AccountData.java
 ./models/accountdata/Wallet.java
-./models/accountdata/MainTest.java
 ./models/accountdata/Password.java
 ./models/accountdata/Mail.java
 ./models/accountdata/Login.java
