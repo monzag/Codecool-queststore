@@ -59,5 +59,14 @@ public class Codecooler {
         this.surname = surname;
     }
 
+    public String toString() {
+        String asString;
+
+        asString = "\n" + this.surname + " " + this.surname;
+        asString += "\n================================\n";
+
+        return asString;
+    }
+
 
 }

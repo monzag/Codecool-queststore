@@ -18,7 +18,7 @@ public class AdminView extends CodecoolerView {
         MentorDAO mentors = new MentorDAO();
         ArrayList<Mentor> mentorList = mentors.loadAll();
         for (Mentor mentor : mentorList) {
-            System.out.println(mentor.getName() + mentor.getSurname());
+            System.out.println(mentor);
         }
     }
 }
