@@ -62,7 +62,7 @@ public class Codecooler {
     public String toString() {
         String asString;
 
-        asString = "\n" + this.surname + " " + this.surname;
+        asString = "\n" + this.name + " " + this.surname;
         asString += "\n================================\n";
 
         return asString;
