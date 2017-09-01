@@ -32,18 +32,20 @@ public class AppController {
                 }
             }
             else if (mentorData.load(login) != null) {
-                Mentor mentor = mentorData.load(login);
-                if (mentor.getPassword().getValue().equals(password)) {
-                    return mentor;
-                }
+                CodecoolerView.inConstruction();
+                // Mentor mentor = mentorData.load(login);
+                // if (mentor.getPassword().getValue().equals(password)) {
+                //     return mentor;
+                // }
             }
             else if (studentData.load(login) != null) {
-                Student student = studentData.load(login);
-                if (student.getPassword().getValue().equals(password)) {
-                    return student;
-                }
+                CodecoolerView.inConstruction();
+                // Student student = studentData.load(login);
+                // if (student.getPassword().getValue().equals(password)) {
+                //     return student;
+                // }
             }
-            System.out.println("Wrong login data. Do you want to try again?");
+            CodecoolerView.reportWrongLoginData();
             String tryAgain = CodecoolerView.getString("Y or anything else");
             if (!tryAgain.equalsIgnoreCase("y")) {
                 isLogging = false;
