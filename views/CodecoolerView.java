@@ -13,14 +13,20 @@ public class CodecoolerView {
 
     }
 
+    public static void reportWrongLoginData() {
+        System.out.println("Wrong login data. Do you want to try again?");
+    }
+
     public static void reportResult(boolean state) {
         if (state) {
-            System.out.println("Sucess!");
+            System.out.println("Success!");
         } else {
             System.out.println("Failed!");
         }
-
     }
 
+    public static void inConstruction() {
+        System.out.println("\nMentor and student features in construction!\n");
+    }
 
 }
