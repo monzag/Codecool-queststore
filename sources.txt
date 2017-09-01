@@ -13,4 +13,4 @@
 ./database/MentorDAO.java
 ./views/CodecoolerView.java
 ./views/AdminView.java
-./views/Main.java
+./Main.java
