@@ -29,13 +29,13 @@ public abstract class AccountData {
         MentorDAO mentorData = new MentorDAO();
         AdminDAO adminData = new AdminDAO();
 
-        if (!adminData.load(value).equals(null)){
+        if (adminData.load(value) != null){
             return false;
 
-        }else if (!mentorData.load(value).equals(null)){
+        }else if (mentorData.load(value) != null){
             return false;
 
-        }else if (!studentData.load(value).equals(null)){
+        }else if (studentData.load(value) != null){
             return false;
 
         } else {
