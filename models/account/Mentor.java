@@ -31,5 +31,14 @@ public class Mentor extends Codecooler {
         this.classId = classId;
     }
 
+    public String toString() {
+        String asString;
+
+        asString = super();
+        asString += "class : " + this.classId;
+
+        return asString;
+    }
+
 
 }
