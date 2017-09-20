@@ -1,0 +1,6 @@
+LOGIN: mateusz
+PASSWORD: ostafil
+EMAIL: mateusz@ostafil.pl
+NAME: mateusz
+SURNAME: ostafil
+CLASSID: 0
