@@ -1,0 +1,8 @@
+LOGIN: student
+PASSWORD: password
+EMAIL: student@codecool.pl
+NAME: piotr
+SURNAME: cisakowski
+CLASSID: 1
+TEAMID: 1
+BALANCE: 0
