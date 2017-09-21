@@ -7,7 +7,7 @@ public abstract class AbstractDAO {
     private Connection c;
 
     public void connectDB() throws SQLException {
-        c = DriverManager.getConnection("jdbc:sqlite:Codecool.db");
+        c = DriverManager.getConnection("jdbc:sqlite:./target/database.db");
         c.setAutoCommit(false);
     }
 
