@@ -123,13 +123,13 @@ public class MentorDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
-            query = String.format("DELETE FROM `user` WHERE login = %s; ",
+            query = String.format("DELETE FROM `user` WHERE login = '%s'; ",
                     mentor.getLogin().getValue());
 
-            query += String.format("DELETE FROM `login` WHERE login = %s; ",
+            query += String.format("DELETE FROM `login` WHERE login = '%s'; ",
                     mentor.getLogin().getValue());
 
-            query += String.format("DELETE FROM `mentor` WHERE login = %s; ",
+            query += String.format("DELETE FROM `mentor` WHERE login = '%s'; ",
                     mentor.getLogin().getValue());
 
             stmt.executeUpdate(query);
@@ -145,7 +145,7 @@ public class MentorDAO {
     }
 
     public Mentor getMentor(String userLogin) {
-        String query = String.format("%s %s %s %s %s %s WHERE user.type = 'Mentor' AND login.login = %s;"
+        String query = String.format("%s %s %s %s %s %s WHERE user.type = 'Mentor' AND login.login = '%s';"
             , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
             , "FROM user"
             ,     "INNER JOIN login"
