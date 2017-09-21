@@ -4,6 +4,9 @@ import java.sql.*;
 
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
+import com.codecool.jlamas.models.accountdata.Login;
+import com.codecool.jlamas.models.accountdata.Password;
+import com.codecool.jlamas.models.accountdata.Mail;
 
 public class UserDAO {
 
@@ -37,10 +40,13 @@ public class UserDAO {
 
             ResultSet rs = stmt.executeQuery(query);
             if (rs.next()) {
+                Login loginInstance = new Login(login);
+                Password password = new Password("admin");
                 String name = rs.getString("name");
                 String surname = rs.getString("surname");
                 String email = rs.getString("email");
-                Admin admin = new Admin(login, name, surname, email);
+                Mail mail = new Mail(email);
+                Admin admin = new Admin(loginInstance, password, mail, name, surname);
                 return admin;
             }
 
