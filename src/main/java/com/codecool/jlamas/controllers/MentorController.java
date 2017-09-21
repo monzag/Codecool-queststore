@@ -40,16 +40,25 @@ public class MentorController {
     }
 
     public void removeMentor() {
-        ArrayList<Mentor> mentors = mentorDao.requestAll();
-        mentorView.displayAll();
-        Integer record = mentorView.getMenuOption();
+        
         try {
-            Mentor mentor = mentors.get(record - 1);
+            Mentor mentor = chooseMentor();
 
         } catch (IndexOutOfBoundsException e) {
 
         }
         // MentorDAO - remove record
+    }
+
+    public Mentor chooseMentor() throws IndexOutOfBoundsException {
+        ArrayList<Mentor> mentors = mentorDao.requestAll();
+        mentorView.displayAll();
+        Integer record = mentorView.getMenuOption();
+        Integer index = record - 1;
+        if (index >= mentors.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return mentors.get(index);
     }
 
     public void displayMentors() {
