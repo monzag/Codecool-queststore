@@ -26,7 +26,9 @@ public class QuestView {
         return intInput;
     }
 
-    public void printQuestData(Quest quest) {
-        System.out.println(quest);
+    public void printQuestData(ArrayList<Quest> questList) {
+        for(Quest quest : questList) {
+            System.out.println(quest);
+        }
     }
 }
