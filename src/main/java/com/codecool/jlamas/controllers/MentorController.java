@@ -20,9 +20,22 @@ public class MentorController {
 
         option = "";
         while (option.equals("Exit")) {
-            view.printMenu();
             option = view.getMenuOption();
+            this.resolveOption(option);
         }
+    }
+
+    private void resolveOption(String option) {
+    // adding new option should add also to view MENU
+
+        switch (option) {
+            case "" :
+                // TODO
+                break;
+            case "" :
+                // TODO
+        }
+
     }
 
 
