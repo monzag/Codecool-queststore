@@ -39,6 +39,8 @@ public class QuestController {
     }
 
     public void showAllQuests() {
+        QuestView view = new QuestView();
+        view.printQuestData(this.questDAO.selectAll());
 
     }
 }
