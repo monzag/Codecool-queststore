@@ -6,15 +6,8 @@ import com.codecool.jlamas.models.account.Mentor;
 
 public class AdminView extends CodecoolerView {
 
-    public void displayAdminMenu() {
-        String[] options = {"Display mentors", 
-                            "Add mentor",
-                            "Edit mentor",
-                            "Add class",
-                            "Add level",
-                            "Edit quest"};
+    public AdminView() {
 
-        printMenu(options);       
     }
 
     public static void showAllMentors() {
