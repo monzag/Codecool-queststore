@@ -8,8 +8,10 @@ public class MentorView extends CodecoolerView {
 
     public static final ArrayList<String> menu = {};
 
-    public MentorView() {
+    private Scanner input;
 
+    public MentorView() {
+        this.input = new Scanner(System.in);
     }
 
     public void printMenu() {
