@@ -16,13 +16,13 @@ import java.util.ArrayList;
 
 public class AdminController {
 
-    public static final int DISPLAY_MENTORS = 1;
-    public static final int ADD_MENTOR = 2;
-    public static final int EDIT_MENTOR = 3;
-    public static final int ADD_CLASS = 4;
-    public static final int ADD_LEVEL = 5;
-    public static final int EDIT_QUEST = 6;
-    public static final int EXIT = 0;
+    private static final int DISPLAY_MENTORS = 1;
+    private static final int ADD_MENTOR = 2;
+    private static final int EDIT_MENTOR = 3;
+    private static final int ADD_CLASS = 4;
+    private static final int ADD_LEVEL = 5;
+    private static final int EDIT_QUEST = 6;
+    private static final int EXIT = 0;
 
     private Admin admin;
     private AdminView adminView = new AdminView();;
