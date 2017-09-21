@@ -27,7 +27,7 @@ public class MentorDAO {
         ArrayList<Mentor> mentors = new ArrayList<Mentor>();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
-             ResultSet rs = stmt.executeQuery(quary);) {
+             ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
                 Mentor mentor = new Mentor();
@@ -71,7 +71,7 @@ public class MentorDAO {
                     mentor.getLogin().getValue(),
                     mentor.getClassTag());
 
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
@@ -84,12 +84,12 @@ public class MentorDAO {
 
     public boolean update(Mentor mentor) {
     // true if was successful
-
+        return true;
     }
 
     public boolean delete(Mentor mentor) {
     // true if was successful
-
+        return true;
     }
 
 }
