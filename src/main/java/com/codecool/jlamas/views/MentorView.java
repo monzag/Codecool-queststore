@@ -8,4 +8,8 @@ public class MentorView extends CodecoolerView {
 
     public static final ArrayList<String> menu = {};
 
+    public MentorView() {
+        
+    }
+
 }
