@@ -6,6 +6,10 @@ import com.codecool.jlamas.models.account.Mentor;
 
 public class AdminView extends CodecoolerView {
 
+    public AdminView() {
+
+    }
+    
     public void displayAdminMenu() {
         String[] options = {"Display mentors", 
                             "Add mentor",
