@@ -29,7 +29,7 @@ public class MentorMenuController {
     private static final int EDIT_ARTIFACT = 8;
     private static final int MARK_QUEST = 9;
     private static final int MARK_ARTIFACT = 10;
-    private static final int EXIT = 11;
+    private static final int EXIT = 0;
 
     private Mentor user;
     private MentorView view;
@@ -42,7 +42,7 @@ public class MentorMenuController {
     public void start() {
         Integer option;
 
-        option = 0;
+        option = 100;
         while (!option.equals(EXIT)) {
             view.printMenu(MENU);
             option = view.getMenuOption();
@@ -66,15 +66,13 @@ public class MentorMenuController {
                 break;
             case ADD_QUEST :
                 QuestController questControll = new QuestController();
-                
                 questControll.createQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
                 break;
             case SHOW_QUEST :
-                QuestController questControll = new QuestController();
-
+                questControll = new QuestController();
                 questControll.showAllQuests();
                 break;
             case EDIT_ARTIFACT :
