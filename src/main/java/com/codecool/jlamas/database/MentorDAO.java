@@ -1,99 +1,72 @@
 package com.codecool.jlamas.database;
 
+import java.sql.*;
+import java.util.ArrayList;
+
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.accountdata.*;
-
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
 
 
 public class MentorDAO {
 
-    private final String FILEPATH = "database/mentors/";
-
     public MentorDAO() {
+
     }
 
-    public Mentor load(String login) {
-        try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + login + ".txt"))) {
-            Mentor mentor = new Mentor();
-            String rLogin = br.readLine();
-            String rPassword = br.readLine();
-            String rEmail = br.readLine();
-            String rName = br.readLine();
-            String rSurname = br.readLine();
-            String rClassId = br.readLine();
+    public ArrayList<Mentor> requestAll() {
+        String query = String.format("%s %s %s %s %s %s %s",
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
+            , "FROM user"
+            ,     "INNER JOIN login"
+            ,             "ON login.login = user.login"
+            ,     "INNER JOIN mentor"
+            ,             "ON mentor.login = user.login"
+            , "WHERE user.type = 'Mentor';");
 
-            if (rLogin.startsWith("LOGIN: ")) {
-                mentor.setLogin(new Login(rLogin.substring("LOGIN: ".length())));
-            }
-            else {
-                return null;
-            }
-            if (rPassword.startsWith("PASSWORD: ")) {
-                mentor.setPassword(new Password(rPassword.substring("PASSWORD: ".length())));
-            }
-            else {
-                return null;
-            }
-            if (rEmail.startsWith("EMAIL: ")) {
-                mentor.setEmail(new Mail(rEmail.substring("EMAIL: ".length())));
-            }
-            else {
-                return null;
-            }
-            if (rName.startsWith("NAME: ")) {
-                mentor.setName(rName.substring("NAME: ".length()));
-            }
-            else {
-                return null;
-            }
-            if (rSurname.startsWith("SURNAME: ")) {
-                mentor.setSurname(rSurname.substring("SURNAME: ".length()));
-            }
-            else {
-                return null;
-            }
-            if (rClassId.startsWith("CLASSID: ")) {
-                mentor.setClassId(Integer.parseInt(rClassId.substring("CLASSID: ".length())));
-            }
-            else {
-                return null;
+
+        ArrayList<Mentor> mentors = new ArrayList<Mentor>();
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement(sql);) {
+
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
+
+            while (rs.next()) {
+                Mentor mentor = new Mentor();
+
+                mentor.setName(rs.getString("name"));
+                mentor.setSurname(rs.getString("surname"));
+                mentor.setLogin(new Login(rs.getString("login")));
+                mentor.setPassword(new Password(rs.getString("password")));
+                mentor.setEmail(new Mail(rs.getString("email")));
+                mentor.setClassTag(rs.getString("class_tag"));
+
+                mentors.add(mentor);
             }
 
-            return mentor;
+            rs.close();
+            stmt.close();
 
-        } catch (IOException e) {
-            return null;
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
         }
+    
+        return mentors;
     }
 
-    public ArrayList<Mentor> loadAll() {
-        ArrayList<Mentor> mentorList = new ArrayList<>();
+    public boolean insert(Mentor mentor) {
+    // true if was successful
 
-        File[] files = new File(FILEPATH).listFiles();
-
-        for (File file : files) {
-            int dotPosition = file.getName().lastIndexOf(".");
-            mentorList.add(load(file.getName().substring(0, dotPosition)));
-        }
-        return mentorList;
     }
 
-    public void save(Mentor mentor) {
-        try (FileWriter fw = new FileWriter(FILEPATH + mentor.getLogin().getValue() + ".txt")) {
-            fw.write("LOGIN: " + mentor.getLogin().getValue() + '\n');
-            fw.write("PASSWORD: " + mentor.getPassword().getValue() + '\n');
-            fw.write("EMAIL: " + mentor.getEmail().getValue() + '\n');
-            fw.write("NAME: " + mentor.getName() + '\n');
-            fw.write("SURNAME: " + mentor.getSurname() + '\n');
-            fw.write("CLASSID: " + mentor.getClassId() + '\n');
-        } catch (IOException e) {
-            System.out.println("Filepath not found.");
-        }
+    public boolean update(Mentor mentor) {
+    // true if was successful
+
     }
+
+    public boolean delete(Mentor mentor) {
+    // true if was successful
+
+    }
+
 }
