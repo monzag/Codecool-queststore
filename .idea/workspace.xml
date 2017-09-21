@@ -2,8 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/CodecoolerView.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/CodecoolerView.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -26,19 +27,6 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="CodecoolerView.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="74" column="0" lean-forward="false" selection-start-line="74" selection-start-column="0" selection-end-line="74" selection-end-column="0" />
-              <folding>
-                <element signature="e#2524#2525#0" expanded="true" />
-                <element signature="e#2580#2581#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="AdminView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/AdminView.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -98,8 +86,18 @@
       <file leaf-file-name="MentorController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="202">
+            <state relative-caret-position="-259">
               <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MentorDAO.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="261">
+              <caret line="23" column="35" lean-forward="false" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -128,11 +126,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mail.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Mail.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="194">
-              <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+              <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -182,7 +180,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql" />
-        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.05__Create_table_quest.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
@@ -198,6 +195,7 @@
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/AdminView.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/account/Mentor.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
       </list>
     </option>
   </component>
@@ -398,13 +396,6 @@
       <updated>1505926327139</updated>
       <workItem from="1505926330995" duration="2161000" />
       <workItem from="1505982402436" duration="37942000" />
-    </task>
-    <task id="LOCAL-00009" summary="Fix typo in constructor in StudentView">
-      <created>1505992488132</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1505992488132</updated>
     </task>
     <task id="LOCAL-00010" summary="Change final attrs to string array in StudentView">
       <created>1505992561324</created>
@@ -742,14 +733,22 @@
       <option name="project" value="LOCAL" />
       <updated>1506035478428</updated>
     </task>
-    <option name="localTasksCounter" value="58" />
+    <task id="LOCAL-00058" summary="Removed unused methods">
+      <created>1506035989200</created>
+      <option name="number" value="00058" />
+      <option name="presentableId" value="LOCAL-00058" />
+      <option name="project" value="LOCAL" />
+      <updated>1506035989200</updated>
+    </task>
+    <option name="localTasksCounter" value="59" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="42175000" />
+    <option name="totallyTimeSpent" value="42567000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="55" width="1920" height="1050" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -761,7 +760,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection Results" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -805,7 +804,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Change static to instance call in view" />
     <MESSAGE value="Change static to instance method report wrong login data" />
     <MESSAGE value="Add getType() to UserDAO" />
     <MESSAGE value="Add admin to launchController() in AppController" />
@@ -830,7 +828,8 @@
     <MESSAGE value="Add prompt viewing while input in adding quest" />
     <MESSAGE value="Move login unique check to Login class" />
     <MESSAGE value="Move mail unique check to Mail class" />
-    <option name="LAST_COMMIT_MESSAGE" value="Move mail unique check to Mail class" />
+    <MESSAGE value="Removed unused methods" />
+    <option name="LAST_COMMIT_MESSAGE" value="Removed unused methods" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -939,14 +938,6 @@
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql" />
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql" />
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1334">
-          <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/MentorView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
@@ -1128,14 +1119,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="202">
-          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="202">
@@ -1158,10 +1141,26 @@
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="194">
-          <caret line="9" column="24" lean-forward="true" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <caret line="9" column="24" lean-forward="false" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-259">
+          <caret line="46" column="16" lean-forward="false" selection-start-line="46" selection-start-column="16" selection-end-line="46" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="23" column="35" lean-forward="false" selection-start-line="23" selection-start-column="35" selection-end-line="23" selection-end-column="35" />
+          <folding />
         </state>
       </provider>
     </entry>

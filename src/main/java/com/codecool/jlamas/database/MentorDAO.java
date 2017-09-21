@@ -21,7 +21,7 @@ public class MentorDAO {
             ,             "ON login.login = user.login"
             ,     "INNER JOIN mentor"
             ,             "ON mentor.login = user.login"
-            , "WHERE user.type = 'Mentor';");
+            , "WHERE user.type = 'mentor';");
 
 
         ArrayList<Mentor> mentors = new ArrayList<Mentor>();
