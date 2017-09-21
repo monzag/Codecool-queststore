@@ -1,7 +1,9 @@
 package com.codecool.jlamas.views;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -46,7 +48,7 @@ public class CodecoolerView {
 
         surname = getString(msg);
 
-        if (!this.inName(surname)) {
+        if (!this.isName(surname)) {
             throw new InvalidUserDataException(err);
         }
         return surname;
