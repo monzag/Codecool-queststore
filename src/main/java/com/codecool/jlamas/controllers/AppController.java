@@ -41,10 +41,17 @@ public class AppController {
 
         String userType = userData.getType(login);
 
-        if (userType = "admin") {
+        if (userType.equals("admin")) {
             Admin admin = userData.getAdmin(login);
             AdminMenuController adminMenu = new AdminMenuController(admin);
             adminMenu.start();
+        } else if (userType.equals("mentor")) {
+            Mentor mentor = userData.getMentor(login);
+            MentorMenuController mentorMenu = new MentorMenuController(mentor);
+            mentorMenu.start();
+        } else if (userType.equals("student")) {
+            // TODO
         }
+
     }
 }
