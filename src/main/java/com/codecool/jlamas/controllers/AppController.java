@@ -6,35 +6,52 @@ import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.controllers.AdminMenuController;
-import com.codecool.jlamas.database.StudentDAO;
-import com.codecool.jlamas.database.MentorDAO;
-import com.codecool.jlamas.database.AdminDAO;
+import com.codecool.jlamas.database.LoginDAO;
+import com.codecool.jlamas.database.UserDAO;
 
 public class AppController {
 
-    public static Codecooler login() {
-
+    public AppController() {
         LoginDAO loginData = new LoginDAO();
+        UserDAO userData = new UserDAO();
         CodecoolerView view = new CodecoolerView();
+    }
+
+    public void login() {
 
         boolean isLogging = true;
         while (isLogging) {
 
-            String login = CodecoolerView.getString("Login");
-            String password = CodecoolerView.getString("Password");
+            String login = view.getString("Login");
+            String password = view.getString("Password");
 
-            matchLogin(login, password);
+            if (loginData.matchLogin(login, password)) {
+                launchUserController(login);
+            }
 
-            CodecoolerView.reportWrongLoginData();
-            String tryAgain = CodecoolerView.getString("Y or anything else");
+            view.reportWrongLoginData();
+            String tryAgain = view.getString("Y or anything else");
             if (!tryAgain.equalsIgnoreCase("y")) {
                 isLogging = false;
             }
         }
-        return null;
     }
 
-    public boolean matchLogin(String login, String password) {
-        
+    public void launchUserController(String login) {
+
+        String userType = userData.getType(login);
+
+        if (userType.equals("admin")) {
+            Admin admin = userData.getAdmin(login);
+            AdminMenuController adminMenu = new AdminMenuController(admin);
+            adminMenu.start();
+        } else if (userType.equals("mentor")) {
+            Mentor mentor = userData.getMentor(login);
+            MentorMenuController mentorMenu = new MentorMenuController(mentor);
+            mentorMenu.start();
+        } else if (userType.equals("student")) {
+            // TODO
+        }
+
     }
 }
