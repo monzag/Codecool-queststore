@@ -14,7 +14,7 @@ public class UserDAO {
 
     public String getType(String login) {
 
-        String query = "SELECT type FROM user WHERE user.login = " + login + ";";
+        String query = "SELECT type FROM user WHERE login = '" + login + "';";
 
         try (Connection c = ConnectDB.connect();
             Statement stmt = c.createStatement()) {
@@ -33,7 +33,7 @@ public class UserDAO {
 
     public Admin getAdmin(String login) {
 
-        String query = "SELECT * FROM user WHERE user.login = " + login + ";";
+        String query = "SELECT * FROM user WHERE login = '" + login + "';";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {

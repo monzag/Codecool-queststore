@@ -6,8 +6,8 @@ public class LoginDAO {
 
     public boolean matchLogin(String login, String password) {
 
-        String query = "SELECT * FROM login WHERE login.login = " + login +
-                     " AND login.password = " + password + ";";
+        String query = "SELECT * FROM login WHERE login = '" + login +
+                     "' AND password = '" + password + "';";
 
         try (Connection c = ConnectDB.connect();
             Statement stmt = c.createStatement()) {
