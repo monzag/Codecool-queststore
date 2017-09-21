@@ -3,6 +3,7 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
+import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.views.AdminView;
 // import com.codecool.jlamas.models.accountdata.Login;
 // import com.codecool.jlamas.models.accountdata.Password;
@@ -86,6 +87,7 @@ public class AdminMenuController {
         QuestController questController = new QuestController();
         questController.showAllQuests();
         // user choice -> quest
+        Quest quest = new Quest();
         questController.editQuest(quest);
     }
 }
