@@ -35,7 +35,7 @@ public class CodecoolerView {
         System.out.println("\nMentor and student features in construction!\n");
     }
 
-    private void printMenu(String[] options) {
+    public void printMenu(String[] options) {
         String output;
 
         output = "\nMENU";
