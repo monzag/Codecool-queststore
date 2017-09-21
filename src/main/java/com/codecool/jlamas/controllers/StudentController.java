@@ -56,4 +56,13 @@ public class StudentController {
         }
         return students.get(index);
     }
+
+    public void editStudent() {
+        Student student = chooseStudent();
+
+        // Demo version:
+        String name = studentView.getAttribute();
+        student.setName(name);
+        studentDao.update(student);
+    }
 }
