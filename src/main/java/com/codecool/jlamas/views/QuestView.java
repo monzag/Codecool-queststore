@@ -18,8 +18,9 @@ public class QuestView {
         userInput = this.input.nextLine();
 
         return userInput;
+    }
 
-    public Integer getIntInput(String msg) {
+    public Integer getInt(String msg) {
         Integer intInput;
 
         System.out.print("\n" + msg + ": ");
