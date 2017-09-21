@@ -36,6 +36,8 @@ public class AdminMenuController {
 
     public AdminMenuController(Admin admin) {
         this.admin = admin;
+        this.adminView = new AdminView();
+        this.mentorController = new MentorController();
     }
 
     public void start() {
