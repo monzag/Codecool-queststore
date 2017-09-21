@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.accountdata.Login;
@@ -10,6 +11,7 @@ import com.codecool.jlamas.views.MentorView;
 public class MentorController {
 
     private MentorView mentorView = new MentorView();
+    private MentorDAO mentorDao = new MentorDAO();
 
     public MentorController() {
         
@@ -21,10 +23,10 @@ public class MentorController {
             String surname = mentorView.getSurname();
             Mail email = mentorView.getMail();
 
-            Login login = new Login();
-            Password password = new Password();
+            Login login = new Login("mentor");
+            Password password = new Password("mentor");
             Mentor mentor = new Mentor(login, password, email, name, surname);
-            // MentorDAO - insert new
+            mentorDao.insert(mentor);
 
         } catch (InvalidUserDataException e) {
 
