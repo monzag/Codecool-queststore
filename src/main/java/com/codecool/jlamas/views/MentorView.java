@@ -5,17 +5,6 @@ import java.util.Scanner;
 
 public class MentorView extends CodecoolerView {
 
-    public static final String[] MENU = {"Print class",
-                                         "Print team",
-                                         "Create team",
-                                         "Add new Student",
-                                         "Add new Quest",
-                                         "Add new Artifat",
-                                         "Edit existing Quest",
-                                         "Edit existing Artifact",
-                                         "Mark Quest as done",
-                                         "Mark Artifact as done"};
-
     private Scanner input;
 
     public MentorView() {

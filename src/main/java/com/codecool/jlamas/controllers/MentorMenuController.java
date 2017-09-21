@@ -7,6 +7,17 @@ import com.codecool.jlamas.views.MentorView;
 
 public class MentorMenuController {
 
+    public static final String[] MENU = {"Print class",
+                                         "Print team",
+                                         "Create team",
+                                         "Add new Student",
+                                         "Add new Quest",
+                                         "Add new Artifat",
+                                         "Edit existing Quest",
+                                         "Edit existing Artifact",
+                                         "Mark Quest as done",
+                                         "Mark Artifact as done"};
+
     private static final int PRINT_CLASS = 1;
     private static final int PRINT_TEAM = 2;
     private static final int CREATE_TEAM = 3;
