@@ -55,4 +55,13 @@ public class Quest {
 
     }
 
+    public String toString() {
+        String asString;
+
+        asString = "\n" + this.name + " " + this.description + " " + this.reward;
+        asString += "\n================================\n";
+
+        return asString;
+    }
+
 }
