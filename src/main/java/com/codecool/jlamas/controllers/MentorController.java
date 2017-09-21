@@ -36,12 +36,17 @@ public class MentorController {
     }
 
     public void editMentor() {
-        Mentor mentor = chooseMentor();
+        try {
+            Mentor mentor = chooseMentor();
 
-        // Demo version:
-        String name = mentorView.getAttribute();
-        mentor.setName(name);
-        mentorDao.update(mentor);
+            // Demo version:
+            String name = mentorView.getAttribute();
+            mentor.setName(name);
+            mentorDao.update(mentor);
+            
+        } catch (IndexOutOfBoundsException e) {
+            mentorView.printIndexError();
+        }
     }
 
     public void removeMentor() {
