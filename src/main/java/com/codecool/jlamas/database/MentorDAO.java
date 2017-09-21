@@ -152,7 +152,7 @@ public class MentorDAO {
             ,             "ON login.login = user.login"
             ,     "INNER JOIN mentor"
             ,             "ON mentor.login = user.login"
-            , userLogin;
+            , userLogin);
 
 
         Mentor mentor = new Mentor();
@@ -166,9 +166,6 @@ public class MentorDAO {
             mentor.setPassword(new Password(rs.getString("password")));
             mentor.setEmail(new Mail(rs.getString("email")));
             mentor.setClassTag(rs.getString("class_tag"));
-
-            mentors.add(mentor);
-
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
