@@ -1,5 +1,6 @@
 package com.codecool.jlamas.database;
 
+import com.codecool.jlamas.models.quest.Quest;
 import java.sql.*;
 
 public class QuestDAO {
