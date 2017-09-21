@@ -65,6 +65,7 @@ public class AdminMenuController {
     }
 
     public void displayAllMentors() {
+        mentorController.displayMentors();
     }
 
     public void createMentor() {
