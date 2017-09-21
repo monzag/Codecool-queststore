@@ -90,35 +90,4 @@ public class AdminController {
     public void editQuest() {
         ;
     }
-
-
-    // public void menu() {
-    //     Scanner input = new Scanner(System.in);
-    //     boolean inMenu = true;
-
-    //     while (inMenu) {
-    //         AdminView.viewOptions();
-    //         String option = System.console().readLine();
-
-    //         if (option.equals("1")) {
-    //             AdminView.showAllMentors();
-    //         }
-    //         else if (option.equals("2")) {
-    //             createMentor();
-    //         }
-
-    //         else if (option.equals("3")) {
-    //             editMentor();
-    //         }
-
-    //         else if(option.equals("4")) {
-    //             createClass();
-    //         }
-
-    //         else if
-    //         else if (option.equals("0")) {
-    //             inMenu = false;
-    //         }
-    //     }
-    // }
 }
