@@ -12,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 
-public class StudentDAO implements DAO {
+public class StudentDAO {
 
     private final String FILEPATH = "database/students/";
 

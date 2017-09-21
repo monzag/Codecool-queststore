@@ -18,7 +18,7 @@ public final class ConnectDB {
     private static Connection getConnection() throws ClassNotFoundException, SQLException {
 
         Class.forName("org.sqlite.JDBC");
-        c = DriverManager.getConnection("jdbc:sqlite:./target/database.db");
+        c = DriverManager.getConnection("jdbc:sqlite:./target/database");
         return c;
     }
 }

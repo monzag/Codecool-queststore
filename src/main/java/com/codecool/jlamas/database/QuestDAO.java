@@ -1,78 +1,46 @@
 package com.codecool.jlamas.database;
 
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
+import com.codecool.jlamas.models.quest.Quest;
+import java.sql.*;
 
-public class QuestDAO implements DAO {
+public class QuestDAO {
+    public QuestDAO() {
 
-    // private final String FILEPATH = "database/quests/";
+    }
 
-    // public QuestDAO() {
-    // }
+    public void insertQuest(Quest quest) {
+        String sql = "INSERT INTO quest(name, description, reward) VALUES (?, ?, ?);";
 
-    // public Quest load(String id) {
-    //     try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
-    //         Quest quest = new Quest();
-    //         String rId = br.readLine();
-    //         String rName = br.readLine();
-    //         String rDescription = br.readLine();
-    //         String rReward = br.readLine();
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(sql);) {
 
-    //         if (rId.startsWith("ID: ")) {
-    //             quest.setId(rId.substring("ID: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rName.startsWith("NAME: ")) {
-    //             quest.setLogin(rName.substring("NAME: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rDescription.startsWith("DESCRIPTION: ")) {
-    //             quest.setDescription(rDescription.substring("DESCRIPTION: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rReward.startsWith("REWARD: ")) {
-    //             quest.setReward(Integer.parseInt(rReward.substring("REWARD: ".length())));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         return quest;
-    //     } catch (IOException e) {
-    //         System.out.println("File not found.");
+            pstmt.setString(1, quest.getName());
+            pstmt.setString(2, quest.getDescription());
+            pstmt.setInt(3, quest.getReward());
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    // public void update(int id, String name, String description, Integer reward) {
+    //     String sql = "UPDATE quest SET name = ? , "
+    //             + "description = ? "
+    //             + "reward = ? "
+    //             + "WHERE id = ?";
+    //
+    //     try (Connection connection = this.connect();
+    //             PreparedStatement pstmt = connection.prepareStatement(sql)) {
+    //
+    //         pstmt.setString(1, name);
+    //         pstmt.setString(2, description);
+    //         pstmt.setInt(3, reward);
+    //         pstmt.setInt(4, id);
+    //
+    //         pstmt.executeUpdate();
+    //     } catch (SQLException e) {
+    //         System.out.println("Error");
     //     }
     // }
-
-    // public ArrayList<Quest> loadAll() {
-    //     ArrayList<Quest> questList = new ArrayList<>();
-
-    //     File[] files = new File(FILEPATH).listFiles();
-
-    //     for (File file : files) {
-    //         int dotPosition = file.getName().lastIndexOf(".");
-    //         questList.add(load(file.getName().substring(0, dotPosition)));
-    //     }
-    //     return questList;
-    // }
-
-    // public void save(Quest quest) {
-    //     try (FileWriter fw = new FileWriter(FILEPATH + quest.getId() + ".txt")) {
-    //         fw.write("ID: " + quest.getId());
-    //         fw.write("NAME: " + quest.getName());
-    //         fw.write("DESCRIPTION: " + quest.getDescription());
-    //         fw.write("REWARD: " + quest.getReward());
-    //     } catch (IOException e) {
-    //         System.out.println("Filepath not found.");
-    //     }
-    // }
-
 }

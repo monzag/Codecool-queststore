@@ -14,7 +14,7 @@ public class Quest {
         this.name = name;
         this.description = description;
         this.reward = reward;
-        this.boolean = false;
+        this.isDone = false;
     }
 
     public String getName() {
@@ -53,6 +53,15 @@ public class Quest {
             this.isDone = false;
         }
 
+    }
+
+    public String toString() {
+        String asString;
+
+        asString = "\n" + this.name + " " + this.description + " " + this.reward;
+        asString += "\n================================\n";
+
+        return asString;
     }
 
 }
