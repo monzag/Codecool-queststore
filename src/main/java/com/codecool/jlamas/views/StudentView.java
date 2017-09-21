@@ -25,7 +25,9 @@ public class StudentView extends CodecoolerView {
         String[] attributes = {"name", 
                                "surname",
                                "email",
-                               "password"};
+                               "password",
+                               "class",
+                               "team"};
         printMenu(attributes);
 
         // Demo:
