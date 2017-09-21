@@ -61,7 +61,6 @@ public class CodecoolerView {
             throw new InvalidUserDataException(err);
         }
         return new Mail(mail);
-
     }
 
     private boolean isName(String name) {
