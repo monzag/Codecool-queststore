@@ -16,6 +16,13 @@ import java.util.ArrayList;
 
 public class AdminController {
 
+    public static final String[] options = {"Display mentors", 
+                                            "Add mentor",
+                                            "Edit mentor",
+                                            "Add class",
+                                            "Add level",
+                                            "Edit quest"};
+
     private static final int DISPLAY_MENTORS = 1;
     private static final int ADD_MENTOR = 2;
     private static final int EDIT_MENTOR = 3;
@@ -35,7 +42,7 @@ public class AdminController {
     }
 
     public void menu() {
-        adminView.displayAdminMenu();
+        adminView.printMenu(options);
         int userChoice = adminView.getMenuOption();
 
         boolean start = true;
