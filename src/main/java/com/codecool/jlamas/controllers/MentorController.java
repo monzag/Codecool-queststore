@@ -10,5 +10,17 @@ public class MentorController {
         this.user = user;
     }
 
+    public void addMentor() {
+        ;
+    }
+
+    public void editMentor() {
+        ;
+    }
+
+    public void removeMentor() {
+        ;
+    }
+
 
 }
