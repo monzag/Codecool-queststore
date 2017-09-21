@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS `student` (
-	`login`	TEXT UNIQUE NOT NULL,
+	`login`	TEXT NOT NULL UNIQUE,
 	`class`	TEXT NOT NULL,
 	`team`	TEXT NOT NULL,
 	`balance` INTEGER NOT NULL,
