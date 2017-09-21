@@ -13,6 +13,7 @@ public class MentorView extends CodecoolerView {
     }
 
     public String getAttribute() {
+        String attribute = null;
         String[] attributes = {"name", 
                                "surname",
                                "email",
@@ -21,12 +22,13 @@ public class MentorView extends CodecoolerView {
 
         System.out.println("\nYour choice: 1");
         try {
-            String name = getSurname();
-            return name;
+            attribute = getSurname();
 
         } catch (InvalidUserDataException e) {
 
         }
+
+        return attribute;
 
     }
 
