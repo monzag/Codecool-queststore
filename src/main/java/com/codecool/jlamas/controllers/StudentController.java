@@ -1,5 +1,7 @@
 package com.codecool.jlamas.controllers;
 
+import java.util.ArrayList;
+
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Login;
@@ -44,5 +46,14 @@ public class StudentController {
         }
     }
 
-    
+    public Student chooseStudent() throws IndexOutOfBoundsException {
+        ArrayList<Student> students = studentDao.requestAll();
+        studentView.displayAll(students);
+        Integer record = studentView.getMenuOption();
+        Integer index = record - 1;
+        if (index >= students.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return students.get(index);
+    }
 }
