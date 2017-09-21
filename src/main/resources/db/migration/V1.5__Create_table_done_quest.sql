@@ -1,10 +1,10 @@
-CREATE TABLE IF NOT EXISTS `Done_quest` (
-	`Id`	TEXT NOT NULL,
-	`Quest_name`	TEXT,
-	`Owner_name`	TEXT,
-	`Date`	TEXT,
-	FOREIGN KEY(`Quest_name`) REFERENCES `quest`(`name`) ON DELETE SET NULL,
-	PRIMARY KEY(`Id`),
-	FOREIGN KEY(`Owner_name`) REFERENCES `student`(`name`) ON DELETE SET NULL
+CREATE TABLE IF NOT EXISTS `done_quest` (
+	`id`	TEXT NOT NULL,
+	`quest_name`	TEXT,
+	`owner_name`	TEXT,
+	`date`	TEXT,
+	FOREIGN KEY(`quest_name`) REFERENCES `quest`(`name`) ON DELETE SET NULL,
+	PRIMARY KEY(`id`),
+	FOREIGN KEY(`owner_name`) REFERENCES `student`(`name`) ON DELETE SET NULL
 );
 
