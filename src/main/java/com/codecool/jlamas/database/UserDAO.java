@@ -3,6 +3,7 @@ package com.codecool.jlamas.database;
 import java.sql.*;
 
 import com.codecool.jlamas.models.account.Admin;
+import com.codecool.jlamas.models.account.Mentor;
 
 public class UserDAO {
 
@@ -62,8 +63,8 @@ public class UserDAO {
                 String surname = rs.getString("surname");
                 String email = rs.getString("email");
                 // TODO: join with mentor class_tag
-                Mentor mentor = new Admin(login, name, surname, email);
-                return mentor;
+                // Mentor mentor = new Mentor(login, name, surname, email);
+                // return mentor;
             }
 
         } catch (ClassNotFoundException|SQLException e) {
