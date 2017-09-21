@@ -7,12 +7,14 @@ import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.controllers.AdminMenuController;
 import com.codecool.jlamas.database.LoginDAO;
+import com.codecool.jlamas.database.UserDAO;
 
 public class AppController {
 
     public static Codecooler login() {
 
         LoginDAO loginData = new LoginDAO();
+        UserDAO userData = new UserDAO();
         CodecoolerView view = new CodecoolerView();
 
         boolean isLogging = true;
@@ -21,7 +23,9 @@ public class AppController {
             String login = view.getString("Login");
             String password = view.getString("Password");
 
-            loginData.matchLogin(login, password);
+            if (loginData.matchLogin(login, password)) {
+                //userData.getUser(login);
+            }
 
             CodecoolerView.reportWrongLoginData();
             String tryAgain = view.getString("Y or anything else");
