@@ -36,7 +36,9 @@ public class MentorController {
     }
 
     public void editMentor() {
-        ;
+        Mentor mentor = chooseMentor();
+        // edit 
+        mentorDao.update(mentor);
     }
 
     public void removeMentor() {
