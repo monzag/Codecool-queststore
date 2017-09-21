@@ -39,10 +39,10 @@ public class AdminMenuController {
     }
 
     public void start() {
-        Integer option = adminView.getMenuOption();
-        while (!option.equals(EXIT)) {
+        boolean run = true;
+        while (run) {
             adminView.printMenu(OPTIONS);
-            option = adminView.getMenuOption();
+            Integer option = adminView.getMenuOption();
 
             switch(option) {
                 case DISPLAY_MENTORS: displayAllMentors();
@@ -58,7 +58,7 @@ public class AdminMenuController {
                 case EDIT_QUEST: editQuest();
                     break;
                 case EXIT:
-                    break;
+                    run = false;
             }
         }
     }
