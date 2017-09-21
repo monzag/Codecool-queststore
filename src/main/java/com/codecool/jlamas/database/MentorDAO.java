@@ -144,4 +144,37 @@ public class MentorDAO {
 
     }
 
+    public Mentor getMentor(String userLogin) {
+        String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'Mentor' AND login.login = %s;"
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
+            , "FROM user"
+            ,     "INNER JOIN login"
+            ,             "ON login.login = user.login"
+            ,     "INNER JOIN mentor"
+            ,             "ON mentor.login = user.login"
+            , userLogin;
+
+
+        Mentor mentor = new Mentor();
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(query);) {
+
+            mentor.setName(rs.getString("name"));
+            mentor.setSurname(rs.getString("surname"));
+            mentor.setLogin(new Login(rs.getString("login")));
+            mentor.setPassword(new Password(rs.getString("password")));
+            mentor.setEmail(new Mail(rs.getString("email")));
+            mentor.setClassTag(rs.getString("class_tag"));
+
+            mentors.add(mentor);
+
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return mentor;
+    }
+
 }
