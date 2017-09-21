@@ -22,4 +22,22 @@ public class LoginDAO {
         }
         return false;
     }
+
+    public String findLogin(String login) {
+
+        String query = "SELECT * FROM login WHERE login = '" + login + "';";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return login;
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }

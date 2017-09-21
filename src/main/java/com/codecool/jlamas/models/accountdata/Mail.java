@@ -24,10 +24,6 @@ public class Mail extends AccountData {
         boolean isUnique = isUnique(value);
 
 
-        if (isUnique && matcher.matches()){
-            return true;
-        } else {
-            return false;
-        }
+        return isUnique && matcher.matches();
     }
 }
