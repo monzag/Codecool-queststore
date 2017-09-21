@@ -1,21 +1,20 @@
 package com.codecool.jlamas.views;
 
 import java.util.Scanner;
-import java.util.ArrayList;
 
 
 public class MentorView extends CodecoolerView {
 
-    public static final ArrayList<String> MENU = {"Print class",
-                                                  "Print team",
-                                                  "Create team",
-                                                  "Add new Student",
-                                                  "Add new Quest",
-                                                  "Add new Artifat",
-                                                  "Edit existing Quest",
-                                                  "Edit existing Artifact",
-                                                  "Mark Quest as done",
-                                                  "Mark Artifact as done"};
+    public static final String[] MENU = {"Print class",
+                                         "Print team",
+                                         "Create team",
+                                         "Add new Student",
+                                         "Add new Quest",
+                                         "Add new Artifat",
+                                         "Edit existing Quest",
+                                         "Edit existing Artifact",
+                                         "Mark Quest as done",
+                                         "Mark Artifact as done"};
 
     private Scanner input;
 
@@ -27,8 +26,8 @@ public class MentorView extends CodecoolerView {
         String output;
 
         output = "\nMENU";
-        for (int i = 0; i < menu.length; i++) {
-            output += String.format("  %d) %s.\n", i+1, menu[i]);
+        for (int i = 0; i < MENU.length; i++) {
+            output += String.format("  %d) %s.\n", i+1, MENU[i]);
         }
         output += "  0) Exit.\n";
 
@@ -36,20 +35,19 @@ public class MentorView extends CodecoolerView {
     }
 
     public String getMenuOption() {
-        String option;
+        Integer option;
 
         this.printMenu();
         System.out.print("Choose option: ");
 
-        option = "";
         try {
             option = Integer.parseInt(this.input.nextLine());
-            option = MENU[option-1];
+            return MENU[option-1];
         } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
 
         }
 
-        return option;
+        return "";
     }
 
 
