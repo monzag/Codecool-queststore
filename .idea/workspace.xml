@@ -2,15 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/Main.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/Main.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/quest/Quest.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/quest/Quest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/QuestController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/QuestController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/QuestView.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/QuestView.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1.05__Create_table_quest.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.05__Create_table_quest.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/QuestView.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/QuestView.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.codecool.jlamas.AppTest.xml" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.codecool.jlamas.AppTest.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/surefire-reports/com.codecool.jlamas.AppTest.txt" afterPath="$PROJECT_DIR$/target/surefire-reports/com.codecool.jlamas.AppTest.txt" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -53,22 +54,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MentorDAO.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1334">
-              <caret line="9" column="13" lean-forward="false" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
-              <folding>
-                <element signature="e#767#775#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="CodecoolerView.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
+            <state relative-caret-position="1537">
               <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -79,21 +68,31 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="V1__Create_table_user.sql" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql">
+      <file leaf-file-name="MentorMenuController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="8" column="87" lean-forward="false" selection-start-line="8" selection-start-column="87" selection-end-line="8" selection-end-column="87" />
+            <state relative-caret-position="-114">
+              <caret line="44" column="19" lean-forward="false" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MentorMenuController.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
+      <file leaf-file-name="QuestView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/QuestView.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="292">
-              <caret line="44" column="19" lean-forward="false" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
+            <state relative-caret-position="319">
+              <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="QuestController.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="290">
+              <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
               <folding />
             </state>
           </provider>
@@ -192,6 +191,8 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.05__Create_table_quest.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/QuestView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java" />
       </list>
     </option>
   </component>
@@ -459,14 +460,7 @@
       <option name="presentableId" value="Default" />
       <updated>1505926327139</updated>
       <workItem from="1505926330995" duration="2161000" />
-      <workItem from="1505982402436" duration="36391000" />
-    </task>
-    <task id="LOCAL-00005" summary="Add resolveOption method to student controller">
-      <created>1505986552955</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1505986552955</updated>
+      <workItem from="1505982402436" duration="37036000" />
     </task>
     <task id="LOCAL-00006" summary="Add start() to student controller">
       <created>1505986585572</created>
@@ -804,11 +798,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506026811866</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="Fix double QuestController declaration">
+      <created>1506027340557</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1506027340557</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="38552000" />
+    <option name="totallyTimeSpent" value="39197000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="55" width="1920" height="1050" extended-state="6" />
@@ -852,7 +853,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create LoginDAO instance in AppController" />
     <MESSAGE value="Create class table in sql file" />
     <MESSAGE value="Move matchLogin() to LoginDAO" />
     <MESSAGE value="Add todo UserDAO.getUser()" />
@@ -877,7 +877,8 @@
     <MESSAGE value="Add system exit after quitting controller" />
     <MESSAGE value="Remove init() from menu controller" />
     <MESSAGE value="Change quest sql attrs to description and reward" />
-    <option name="LAST_COMMIT_MESSAGE" value="Change quest sql attrs to description and reward" />
+    <MESSAGE value="Fix double QuestController declaration" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix double QuestController declaration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1137,14 +1138,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
@@ -1213,18 +1206,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1828#1829#0" expanded="true" />
-            <element signature="e#1909#1910#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.05__Create_table_quest.sql">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="87">
@@ -1251,8 +1232,36 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
+        <state relative-caret-position="-114">
           <caret line="44" column="19" lean-forward="false" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1537">
+          <caret line="104" column="32" lean-forward="false" selection-start-line="104" selection-start-column="32" selection-end-line="104" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1828#1829#0" expanded="true" />
+            <element signature="e#1909#1910#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/QuestView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="22" column="25" lean-forward="false" selection-start-line="22" selection-start-column="25" selection-end-line="22" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
           <folding />
         </state>
       </provider>
