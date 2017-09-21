@@ -11,7 +11,6 @@ com/codecool/jlamas/models/accountdata/Wallet.class
 com/codecool/jlamas/models/account/Codecooler.class
 com/codecool/jlamas/controllers/MentorController.class
 com/codecool/jlamas/database/QuestDAO.class
-com/codecool/jlamas/database/AdminDAO.class
 com/codecool/jlamas/models/account/Admin.class
 com/codecool/jlamas/models/account/Student.class
 com/codecool/jlamas/views/MentorView.class

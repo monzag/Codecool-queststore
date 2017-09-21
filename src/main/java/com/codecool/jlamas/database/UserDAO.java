@@ -55,4 +55,22 @@ public class UserDAO {
         }
         return null;
     }
+
+    public String getMail(String mail) {
+
+        String query = "SELECT * FROM user WHERE email = '" + mail + "';";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                return mail;
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
