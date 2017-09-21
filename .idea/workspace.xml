@@ -2,18 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="">
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/database" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AdminMenuController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AdminMenuController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AppController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AppController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/MentorDAO.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/MentorDAO.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/database" afterPath="$PROJECT_DIR$/target/database" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1.01__Create_table_mentor.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.01__Create_table_mentor.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1.03__Create_table_login.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.03__Create_table_login.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1.06__Create_table_class.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.06__Create_table_class.sql" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/db/migration/V1__Create_table_user.sql" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1__Create_table_user.sql" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
@@ -106,12 +101,9 @@
       <file leaf-file-name="MentorMenuController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-29">
-              <caret line="37" column="38" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-              <folding>
-                <element signature="e#1483#1484#0" expanded="true" />
-                <element signature="e#1499#1500#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="87">
+              <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -119,8 +111,8 @@
       <file leaf-file-name="AdminMenuController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="406">
-              <caret line="39" column="18" lean-forward="true" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+            <state relative-caret-position="348">
+              <caret line="43" column="29" lean-forward="false" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
               <folding />
             </state>
           </provider>
@@ -139,8 +131,8 @@
       <file leaf-file-name="AppController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="263">
-              <caret line="49" column="56" lean-forward="false" selection-start-line="49" selection-start-column="56" selection-end-line="49" selection-end-column="56" />
+            <state relative-caret-position="437">
+              <caret line="34" column="31" lean-forward="false" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -190,15 +182,15 @@
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/ConnectDB.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java" />
-        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
       </list>
     </option>
   </component>
@@ -466,21 +458,7 @@
       <option name="presentableId" value="Default" />
       <updated>1505926327139</updated>
       <workItem from="1505926330995" duration="2161000" />
-      <workItem from="1505982402436" duration="34766000" />
-    </task>
-    <task id="LOCAL-00001" summary="Create student controller">
-      <created>1505985303812</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1505985303812</updated>
-    </task>
-    <task id="LOCAL-00002" summary="Create student view">
-      <created>1505985346884</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1505985346884</updated>
+      <workItem from="1505982402436" duration="35417000" />
     </task>
     <task id="LOCAL-00003" summary="Add constructor in student controller">
       <created>1505985853243</created>
@@ -811,11 +789,25 @@
       <option name="project" value="LOCAL" />
       <updated>1506024126533</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="Add logging as mentor">
+      <created>1506025717159</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1506025717160</updated>
+    </task>
+    <task id="LOCAL-00051" summary="Add system exit after quitting controller">
+      <created>1506025938971</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1506025938971</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36927000" />
+    <option name="totallyTimeSpent" value="37578000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="55" width="1920" height="1050" extended-state="6" />
@@ -859,8 +851,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create table classtag" />
-    <MESSAGE value="Create table team" />
     <MESSAGE value="Rename class and team to classtag and teamtag" />
     <MESSAGE value="Create LoginDAO" />
     <MESSAGE value="Create LoginDAO instance in AppController" />
@@ -884,7 +874,9 @@
     <MESSAGE value="Add arbitrary logins in login sql" />
     <MESSAGE value="Add arbitrary login in mentor sql" />
     <MESSAGE value="Add arbitrary mentor in user sql" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add arbitrary mentor in user sql" />
+    <MESSAGE value="Add logging as mentor" />
+    <MESSAGE value="Add system exit after quitting controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add system exit after quitting controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1220,16 +1212,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="263">
-          <caret line="49" column="56" lean-forward="false" selection-start-line="49" selection-start-column="56" selection-end-line="49" selection-end-column="56" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/MentorView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="377">
@@ -1250,22 +1232,29 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="34" column="31" lean-forward="false" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="406">
-          <caret line="39" column="18" lean-forward="true" selection-start-line="39" selection-start-column="18" selection-end-line="39" selection-end-column="18" />
+        <state relative-caret-position="348">
+          <caret line="43" column="29" lean-forward="false" selection-start-line="43" selection-start-column="29" selection-end-line="43" selection-end-column="29" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-29">
-          <caret line="37" column="38" lean-forward="false" selection-start-line="37" selection-start-column="38" selection-end-line="37" selection-end-column="38" />
-          <folding>
-            <element signature="e#1483#1484#0" expanded="true" />
-            <element signature="e#1499#1500#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="87">
+          <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>
