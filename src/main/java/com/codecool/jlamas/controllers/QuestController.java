@@ -2,6 +2,7 @@ package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
+import com.codecool.jlamas.views.QuestView;
 
 public class QuestController {
     private QuestDAO questDAO;
@@ -15,7 +16,13 @@ public class QuestController {
     }
 
     public void createQuest() {
-        this.questDAO.insertQuest("janusz", "kwasniewski", 10000);
+        QuestView view = new QuestView();
+        String name = view.getStrInput();
+        String description = view.getStrInput();
+        Integer reward = view.getIntInput();
+        Quest quest = new Quest(name, description, reward);
+
+        this.questDAO.insertQuest(quest);
 
     }
 
