@@ -30,13 +30,11 @@ public class AdminMenuController {
 
     private Admin admin;
     private AdminView adminView = new AdminView();;
-    private MentorDAO mentorData = new MentorDAO();
     private MentorController mentorController = new MentorController();
     ArrayList<Mentor> mentors;
 
     public AdminMenuController(Admin admin) {
         this.admin = admin;
-        this.mentors = mentorData.loadAll();
     }
 
     public void start() {
