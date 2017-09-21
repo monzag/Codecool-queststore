@@ -72,7 +72,7 @@ public class AdminMenuController {
     }
 
     public void editMentor() {
-        ;
+        mentorController.editMentor();
     }
 
     public void addClass() {
