@@ -36,10 +36,12 @@ public class AdminMenuController {
 
     public AdminMenuController(Admin admin) {
         this.admin = admin;
+        this.adminView = new AdminView();
+        this.mentorController = new MentorController();
     }
 
     public void start() {
-        Integer option = null;
+        Integer option = adminView.getMenuOption();
         while (!option.equals(EXIT)) {
             adminView.printMenu(OPTIONS);
             option = adminView.getMenuOption();

@@ -1,40 +1,63 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.views.CodecoolerView;
-import com.codecool.jlamas.models.account.Codecooler;
-import com.codecool.jlamas.models.account.Student;
+//import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.controllers.AdminMenuController;
-import com.codecool.jlamas.database.StudentDAO;
+import com.codecool.jlamas.controllers.MentorMenuController;
+import com.codecool.jlamas.database.LoginDAO;
+import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.database.MentorDAO;
-import com.codecool.jlamas.database.AdminDAO;
 
 public class AppController {
 
-    public static Codecooler login() {
+    LoginDAO loginData;
+    UserDAO userData;
+    CodecoolerView view;
 
-        LoginDAO loginData = new LoginDAO();
-        CodecoolerView view = new CodecoolerView();
+    public AppController() {
+        this.loginData = new LoginDAO();
+        this.userData = new UserDAO();
+        this.view = new CodecoolerView();
+    }
+
+    public void login() {
 
         boolean isLogging = true;
         while (isLogging) {
 
-            String login = CodecoolerView.getString("Login");
-            String password = CodecoolerView.getString("Password");
+            String login = this.view.getString("Login");
+            String password = this.view.getString("Password");
 
-            matchLogin(login, password);
+            if (loginData.matchLogin(login, password)) {
+                launchUserController(login);
+            }
 
-            CodecoolerView.reportWrongLoginData();
-            String tryAgain = CodecoolerView.getString("Y or anything else");
+            this.view.reportWrongLoginData();
+            String tryAgain = this.view.getString("Y or anything else");
             if (!tryAgain.equalsIgnoreCase("y")) {
                 isLogging = false;
             }
         }
-        return null;
     }
 
-    public boolean matchLogin(String login, String password) {
-        
+    public void launchUserController(String login) {
+
+        String userType = this.userData.getType(login);
+
+        if (userType.equals("admin")) {
+            Admin admin = this.userData.getAdmin(login);
+            AdminMenuController adminMenu = new AdminMenuController(admin);
+            adminMenu.start();
+        } else if (userType.equals("mentor")) {
+            MentorDAO mentorData = new MentorDAO();
+            Mentor mentor = mentorData.getMentor(login);
+            MentorMenuController mentorMenu = new MentorMenuController(mentor);
+            mentorMenu.start();
+        } else if (userType.equals("student")) {
+            // TODO
+        }
+
     }
 }

@@ -36,16 +36,17 @@ public class MentorMenuController {
 
     public MentorMenuController(Mentor user) {
         this.user = user;
+        this.view =  new MentorView();
     }
 
     public void init() {
-        this.view =  new MentorView();
+        ;
     }
 
     public void start() {
         Integer option;
 
-        option = null;
+        option = view.getMenuOption();
         while (!option.equals(EXIT)) {
             view.printMenu(MENU);
             option = view.getMenuOption();
