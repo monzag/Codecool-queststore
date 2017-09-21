@@ -11,9 +11,11 @@ public class CodecoolerView {
         this.input = new Scanner(System.in);
     }
 
-    public static String getString(String keyword) {
-        System.out.println("Provide " + keyword + ": ");
-        String userInput = System.console().readLine();
+    private String getString(String msg) {
+        String userInput;
+
+        System.out.println(msg);
+        userInput = input.nextLine();
 
         return userInput;
 
