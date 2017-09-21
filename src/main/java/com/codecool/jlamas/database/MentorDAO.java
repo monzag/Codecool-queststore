@@ -27,7 +27,7 @@ public class MentorDAO {
         ArrayList<Mentor> mentors = new ArrayList<Mentor>();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
-             ResultSet rs = stmt.executeQuery(quary);) {
+             ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
                 Mentor mentor = new Mentor();
@@ -53,7 +53,6 @@ public class MentorDAO {
     // true if was successful
     String query;
 
-
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
@@ -71,7 +70,7 @@ public class MentorDAO {
                     mentor.getLogin().getValue(),
                     mentor.getClassTag());
 
-            stmt.executeUpdate(sql);
+            stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
@@ -84,6 +83,36 @@ public class MentorDAO {
 
     public boolean update(Mentor mentor) {
     // true if was successful
+    String query;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+
+            query = String.format("UPDATE `user` SET('%s', '%s', '%s', '%s', 'Mentor') WHERE login = %s; ",
+                    mentor.getLogin().getValue(),
+                    mentor.getEmail().getValue(),
+                    mentor.getName(),
+                    mentor.getSurname(),
+                    mentor.getLogin().getValue());
+
+            query += String.format("UPDATE `login` SET('%s', '%s'); WHERE login = %s; ",
+                    mentor.getLogin().getValue(),
+                    mentor.getPassword().getValue(),
+                    mentor.getLogin().getValue());
+
+            query += String.format("UPDATE `mentor` VALUES('%s', '%s') WHERE login = %s; ",
+                    mentor.getLogin().getValue(),
+                    mentor.getClassTag(),
+                    mentor.getLogin().getValue());
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+
+            return false;
+        }
+        return true;
 
     }
 
