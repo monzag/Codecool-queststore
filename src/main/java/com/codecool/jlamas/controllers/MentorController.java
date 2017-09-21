@@ -40,14 +40,13 @@ public class MentorController {
     }
 
     public void removeMentor() {
-        
         try {
             Mentor mentor = chooseMentor();
+            mentorDao.delete(mentor);
 
         } catch (IndexOutOfBoundsException e) {
 
         }
-        // MentorDAO - remove record
     }
 
     public Mentor chooseMentor() throws IndexOutOfBoundsException {
