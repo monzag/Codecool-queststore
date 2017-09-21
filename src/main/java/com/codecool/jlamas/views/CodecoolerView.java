@@ -16,7 +16,7 @@ public class CodecoolerView {
         this.input = new Scanner(System.in);
     }
 
-    private String getString(String msg) {
+    public String getString(String msg) {
         String userInput;
 
         System.out.print("\n" + msg + ": ");
@@ -67,7 +67,7 @@ public class CodecoolerView {
         return name.matches("[A-Z][a-z]{2,17}");
     }
 
-    public static void reportWrongLoginData() {
+    public void reportWrongLoginData() {
         System.out.println("Wrong login data. Do you want to try again?");
     }
 
