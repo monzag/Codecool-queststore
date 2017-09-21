@@ -6,9 +6,7 @@ import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.controllers.AdminMenuController;
-import com.codecool.jlamas.database.StudentDAO;
-import com.codecool.jlamas.database.MentorDAO;
-import com.codecool.jlamas.database.AdminDAO;
+import com.codecool.jlamas.database.LoginDAO;
 
 public class AppController {
 
@@ -20,13 +18,13 @@ public class AppController {
         boolean isLogging = true;
         while (isLogging) {
 
-            String login = CodecoolerView.getString("Login");
-            String password = CodecoolerView.getString("Password");
+            String login = view.getString("Login");
+            String password = view.getString("Password");
 
-            matchLogin(login, password);
+            loginData.matchLogin(login, password);
 
             CodecoolerView.reportWrongLoginData();
-            String tryAgain = CodecoolerView.getString("Y or anything else");
+            String tryAgain = view.getString("Y or anything else");
             if (!tryAgain.equalsIgnoreCase("y")) {
                 isLogging = false;
             }
@@ -34,7 +32,4 @@ public class AppController {
         return null;
     }
 
-    public boolean matchLogin(String login, String password) {
-        
-    }
 }

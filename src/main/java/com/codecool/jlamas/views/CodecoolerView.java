@@ -16,7 +16,7 @@ public class CodecoolerView {
         this.input = new Scanner(System.in);
     }
 
-    private String getString(String msg) {
+    public String getString(String msg) {
         String userInput;
 
         System.out.print("\n" + msg + ": ");
@@ -46,7 +46,7 @@ public class CodecoolerView {
 
         surname = getString(msg);
 
-        if (!this.inName(surname)) {
+        if (!this.isName(surname)) {
             throw new InvalidUserDataException(err);
         }
         return surname;
