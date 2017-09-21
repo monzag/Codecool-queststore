@@ -24,6 +24,10 @@ public class QuestView {
         Integer intInput;
 
         System.out.print("\n" + msg + ": ");
+        while (! input.hasNextInt()) {
+            System.out.println("This is not a number!");
+            input.next();
+        }
         intInput = input.nextInt();
 
         return intInput;
