@@ -15,5 +15,15 @@ public class MentorController {
         this.view =  new MentorView();
     }
 
+    public void start() {
+        String option;
+
+        option = "";
+        while (option.equals("Exit")) {
+            view.printMenu();
+            option = view.getMenuOption();
+        }
+    }
+
 
 }
