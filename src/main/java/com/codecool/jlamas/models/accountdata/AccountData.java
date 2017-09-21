@@ -31,12 +31,11 @@ public abstract class AccountData {
 
         if (adminData.load(value) != null){
             return false;
+        // }else if (mentorData.load(value) != null){
+        //     return false;
 
-        }else if (mentorData.load(value) != null){
-            return false;
-
-        }else if (studentData.load(value) != null){
-            return false;
+        // }else if (studentData.load(value) != null){
+        //     return false;
 
         } else {
             return true;

@@ -1,7 +1,9 @@
 package com.codecool.jlamas.views;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
