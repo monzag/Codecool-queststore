@@ -2,6 +2,7 @@ package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
 
+import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Login;
@@ -13,6 +14,7 @@ import com.codecool.jlamas.views.StudentView;
 public class StudentController {
 
     private StudentView studentView = new StudentView();
+    private StudentDAO studentDao = new StudentDAO();
 
     public StudentController() {
 
