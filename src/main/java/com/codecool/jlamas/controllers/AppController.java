@@ -14,12 +14,9 @@ public class AppController {
 
     public static Codecooler login() {
 
-        StudentDAO studentData = new StudentDAO();
-        MentorDAO mentorData = new MentorDAO();
-        AdminDAO adminData = new AdminDAO();
+        LoginDAO loginData = new LoginDAO();
 
         boolean isLogging = true;
-
         while (isLogging) {
 
             String login = CodecoolerView.getString("login");
