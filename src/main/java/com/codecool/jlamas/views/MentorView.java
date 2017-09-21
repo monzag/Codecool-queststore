@@ -6,7 +6,7 @@ import java.util.ArrayList;
 
 public class MentorView extends CodecoolerView {
 
-    public static final ArrayList<String> menu = {};
+    public static final ArrayList<String> MENU = {};
 
     private Scanner input;
 
@@ -24,6 +24,22 @@ public class MentorView extends CodecoolerView {
         output += "  0) Exit.\n";
 
         System.out.println(output);
+    }
+
+    public String getMenuOption() {
+        String option;
+
+        System.out.print("Choose option: ");
+
+        option = "";
+        try {
+            option = Integer.parseInt(this.input.nextLine());
+            option = MENU[option-1];
+        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+
+        }
+
+        return option;
     }
 
 
