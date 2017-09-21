@@ -66,6 +66,7 @@ public class MentorMenuController {
                 break;
             case ADD_QUEST :
                 QuestController questControll = new QuestController();
+                
                 questControll.createQuest();
                 break;
             case ADD_ARTIFACT :
@@ -73,6 +74,7 @@ public class MentorMenuController {
                 break;
             case SHOW_QUEST :
                 QuestController questControll = new QuestController();
+
                 questControll.showAllQuests();
                 break;
             case EDIT_ARTIFACT :
