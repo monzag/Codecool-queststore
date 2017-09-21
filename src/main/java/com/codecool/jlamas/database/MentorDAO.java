@@ -56,7 +56,7 @@ public class MentorDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
-            query = String.format("INSERT INTO `user` VALUES('%s', '%s', '%s', '%s', 'Mentor'); ",
+            query = String.format("INSERT INTO `user` VALUES('%s', '%s', '%s', '%s', 'mentor'); ",
                     mentor.getLogin().getValue(),
                     mentor.getEmail().getValue(),
                     mentor.getName(),
@@ -88,7 +88,7 @@ public class MentorDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
-            query = String.format("UPDATE `user` SET('%s', '%s', '%s', '%s', 'Mentor') WHERE login = %s; ",
+            query = String.format("UPDATE `user` SET('%s', '%s', '%s', '%s', 'mentor') WHERE login = %s; ",
                     mentor.getLogin().getValue(),
                     mentor.getEmail().getValue(),
                     mentor.getName(),
@@ -145,7 +145,7 @@ public class MentorDAO {
     }
 
     public Mentor getMentor(String userLogin) {
-        String query = String.format("%s %s %s %s %s %s WHERE user.type = 'Mentor' AND login.login = '%s';"
+        String query = String.format("%s %s %s %s %s %s WHERE user.type = 'mentor' AND login.login = '%s';"
             , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
             , "FROM user"
             ,     "INNER JOIN login"
