@@ -1,0 +1,1333 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/App.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/Main.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AdminMenuController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AppController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/QuestController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/StudentController.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/AdminDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/ArtifactDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/ConnectDB.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/LoginDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/MentorDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/QuestDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/StudentDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/UserDAO.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/exceptions/InvalidUserDataException.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/account/Admin.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/account/Codecooler.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/account/Mentor.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/account/Student.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/AccountData.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Login.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Mail.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Password.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Wallet.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/quest/Quest.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/AdminView.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/CodecoolerView.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/MentorView.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/QuestView.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/StudentView.class" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/compiler.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__junit_junit_3_8_1.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/Maven__org_xerial_sqlite_jdbc_3_20_0.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/queststore-system-ci_co_beda_z_monia.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.01__Create_table_mentor.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.02__Create_table_student.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.03__Create_table_login.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.04__Create_table_artifact.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.05__Create_table_quest.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.06__Create_table_class.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1.07__Create_table_team.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/classes/db/migration/V1__Create_table_user.sql" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/surefire-reports/TEST-com.codecool.jlamas.AppTest.xml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/target/surefire-reports/com.codecool.jlamas.AppTest.txt" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/.gitignore" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/README.md" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/backlog/UMLv1.5 (1).xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/backlog/UMLv1.5.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/backlog/VeryFineUML.jpg" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/backlog/VeryFineUML.xml" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/accounts/login.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/admins/admin.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/artifacts/artifact.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/mentors/mateusz.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/mentors/mentor.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/quests/quest.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/students/student.txt" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/sources.txt" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/database" afterPath="$PROJECT_DIR$/target/database" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/test-classes/com/codecool/jlamas/AppTest.class" afterPath="$PROJECT_DIR$/target/test-classes/com/codecool/jlamas/AppTest.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql" afterPath="$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql" />
+    </list>
+    <ignored path="$PROJECT_DIR$/target/" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_TABLE_DETAILS" value="true" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <expand />
+    <select />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="AdminMenuController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="41" column="50" lean-forward="false" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+              <folding>
+                <element signature="e#1461#1462#0" expanded="true" />
+                <element signature="e#1495#1496#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MentorController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="174">
+              <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MentorDAO.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="718">
+              <caret line="147" column="56" lean-forward="false" selection-start-line="147" selection-start-column="56" selection-end-line="147" selection-end-column="56" />
+              <folding>
+                <element signature="e#767#775#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="V1.03__Create_table_login.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="58">
+              <caret line="2" column="27" lean-forward="false" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CodecoolerView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1302">
+              <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
+              <folding>
+                <element signature="imports" expanded="true" />
+                <element signature="e#1828#1829#0" expanded="true" />
+                <element signature="e#1909#1910#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="V1.06__Create_table_class.sql" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="87">
+              <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="V1__Create_table_user.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="203">
+              <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="82" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="V1.01__Create_table_mentor.sql" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="116">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MentorView.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/MentorView.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="377">
+              <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="MentorMenuController.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="986">
+              <caret line="46" column="18" lean-forward="false" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
+  <component name="FindInProjectRecents">
+    <findStrings>
+      <find>admin</find>
+    </findStrings>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/DAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/StudentDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/StudentController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/StudentView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/AbstractDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.2__Create_table_admin.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_users.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.1__Create_table_artifact.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_mentor.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.3__Create_table_student.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.5__Create_table_done_quest.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.6__Create_table_wallet.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.07__Create_table_team" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.02__Create_table_student.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/QuestDAO.java" />
+        <option value="$PROJECT_DIR$/pom.xml" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.05__Create_table_quest.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/ConnectDB.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
+        <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql" />
+      </list>
+    </option>
+  </component>
+  <component name="ProjectFrameBounds" extendedState="6">
+    <option name="x" value="260" />
+    <option name="y" value="55" />
+    <option name="width" value="1400" />
+    <option name="height" value="1000" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="ProjectPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="backlog" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="controllers" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="database" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="exceptions" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="account" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="accountdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+              <item name="views" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
+              <item name="migration" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="java" type="462c0819:PsiDirectoryNode" />
+              <item name="jlamas" type="462c0819:PsiDirectoryNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
+      <pane id="Scratches" />
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+    <property name="com.intellij.database.dataSource.DataSourceTemplate" value="Sqlite (Xerial)" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <module />
+    </configuration>
+    <configuration default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="" />
+      <envs />
+    </configuration>
+    <configuration default="true" type="JUnit" factoryName="JUnit">
+      <module name="" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="PACKAGE_NAME" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="METHOD_NAME" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="singleModule" />
+      </option>
+      <envs />
+      <patterns />
+    </configuration>
+    <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
+      <module name="" />
+      <option name="VM_PARAMETERS" value="-Xmx512m -Xms256m -XX:MaxPermSize=250m -ea" />
+      <option name="PROGRAM_PARAMETERS" />
+      <predefined_log_file id="idea.log" enabled="true" />
+    </configuration>
+    <configuration default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration name="&lt;template&gt;" type="TestNG" default="true" selected="false">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" value="-ea" />
+      <option name="PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
+    </configuration>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="" />
+      <created>1505926327139</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1505926327139</updated>
+      <workItem from="1505926330995" duration="2161000" />
+      <workItem from="1505982402436" duration="33059000" />
+    </task>
+    <task id="LOCAL-00001" summary="Create student controller">
+      <created>1505985303812</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1505985303812</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Create student view">
+      <created>1505985346884</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1505985346884</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Add constructor in student controller">
+      <created>1505985853243</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1505985853243</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Add resolveOption method to student controller">
+      <created>1505986420121</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1505986420121</updated>
+    </task>
+    <task id="LOCAL-00005" summary="Add resolveOption method to student controller">
+      <created>1505986552955</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1505986552955</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Add start() to student controller">
+      <created>1505986585572</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1505986585572</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Add menu options to StudentView">
+      <created>1505986796674</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1505986796674</updated>
+    </task>
+    <task id="LOCAL-00008" summary="Add constructor to StudentView">
+      <created>1505986931366</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1505986931366</updated>
+    </task>
+    <task id="LOCAL-00009" summary="Fix typo in constructor in StudentView">
+      <created>1505992488132</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1505992488132</updated>
+    </task>
+    <task id="LOCAL-00010" summary="Change final attrs to string array in StudentView">
+      <created>1505992561324</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1505992561325</updated>
+    </task>
+    <task id="LOCAL-00011" summary="Change AbstractDAO class to ConnectDB class">
+      <created>1505996881664</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1505996881664</updated>
+    </task>
+    <task id="LOCAL-00012" summary="Remove old txt database">
+      <created>1506002166915</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1506002166915</updated>
+    </task>
+    <task id="LOCAL-00013" summary="Remove .db in ConnectDB filepath">
+      <created>1506002209996</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1506002209996</updated>
+    </task>
+    <task id="LOCAL-00014" summary="Change table admin to table users">
+      <created>1506002442433</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1506002442433</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Change users to user">
+      <created>1506002496157</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1506002496157</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Change create artifact table to v1.2">
+      <created>1506002586741</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1506002586741</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Remove unnecessary attrs from mentors">
+      <created>1506003151559</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003151559</updated>
+    </task>
+    <task id="LOCAL-00018" summary="Rename create table to user">
+      <created>1506003176964</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003176964</updated>
+    </task>
+    <task id="LOCAL-00019" summary="Add balance and coolcoins to create table student">
+      <created>1506003399476</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003399477</updated>
+    </task>
+    <task id="LOCAL-00020" summary="Renamed columns to lowercase in done quests">
+      <created>1506003558234</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003558234</updated>
+    </task>
+    <task id="LOCAL-00021" summary="Remove inserts in students table">
+      <created>1506003724935</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003724935</updated>
+    </task>
+    <task id="LOCAL-00022" summary="Add create table login to db">
+      <created>1506003753425</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003753425</updated>
+    </task>
+    <task id="LOCAL-00023" summary="Remove wallet table from db">
+      <created>1506003815265</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003815265</updated>
+    </task>
+    <task id="LOCAL-00024" summary="Add type to users table">
+      <created>1506003861983</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1506003861983</updated>
+    </task>
+    <task id="LOCAL-00025" summary="Rename version numbers">
+      <created>1506004463601</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1506004463601</updated>
+    </task>
+    <task id="LOCAL-00026" summary="Create table classtag">
+      <created>1506005745114</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1506005745114</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Create table team">
+      <created>1506005833820</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1506005833820</updated>
+    </task>
+    <task id="LOCAL-00028" summary="Rename class and team to classtag and teamtag">
+      <created>1506005952919</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1506005952919</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Create LoginDAO">
+      <created>1506006318747</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1506006318747</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Create LoginDAO instance in AppController">
+      <created>1506006684829</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1506006684829</updated>
+    </task>
+    <task id="LOCAL-00031" summary="Create class table in sql file">
+      <created>1506009444491</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1506009444491</updated>
+    </task>
+    <task id="LOCAL-00032" summary="Move matchLogin() to LoginDAO">
+      <created>1506011831680</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1506011831680</updated>
+    </task>
+    <task id="LOCAL-00033" summary="Add todo UserDAO.getUser()">
+      <created>1506013504748</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1506013504748</updated>
+    </task>
+    <task id="LOCAL-00034" summary="Change static to instance call in view">
+      <created>1506014191201</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1506014191201</updated>
+    </task>
+    <task id="LOCAL-00035" summary="Change static to instance method report wrong login data">
+      <created>1506014236147</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1506014236147</updated>
+    </task>
+    <task id="LOCAL-00036" summary="Add getType() to UserDAO">
+      <created>1506015178985</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1506015178985</updated>
+    </task>
+    <task id="LOCAL-00037" summary="Add admin to launchController() in AppController">
+      <created>1506015469283</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1506015469283</updated>
+    </task>
+    <task id="LOCAL-00038" summary="Add getAdmin() to UserDAO">
+      <created>1506016044525</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1506016044525</updated>
+    </task>
+    <task id="LOCAL-00039" summary="Add getMentor() to AppController">
+      <created>1506016206709</created>
+      <option name="number" value="00039" />
+      <option name="presentableId" value="LOCAL-00039" />
+      <option name="project" value="LOCAL" />
+      <updated>1506016206709</updated>
+    </task>
+    <task id="LOCAL-00040" summary="Add getMentor() to UserDAO">
+      <created>1506016300110</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1506016300110</updated>
+    </task>
+    <task id="LOCAL-00041" summary="Commented testing features in UserDAO">
+      <created>1506016390678</created>
+      <option name="number" value="00041" />
+      <option name="presentableId" value="LOCAL-00041" />
+      <option name="project" value="LOCAL" />
+      <updated>1506016390678</updated>
+    </task>
+    <task id="LOCAL-00042" summary="Add creating instances of account data in getAdmin()">
+      <created>1506017764750</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1506017764750</updated>
+    </task>
+    <task id="LOCAL-00043" summary="Add logging as mentor to AppController">
+      <created>1506019124991</created>
+      <option name="number" value="00043" />
+      <option name="presentableId" value="LOCAL-00043" />
+      <option name="project" value="LOCAL" />
+      <updated>1506019124991</updated>
+    </task>
+    <task id="LOCAL-00044" summary="Remove getMentor from UserDAO">
+      <created>1506020496755</created>
+      <option name="number" value="00044" />
+      <option name="presentableId" value="LOCAL-00044" />
+      <option name="project" value="LOCAL" />
+      <updated>1506020496755</updated>
+    </task>
+    <task id="LOCAL-00045" summary="Fix wrong login queries">
+      <created>1506021537154</created>
+      <option name="number" value="00045" />
+      <option name="presentableId" value="LOCAL-00045" />
+      <option name="project" value="LOCAL" />
+      <updated>1506021537154</updated>
+    </task>
+    <option name="localTasksCounter" value="46" />
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="35220000" />
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="260" y="55" width="1920" height="1050" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18333334" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection Results" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32908705" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.History.Properties">
+    <option name="COLUMN_ORDER">
+      <list>
+        <option value="0" />
+        <option value="2" />
+        <option value="3" />
+        <option value="1" />
+      </list>
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="Add create table login to db" />
+    <MESSAGE value="Remove wallet table from db" />
+    <MESSAGE value="Add type to users table" />
+    <MESSAGE value="Rename version numbers" />
+    <MESSAGE value="Create table classtag" />
+    <MESSAGE value="Create table team" />
+    <MESSAGE value="Rename class and team to classtag and teamtag" />
+    <MESSAGE value="Create LoginDAO" />
+    <MESSAGE value="Create LoginDAO instance in AppController" />
+    <MESSAGE value="Create class table in sql file" />
+    <MESSAGE value="Move matchLogin() to LoginDAO" />
+    <MESSAGE value="Add todo UserDAO.getUser()" />
+    <MESSAGE value="Change static to instance call in view" />
+    <MESSAGE value="Change static to instance method report wrong login data" />
+    <MESSAGE value="Add getType() to UserDAO" />
+    <MESSAGE value="Add admin to launchController() in AppController" />
+    <MESSAGE value="Add getAdmin() to UserDAO" />
+    <MESSAGE value="Add getMentor() to AppController" />
+    <MESSAGE value="Add getMentor() to UserDAO" />
+    <MESSAGE value="Commented testing features in UserDAO" />
+    <MESSAGE value="Add mocked password in UserDAO getAdmin()" />
+    <MESSAGE value="Add creating instances of account data in getAdmin()" />
+    <MESSAGE value="Add logging as mentor to AppController" />
+    <MESSAGE value="Remove getMentor from UserDAO" />
+    <MESSAGE value="Fix wrong login queries" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix wrong login queries" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager />
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="12" column="9" lean-forward="true" selection-start-line="12" selection-start-column="9" selection-end-line="12" selection-end-column="9" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/backlog/UMLv1.5.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/StudentController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="22" column="20" lean-forward="false" selection-start-line="22" selection-start-column="20" selection-end-line="22" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/StudentView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="7" column="33" lean-forward="false" selection-start-line="7" selection-start-column="33" selection-end-line="7" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/AbstractDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="4" column="22" lean-forward="false" selection-start-line="4" selection-start-column="22" selection-end-line="4" selection-end-column="22" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/backlog/ERD.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.6__Create_table_wallet.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="1" column="10" lean-forward="true" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.5__Create_table_done_quest.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/StudentDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="16" column="37" lean-forward="false" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <marker date="1506018761075" expanded="true" signature="433:440" ph="{}" />
+            <marker date="1506018761075" expanded="true" signature="480:2794" ph="{...}" />
+            <marker date="1506018761075" expanded="true" signature="2836:3172" ph="{...}" />
+            <marker date="1506018761075" expanded="true" signature="3212:3967" ph="{...}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/backlog/VeryFineUML.jpg">
+      <provider selected="true" editor-type-id="images">
+        <state />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="2" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.07__Create_table_team">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="1" column="44" lean-forward="true" selection-start-line="1" selection-start-column="44" selection-end-line="1" selection-end-column="44" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/pom.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="696">
+          <caret line="24" column="33" lean-forward="false" selection-start-line="24" selection-start-column="33" selection-end-line="24" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/AdminDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1825">
+          <caret line="12" column="13" lean-forward="false" selection-start-line="12" selection-start-column="13" selection-end-line="12" selection-end-column="13" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/account/Codecooler.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/account/Mentor.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="7" column="13" lean-forward="false" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding>
+            <marker date="1506016532316" expanded="false" signature="957:963" ph=" }" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/QuestDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="162">
+          <caret line="11" column="42" lean-forward="true" selection-start-line="11" selection-start-column="42" selection-end-line="11" selection-end-column="42" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#844#851#0" expanded="true" />
+            <marker date="1506016532316" expanded="true" signature="255:316" ph="INSERT INTO quest... " />
+            <marker date="1506016532316" expanded="true" signature="877:920" ph="SELECT name,... quest" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Password.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/account/Admin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="14" column="53" lean-forward="true" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Login.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-29">
+          <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/App.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="29">
+          <caret line="1" column="13" lean-forward="false" selection-start-line="1" selection-start-column="13" selection-end-line="1" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="321">
+          <caret line="12" column="21" lean-forward="false" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.07__Create_table_team.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.05__Create_table_quest.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="3" column="18" lean-forward="false" selection-start-line="3" selection-start-column="18" selection-end-line="3" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.04__Create_table_artifact.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="9" column="8" lean-forward="false" selection-start-line="9" selection-start-column="8" selection-end-line="9" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.02__Create_table_student.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="145">
+          <caret line="5" column="31" lean-forward="true" selection-start-line="5" selection-start-column="31" selection-end-line="5" selection-end-column="31" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="9" column="60" lean-forward="true" selection-start-line="9" selection-start-column="60" selection-end-line="9" selection-end-column="60" />
+          <folding>
+            <marker date="1506021525668" expanded="true" signature="172:205" ph="SELECT * FRO... login" />
+            <marker date="1506021525668" expanded="true" signature="172:206" ph="SELECT * FRO... login" />
+            <marker date="1506021525668" expanded="true" signature="172:207" ph="SELECT * FRO... login" />
+            <marker date="1506021525668" expanded="true" signature="172:257" ph="SELECT * FRO... login" />
+            <marker date="1506021525668" expanded="true" signature="172:258" ph="SELECT * FRO... login" />
+            <marker date="1506021525668" expanded="true" signature="172:276" ph="SELECT * FRO... login" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/ConnectDB.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="290">
+          <caret line="10" column="14" lean-forward="true" selection-start-line="10" selection-start-column="14" selection-end-line="10" selection-end-column="14" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="263">
+          <caret line="49" column="56" lean-forward="false" selection-start-line="49" selection-start-column="56" selection-end-line="49" selection-end-column="56" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-667">
+          <caret line="16" column="75" lean-forward="false" selection-start-line="16" selection-start-column="75" selection-end-line="16" selection-end-column="75" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <marker date="1506021525676" expanded="true" signature="436:472" ph="SELECT type user" />
+            <marker date="1506021525676" expanded="true" signature="436:487" ph="SELECT type user" />
+            <marker date="1506021525676" expanded="true" signature="991:1024" ph="SELECT * FRO... user" />
+            <marker date="1506021525676" expanded="true" signature="991:1039" ph="SELECT * FRO... user" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="6" column="13" lean-forward="false" selection-start-line="6" selection-start-column="13" selection-end-line="6" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/MentorView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="18" column="0" lean-forward="false" selection-start-line="18" selection-start-column="0" selection-end-line="18" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="174">
+          <caret line="23" column="32" lean-forward="false" selection-start-line="23" selection-start-column="32" selection-end-line="23" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="377">
+          <caret line="41" column="50" lean-forward="false" selection-start-line="41" selection-start-column="50" selection-end-line="41" selection-end-column="50" />
+          <folding>
+            <element signature="e#1461#1462#0" expanded="true" />
+            <element signature="e#1495#1496#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="58">
+          <caret line="2" column="27" lean-forward="false" selection-start-line="2" selection-start-column="27" selection-end-line="2" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/MentorDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="718">
+          <caret line="147" column="56" lean-forward="false" selection-start-line="147" selection-start-column="56" selection-end-line="147" selection-end-column="56" />
+          <folding>
+            <element signature="e#767#775#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="986">
+          <caret line="46" column="18" lean-forward="false" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.01__Create_table_mentor.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="116">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1302">
+          <caret line="53" column="23" lean-forward="false" selection-start-line="53" selection-start-column="23" selection-end-line="53" selection-end-column="23" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1828#1829#0" expanded="true" />
+            <element signature="e#1909#1910#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_user.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="203">
+          <caret line="7" column="0" lean-forward="false" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="82" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="87">
+          <caret line="3" column="38" lean-forward="true" selection-start-line="3" selection-start-column="38" selection-end-line="3" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+  </component>
+  <component name="masterDetails">
+    <states>
+      <state key="ProjectJDKs.UI">
+        <settings>
+          <last-edited>1.8</last-edited>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+      <state key="ScopeChooserConfigurable.UI">
+        <settings>
+          <splitter-proportions>
+            <option name="proportions">
+              <list>
+                <option value="0.2" />
+              </list>
+            </option>
+          </splitter-proportions>
+        </settings>
+      </state>
+    </states>
+  </component>
+</project>
