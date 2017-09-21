@@ -46,7 +46,7 @@ public class CodecoolerView {
 
         surname = getString(msg);
 
-        if (!this.inName(surname)) {
+        if (!this.isName(surname)) {
             throw new InvalidUserDataException(err);
         }
         return surname;
