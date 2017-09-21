@@ -1,29 +1,45 @@
 package com.codecool.jlamas.database;
 
-import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
+import java.sql.SQLException;
 
 public class QuestDAO extends AbstractDAO {
     public QuestDAO() {
 
     }
 
-    public boolean insertQuest(String name, String description, Integer reward) {
-        try {
-            PreparedStatement prepStmt = conn.prepareStatement(
-                    "INSERT INTO quest(name, description, reward) VALUES (?, ?, ?);");
+    public void insertQuest(String name, String description, Integer reward) {
+        String sql = "INSERT INTO quest(name, description, reward) VALUES (?, ?, ?);";
+
+        try (Connection conn = this.connect();
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
             prepStmt.setString(1, name);
             prepStmt.setString(2, description);
-            prepStmt.setInteger(3, reward);
+            prepStmt.setInt(3, reward);
             prepStmt.executeUpdate();
+
         } catch (SQLException e) {
             System.out.println("Error");
-            return false;
         }
-        return true;
+    }
+
+    public void update(int id, String name, String description, Integer reward) {
+        String sql = "UPDATE quest SET name = ? , "
+                + "description = ? "
+                + "reward = ? "
+                + "WHERE id = ?";
+
+        try (Connection connection = this.connect();
+                PreparedStatement pstmt = connection.prepareStatement(sql)) {
+
+            pstmt.setString(1, name);
+            pstmt.setString(2, description);
+            pstmt.setInt(3, reward);
+            pstmt.setInt(4, id);
+
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println("Error");
+        }
     }
 }
