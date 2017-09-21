@@ -3,7 +3,7 @@ package com.codecool.jlamas.exceptions;
 
 public class InvalidUserDataException extends Exception {
 
-    public class InvalidUserDataException(String message) {
+    public InvalidUserDataException(String message) {
         super(message);
     }
 
