@@ -32,11 +32,35 @@ public class MentorController {
     // adding new option should add also to view MENU
 
         switch (option) {
-            case "" :
+            case "Print class" :
                 // TODO
                 break;
-            case "" :
+            case "Print team" :
                 // TODO
+            case "Create team" :
+                // TODO
+                break;
+            case "Add new Student" :
+                // TODO
+                break;
+            case "Add new Quest" :
+                // TODO
+                break;
+            case "Add new Artifat" :
+                // TODO
+                break;
+            case "Edit existing Quest" :
+                // TODO
+                break;
+            case "Edit existing Artifact" :
+                // TODO
+                break;
+            case "Mark Quest as done" :
+                // TODO
+                break;
+            case "Mark Artifact as done" :
+                // TODO
+                break;
         }
 
     }
