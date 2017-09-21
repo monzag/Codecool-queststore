@@ -55,27 +55,4 @@ public class UserDAO {
         }
         return null;
     }
-
-    public Mentor getMentor(String login) {
-
-        String query = "SELECT * FROM user WHERE user.login = " + login + ";";
-
-        try (Connection c = ConnectDB.connect();
-             Statement stmt = c.createStatement()) {
-
-            ResultSet rs = stmt.executeQuery(query);
-            if (rs.next()) {
-                String name = rs.getString("name");
-                String surname = rs.getString("surname");
-                String email = rs.getString("email");
-                // TODO: join with mentor class_tag
-                // Mentor mentor = new Mentor(login, name, surname, email);
-                // return mentor;
-            }
-
-        } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return null;
-    }
 }
