@@ -34,8 +34,8 @@ public abstract class AccountData {
         // }else if (mentorData.load(value) != null){
         //     return false;
 
-        }else if (studentData.load(value) != null){
-            return false;
+        // }else if (studentData.load(value) != null){
+        //     return false;
 
         } else {
             return true;
