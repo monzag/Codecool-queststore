@@ -6,4 +6,15 @@ public class Quest {
     private Integer reward;
     private boolean isDone;
 
+    public Quest(){
+
+    }
+
+    public Quest(String name, String description, Integer reward) {
+        this.name = name;
+        this.description = description;
+        this.reward = reward;
+        this.boolean = false;
+    }
+
 }
