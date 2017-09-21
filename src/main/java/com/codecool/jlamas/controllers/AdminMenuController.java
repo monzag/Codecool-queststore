@@ -84,6 +84,9 @@ public class AdminMenuController {
     }
 
     public void editQuest() {
-        ;
+        QuestController questController = new QuestController();
+        questController.showAllQuests();
+        // user choice -> quest
+        questController.editQuest(quest);
     }
 }
