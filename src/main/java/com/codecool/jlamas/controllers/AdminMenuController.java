@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
