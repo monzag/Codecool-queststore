@@ -1,54 +1,44 @@
 package com.codecool.jlamas.views;
 
-import java.util.Scanner;
+import java.util.ArrayList;
+
+import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.models.account.Mentor;
 
 
 public class MentorView extends CodecoolerView {
 
-    public static final String[] MENU = {"Print class",
-                                         "Print team",
-                                         "Create team",
-                                         "Add new Student",
-                                         "Add new Quest",
-                                         "Add new Artifat",
-                                         "Edit existing Quest",
-                                         "Edit existing Artifact",
-                                         "Mark Quest as done",
-                                         "Mark Artifact as done"};
-
-    private Scanner input;
-
     public MentorView() {
-        this.input = new Scanner(System.in);
+        super();
     }
 
-    private void printMenu() {
-        String output;
+    public String getAttribute() {
+        String attribute = null;
+        String[] attributes = {"name", 
+                               "surname",
+                               "email",
+                               "password"};
+        printMenu(attributes);
 
-        output = "\nMENU";
-        for (int i = 0; i < MENU.length; i++) {
-            output += String.format("  %d) %s.\n", i+1, MENU[i]);
-        }
-        output += "  0) Exit.\n";
-
-        System.out.println(output);
-    }
-
-    public String getMenuOption() {
-        Integer option;
-
-        this.printMenu();
-        System.out.print("Choose option: ");
-
+        // Demo:
+        System.out.println("\nYour choice: 1");
         try {
-            option = Integer.parseInt(this.input.nextLine());
-            return MENU[option-1];
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
+            attribute = getSurname();
+
+        } catch (InvalidUserDataException e) {
 
         }
 
-        return "";
+        return attribute;
+
     }
 
-
+    public void displayAll(ArrayList<Mentor> mentors) {
+        System.out.println("\nUsers:");
+        Integer number = 1;
+        for (Mentor mentor : mentors) {
+            System.out.println(number + ". " + mentor);
+            number++;
+        }
+    }
 }

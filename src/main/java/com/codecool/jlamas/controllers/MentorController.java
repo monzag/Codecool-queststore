@@ -1,69 +1,71 @@
 package com.codecool.jlamas.controllers;
 
+import java.util.ArrayList;
+
+import com.codecool.jlamas.database.MentorDAO;
+import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
-
+import com.codecool.jlamas.models.accountdata.Login;
+import com.codecool.jlamas.models.accountdata.Mail;
+import com.codecool.jlamas.models.accountdata.Password;
 import com.codecool.jlamas.views.MentorView;
-
 
 public class MentorController {
 
-    private Mentor user;
-    private MentorView view;
+    private MentorView mentorView = new MentorView();
+    private MentorDAO mentorDao = new MentorDAO();
 
-    public MentorController(Mentor user) {
-        this.user = user;
+    public MentorController() {
+        
     }
 
-    public void init() {
-        this.view =  new MentorView();
-    }
+    public void addMentor() {
+        try {
+            String name = mentorView.getName();
+            String surname = mentorView.getSurname();
+            Mail email = mentorView.getMail();
 
-    public void start() {
-        String option;
+            Login login = new Login("mentor");
+            Password password = new Password("mentor");
+            Mentor mentor = new Mentor(login, password, email, name, surname);
+            mentorDao.insert(mentor);
 
-        option = "";
-        while (option.equals("Exit")) {
-            option = view.getMenuOption();
-            this.resolveOption(option);
+        } catch (InvalidUserDataException e) {
+
         }
     }
 
-    private void resolveOption(String option) {
-    // adding new option should add also to view MENU
+    public void editMentor() {
+        Mentor mentor = chooseMentor();
 
-        switch (option) {
-            case "Print class" :
-                // TODO
-                break;
-            case "Print team" :
-                // TODO
-            case "Create team" :
-                // TODO
-                break;
-            case "Add new Student" :
-                // TODO
-                break;
-            case "Add new Quest" :
-                // TODO
-                break;
-            case "Add new Artifat" :
-                // TODO
-                break;
-            case "Edit existing Quest" :
-                // TODO
-                break;
-            case "Edit existing Artifact" :
-                // TODO
-                break;
-            case "Mark Quest as done" :
-                // TODO
-                break;
-            case "Mark Artifact as done" :
-                // TODO
-                break;
-        }
-
+        // Demo version:
+        String name = mentorView.getAttribute();
+        mentor.setName(name);
+        mentorDao.update(mentor);
     }
 
+    public void removeMentor() {
+        try {
+            Mentor mentor = chooseMentor();
+            mentorDao.delete(mentor);
 
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+    }
+
+    public Mentor chooseMentor() throws IndexOutOfBoundsException {
+        ArrayList<Mentor> mentors = mentorDao.requestAll();
+        mentorView.displayAll(mentors);
+        Integer record = mentorView.getMenuOption();
+        Integer index = record - 1;
+        if (index >= mentors.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return mentors.get(index);
+    }
+
+    public void displayMentors() {
+        mentorView.displayAll(mentorDao.requestAll());
+    }
 }

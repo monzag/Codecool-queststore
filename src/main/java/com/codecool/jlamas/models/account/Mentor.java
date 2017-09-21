@@ -7,7 +7,7 @@ import com.codecool.jlamas.models.accountdata.Password;
 
 public class Mentor extends Codecooler {
 
-    private Integer classId;
+    private String classTag;
 
     public Mentor() {
 
@@ -15,24 +15,24 @@ public class Mentor extends Codecooler {
 
     public Mentor(Login login, Password password, Mail email, String name, String surname) {
         super(login, password, email, name, surname);
-        this.classId = 0;
+        this.classTag = null;
     }
 
-    public Mentor(Login login, Password password, Mail email, String name, String surname, Integer classId) {
+    public Mentor(Login login, Password password, Mail email, String name, String surname, String classTag) {
         super(login, password, email, name, surname);
-        this.classId = classId;
+        this.classTag = classTag;
     }
 
-    public Integer getClassId() {
-        return this.classId;
+    public String getClassTag() {
+        return this.classTag;
     }
 
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public void setClassTag(String classTag) {
+        this.classTag = classTag;
     }
 
     public String toString() {
-        return super.toString() + "class : " + this.classId + "\n";
+        return super.toString() + "class : " + this.classTag + "\n";
     }
 
 

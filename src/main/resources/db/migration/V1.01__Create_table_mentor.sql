@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS `mentor` (
+	`login`	TEXT NOT NULL UNIQUE,
+	`class_tag`	TEXT NOT NULL,
+	FOREIGN KEY(`login`) REFERENCES `user`(`login`) ON DELETE SET NULL
+);

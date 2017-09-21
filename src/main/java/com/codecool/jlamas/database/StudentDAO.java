@@ -3,6 +3,7 @@ package com.codecool.jlamas.database;
 import com.codecool.jlamas.models.accountdata.*;
 import com.codecool.jlamas.models.account.Student;
 
+import java.sql.*;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileWriter;
@@ -11,7 +12,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 
-public class StudentDAO implements DAO {
+public class StudentDAO {
 
     private final String FILEPATH = "database/students/";
 

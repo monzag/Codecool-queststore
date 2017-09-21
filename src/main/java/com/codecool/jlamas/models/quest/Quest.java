@@ -59,6 +59,7 @@ public class Quest {
         String asString;
 
         asString = "\n" + this.name + "  |  " + this.description + "  |  " + this.reward;
+
         asString += "\n================================\n";
 
         return asString;
