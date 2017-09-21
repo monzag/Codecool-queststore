@@ -9,17 +9,6 @@ public class AdminView extends CodecoolerView {
     public AdminView() {
 
     }
-    
-    public void displayAdminMenu() {
-        String[] options = {"Display mentors", 
-                            "Add mentor",
-                            "Edit mentor",
-                            "Add class",
-                            "Add level",
-                            "Edit quest"};
-
-        printMenu(options);       
-    }
 
     public static void showAllMentors() {
         MentorDAO mentors = new MentorDAO();
