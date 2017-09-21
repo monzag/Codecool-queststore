@@ -15,7 +15,7 @@ public class Mentor extends Codecooler {
 
     public Mentor(Login login, Password password, Mail email, String name, String surname) {
         super(login, password, email, name, surname);
-        this.classId = null;
+        this.classTag = null;
     }
 
     public Mentor(Login login, Password password, Mail email, String name, String surname, String classTag) {
@@ -23,12 +23,12 @@ public class Mentor extends Codecooler {
         this.classTag = classTag;
     }
 
-    public Integer getClassTag() {
-        return this.classId;
+    public String getClassTag() {
+        return this.classTag;
     }
 
-    public void setClassTag(Integer classId) {
-        this.classId = classId;
+    public void setClassTag(String classTag) {
+        this.classTag = classTag;
     }
 
     public String toString() {
