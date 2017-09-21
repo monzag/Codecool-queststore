@@ -1,5 +1,7 @@
 package com.codecool.jlamas.database;
 
+import java.util.ArrayList;
+
 import com.codecool.jlamas.models.account.Student;
 
 public class StudentDAO {
@@ -7,8 +9,10 @@ public class StudentDAO {
     public StudentDAO() {
     }
 
-    public void requestAll() {
-        ;
+    public ArrayList<Student> requestAll() {
+        // Demo:
+        ArrayList<Student> students = new ArrayList<>();
+        return students;
     }
 
     public void delete(Student student) {
