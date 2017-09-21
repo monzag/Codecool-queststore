@@ -3,14 +3,33 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.models.quests.Quest;
 
 public class QuestController {
-    private Quest quest;
-    private QuestView view;
+    private QuestDAO questDAO;
 
-    public QuestController(Quest quest) {
-        this.quest = quest;
+    public QuestController() {
+        this.questDAO = new QuestDAO();
     }
 
-    public initMenu() {
-        this.view = new QuestView();
+    public void editQuest(Quest quest) {
+
+    }
+
+    public void createQuest() {
+
+    }
+
+    public void deleteQuest() {
+
+    }
+
+    public void markQuestAsDone() {
+
+    }
+
+    public void showQuest() {
+
+    }
+
+    public void showAllQuests() {
+
     }
 }
