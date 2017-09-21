@@ -16,7 +16,7 @@ public class StudentController {
     }
 
     public void displayAll() {
-        ;
+        studentView.displayAll(studentDao.requestAll());
     }
 
     public void addStudent() {
