@@ -14,11 +14,41 @@ public class CodecoolerView {
     private String getString(String msg) {
         String userInput;
 
-        System.out.println(msg);
+        System.out.print("\n" + msg);
         userInput = input.nextLine();
 
         return userInput;
 
+    }
+
+    public String getName() throws InvalidUserDataException {
+        String err = "Name should consist of only letters(between 3 and 18) first should be capital.";
+        String msg = "Provide name: ";
+        String name;
+
+        name = getString(msg);
+
+        if (!this.isName(name)) {
+            throw new InvalidUserDataException(err);
+        }
+        return name;
+    }
+
+    public String getSurname() throws InvalidUserDataException {
+        String err = "Surame should consist of only letters(between 3 and 18) first should be capital.";
+        String msg = "Provide surname: ";
+        String surname;
+
+        surname = getString(msg);
+
+        if (!this.inName(surname)) {
+            throw new InvalidUserDataException(err);
+        }
+        return surname;
+    }
+
+    private boolean isName(String name) {
+        return name.matches("[A-Z][a-z]{2,17}");
     }
 
     public static void reportWrongLoginData() {
