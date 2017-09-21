@@ -14,7 +14,7 @@ public class MentorView extends CodecoolerView {
         this.input = new Scanner(System.in);
     }
 
-    public void printMenu() {
+    private void printMenu() {
         String output;
 
         output = "\nMENU";
@@ -29,6 +29,7 @@ public class MentorView extends CodecoolerView {
     public String getMenuOption() {
         String option;
 
+        this.printMenu();
         System.out.print("Choose option: ");
 
         option = "";
