@@ -47,19 +47,21 @@ public class CodecoolerView {
         System.out.println(output);
     }
 
-    public String getMenuOption(String[] options) {
-        Integer option;
+    public int getMenuOption() {
+        int option;
 
-        this.printMenu(options);
         System.out.print("Choose option: ");
-
-        try {
-            option = Integer.parseInt(this.input.nextLine());
-            return options[option-1];
-        } catch (NumberFormatException | ArrayIndexOutOfBoundsException e) {
-
+        while (!input.hasNextInt()) {
+            printErrorMessage();
+            input.next();
         }
-        return "";
+
+        option = input.nextInt();
+        return option;
+    }
+
+    public void printErrorMessage() {
+        System.out.println("It's not a number!");
     }
 
 }
