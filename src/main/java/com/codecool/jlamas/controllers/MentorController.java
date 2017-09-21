@@ -12,6 +12,9 @@ public class MentorController {
 
     public MentorController(Mentor user) {
         this.user = user;
+    }
+
+    public void init() {
         this.view =  new MentorView();
     }
 
