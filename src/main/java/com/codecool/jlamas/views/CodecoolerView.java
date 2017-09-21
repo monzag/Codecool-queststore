@@ -114,13 +114,4 @@ public class CodecoolerView {
         System.out.println("It's not a number!");
     }
 
-    public void displayAll(ArrayList<Codecooler> codecoolers) {
-        System.out.println("\nUsers:");
-        Integer number = 1;
-        for (Codecooler codecooler : codecoolers) {
-            System.out.println(number + ". " + codecooler);
-            number++;
-        }
-    }
-
 }
