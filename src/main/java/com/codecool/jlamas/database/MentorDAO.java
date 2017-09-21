@@ -26,10 +26,8 @@ public class MentorDAO {
 
         ArrayList<Mentor> mentors = new ArrayList<Mentor>();
         try (Connection c = ConnectDB.connect();
-             Statement stmt = c.createStatement(sql);) {
-
-            stmt = c.createStatement();
-            ResultSet rs = stmt.executeQuery(sql);
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(quary);) {
 
             while (rs.next()) {
                 Mentor mentor = new Mentor();
@@ -44,9 +42,6 @@ public class MentorDAO {
                 mentors.add(mentor);
             }
 
-            rs.close();
-            stmt.close();
-
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -56,6 +51,34 @@ public class MentorDAO {
 
     public boolean insert(Mentor mentor) {
     // true if was successful
+    String query;
+
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+
+            query = String.format("INSERT INTO `user` VALUES('%s', '%s', '%s', '%s', 'Mentor'); ",
+                    mentor.getLogin().getValue(),
+                    mentor.getEmail().getValue(),
+                    mentor.getName(),
+                    mentor.getSurname());
+
+            query += String.format("INSERT INTO `login` VALUES('%s', '%s'); ",
+                    mentor.getLogin().getValue(),
+                    mentor.getPassword().getValue());
+
+            query += String.format("INSERT INTO `mentor` VALUES('%s', '%s'); ",
+                    mentor.getLogin().getValue(),
+                    mentor.getClassTag());
+
+            stmt.executeUpdate(sql);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+
+            return false;
+        }
+        return true;
 
     }
 
