@@ -8,8 +8,11 @@ import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
 import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.views.StudentView;
 
 public class StudentController {
+
+    private StudentView studentView = new StudentView();
 
     public StudentController() {
 
