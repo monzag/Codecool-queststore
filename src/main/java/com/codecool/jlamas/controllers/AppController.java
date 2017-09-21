@@ -40,5 +40,11 @@ public class AppController {
     public void launchUserController(String login) {
 
         String userType = userData.getType(login);
+
+        if (userType = "admin") {
+            Admin admin = userData.getAdmin(login);
+            AdminMenuController adminMenu = new AdminMenuController(admin);
+            adminMenu.start();
+        }
     }
 }
