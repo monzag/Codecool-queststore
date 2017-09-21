@@ -13,7 +13,7 @@ import java.util.ArrayList;
 
 public class AdminMenuController {
 
-    public static final String[] options = {"Display mentors", 
+    public static final String[] OPTIONS = {"Display mentors", 
                                             "Add mentor",
                                             "Edit mentor",
                                             "Add class",
@@ -30,21 +30,20 @@ public class AdminMenuController {
 
     private Admin admin;
     private AdminView adminView = new AdminView();;
-    private MentorDAO mentorData = new MentorDAO();
+    private MentorController mentorController = new MentorController();
     ArrayList<Mentor> mentors;
 
     public AdminMenuController(Admin admin) {
         this.admin = admin;
-        this.mentors = mentorData.loadAll();
     }
 
-    public void menu() {
-        adminView.printMenu(options);
-        int userChoice = adminView.getMenuOption();
+    public void start() {
+        Integer option = null;
+        while (!option.equals(EXIT)) {
+            adminView.printMenu(OPTIONS);
+            option = adminView.getMenuOption();
 
-        boolean start = true;
-        while (start) {
-            switch(userChoice) {
+            switch(option) {
                 case DISPLAY_MENTORS: displayAllMentors();
                     break;
                 case ADD_MENTOR: createMentor();
@@ -58,28 +57,21 @@ public class AdminMenuController {
                 case EDIT_QUEST: editQuest();
                     break;
                 case EXIT:
-                    start = false;
+                    break;
             }
         }
     }
 
     public void displayAllMentors() {
-        ;
+        mentorController.displayMentors();
     }
 
     public void createMentor() {
-        // Login login = new Login(CodecoolerView.getString("login"));
-        // Password password = new Password(CodecoolerView.getString("password"));
-        // Mail mail = new Mail(CodecoolerView.getString("mail"));
-        // String name = CodecoolerView.getString("name");
-        // String surname = CodecoolerView.getString("surname");
-
-        // Mentor mentor = new Mentor(login, password, mail, name, surname);
-        // // mentorData.save(mentor);
+        mentorController.addMentor();
     }
 
     public void editMentor() {
-        ;
+        mentorController.editMentor();
     }
 
     public void addClass() {
@@ -91,6 +83,9 @@ public class AdminMenuController {
     }
 
     public void editQuest() {
-        ;
+        QuestController questController = new QuestController();
+        questController.showAllQuests();
+        // user choice -> quest
+        questController.editQuest(quest);
     }
 }

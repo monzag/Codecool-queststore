@@ -7,7 +7,7 @@ import com.codecool.jlamas.models.account.Mentor;
 public class AdminView extends CodecoolerView {
 
     public AdminView() {
-
+        super();
     }
 
     public static void showAllMentors() {
