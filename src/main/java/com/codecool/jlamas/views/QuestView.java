@@ -1,6 +1,7 @@
 package com.codecool.jlamas.views;
 
 import java.util.Scanner;
+import com.codecool.jlamas.models.quest.Quest;
 
 public class QuestView {
     Scanner input;
@@ -20,7 +21,7 @@ public class QuestView {
     public Integer getIntInput() {
         Integer intInput;
 
-        intInput = input.nextLine();
+        intInput = input.nextInt();
 
         return intInput;
     }
