@@ -2,6 +2,11 @@ package com.codecool.jlamas.views;
 
 import java.util.Scanner;
 
+import com.codecool.jlamas.models.accountdata.Mail;
+
+import com.codecool.jlamas.exceptions.InvalidUserDataException;
+
+
 
 public class CodecoolerView {
 
@@ -14,8 +19,8 @@ public class CodecoolerView {
     private String getString(String msg) {
         String userInput;
 
-        System.out.print("\n" + msg);
-        userInput = input.nextLine();
+        System.out.print("\n" + msg + ": ");
+        userInput = this.input.nextLine();
 
         return userInput;
 
@@ -23,7 +28,7 @@ public class CodecoolerView {
 
     public String getName() throws InvalidUserDataException {
         String err = "Name should consist of only letters(between 3 and 18) first should be capital.";
-        String msg = "Provide name: ";
+        String msg = "Provide name";
         String name;
 
         name = getString(msg);
@@ -36,7 +41,7 @@ public class CodecoolerView {
 
     public String getSurname() throws InvalidUserDataException {
         String err = "Surame should consist of only letters(between 3 and 18) first should be capital.";
-        String msg = "Provide surname: ";
+        String msg = "Provide surname";
         String surname;
 
         surname = getString(msg);
@@ -45,6 +50,18 @@ public class CodecoolerView {
             throw new InvalidUserDataException(err);
         }
         return surname;
+    }
+
+    public Mail getMail() throws InvalidUserDataException {
+        String err = "Invalid email format";
+        String mail;
+
+        mail = this.getString("Provide email");
+        if (!Mail.isValid(mail)) {
+            throw new InvalidUserDataException(err);
+        }
+        return new Mail(mail);
+
     }
 
     private boolean isName(String name) {
