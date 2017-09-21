@@ -2,49 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/AdminDAO.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/App.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/Main.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AdminMenuController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AppController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/QuestController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/StudentController.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/AdminDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/ArtifactDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/ConnectDB.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/LoginDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/MentorDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/QuestDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/StudentDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/database/UserDAO.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/exceptions/InvalidUserDataException.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/account/Admin.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/account/Student.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Mail.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Wallet.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/AdminView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/StudentView.class" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/createdFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/testCompile/default-testCompile/inputFiles.lst" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/surefire-reports/TEST-com.codecool.jlamas.AppTest.xml" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/surefire-reports/com.codecool.jlamas.AppTest.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/target/test-classes/com/codecool/jlamas/AppTest.class" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/AccountData.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/AccountData.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Login.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Login.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Password.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/models/accountdata/Password.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/QuestView.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/views/QuestView.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/queststore-system-ci_co_beda_z_monia.iml" afterPath="$PROJECT_DIR$/.idea/queststore-system-ci_co_beda_z_monia.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/AccountData.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/AccountData.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Login.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Login.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Password.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Password.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterPath="$PROJECT_DIR$/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -115,11 +76,13 @@
       <file leaf-file-name="UserDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+            <state relative-caret-position="631">
+              <caret line="67" column="27" lean-forward="false" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
               <folding>
-                <marker date="1506033893030" expanded="true" signature="436:487" ph="SELECT type user" />
-                <marker date="1506033893030" expanded="true" signature="991:1039" ph="SELECT * FRO... user" />
+                <marker date="1506035403926" expanded="true" signature="436:487" ph="SELECT type user" />
+                <marker date="1506035403926" expanded="true" signature="991:1039" ph="SELECT * FRO... user" />
+                <marker date="1506035403926" expanded="true" signature="1895:1929" ph="SELECT * FRO... user" />
+                <marker date="1506035403926" expanded="true" signature="1895:1942" ph="SELECT * FRO... user" />
               </folding>
             </state>
           </provider>
@@ -128,18 +91,18 @@
       <file leaf-file-name="Login.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Login.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="696">
-              <caret line="26" column="41" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+            <state relative-caret-position="609">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="30" selection-end-column="5" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="LoginDAO.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="LoginDAO.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="341">
-              <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+              <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="41" selection-end-column="5" />
               <folding>
                 <marker date="1506035095325" expanded="true" signature="172:276" ph="SELECT * FRO... login" />
                 <marker date="1506035095325" expanded="true" signature="723:758" ph="SELECT * FRO... login" />
@@ -149,12 +112,14 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Mail.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Mail.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="116">
-              <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding />
+            <state relative-caret-position="667">
+              <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -206,7 +171,6 @@
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.02__Create_table_student.sql" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/QuestDAO.java" />
         <option value="$PROJECT_DIR$/pom.xml" />
-        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/ConnectDB.java" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.06__Create_table_class.sql" />
         <option value="$PROJECT_DIR$/src/main/resources/db/migration/V1.03__Create_table_login.sql" />
@@ -224,6 +188,8 @@
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/AccountData.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Login.java" />
         <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java" />
+        <option value="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java" />
       </list>
     </option>
   </component>
@@ -318,6 +284,13 @@
               <item name="jlamas" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
               <item name="accountdata" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="queststore-system-ci_co_beda_z_monia" type="b2602c69:ProjectViewProjectNode" />
+              <item name="queststore-system-ci_co_beda_z_monia" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
+              <item name="resources" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -417,13 +390,6 @@
       <updated>1505926327139</updated>
       <workItem from="1505926330995" duration="2161000" />
       <workItem from="1505982402436" duration="37942000" />
-    </task>
-    <task id="LOCAL-00007" summary="Add menu options to StudentView">
-      <created>1505986796674</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1505986796674</updated>
     </task>
     <task id="LOCAL-00008" summary="Add constructor to StudentView">
       <created>1505986931366</created>
@@ -761,11 +727,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506027990433</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="Move login unique check to Login class">
+      <created>1506035154792</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1506035154792</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="41322000" />
+    <option name="totallyTimeSpent" value="41662000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="55" width="1920" height="1050" extended-state="6" />
@@ -825,7 +798,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Move matchLogin() to LoginDAO" />
     <MESSAGE value="Add todo UserDAO.getUser()" />
     <MESSAGE value="Change static to instance call in view" />
     <MESSAGE value="Change static to instance method report wrong login data" />
@@ -850,53 +822,14 @@
     <MESSAGE value="Change quest sql attrs to description and reward" />
     <MESSAGE value="Fix double QuestController declaration" />
     <MESSAGE value="Add prompt viewing while input in adding quest" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add prompt viewing while input in adding quest" />
+    <MESSAGE value="Move login unique check to Login class" />
+    <option name="LAST_COMMIT_MESSAGE" value="Move login unique check to Login class" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="350">
-          <caret line="64" column="32" lean-forward="false" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="29">
-          <caret line="1" column="0" lean-forward="false" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-114">
-          <caret line="44" column="19" lean-forward="false" selection-start-line="44" selection-start-column="19" selection-end-line="44" selection-end-column="19" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/QuestController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-58">
-          <caret line="20" column="44" lean-forward="false" selection-start-line="20" selection-start-column="44" selection-end-line="20" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/QuestView.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="30" column="25" lean-forward="false" selection-start-line="30" selection-start-column="25" selection-end-line="30" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/views/CodecoolerView.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="841">
@@ -948,6 +881,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="29">
           <caret line="1" column="10" lean-forward="true" selection-start-line="1" selection-start-column="10" selection-end-line="1" selection-end-column="10" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -955,6 +889,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="8" selection-end-column="2" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1097,21 +1032,54 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="10" column="13" lean-forward="false" selection-start-line="10" selection-start-column="13" selection-end-line="10" selection-end-column="13" />
+        <state relative-caret-position="341">
+          <caret line="25" column="0" lean-forward="false" selection-start-line="25" selection-start-column="0" selection-end-line="41" selection-end-column="5" />
           <folding>
-            <marker date="1506033893030" expanded="true" signature="436:487" ph="SELECT type user" />
-            <marker date="1506033893030" expanded="true" signature="991:1039" ph="SELECT * FRO... user" />
+            <marker date="1506035095325" expanded="true" signature="172:276" ph="SELECT * FRO... login" />
+            <marker date="1506035095325" expanded="true" signature="723:758" ph="SELECT * FRO... login" />
+            <marker date="1506035095325" expanded="true" signature="723:772" ph="SELECT * FRO... login" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java">
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1__Create_table_mentor.sql">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="116">
-          <caret line="5" column="13" lean-forward="false" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.4__Create_table_quest.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.2__Create_table_admin.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.1__Create_table_artifact.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/resources/db/migration/V1.3__Create_table_student.sql">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
@@ -1121,6 +1089,19 @@
         <state relative-caret-position="58">
           <caret line="2" column="13" lean-forward="false" selection-start-line="2" selection-start-column="13" selection-end-line="2" selection-end-column="13" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/UserDAO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="631">
+          <caret line="67" column="27" lean-forward="false" selection-start-line="67" selection-start-column="27" selection-end-line="67" selection-end-column="27" />
+          <folding>
+            <marker date="1506035403926" expanded="true" signature="436:487" ph="SELECT type user" />
+            <marker date="1506035403926" expanded="true" signature="991:1039" ph="SELECT * FRO... user" />
+            <marker date="1506035403926" expanded="true" signature="1895:1929" ph="SELECT * FRO... user" />
+            <marker date="1506035403926" expanded="true" signature="1895:1942" ph="SELECT * FRO... user" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1136,20 +1117,18 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Login.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="696">
-          <caret line="26" column="41" lean-forward="true" selection-start-line="26" selection-start-column="41" selection-end-line="26" selection-end-column="41" />
+        <state relative-caret-position="609">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="23" selection-start-column="0" selection-end-line="30" selection-end-column="5" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/database/LoginDAO.java">
+    <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/models/accountdata/Mail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="341">
-          <caret line="25" column="17" lean-forward="false" selection-start-line="25" selection-start-column="17" selection-end-line="25" selection-end-column="17" />
+        <state relative-caret-position="667">
+          <caret line="25" column="33" lean-forward="false" selection-start-line="25" selection-start-column="33" selection-end-line="25" selection-end-column="33" />
           <folding>
-            <marker date="1506035095325" expanded="true" signature="172:276" ph="SELECT * FRO... login" />
-            <marker date="1506035095325" expanded="true" signature="723:758" ph="SELECT * FRO... login" />
-            <marker date="1506035095325" expanded="true" signature="723:772" ph="SELECT * FRO... login" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
