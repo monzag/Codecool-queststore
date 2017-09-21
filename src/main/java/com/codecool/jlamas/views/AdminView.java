@@ -14,10 +14,9 @@ public class AdminView extends CodecoolerView {
                             "Add level",
                             "Edit quest"};
 
-        printMenu(options);
-        getMenuOption(options);
+        printMenu(options);       
     }
-    
+
     public static void showAllMentors() {
         MentorDAO mentors = new MentorDAO();
         ArrayList<Mentor> mentorList = mentors.loadAll();
