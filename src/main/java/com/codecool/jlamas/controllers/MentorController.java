@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
@@ -51,8 +52,8 @@ public class MentorController {
         }
     }
 
-    public Mentor chooseMentor() throws IndexOutOfBoundsException {
-        ArrayList<Mentor> mentors = mentorDao.requestAll();
+    public Codecooler chooseMentor() throws IndexOutOfBoundsException {
+        ArrayList<Codecooler> mentors = mentorDao.requestAll();
         mentorView.displayAll(mentors);
         Integer record = mentorView.getMenuOption();
         Integer index = record - 1;
