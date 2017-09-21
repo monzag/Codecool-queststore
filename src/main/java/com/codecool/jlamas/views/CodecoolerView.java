@@ -1,7 +1,9 @@
 package com.codecool.jlamas.views;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -110,6 +112,15 @@ public class CodecoolerView {
 
     public void printErrorMessage() {
         System.out.println("It's not a number!");
+    }
+
+    public void displayAll(ArrayList<Codecooler> codecoolers) {
+        System.out.println("\nUsers:");
+        Integer number = 1;
+        for (Codecooler codecooler : codecoolers) {
+            System.out.println(number + ". " + codecooler);
+            number++;
+        }
     }
 
 }
