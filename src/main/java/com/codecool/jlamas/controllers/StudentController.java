@@ -34,5 +34,15 @@ public class StudentController {
         }
     }
 
+    public void removeStudent() {
+        try {
+            Student student = chooseStudent();
+            studentDao.delete(student);
+
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+    }
+
     
 }
