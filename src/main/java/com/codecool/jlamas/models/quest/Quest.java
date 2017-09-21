@@ -17,4 +17,42 @@ public class Quest {
         this.boolean = false;
     }
 
+    public String getName() {
+        return this.name;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public Integer getReward() {
+        return this.reward;
+    }
+
+    public boolean getStatus() {
+        return this.isDone;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public void setReward(Integer reward) {
+        this.reward = reward;
+    }
+
+    public void changeStatus() {
+        if (this.isDone == false) {
+            this.isDone = true;
+
+        } else {
+            this.isDone = false;
+        }
+
+    }
+
 }
