@@ -14,6 +14,18 @@ public class MentorDAO {
     }
 
     public ArrayList<Mentor> requestAll() {
+        ArrayList<Mentor> mentors;
+        String sql = "SELECT * FROM `user` JOIN `mentor` ON ;";
+
+        mentors = new ArrayList<Mentor>();
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement(sql);) {
+
+
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
     }
 
