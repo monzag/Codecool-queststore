@@ -1,5 +1,7 @@
 package com.codecool.jlamas.controllers;
 
+import java.util.ArrayList;
+
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
@@ -38,8 +40,15 @@ public class MentorController {
     }
 
     public void removeMentor() {
-        // MentorDAO - displayAll
-        // choose Mentor
+        ArrayList<Mentor> mentors = mentorDao.requestAll();
+        mentorView.displayAll();
+        Integer record = mentorView.getMenuOption();
+        try {
+            Mentor mentor = mentors.get(record - 1);
+
+        } catch (IndexOutOfBoundsException e) {
+
+        }
         // MentorDAO - remove record
     }
 
