@@ -14,7 +14,7 @@ public class MentorDAO {
     }
 
     public ArrayList<Mentor> requestAll() {
-        String query = String.format("%s %s %s %s %s %s %s",
+        String query = String.format("%s %s %s %s %s %s %s"
             , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
             , "FROM user"
             ,     "INNER JOIN login"

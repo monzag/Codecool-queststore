@@ -1,5 +1,6 @@
 package com.codecool.jlamas.database;
 
+import com.codecool.jlamas.models.quest.Quest;
 import java.sql.*;
 
 public class QuestDAO {
@@ -7,15 +8,15 @@ public class QuestDAO {
 
     }
 
-    public void insertQuest(String name, String description, Integer reward) {
+    public void insertQuest(Quest quest) {
         String sql = "INSERT INTO quest(name, description, reward) VALUES (?, ?, ?);";
 
         try (Connection c = ConnectDB.connect();
                 PreparedStatement pstmt = c.prepareStatement(sql);) {
 
-            pstmt.setString(1, name);
-            pstmt.setString(2, description);
-            pstmt.setInt(3, reward);
+            pstmt.setString(1, quest.getName());
+            pstmt.setString(2, quest.getDescription());
+            pstmt.setInt(3, quest.getReward());
             pstmt.executeUpdate();
 
         } catch (ClassNotFoundException|SQLException e) {

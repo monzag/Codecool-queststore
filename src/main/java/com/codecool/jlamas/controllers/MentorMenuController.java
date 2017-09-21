@@ -33,7 +33,7 @@ public class MentorMenuController {
     private Mentor user;
     private MentorView view;
 
-    public MentorController(Mentor user) {
+    public MentorMenuController(Mentor user) {
         this.user = user;
     }
 
@@ -52,37 +52,37 @@ public class MentorMenuController {
         }
     }
 
-    private void resolveOption(String option) {
+    private void resolveOption(Integer option) {
     // adding new option should add also to view MENU
         switch (option) {
             case PRINT_CLASS :
-                printClass()
+                printClass();
                 break;
             case PRINT_TEAM :
-                printTeam()
+                printTeam();
             case CREATE_TEAM :
-                createTeam()
+                createTeam();
                 break;
             case ADD_STUDENT :
-                addStudent()
+                addStudent();
                 break;
             case ADD_QUEST :
-                addQuest()
+                addQuest();
                 break;
             case ADD_ARTIFACT :
-                addArtifact()
+                addArtifact();
                 break;
             case EDIT_QUEST :
-                editQuest()
+                editQuest();
                 break;
             case EDIT_ARTIFACT :
-                editArtifact()
+                editArtifact();
                 break;
             case MARK_QUEST :
-                markQuest()
+                markQuest();
                 break;
             case MARK_ARTIFACT :
-                markArtifact()
+                markArtifact();
                 break;
         }
 
