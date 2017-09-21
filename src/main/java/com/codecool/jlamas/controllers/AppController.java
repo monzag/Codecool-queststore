@@ -14,37 +14,17 @@ public class AppController {
 
     public static Codecooler login() {
 
-        StudentDAO studentData = new StudentDAO();
-        MentorDAO mentorData = new MentorDAO();
-        AdminDAO adminData = new AdminDAO();
+        LoginDAO loginData = new LoginDAO();
+        CodecoolerView view = new CodecoolerView();
 
         boolean isLogging = true;
-
         while (isLogging) {
 
-            String login = CodecoolerView.getString("login");
-            String password = CodecoolerView.getString("password");
+            String login = CodecoolerView.getString("Login");
+            String password = CodecoolerView.getString("Password");
 
-            if (adminData.load(login) != null) {
-                Admin admin = adminData.load(login);
-                if (admin.getPassword().getValue().equals(password)) {
-                    return admin;
-                }
-            }
-            else if (mentorData.load(login) != null) {
-                CodecoolerView.inConstruction();
-                // Mentor mentor = mentorData.load(login);
-                // if (mentor.getPassword().getValue().equals(password)) {
-                //     return mentor;
-                // }
-            }
-            else if (studentData.load(login) != null) {
-                CodecoolerView.inConstruction();
-                // Student student = studentData.load(login);
-                // if (student.getPassword().getValue().equals(password)) {
-                //     return student;
-                // }
-            }
+            matchLogin(login, password);
+
             CodecoolerView.reportWrongLoginData();
             String tryAgain = CodecoolerView.getString("Y or anything else");
             if (!tryAgain.equalsIgnoreCase("y")) {
@@ -52,5 +32,9 @@ public class AppController {
             }
         }
         return null;
+    }
+
+    public boolean matchLogin(String login, String password) {
+        
     }
 }
