@@ -2,6 +2,7 @@ package com.codecool.jlamas.views;
 
 import java.util.Scanner;
 import com.codecool.jlamas.models.quest.Quest;
+import java.util.ArrayList;
 
 public class QuestView {
     Scanner input;
@@ -26,7 +27,9 @@ public class QuestView {
         return intInput;
     }
 
-    public void printQuestData(Quest quest) {
-        System.out.println(quest);
+    public void printQuestData(ArrayList<Quest> questList) {
+        for(Quest quest : questList) {
+            System.out.println(quest);
+        }
     }
 }
