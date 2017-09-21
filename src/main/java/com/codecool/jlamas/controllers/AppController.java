@@ -11,11 +11,13 @@ import com.codecool.jlamas.database.UserDAO;
 
 public class AppController {
 
-    public void login() {
-
+    public AppController() {
         LoginDAO loginData = new LoginDAO();
         UserDAO userData = new UserDAO();
         CodecoolerView view = new CodecoolerView();
+    }
+
+    public void login() {
 
         boolean isLogging = true;
         while (isLogging) {
@@ -24,7 +26,7 @@ public class AppController {
             String password = view.getString("Password");
 
             if (loginData.matchLogin(login, password)) {
-                Codecooler user = userData.getUser(login);
+                launchUserController(login);
             }
 
             view.reportWrongLoginData();
@@ -33,5 +35,10 @@ public class AppController {
                 isLogging = false;
             }
         }
+    }
+
+    public void launchUserController(String login) {
+
+        String userType = userData.getType(login);
     }
 }
