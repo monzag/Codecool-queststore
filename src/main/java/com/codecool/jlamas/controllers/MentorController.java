@@ -53,7 +53,7 @@ public class MentorController {
 
     public Mentor chooseMentor() throws IndexOutOfBoundsException {
         ArrayList<Mentor> mentors = mentorDao.requestAll();
-        mentorView.displayAll();
+        mentorView.displayAll(mentors);
         Integer record = mentorView.getMenuOption();
         Integer index = record - 1;
         if (index >= mentors.size()) {
@@ -63,6 +63,6 @@ public class MentorController {
     }
 
     public void displayMentors() {
-        ;
+        mentorView.displayAll(mentorDao.requestAll());
     }
 }
