@@ -38,14 +38,10 @@ public class MentorMenuController {
         this.view =  new MentorView();
     }
 
-    public void init() {
-        ;
-    }
-
     public void start() {
         Integer option;
 
-        option = view.getMenuOption();
+        option = 0;
         while (!option.equals(EXIT)) {
             view.printMenu(MENU);
             option = view.getMenuOption();
