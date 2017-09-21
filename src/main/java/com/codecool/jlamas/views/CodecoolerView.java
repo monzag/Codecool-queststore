@@ -20,7 +20,6 @@ public class CodecoolerView {
 
         System.out.print("\n" + msg + ": ");
         userInput = this.input.nextLine();
-
         return userInput;
 
     }
