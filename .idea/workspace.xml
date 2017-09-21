@@ -3,10 +3,13 @@
   <component name="ChangeListManager">
     <list default="true" id="20a354e0-dc5b-4c81-bfae-bd7db8a26e31" name="Default" comment="">
       <change type="DELETED" beforePath="$PROJECT_DIR$/target/database" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AdminMenuController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AdminMenuController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AppController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/AppController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" afterPath="$PROJECT_DIR$/target/classes/com/codecool/jlamas/controllers/MentorMenuController.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" afterPath="$PROJECT_DIR$/target/queststore-system-ci_co_beda_z_monia-1.0-SNAPSHOT.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AdminMenuController.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/AppController.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" afterPath="$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/target/maven-archiver/pom.properties" afterPath="$PROJECT_DIR$/target/maven-archiver/pom.properties" />
     </list>
     <ignored path="$PROJECT_DIR$/target/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -98,12 +101,9 @@
       <file leaf-file-name="MentorMenuController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="47" column="19" lean-forward="false" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
-              <folding>
-                <element signature="e#1483#1484#0" expanded="true" />
-                <element signature="e#1499#1500#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="87">
+              <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -458,14 +458,7 @@
       <option name="presentableId" value="Default" />
       <updated>1505926327139</updated>
       <workItem from="1505926330995" duration="2161000" />
-      <workItem from="1505982402436" duration="34986000" />
-    </task>
-    <task id="LOCAL-00002" summary="Create student view">
-      <created>1505985346884</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1505985346884</updated>
+      <workItem from="1505982402436" duration="35417000" />
     </task>
     <task id="LOCAL-00003" summary="Add constructor in student controller">
       <created>1505985853243</created>
@@ -803,11 +796,18 @@
       <option name="project" value="LOCAL" />
       <updated>1506025717160</updated>
     </task>
-    <option name="localTasksCounter" value="51" />
+    <task id="LOCAL-00051" summary="Add system exit after quitting controller">
+      <created>1506025938971</created>
+      <option name="number" value="00051" />
+      <option name="presentableId" value="LOCAL-00051" />
+      <option name="project" value="LOCAL" />
+      <updated>1506025938971</updated>
+    </task>
+    <option name="localTasksCounter" value="52" />
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="37147000" />
+    <option name="totallyTimeSpent" value="37578000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="260" y="55" width="1920" height="1050" extended-state="6" />
@@ -851,7 +851,6 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="Create table team" />
     <MESSAGE value="Rename class and team to classtag and teamtag" />
     <MESSAGE value="Create LoginDAO" />
     <MESSAGE value="Create LoginDAO instance in AppController" />
@@ -876,7 +875,8 @@
     <MESSAGE value="Add arbitrary login in mentor sql" />
     <MESSAGE value="Add arbitrary mentor in user sql" />
     <MESSAGE value="Add logging as mentor" />
-    <option name="LAST_COMMIT_MESSAGE" value="Add logging as mentor" />
+    <MESSAGE value="Add system exit after quitting controller" />
+    <option name="LAST_COMMIT_MESSAGE" value="Add system exit after quitting controller" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -1252,12 +1252,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/com/codecool/jlamas/controllers/MentorMenuController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="348">
-          <caret line="47" column="19" lean-forward="false" selection-start-line="47" selection-start-column="19" selection-end-line="47" selection-end-column="19" />
-          <folding>
-            <element signature="e#1483#1484#0" expanded="true" />
-            <element signature="e#1499#1500#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="87">
+          <caret line="38" column="5" lean-forward="false" selection-start-line="38" selection-start-column="5" selection-end-line="38" selection-end-column="5" />
+          <folding />
         </state>
       </provider>
     </entry>

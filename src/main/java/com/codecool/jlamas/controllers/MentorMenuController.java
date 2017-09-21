@@ -38,10 +38,6 @@ public class MentorMenuController {
         this.view =  new MentorView();
     }
 
-    public void init() {
-        ;
-    }
-
     public void start() {
         Integer option;
 
