@@ -11,7 +11,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 
 
-public class MentorDAO implements DAO {
+public class MentorDAO {
 
     private final String FILEPATH = "database/mentors/";
 

@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.quests.Quest;
+import com.codecool.jlamas.models.quest.Quest;
+import com.codecool.jlamas.database.QuestDAO;
 
 public class QuestController {
     private QuestDAO questDAO;
@@ -14,6 +15,7 @@ public class QuestController {
     }
 
     public void createQuest() {
+        this.questDAO.insertQuest("janusz", "kwasniewski", 10000);
 
     }
 
