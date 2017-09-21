@@ -27,7 +27,7 @@ public class QuestDAO {
 
     public ArrayList<Quest> selectAll(){
         ArrayList<Quest> questList = new ArrayList<Quest>();
-        String sql = "SELECT id, name, capacity FROM warehouses";
+        String sql = "SELECT name, description, reward FROM quest";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt  = c.createStatement();
@@ -37,7 +37,7 @@ public class QuestDAO {
                 Quest quest = new Quest(rs.getString("name"), rs.getString("description"), rs.getInt("reward"));
                 questList.add(quest);
             }
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
 
