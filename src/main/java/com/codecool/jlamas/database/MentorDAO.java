@@ -14,19 +14,44 @@ public class MentorDAO {
     }
 
     public ArrayList<Mentor> requestAll() {
-        ArrayList<Mentor> mentors;
-        String sql = "SELECT * FROM `user` JOIN `mentor` ON ;";
+        String query = String.format("%s %s %s %s %s %s %s",
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
+            , "FROM user"
+            ,     "INNER JOIN login"
+            ,             "ON login.login = user.login"
+            ,     "INNER JOIN mentor"
+            ,             "ON mentor.login = user.login"
+            , "WHERE user.type = 'Mentor';");
 
-        mentors = new ArrayList<Mentor>();
+
+        ArrayList<Mentor> mentors = new ArrayList<Mentor>();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement(sql);) {
 
+            stmt = c.createStatement();
+            ResultSet rs = stmt.executeQuery(sql);
 
+            while (rs.next()) {
+                Mentor mentor = new Mentor();
+
+                mentor.setName(rs.getString("name"));
+                mentor.setSurname(rs.getString("surname"));
+                mentor.setLogin(new Login(rs.getString("login")));
+                mentor.setPassword(new Password(rs.getString("password")));
+                mentor.setEmail(new Mail(rs.getString("email")));
+                mentor.setClassTag(rs.getString("class_tag"));
+
+                mentors.add(mentor);
+            }
+
+            rs.close();
+            stmt.close();
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
-
+    
+        return mentors;
     }
 
     public boolean insert(Mentor mentor) {
