@@ -5,6 +5,12 @@ import java.util.Scanner;
 
 public class CodecoolerView {
 
+    private Scanner input;
+
+    public CodecoolerView() {
+        this.input = new Scanner(System.in);
+    }
+
     public static String getString(String keyword) {
         System.out.println("Provide " + keyword + ": ");
         String userInput = System.console().readLine();
@@ -27,6 +33,35 @@ public class CodecoolerView {
 
     public static void inConstruction() {
         System.out.println("\nMentor and student features in construction!\n");
+    }
+
+    public void printMenu(String[] options) {
+        String output;
+
+        output = "\nMENU";
+        for (int i = 0; i < options.length; i++) {
+            output += String.format("  %d) %s.\n", i+1, options[i]);
+        }
+        output += "  0) Exit.\n";
+
+        System.out.println(output);
+    }
+
+    public int getMenuOption() {
+        int option;
+
+        System.out.print("Choose option: ");
+        while (!input.hasNextInt()) {
+            printErrorMessage();
+            input.next();
+        }
+
+        option = input.nextInt();
+        return option;
+    }
+
+    public void printErrorMessage() {
+        System.out.println("It's not a number!");
     }
 
 }
