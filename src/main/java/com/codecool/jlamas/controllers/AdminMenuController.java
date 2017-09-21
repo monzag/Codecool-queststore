@@ -31,6 +31,7 @@ public class AdminMenuController {
     private Admin admin;
     private AdminView adminView = new AdminView();;
     private MentorDAO mentorData = new MentorDAO();
+    private MentorController mentorController = new MentorController();
     ArrayList<Mentor> mentors;
 
     public AdminMenuController(Admin admin) {
@@ -64,18 +65,10 @@ public class AdminMenuController {
     }
 
     public void displayAllMentors() {
-        ;
     }
 
     public void createMentor() {
-        // Login login = new Login(CodecoolerView.getString("login"));
-        // Password password = new Password(CodecoolerView.getString("password"));
-        // Mail mail = new Mail(CodecoolerView.getString("mail"));
-        // String name = CodecoolerView.getString("name");
-        // String surname = CodecoolerView.getString("surname");
-
-        // Mentor mentor = new Mentor(login, password, mail, name, surname);
-        // // mentorData.save(mentor);
+        mentorController.addMentor();
     }
 
     public void editMentor() {
