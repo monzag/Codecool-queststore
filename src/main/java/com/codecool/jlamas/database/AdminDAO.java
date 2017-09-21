@@ -10,7 +10,7 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-public class AdminDAO implements DAO {
+public class AdminDAO {
 
     private final String FILEPATH = "/admins/";
 
