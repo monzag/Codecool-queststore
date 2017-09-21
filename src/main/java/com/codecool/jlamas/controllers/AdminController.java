@@ -25,6 +25,7 @@ public class AdminController {
     public static final int EXIT = 0;
 
     private Admin admin;
+    private AdminView adminView = new AdminView();;
     private MentorDAO mentorData = new MentorDAO();
     ArrayList<Mentor> mentors;
 
@@ -34,9 +35,8 @@ public class AdminController {
     }
 
     public void menu() {
-        // view - display options 
-        // view - get input
-        int userChoice = 1;
+        adminView.displayAdminMenu();
+        int userChoice = adminView.getMenuOption();
 
         boolean start = true;
         while (start) {
