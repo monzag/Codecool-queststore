@@ -5,7 +5,7 @@ import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.controllers.AdminController;
+import com.codecool.jlamas.controllers.AdminMenuController;
 import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.database.AdminDAO;
