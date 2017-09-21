@@ -8,6 +8,9 @@ public class QuestController {
 
     public QuestController(Quest quest) {
         this.quest = quest;
+    }
+
+    public initMenu() {
         this.view = new QuestView();
     }
 }
