@@ -4,14 +4,12 @@ import com.codecool.jlamas.models.account.Mentor;
 
 public class MentorController {
 
-    private Mentor user;
-
-    public MentorController(Mentor user) {
-        this.user = user;
+    public MentorController() {
     }
 
     public void addMentor() {
-        ;
+        // getData
+        // MentorDAO - insert new
     }
 
     public void editMentor() {
@@ -19,8 +17,12 @@ public class MentorController {
     }
 
     public void removeMentor() {
-        ;
+        // MentorDAO - displayAll
+        // choose Mentor
+        // MentorDAO - remove record
     }
 
-
+    public void displayMentors() {
+        ;
+    }
 }
