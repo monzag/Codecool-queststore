@@ -144,16 +144,15 @@ public class MentorDAO {
 
     }
 
-    public Mentor getMentorByLogin(String userLogin, String userPassword) {
-        String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'Mentor' AND login.login = %s AND login.password = %s;"
+    public Mentor getMentor(String userLogin) {
+        String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'Mentor' AND login.login = %s;"
             , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
             , "FROM user"
             ,     "INNER JOIN login"
             ,             "ON login.login = user.login"
             ,     "INNER JOIN mentor"
             ,             "ON mentor.login = user.login"
-            , userLogin
-            , userPassword);
+            , userLogin;
 
 
         Mentor mentor = new Mentor();
