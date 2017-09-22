@@ -40,11 +40,13 @@ public class MentorController {
             Mentor mentor = chooseMentor();
 
             // Demo version:
-            String name = mentorView.getAttribute();
+            mentorView.displayAttribute();
+            mentorView.enterToContinue();
+            String name = mentorView.getString("New data: ");
             mentor.setName(name);
             mentorDao.update(mentor);
         } catch (IndexOutOfBoundsException e) {
-
+            e.getMessage();
         }
         
     }
@@ -55,7 +57,7 @@ public class MentorController {
             mentorDao.delete(mentor);
 
         } catch (IndexOutOfBoundsException e) {
-
+            e.getMessage();
         }
     }
 
