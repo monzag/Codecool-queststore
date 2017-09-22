@@ -20,7 +20,7 @@ public class CodecoolerView {
     public String getString(String msg) {
         String userInput;
 
-        System.out.print("\n" + msg + ": ");
+        System.out.println("\n" + msg + ": ");
         userInput = this.input.nextLine();
 
         return userInput;
@@ -103,7 +103,7 @@ public class CodecoolerView {
 
     public void enterToContinue() {
         try {
-            System.out.print("\nPRESS ENTER TO CONTINUE");
+            System.out.print("\nChoose an option: ");
             System.in.read();
         } catch (IOException e) {
             System.out.println("INPUT INTERRUPTED");
