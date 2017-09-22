@@ -1,9 +1,7 @@
 package com.codecool.jlamas.views;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -76,7 +74,7 @@ public class CodecoolerView {
     public void printMenu(String[] options) {
         String output;
 
-        output = "\nMENU";
+        output = "\n";
         for (int i = 0; i < options.length; i++) {
             output += String.format("  %d) %s.\n", i+1, options[i]);
         }
