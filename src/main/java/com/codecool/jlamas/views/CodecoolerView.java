@@ -1,5 +1,6 @@
 package com.codecool.jlamas.views;
 
+import java.io.IOException;
 import java.util.Scanner;
 
 import com.codecool.jlamas.models.accountdata.Mail;
@@ -98,6 +99,16 @@ public class CodecoolerView {
 
     public void printErrorMessage() {
         System.out.println("It's not a number!");
+    }
+
+    public void enterToContinue() {
+        try {
+            System.out.print("\nPRESS ENTER TO CONTINUE");
+            System.in.read();
+        } catch (IOException e) {
+            System.out.println("INPUT INTERRUPTED");
+            e.printStackTrace();
+        }
     }
 
 }
