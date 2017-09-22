@@ -25,23 +25,28 @@ public class MentorController {
             String surname = mentorView.getSurname();
             Mail email = mentorView.getMail();
 
-            Login login = new Login("mentor");
-            Password password = new Password("mentor");
+            Login login = new Login("mateusz");
+            Password password = new Password("ostafil");
             Mentor mentor = new Mentor(login, password, email, name, surname);
             mentorDao.insert(mentor);
 
         } catch (InvalidUserDataException e) {
-
+            System.out.println(e.getMessage());
         }
     }
 
     public void editMentor() {
-        Mentor mentor = chooseMentor();
+        try {
+            Mentor mentor = chooseMentor();
 
-        // Demo version:
-        String name = mentorView.getAttribute();
-        mentor.setName(name);
-        mentorDao.update(mentor);
+            // Demo version:
+            String name = mentorView.getAttribute();
+            mentor.setName(name);
+            mentorDao.update(mentor);
+        } catch (IndexOutOfBoundsException e) {
+
+        }
+        
     }
 
     public void removeMentor() {

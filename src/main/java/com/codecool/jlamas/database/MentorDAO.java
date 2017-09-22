@@ -82,25 +82,26 @@ public class MentorDAO {
     }
 
     public boolean update(Mentor mentor) {
-    // true if was successful
-    String query;
+        // true if was successful
+
+        String query;
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
-            query = String.format("UPDATE `user` SET('%s', '%s', '%s', '%s', 'mentor') WHERE login = %s; ",
+            query = String.format("UPDATE `user` SET login = '%s', email = '%s', name = '%s', surname = '%s', type = 'mentor' WHERE login = '%s'; ",
                     mentor.getLogin().getValue(),
                     mentor.getEmail().getValue(),
                     mentor.getName(),
                     mentor.getSurname(),
                     mentor.getLogin().getValue());
 
-            query += String.format("UPDATE `login` SET('%s', '%s') WHERE login = %s; ",
+            query += String.format("UPDATE `login` SET login = '%s', password = '%s' WHERE login = '%s'; ",
                     mentor.getLogin().getValue(),
                     mentor.getPassword().getValue(),
                     mentor.getLogin().getValue());
 
-            query += String.format("UPDATE `mentor` VALUES('%s', '%s') WHERE login = %s; ",
+            query += String.format("UPDATE `mentor` SET login = '%s', class_tag = '%s' WHERE login = '%s'; ",
                     mentor.getLogin().getValue(),
                     mentor.getClassTag(),
                     mentor.getLogin().getValue());
@@ -117,8 +118,8 @@ public class MentorDAO {
     }
 
     public boolean delete(Mentor mentor) {
-    // true if was successful
-    String query;
+        // true if was successful
+        String query;
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
