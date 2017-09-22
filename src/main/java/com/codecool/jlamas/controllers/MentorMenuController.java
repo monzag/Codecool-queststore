@@ -3,6 +3,7 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.models.account.Mentor;
 
 import com.codecool.jlamas.views.MentorView;
+import com.codecool.jlamas.controllers.QuestController;
 
 
 public class MentorMenuController {
@@ -13,7 +14,7 @@ public class MentorMenuController {
                                          "Add new Student",
                                          "Add new Quest",
                                          "Add new Artifat",
-                                         "Edit existing Quest",
+                                         "Show Quests",
                                          "Edit existing Artifact",
                                          "Mark Quest as done",
                                          "Mark Artifact as done"};
@@ -24,27 +25,24 @@ public class MentorMenuController {
     private static final int ADD_STUDENT = 4;
     private static final int ADD_QUEST = 5;
     private static final int ADD_ARTIFACT = 6;
-    private static final int EDIT_QUEST = 7;
+    private static final int SHOW_QUEST = 7;
     private static final int EDIT_ARTIFACT = 8;
     private static final int MARK_QUEST = 9;
     private static final int MARK_ARTIFACT = 10;
-    private static final int EXIT = 11;
+    private static final int EXIT = 0;
 
     private Mentor user;
     private MentorView view;
 
     public MentorMenuController(Mentor user) {
         this.user = user;
-    }
-
-    public void init() {
         this.view =  new MentorView();
     }
 
     public void start() {
         Integer option;
 
-        option = null;
+        option = 100;
         while (!option.equals(EXIT)) {
             view.printMenu(MENU);
             option = view.getMenuOption();
@@ -67,13 +65,15 @@ public class MentorMenuController {
                 addStudent();
                 break;
             case ADD_QUEST :
-                addQuest();
+                QuestController questControll = new QuestController();
+                questControll.createQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
                 break;
-            case EDIT_QUEST :
-                editQuest();
+            case SHOW_QUEST :
+                questControll = new QuestController();
+                questControll.showAllQuests();
                 break;
             case EDIT_ARTIFACT :
                 editArtifact();

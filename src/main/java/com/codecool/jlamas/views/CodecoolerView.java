@@ -1,9 +1,7 @@
 package com.codecool.jlamas.views;
 
-import java.util.ArrayList;
 import java.util.Scanner;
 
-import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -18,7 +16,7 @@ public class CodecoolerView {
         this.input = new Scanner(System.in);
     }
 
-    private String getString(String msg) {
+    public String getString(String msg) {
         String userInput;
 
         System.out.print("\n" + msg + ": ");
@@ -69,26 +67,14 @@ public class CodecoolerView {
         return name.matches("[A-Z][a-z]{2,17}");
     }
 
-    public static void reportWrongLoginData() {
+    public void reportWrongLoginData() {
         System.out.println("Wrong login data. Do you want to try again?");
-    }
-
-    public static void reportResult(boolean state) {
-        if (state) {
-            System.out.println("Success!");
-        } else {
-            System.out.println("Failed!");
-        }
-    }
-
-    public static void inConstruction() {
-        System.out.println("\nMentor and student features in construction!\n");
     }
 
     public void printMenu(String[] options) {
         String output;
 
-        output = "\nMENU";
+        output = "\n";
         for (int i = 0; i < options.length; i++) {
             output += String.format("  %d) %s.\n", i+1, options[i]);
         }
