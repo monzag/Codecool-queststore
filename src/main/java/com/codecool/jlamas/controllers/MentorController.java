@@ -25,9 +25,10 @@ public class MentorController {
             String surname = mentorView.getSurname();
             Mail email = mentorView.getMail();
 
-            Login login = new Login("mateusz");
-            Password password = new Password("ostafil");
-            Mentor mentor = new Mentor(login, password, email, name, surname);
+            Login login = new Login("xxx");
+            Password password = new Password("yyy");
+            String classTag = "2017.1";
+            Mentor mentor = new Mentor(login, password, email, name, surname, classTag);
             mentorDao.insert(mentor);
 
         } catch (InvalidUserDataException e) {
