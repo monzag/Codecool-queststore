@@ -42,7 +42,8 @@ public class MentorController {
             // Demo version:
             mentorView.displayAttribute();
             mentorView.enterToContinue();
-            String name = mentorView.getString("New data: ");
+            System.out.println("New data: ");
+            String name = System.console().readLine();
             mentor.setName(name);
             mentorDao.update(mentor);
         } catch (IndexOutOfBoundsException e) {
