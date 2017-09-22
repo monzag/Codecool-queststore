@@ -1,7 +1,7 @@
 CREATE TABLE IF NOT EXISTS `quest` (
 	`name`	TEXT NOT NULL,
-  `description`	TEXT,
-	`reward`	INTEGER,
+  `Description`	TEXT,
+	`Value`	INTEGER,
 	PRIMARY KEY(`Name`)
 );
 

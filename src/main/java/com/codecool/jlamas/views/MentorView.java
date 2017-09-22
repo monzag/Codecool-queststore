@@ -21,7 +21,7 @@ public class MentorView extends CodecoolerView {
         printMenu(attributes);
 
         // Demo:
-        System.out.println("\nYour choice: 2");
+        System.out.println("\nYour choice: 1");
         try {
             attribute = getSurname();
 

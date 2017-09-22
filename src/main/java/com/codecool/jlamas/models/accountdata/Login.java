@@ -1,7 +1,5 @@
 package com.codecool.jlamas.models.accountdata;
 
-import com.codecool.jlamas.database.LoginDAO;
-
 public class Login extends AccountData {
     private static final Integer LOGINMAXLEN = 20;
     private static final Integer LOGINMINLEN = 5;
@@ -15,18 +13,14 @@ public class Login extends AccountData {
     }
 
     public static boolean isValid(String value){
-        boolean isUnique = isLoginUnique(value);
+        boolean isUnique = isUnique(value);
         boolean isLengthValid = isLengthValid(value, LOGINMINLEN, LOGINMAXLEN);
 
-        return isLengthValid && isUnique;
-    }
+        if (isLengthValid && isUnique) {
+            return true;
 
-    public static boolean isLoginUnique(String value){
-        LoginDAO loginData = new LoginDAO();
-
-        if (loginData.findLogin(value) != null) {
+        }else {
             return false;
         }
-        return true;
     }
 }

@@ -17,9 +17,9 @@ public class QuestController {
 
     public void createQuest() {
         QuestView view = new QuestView();
-        String name = view.getString("Type quest name");
-        String description = view.getString("Type quest description");
-        Integer reward = view.getInt("Type reward value");
+        String name = view.getStrInput();
+        String description = view.getStrInput();
+        Integer reward = view.getIntInput();
         Quest quest = new Quest(name, description, reward);
 
         this.questDAO.insertQuest(quest);

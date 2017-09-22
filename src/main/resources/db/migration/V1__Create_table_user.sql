@@ -6,5 +6,4 @@ CREATE TABLE IF NOT EXISTS `user` (
 	`type` TEXT NOT NULL
 );
 INSERT INTO `user` VALUES ('admin', 'admin@admin.com','Jerzy','Mardaus', 'admin');
-INSERT INTO `user` VALUES ('mentor', 'mentor@mentor.pl','Janusz','Kwasniewski', 'mentor');
 

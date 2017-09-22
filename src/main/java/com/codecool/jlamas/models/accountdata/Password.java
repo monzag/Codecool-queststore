@@ -14,6 +14,10 @@ public class Password extends AccountData {
     public static boolean isValid(String value){
         boolean isLengthValid = isLengthValid(value, PASSMINLEN, PASSMAXLEN);
 
-        return isLengthValid;
+        if (isLengthValid){
+            return true;
+        }else {
+            return false;
+        }
     }
 }

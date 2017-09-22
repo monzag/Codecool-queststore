@@ -11,23 +11,17 @@ public class QuestView {
 
     }
 
-    public String getString(String msg) {
-        String userInput;
+    public String getStrInput() {
+        String strInput;
 
-        System.out.print("\n" + msg + ": ");
-        userInput = this.input.nextLine();
+        strInput = input.nextLine();
 
-        return userInput;
+        return strInput;
     }
 
-    public Integer getInt(String msg) {
+    public Integer getIntInput() {
         Integer intInput;
 
-        System.out.print("\n" + msg + ": ");
-        while (! input.hasNextInt()) {
-            System.out.println("This is not a number!");
-            input.next();
-        }
         intInput = input.nextInt();
 
         return intInput;

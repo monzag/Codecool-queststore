@@ -1,5 +1,6 @@
 package com.codecool.jlamas.models.accountdata;
 
+import com.codecool.jlamas.database.AdminDAO;
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.database.StudentDAO;
 
@@ -20,6 +21,24 @@ public abstract class AccountData {
 
         }else {
             return false;
+        }
+    }
+
+    protected static boolean isUnique(String value){
+        StudentDAO studentData = new StudentDAO();
+        MentorDAO mentorData = new MentorDAO();
+        AdminDAO adminData = new AdminDAO();
+
+        if (adminData.load(value) != null){
+            return false;
+        // }else if (mentorData.load(value) != null){
+        //     return false;
+
+        }else if (studentData.load(value) != null){
+            return false;
+
+        } else {
+            return true;
         }
     }
 
