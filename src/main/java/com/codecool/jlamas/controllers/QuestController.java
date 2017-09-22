@@ -17,9 +17,9 @@ public class QuestController {
 
     public void createQuest() {
         QuestView view = new QuestView();
-        String name = view.getStrInput();
-        String description = view.getStrInput();
-        Integer reward = view.getIntInput();
+        String name = view.getString("Type quest name");
+        String description = view.getString("Type quest description");
+        Integer reward = view.getInt("Type reward value");
         Quest quest = new Quest(name, description, reward);
 
         this.questDAO.insertQuest(quest);
@@ -39,6 +39,8 @@ public class QuestController {
     }
 
     public void showAllQuests() {
+        QuestView view = new QuestView();
+        view.printQuestData(this.questDAO.selectAll());
 
     }
 }
