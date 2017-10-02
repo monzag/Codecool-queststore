@@ -50,7 +50,6 @@ public class MentorController {
             mentorDao.delete(mentor);
 
         } catch (IndexOutOfBoundsException e) {
-
         }
     }
 
