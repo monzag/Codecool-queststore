@@ -43,4 +43,24 @@ public class QuestDAO {
 
         return questList;
     }
+
+    public void editQuest(Quest quest, String preUpdateName) {
+        String sql = "UPDATE quest SET name = ? , "
+                + "description = ? , "
+                + "reward = ? "
+                + "WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setString(1, quest.getName());
+            pstmt.setString(2, quest.getDescription());
+            pstmt.setInt(3, quest.getReward());
+            pstmt.setString(4, preUpdateName);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
