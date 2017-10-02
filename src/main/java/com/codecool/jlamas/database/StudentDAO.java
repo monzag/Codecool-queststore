@@ -79,9 +79,9 @@ public class StudentDAO {
 
     public boolean insert(Student student) {
 
-        private final Integer UNSIGNED_TEAM = 0;
-        private final Integer BALANCE = 0;
-        private final Integer COOLCOINS = 0;
+        final Integer UNSIGNED_TEAM = 0;
+        final Integer BALANCE = 0;
+        final Integer COOLCOINS = 0;
 
         String query;
 
