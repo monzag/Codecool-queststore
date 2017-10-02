@@ -1,9 +1,5 @@
 package com.codecool.jlamas.models.accountdata;
 
-import com.codecool.jlamas.database.MentorDAO;
-import com.codecool.jlamas.database.StudentDAO;
-
-
 public abstract class AccountData {
     String value;
 

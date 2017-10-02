@@ -1,9 +1,8 @@
 package com.codecool.jlamas.views;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.Scanner;
 
-import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -21,7 +20,7 @@ public class CodecoolerView {
     public String getString(String msg) {
         String userInput;
 
-        System.out.print("\n" + msg + ": ");
+        System.out.println("\n" + msg + ": ");
         userInput = this.input.nextLine();
 
         return userInput;
@@ -76,7 +75,7 @@ public class CodecoolerView {
     public void printMenu(String[] options) {
         String output;
 
-        output = "\nMENU";
+        output = "\n";
         for (int i = 0; i < options.length; i++) {
             output += String.format("  %d) %s.\n", i+1, options[i]);
         }
@@ -100,6 +99,16 @@ public class CodecoolerView {
 
     public void printErrorMessage() {
         System.out.println("It's not a number!");
+    }
+
+    public void enterToContinue() {
+        try {
+            System.out.print("\nChoose an option: ");
+            System.in.read();
+        } catch (IOException e) {
+            System.out.println("INPUT INTERRUPTED");
+            e.printStackTrace();
+        }
     }
 
 }
