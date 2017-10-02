@@ -8,6 +8,7 @@ import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
+import com.codecool.jlamas.models.accountdata.Wallet;
 
 public class StudentDAO {
 
@@ -151,7 +152,40 @@ public class StudentDAO {
             return false;
         }
         return true;
+    }
 
+    public Student getStudent(String userLogin) {
+        String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.class_tag,"
+                , "student.team_tag, student.balance, student.coolcoins"
+                , "FROM user"
+                ,     "INNER JOIN login"
+                ,             "ON login.login = user.login"
+                ,     "INNER JOIN mentor"
+                ,             "ON mentor.login = user.login"
+                , userLogin);
+
+
+        Student student = new Student();
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(query);) {
+
+            student.setName(rs.getString("name"));
+            student.setSurname(rs.getString("surname"));
+            student.setLogin(new Login(rs.getString("login")));
+            student.setPassword(new Password(rs.getString("password")));
+            student.setEmail(new Mail(rs.getString("email")));
+            student.setClassId(rs.getString("class_tag"));
+            student.setTeamId(rs.getInt("team_tag"));
+            student.setWallet(new Wallet(rs.getInt("balance")));
+            student.getWallet().setCoolcoinsEarned(rs.getInt("coolcoins"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return student;
     }
 
 }
