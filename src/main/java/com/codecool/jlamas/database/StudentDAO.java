@@ -51,9 +51,31 @@ public class StudentDAO {
         return students;
     }
 
-    public void delete(Student student) {
-        ;
-    }
+    public boolean delete(Student student) {
+            // true if was successful
+            String query;
+
+            try (Connection c = ConnectDB.connect();
+                 Statement stmt = c.createStatement();) {
+
+                query = String.format("DELETE FROM `user` WHERE login = '%s'; ",
+                        student.getLogin().getValue());
+
+                query += String.format("DELETE FROM `login` WHERE login = '%s'; ",
+                        student.getLogin().getValue());
+
+                query += String.format("DELETE FROM `mentor` WHERE login = '%s'; ",
+                        student.getLogin().getValue());
+
+                stmt.executeUpdate(query);
+
+            } catch (ClassNotFoundException|SQLException e) {
+                System.out.println(e.getMessage());
+
+                return false;
+            }
+            return true;
+        }
 
     public void insert(Student student) {
         ;
