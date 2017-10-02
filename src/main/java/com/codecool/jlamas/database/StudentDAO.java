@@ -3,7 +3,6 @@ package com.codecool.jlamas.database;
 import java.sql.*;
 import java.util.ArrayList;
 
-import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
