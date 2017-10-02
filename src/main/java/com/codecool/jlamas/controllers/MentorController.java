@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -34,6 +35,18 @@ public class MentorController {
         } catch (InvalidUserDataException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public Password getPassword() {
+        String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        String value = "";
+        while (value.length() < 8) {
+            char sign = alphabet.charAt(random.nextInt(36));
+            value += sign;
+        }
+
+        return new Password(value);
     }
 
     public void editMentor() {
