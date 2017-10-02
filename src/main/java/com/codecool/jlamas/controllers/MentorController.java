@@ -24,9 +24,9 @@ public class MentorController {
             String name = mentorView.getName();
             String surname = mentorView.getSurname();
             Mail email = mentorView.getMail();
-
-            Login login = new Login("xxx");
-            Password password = new Password("yyy");
+            Login login = mentorView.getLogin(name, surname);
+            Password password = getPassword();
+            
             String classTag = "2017.1";
             Mentor mentor = new Mentor(login, password, email, name, surname, classTag);
             mentorDao.insert(mentor);
