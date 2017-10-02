@@ -116,8 +116,42 @@ public class StudentDAO {
 
     }
 
-    public void update(Student student) {
-        ;
+    public boolean update(Student student) {
+        String query;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+
+            query = String.format("UPDATE `user` SET login = '%s', email = '%s', name = '%s', surname = '%s', " +
+                                  "type = 'mentor' WHERE login = '%s'; ",
+                    student.getLogin().getValue(),
+                    student.getEmail().getValue(),
+                    student.getName(),
+                    student.getSurname(),
+                    student.getLogin().getValue());
+
+            query += String.format("UPDATE `login` SET login = '%s', password = '%s' WHERE login = '%s'; ",
+                    student.getLogin().getValue(),
+                    student.getPassword().getValue(),
+                    student.getLogin().getValue());
+
+            query += String.format("UPDATE `mentor` SET login = '%s', class_tag = '%s', team_tag = '%s', " +
+                                   "balance = '%s', coolcoins = '%s' WHERE login = '%s'; ",
+                    student.getLogin().getValue(),
+                    student.getClassId(),
+                    student.getTeamId(),
+                    student.getWallet().getBalance(),
+                    student.getWallet().getCoolcoinsEarned(),
+                    student.getLogin().getValue());
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
+
     }
 
 }
