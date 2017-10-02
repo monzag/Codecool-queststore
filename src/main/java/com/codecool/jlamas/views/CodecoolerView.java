@@ -3,6 +3,7 @@ package com.codecool.jlamas.views;
 import java.io.IOException;
 import java.util.Scanner;
 
+import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -62,6 +63,16 @@ public class CodecoolerView {
             throw new InvalidUserDataException(err);
         }
         return new Mail(mail);
+    }
+
+    public Login getLogin(String name, String surname) {
+        String userLogin = name + "." + surname;
+
+        while (!Login.isValid(userLogin)) {
+            userLogin = getString("Generate login failed. \nPlease enter manually (5-20 chars, unique): ");
+        }
+
+        return new Login(userLogin);
     }
 
     private boolean isName(String name) {
