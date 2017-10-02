@@ -3,6 +3,7 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
 import com.codecool.jlamas.views.QuestView;
+import java.util.ArrayList;
 
 public class QuestController {
     private QuestDAO questDAO;
@@ -11,8 +12,24 @@ public class QuestController {
         this.questDAO = new QuestDAO();
     }
 
-    public void editQuest(Quest quest) {
+    public void editQuest() {
+        ArrayList<Quest> questsList = this.questDAO.selectAll();
+        QuestView view = new QuestView();
+        boolean correctChoice = false;
+        Integer index = null;
+        view.printQuestData(questsList);
 
+        while (!correctChoice) {
+            Integer questID = view.getInt("Choose number of quest You want to edit: ");
+
+            if (questID <= questsList.size() & questID > 0) {
+                correctChoice = true;
+                index = questID - 1;
+            }
+        }
+
+        Quest quest = questsList.get(index);
+        System.out.println(quest);
     }
 
     public void createQuest() {
