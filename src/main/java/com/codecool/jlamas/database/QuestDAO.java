@@ -44,7 +44,7 @@ public class QuestDAO {
         return questList;
     }
 
-    public void editQuest(Quest quest, String preUpdateName) {
+    public void updateQuest(Quest quest, String preUpdateName) {
         String sql = "UPDATE quest SET name = ? , "
                 + "description = ? , "
                 + "reward = ? "
