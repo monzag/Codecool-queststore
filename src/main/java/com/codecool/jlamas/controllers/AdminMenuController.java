@@ -1,14 +1,9 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.views.AdminView;
-// import com.codecool.jlamas.models.accountdata.Login;
-// import com.codecool.jlamas.models.accountdata.Password;
-// import com.codecool.jlamas.models.accountdata.Mail;
-// import com.codecool.jlamas.views.CodecoolerView;
 
 import java.util.ArrayList;
 
@@ -36,10 +31,12 @@ public class AdminMenuController {
 
     public AdminMenuController(Admin admin) {
         this.admin = admin;
+        this.adminView = new AdminView();
+        this.mentorController = new MentorController();
     }
 
     public void start() {
-        Integer option = null;
+        Integer option = 100;
         while (!option.equals(EXIT)) {
             adminView.printMenu(OPTIONS);
             option = adminView.getMenuOption();
