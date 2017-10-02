@@ -75,10 +75,45 @@ public class StudentDAO {
                 return false;
             }
             return true;
-        }
+    }
 
-    public void insert(Student student) {
-        ;
+    public boolean insert(Student student) {
+
+        private final Integer UNSIGNED_TEAM = 0;
+        private final Integer BALANCE = 0;
+        private final Integer COOLCOINS = 0;
+
+        String query;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+
+            query = String.format("INSERT INTO `user` VALUES('%s', '%s', '%s', '%s', 'mentor'); ",
+                    student.getLogin().getValue(),
+                    student.getEmail().getValue(),
+                    student.getName(),
+                    student.getSurname());
+
+            query += String.format("INSERT INTO `login` VALUES('%s', '%s'); ",
+                    student.getLogin().getValue(),
+                    student.getPassword().getValue());
+
+            query += String.format("INSERT INTO `student` VALUES('%s', '%s', '%s', '%s', '%s'); ",
+                    student.getLogin().getValue(),
+                    student.getClassId(),
+                    UNSIGNED_TEAM,
+                    BALANCE,
+                    COOLCOINS);
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+
+            return false;
+        }
+        return true;
+
     }
 
     public void update(Student student) {
