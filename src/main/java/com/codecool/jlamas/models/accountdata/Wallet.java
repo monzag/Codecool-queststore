@@ -41,6 +41,14 @@ public class Wallet {
         return false;
     }
 
+    public ArrayList<Quest> getDoneQuests() {
+        return this.doneQuests;
+    }
+
+    public ArrayList<Artifact> getOwnedArtifacts() {
+        return this.ownedArtifacts;
+    }
+
     public void setDoneQuests(ArrayList<Quest> doneQuests) {
         this.doneQuests = doneQuests;
     }
