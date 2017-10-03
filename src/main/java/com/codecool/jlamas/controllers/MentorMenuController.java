@@ -115,7 +115,7 @@ public class MentorMenuController {
     }
 
     public void editQuest() {
-
+        questController.editQuest();
     }
 
     public void editArtifact() {
