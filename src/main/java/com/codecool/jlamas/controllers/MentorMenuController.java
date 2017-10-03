@@ -130,7 +130,7 @@ public class MentorMenuController {
     }
 
     public void editArtifact() {
-
+        artifactController.editArtifact();
     }
 
     public void markQuest() {
