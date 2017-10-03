@@ -10,7 +10,7 @@ public class ArtifactView {
 
     }
 
-    public void printQuestData(ArrayList<Artifact> artifactList) {
+    public void printArtifacts(ArrayList<Artifact> artifactList) {
         Integer i = 1;
         for(Artifact artifact : artifactList) {
             System.out.print(i + ". ");
