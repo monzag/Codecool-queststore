@@ -5,9 +5,8 @@ import com.codecool.jlamas.models.quest.Quest;
 import java.util.ArrayList;
 
 public class QuestView {
-    Scanner input;
+
     public QuestView() {
-        this.input = new Scanner(System.in);
 
     }
 
@@ -15,12 +14,13 @@ public class QuestView {
         String userInput;
 
         System.out.print("\n" + msg + ": ");
-        userInput = this.input.nextLine();
+        userInput = System.console().readLine();
 
         return userInput;
     }
 
     public Integer getInt(String msg) {
+        Scanner input = new Scanner(System.in);
         Integer intInput;
 
         System.out.print("\n" + msg + ": ");
@@ -34,8 +34,19 @@ public class QuestView {
     }
 
     public void printQuestData(ArrayList<Quest> questList) {
+        Integer i = 1;
         for(Quest quest : questList) {
+            System.out.print(i + ". ");
             System.out.println(quest);
+            i++;
+        }
+    }
+
+    public void printEditMenu() {
+        String[] menuOptions = {"\n1.Edit name.", "2.Edit description.", "3.Edit reward."};
+
+        for (String option : menuOptions) {
+            System.out.println(option);
         }
     }
 }
