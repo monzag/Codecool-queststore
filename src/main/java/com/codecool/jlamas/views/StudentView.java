@@ -28,4 +28,8 @@ public class StudentView extends CodecoolerView {
                                "team"};
         printMenu(attributes);
     }
+
+    public void showBalance(Integer balance) {
+        System.out.println("\nYour balance: " + balance + " coolcoins\n");
+    }
 }
