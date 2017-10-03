@@ -4,6 +4,7 @@ import java.sql.*;
 import java.util.ArrayList;
 
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
@@ -16,7 +17,7 @@ public class StudentDAO {
 
     public ArrayList<Student> requestAll() {
         String query = String.format("%s %s %s %s %s %s %s %s"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.class_tag"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group"
                 ,         "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
@@ -39,7 +40,7 @@ public class StudentDAO {
                 student.setLogin(new Login(rs.getString("login")));
                 student.setPassword(new Password(rs.getString("password")));
                 student.setEmail(new Mail(rs.getString("email")));
-                student.setClassId(rs.getString("class_tag"));
+                student.setGroup(new Group(rs.getString("group")));
                 student.setTeamId(rs.getInt("team_tag"));
                 students.add(student);
             }
@@ -99,7 +100,7 @@ public class StudentDAO {
 
             query += String.format("INSERT INTO `student` VALUES('%s', '%s', '%s', '%s'); ",
                     student.getLogin().getValue(),
-                    student.getClassId(),
+                    student.getGroup().getName(),
                     UNSIGNED_TEAM,
                     BALANCE);
 
@@ -133,10 +134,10 @@ public class StudentDAO {
                     student.getPassword().getValue(),
                     student.getLogin().getValue());
 
-            query += String.format("UPDATE `mentor` SET login = '%s', class_tag = '%s', team_tag = '%s', " +
+            query += String.format("UPDATE `mentor` SET login = '%s', group = '%s', team_tag = '%s', " +
                                    "balance = '%s', coolcoins = '%s' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
-                    student.getClassId(),
+                    student.getGroup().getName(),
                     student.getTeamId(),
                     student.getWallet().getBalance(),
                     student.getLogin().getValue());
@@ -152,7 +153,7 @@ public class StudentDAO {
 
     public Student getStudent(String userLogin) {
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.class_tag,"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group,"
                 , "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
@@ -172,7 +173,7 @@ public class StudentDAO {
             student.setLogin(new Login(rs.getString("login")));
             student.setPassword(new Password(rs.getString("password")));
             student.setEmail(new Mail(rs.getString("email")));
-            student.setClassId(rs.getString("class_tag"));
+            student.setGroup(new Group(rs.getString("group")));
             student.setTeamId(rs.getInt("team_tag"));
             student.setWallet(new Wallet(rs.getInt("balance")));
 

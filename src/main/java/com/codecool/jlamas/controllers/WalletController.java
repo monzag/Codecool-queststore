@@ -14,8 +14,8 @@ import java.util.ArrayList;
 public class WalletController {
 
     Student student;
-    private DoneQuestDAO doneQuestsDAO = new DoneQuestDAO();
-    private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
+    // private DoneQuestDAO doneQuestsDAO = new DoneQuestDAO();
+    // private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
     private QuestView questView = new QuestView();
     private StudentView studentView = new StudentView();
 
@@ -28,7 +28,7 @@ public class WalletController {
     }
 
     public void displayDoneQuests() {
-        questView.printQuestData(this.student.getWallet().getDoneQuests());
+        // questView.printQuestData(this.student.getWallet().getDoneQuests());
     }
 
     public void displayOwnedArtifacts() {
@@ -36,13 +36,13 @@ public class WalletController {
     }
 
     public void addDoneQuest(Quest quest) {
-        this.student.getWallet().getDoneQuests().add(quest);
-        doneQuestsDAO.insert(this.student.getLogin(), quest);
+        // this.student.getWallet().getDoneQuests().add(quest);
+        // doneQuestsDAO.insert(this.student.getLogin(), quest);
     }
 
     public void addOwnedArtifact(Artifact artifact) {
-        this.student.getWallet().getDoneQuests().add(artifact);
-        ownedArtifactDAO.insert(this.student.getLogin(), artifact);
+    //     this.student.getWallet().getDoneQuests().add(artifact);
+    //     ownedArtifactDAO.insert(this.student.getLogin(), artifact);
     }
 
 }
