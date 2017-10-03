@@ -11,19 +11,15 @@ import com.codecool.jlamas.exceptions.InvalidUserDataException;
 
 public class CodecoolerView {
 
-    private Scanner input;
-
     public CodecoolerView() {
-        this.input = new Scanner(System.in);
     }
 
     public String getString(String msg) {
         String userInput;
 
         System.out.println("\n" + msg + ": ");
-        userInput = this.input.nextLine();
+        userInput = new Scanner(System.in).nextLine();
         return userInput;
-
     }
 
     public String getName() throws InvalidUserDataException {
@@ -95,6 +91,7 @@ public class CodecoolerView {
 
     public int getMenuOption() {
         int option;
+        Scanner input = new Scanner(System.in);
 
         System.out.print("Choose option: ");
         while (!input.hasNextInt()) {
@@ -112,6 +109,7 @@ public class CodecoolerView {
 
     public void printIndexError() {
         System.out.println("Bad number - record not exist!");
+    }
 
     public void enterToContinue() {
         try {
