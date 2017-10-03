@@ -36,12 +36,14 @@ public class MentorMenuController {
     private MentorView view;
     private StudentController studentController;
     private QuestController questController;
+    private ArtifactController artifactController;
 
     public MentorMenuController(Mentor user) {
         this.user = user;
         this.view =  new MentorView();
         this.studentController = new StudentController();
         this.questController = new QuestController();
+        this.artifactController = new ArtifactController();
 
     }
 
@@ -120,7 +122,7 @@ public class MentorMenuController {
     }
 
     public void addArtifact() {
-
+        artifactController.createArtifact();
     }
 
     public void editQuest() {
@@ -128,7 +130,7 @@ public class MentorMenuController {
     }
 
     public void editArtifact() {
-
+        artifactController.editArtifact();
     }
 
     public void markQuest() {
