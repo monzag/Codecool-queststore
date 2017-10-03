@@ -18,7 +18,7 @@ public class StudentController {
     private static final String EDIT_SURNAME = "2";
     private static final String EDIT_EMAIL = "3";
     private static final String EDIT_PASSWORD = "4";
-    private static final String EDIT_CLASS = "5";
+    private static final String EDIT_GROUP = "5";
     private static final String EDIT_TEAM = "6";
 
     private StudentView studentView = new StudentView();
@@ -104,10 +104,9 @@ public class StudentController {
                     String passwordText = studentView.getString("New password: ");
                     student.setPassword(new Password(passwordText));
                     break;
-                case EDIT_CLASS:
-                    // TODO
-                    String classId = "2017.1A";
-                    student.setClassId(classId);
+                case EDIT_GROUP:
+                    GroupController groupController = new GroupController();
+                    groupController.editGroup();
                     break;
                 case EDIT_TEAM:
                     // TODO
