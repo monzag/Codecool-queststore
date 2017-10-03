@@ -16,7 +16,8 @@ public class MentorMenuController {
                                          "Show Quests",
                                          "Edit existing Artifact",
                                          "Mark Quest as done",
-                                         "Mark Artifact as done"};
+                                         "Mark Artifact as done",
+                                         "Delete quest"};
 
     private static final int PRINT_CLASS = 1;
     private static final int PRINT_TEAM = 2;
@@ -28,6 +29,7 @@ public class MentorMenuController {
     private static final int EDIT_ARTIFACT = 8;
     private static final int MARK_QUEST = 9;
     private static final int MARK_ARTIFACT = 10;
+    private static final int DELETE_QUEST = 11;
     private static final int EXIT = 0;
 
     private Mentor user;
@@ -86,6 +88,9 @@ public class MentorMenuController {
             case MARK_ARTIFACT :
                 markArtifact();
                 break;
+            case DELETE_QUEST :
+                deleteQuest();
+                break;
         }
 
     }
@@ -99,6 +104,10 @@ public class MentorMenuController {
 
     public void createTeam() {
 
+    }
+
+    public void deleteQuest() {
+        questController.deleteQuest();
     }
 
     public void addStudent() {
