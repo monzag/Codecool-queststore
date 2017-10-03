@@ -6,6 +6,7 @@ import java.util.Random;
 import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
@@ -39,14 +40,25 @@ public class StudentController {
             Mail email = studentView.getMail();
             Login login = studentView.getLogin(name, surname);
             Password password = getPassword();
-            Wallet wallet = new Wallet();
             Group group = getGroup();
+            Wallet wallet = new Wallet();
             Student student = new Student(login, password, email, name, surname, group, wallet);
             studentDao.insert(student);
 
         } catch (InvalidUserDataException e) {
 
         }
+    }
+
+    public Group getGroup() {
+        Group group = new Group();
+        GroupController groupController = new GroupController();
+        try {
+            group = groupController.chooseGroup();
+        } catch (IndexOutOfBoundsException e) {
+            e.getMessage();
+        }
+        return group;
     }
 
     public Password getPassword() {
