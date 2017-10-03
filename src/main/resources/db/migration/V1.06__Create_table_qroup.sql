@@ -1,4 +1,4 @@
 CREATE TABLE IF NOT EXISTS `group` (
-  `name`	TEXT PRIMARY KEY UNIQUE NOT NULL
+  `groupTag`	TEXT PRIMARY KEY UNIQUE NOT NULL
 );
-INSERT INTO `class` (`name`) VALUES ('2017.1');
+INSERT INTO `group` (`groupTag`) VALUES ('2017.1');
