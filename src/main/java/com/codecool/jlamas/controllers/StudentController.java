@@ -14,6 +14,13 @@ import com.codecool.jlamas.views.StudentView;
 
 public class StudentController {
 
+    private static final String EDIT_NAME = "1";
+    private static final String EDIT_SURNAME = "2";
+    private static final String EDIT_EMAIL = "3";
+    private static final String EDIT_PASSWORD = "4";
+    private static final String EDIT_CLASS = "5";
+    private static final String EDIT_TEAM = "6";
+
     private StudentView studentView = new StudentView();
     private StudentDAO studentDao = new StudentDAO();
 
