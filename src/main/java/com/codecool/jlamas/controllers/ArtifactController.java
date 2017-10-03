@@ -22,6 +22,15 @@ public class ArtifactController {
         artifactView.printArtifacts(artifacts.requestAll());
     }
 
+    public void createArtifact() {
+        String name = artifactView.getString("Type artifact name");
+        Integer price = artifactView.getInt("Type price value");
+        String description = artifactView.getString("Type artifact description");
+        Artifact artifact = new Artifact(name, price, description);
+
+        this.artifacts.insert(artifact);
+    }
+
     public void editArtifact() {
         try {
             Artifact artifact = chooseArtifact();
