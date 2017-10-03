@@ -17,7 +17,7 @@ public class GroupTeamView {
         return userInput;
     }
 
-    public <T> void printObjects(ArrayList<T> objectList) {
+    public <T> void printAll(ArrayList<T> objectList) {
         System.out.print("\nGroups: ");
         for (T object : objectList) {
             System.out.print(object);
