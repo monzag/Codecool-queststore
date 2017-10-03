@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -29,9 +30,8 @@ public class StudentController {
             String name = studentView.getName();
             String surname = studentView.getSurname();
             Mail email = studentView.getMail();
-
-            Login login = new Login("student");
-            Password password = new Password("student");
+            Login login = studentView.getLogin(name, surname);
+            Password password = getPassword();
             Wallet wallet = new Wallet();
             Student student = new Student(login, password, email, name, surname, wallet);
             studentDao.insert(student);
@@ -39,6 +39,18 @@ public class StudentController {
         } catch (InvalidUserDataException e) {
 
         }
+    }
+
+    public Password getPassword() {
+        String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        String value = "";
+        while (value.length() < 8) {
+            char sign = alphabet.charAt(random.nextInt(36));
+            value += sign;
+        }
+
+        return new Password(value);
     }
 
     public void removeStudent() {
