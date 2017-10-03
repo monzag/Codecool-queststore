@@ -24,6 +24,6 @@ public class GroupController {
 
     public void displayGroups() {
         ArrayList<Group> groups = groupDAO.selectAll();
-        groupView.printGroups(groups);
+        groupView.printAll(groups);
     }
 }
