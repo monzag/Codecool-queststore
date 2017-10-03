@@ -54,8 +54,6 @@ public class AdminMenuController {
                     break; 
                 case EDIT_QUEST: editQuest();
                     break;
-                case EXIT:
-                    break;
             }
         }
     }
@@ -81,10 +79,6 @@ public class AdminMenuController {
     }
 
     public void editQuest() {
-        QuestController questController = new QuestController();
-        questController.showAllQuests();
-        // user choice -> quest
-        Quest quest = new Quest();
-        questController.editQuest(quest);
+        QuestController.editQuest();
     }
 }
