@@ -15,7 +15,7 @@ public class MentorDAO {
 
     public ArrayList<Mentor> requestAll() {
         String query = String.format("%s %s %s %s %s %s %s"
-            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group"
             , "FROM user"
             ,     "INNER JOIN login"
             ,             "ON login.login = user.login"
@@ -37,7 +37,7 @@ public class MentorDAO {
                 mentor.setLogin(new Login(rs.getString("login")));
                 mentor.setPassword(new Password(rs.getString("password")));
                 mentor.setEmail(new Mail(rs.getString("email")));
-                mentor.setClassTag(rs.getString("class_tag"));
+                mentor.setGroup(new Group(rs.getString("group")));
 
                 mentors.add(mentor);
             }
@@ -68,7 +68,7 @@ public class MentorDAO {
 
             query += String.format("INSERT INTO `mentor` VALUES('%s', '%s'); ",
                     mentor.getLogin().getValue(),
-                    mentor.getClassTag());
+                    mentor.getGroup().getName());
 
             stmt.executeUpdate(query);
 
@@ -101,9 +101,9 @@ public class MentorDAO {
                     mentor.getPassword().getValue(),
                     mentor.getLogin().getValue());
 
-            query += String.format("UPDATE `mentor` SET login = '%s', class_tag = '%s' WHERE login = '%s'; ",
+            query += String.format("UPDATE `mentor` SET login = '%s', group = '%s' WHERE login = '%s'; ",
                     mentor.getLogin().getValue(),
-                    mentor.getClassTag(),
+                    mentor.getGroup().getName(),
                     mentor.getLogin().getValue());
 
             stmt.executeUpdate(query);
@@ -147,7 +147,7 @@ public class MentorDAO {
 
     public Mentor getMentor(String userLogin) {
         String query = String.format("%s %s %s %s %s %s WHERE user.type = 'mentor' AND login.login = '%s';"
-            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.class_tag"
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group"
             , "FROM user"
             ,     "INNER JOIN login"
             ,             "ON login.login = user.login"
@@ -166,7 +166,7 @@ public class MentorDAO {
             mentor.setLogin(new Login(rs.getString("login")));
             mentor.setPassword(new Password(rs.getString("password")));
             mentor.setEmail(new Mail(rs.getString("email")));
-            mentor.setClassTag(rs.getString("class_tag"));
+            mentor.setGroup(new Group(rs.getString("group")));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
