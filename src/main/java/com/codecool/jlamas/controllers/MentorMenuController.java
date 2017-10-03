@@ -70,15 +70,13 @@ public class MentorMenuController {
                 addStudent();
                 break;
             case ADD_QUEST :
-                QuestController questControll = new QuestController();
-                questControll.createQuest();
+                questController.createQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
                 break;
             case SHOW_QUEST :
-                questControll = new QuestController();
-                questControll.showAllQuests();
+                questController.showAllQuests();
                 break;
             case EDIT_ARTIFACT :
                 editArtifact();
