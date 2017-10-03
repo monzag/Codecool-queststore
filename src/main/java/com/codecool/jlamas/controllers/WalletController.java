@@ -4,6 +4,7 @@ import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.database.QuestDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.views.QuestView;
 import com.codecool.jlamas.views.StudentView;
