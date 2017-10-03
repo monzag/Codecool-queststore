@@ -39,5 +39,9 @@ public class WalletController {
         doneQuestsDAO.insert(this.student.getLogin(), quest);
     }
 
+    public void addOwnedArtifact(Artifact artifact) {
+        this.student.getWallet().getDoneQuests().add(artifact);
+        ownedArtifactsDAO.insert(this.student.getLogin(), artifact);
+    }
 
 }
