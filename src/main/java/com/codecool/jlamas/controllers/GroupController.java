@@ -23,24 +23,26 @@ public class GroupController {
     }
 
     public void displayGroups() {
-        ArrayList<Group> groups = groupDAO.selectAll();
+        ArrayList<Group> groups = getGroups();
         groupView.printAll(groups);
     }
-    
 
+    public ArrayList<Group> getGroups() {
+        return groupDAO.selectAll();
+    }
+    
     public Group chooseGroup() {
-        ArrayList<Group> groups = groupDAO.selectAll();
+        displayGroups();
         Integer record = groupView.getInt("Choose group: ");
         Integer index = record - 1;
-        if (index >= groups.size()) {
+        if (index >= getGroups().size()) {
             throw new IndexOutOfBoundsException();
         }
 
-        return groups.get(index);
+        return getGroups().get(index);
     }
 
     public void editGroup() {
-        displayGroups();
         try {
             Group group = chooseGroup();
             String oldName = group.getName();
