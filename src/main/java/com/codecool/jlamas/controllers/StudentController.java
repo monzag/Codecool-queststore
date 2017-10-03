@@ -75,11 +75,45 @@ public class StudentController {
     }
 
     public void editStudent() {
-        Student student = chooseStudent();
+        try {
+            Student student = chooseStudent();
+            studentView.displayAttribute();
+            String option = studentView.getString("Your choice: ");
 
-        // Demo version:
-        String name = studentView.getAttribute();
-        student.setName(name);
-        studentDao.update(student);
+            switch(option) {
+                case EDIT_NAME: 
+                    String name = studentView.getName();
+                    student.setName(name);
+                    break;
+                case EDIT_SURNAME: 
+                    String surname = studentView.getSurname();
+                    student.setSurname(surname);
+                    break;
+                case EDIT_EMAIL: 
+                    Mail email = studentView.getMail(); 
+                    student.setEmail(email);
+                    break;
+                case EDIT_PASSWORD: 
+                    String passwordText = studentView.getString("New password: ");
+                    student.setPassword(new Password(passwordText));
+                    break;
+                case EDIT_CLASS:
+                    // TODO
+                    String classId = "2017.1A";
+                    student.setClassId(classId);
+                    break;
+                case EDIT_TEAM:
+                    // TODO
+                    Integer teamId = 1;
+                    student.setTeamId(teamId);
+                    break;
+                default: studentView.printErrorMessage();
+                    break;
+            }
+
+            studentDao.update(student);
+        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
+            e.getMessage();
+        }
     }
 }
