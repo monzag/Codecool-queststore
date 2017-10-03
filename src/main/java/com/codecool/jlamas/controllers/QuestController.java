@@ -52,7 +52,27 @@ public class QuestController {
     }
 
     public void deleteQuest() {
+        ArrayList<Quest> questsList = this.questDAO.selectAll();
+        QuestView view = new QuestView();
+        boolean correctChoice = false;
+        Integer questID;
+        Integer index = null;
+        Quest quest;
+        view.printQuestData(questsList);
 
+        while (!correctChoice) {
+            questID = view.getInt("Choose number of quest You want to delete or 0 to exit: ");
+
+            if (questID <= questsList.size() & questID > 0) {
+                correctChoice = true;
+                index = questID - 1;
+                quest = questsList.get(index);
+                questDAO.deleteQuest(quest);
+
+            } else if (questID == 0) {
+                correctChoice = true;
+            }
+        }
     }
 
     public void markQuestAsDone() {
