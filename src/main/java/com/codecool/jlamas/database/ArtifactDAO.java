@@ -31,4 +31,19 @@ public class ArtifactDAO {
         return artifactList;
     }
 
+    public void insert(Artifact artifact) {
+        String sql = "INSERT INTO artifact(name, price, description) VALUES (?, ?, ?);";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setString(1, artifact.getName());
+            pstmt.setInt(2, artifact.getPrice());
+            pstmt.setString(3, artifact.getDescription());
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
