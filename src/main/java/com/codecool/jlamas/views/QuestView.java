@@ -34,8 +34,11 @@ public class QuestView {
     }
 
     public void printQuestData(ArrayList<Quest> questList) {
+        Integer i = 1;
         for(Quest quest : questList) {
+            System.out.print(i + ". ");
             System.out.println(quest);
+            i++;
         }
     }
 
