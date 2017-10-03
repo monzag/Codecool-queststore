@@ -1,7 +1,10 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.ArtifactDAO;
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.views.ArtifactView;
+
+import java.util.ArrayList;
 
 public class ArtifactController {
 
@@ -22,8 +25,10 @@ public class ArtifactController {
     public void editArtifact() {
         try {
             Artifact artifact = chooseArtifact();
+            String oldName = artifact.getName();
             artifactView.displayAttribute();
             String option = artifactView.getString("Your choice: ");
+
             switch(option) {
                 case EDIT_NAME:
                     String name = artifactView.getString("New name: ");
@@ -40,10 +45,21 @@ public class ArtifactController {
                 default: artifactView.printErrorMessage();
                     break;
             }
-            mentorDao.update(mentor);
-        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
+            artifacts.update(artifact, oldName);
+        } catch (IndexOutOfBoundsException e) {
             e.getMessage();
         }
+    }
+
+    public Artifact chooseArtifact() throws IndexOutOfBoundsException {
+        ArrayList<Artifact> allArtifacts = artifacts.requestAll();
+        artifactView.printArtifacts(allArtifacts);
+        Integer record = artifactView.getMenuOption();
+        Integer index = record - 1;
+        if (index >= allArtifacts.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return allArtifacts.get(index);
     }
 }
 

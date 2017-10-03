@@ -39,6 +39,20 @@ public class ArtifactView {
         System.out.println(output);
     }
 
+    public int getMenuOption() {
+        int option;
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Choose option: ");
+        while (!input.hasNextInt()) {
+            printErrorMessage();
+            input.next();
+        }
+
+        option = input.nextInt();
+        return option;
+    }
+
     public String getString(String msg) {
         String userInput;
 
