@@ -40,7 +40,8 @@ public class StudentController {
             Login login = studentView.getLogin(name, surname);
             Password password = getPassword();
             Wallet wallet = new Wallet();
-            Student student = new Student(login, password, email, name, surname, wallet);
+            Group group = getGroup();
+            Student student = new Student(login, password, email, name, surname, group, wallet);
             studentDao.insert(student);
 
         } catch (InvalidUserDataException e) {
