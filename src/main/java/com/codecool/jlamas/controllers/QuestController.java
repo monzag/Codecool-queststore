@@ -16,11 +16,15 @@ public class QuestController {
         ArrayList<Quest> questsList = this.questDAO.selectAll();
         QuestView view = new QuestView();
         boolean correctChoice = false;
+        Integer questID;
         Integer index = null;
+        Quest quest;
+        String questOldName;
+
         view.printQuestData(questsList);
 
         while (!correctChoice) {
-            Integer questID = view.getInt("Choose number of quest You want to edit: ");
+            questID = view.getInt("Choose number of quest You want to edit: ");
 
             if (questID <= questsList.size() & questID > 0) {
                 correctChoice = true;
@@ -28,8 +32,9 @@ public class QuestController {
             }
         }
 
-        Quest quest = questsList.get(index);
-        System.out.println(quest);
+        quest = questsList.get(index);
+        this.dataEdit(quest);
+
     }
 
     public void createQuest() {
@@ -59,5 +64,33 @@ public class QuestController {
         QuestView view = new QuestView();
         view.printQuestData(this.questDAO.selectAll());
 
+    }
+
+    public void dataEdit(Quest quest) {
+        QuestView view = new QuestView();
+        boolean correctChoice = false;
+        Integer optionNumber = null;
+
+        while (!correctChoice) {
+            view.printEditMenu();
+            optionNumber = view.getInt("Choose data to edit: ");
+
+            if (optionNumber > 0 && optionNumber <= 3) {
+                correctChoice = true;
+            }
+        }
+
+        if (optionNumber == 1) {
+            String name = view.getString("Enter new name for quest: ");
+            quest.setName(name);
+
+        } else if (optionNumber == 2) {
+            String description = view.getString("Enter new description for quest: ");
+            quest.setDescription(description);
+
+        } else if (optionNumber == 3) {
+            Integer reward = view.getInt("Enter new reward value for quest: ");
+            quest.setReward(reward);
+        }
     }
 }
