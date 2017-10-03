@@ -33,7 +33,10 @@ public class QuestController {
         }
 
         quest = questsList.get(index);
+        questOldName = quest.getName();
         this.dataEdit(quest);
+        questDAO.updateQuest(quest, questOldName);
+
 
     }
 
