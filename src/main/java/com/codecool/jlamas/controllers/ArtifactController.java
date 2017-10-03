@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.ArtifactDAO;
+import com.codecool.jlamas.views.ArtifactView;
 
 public class ArtifactController {
 
