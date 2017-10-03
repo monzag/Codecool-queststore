@@ -3,7 +3,6 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.models.account.Mentor;
 
 import com.codecool.jlamas.views.MentorView;
-import com.codecool.jlamas.controllers.QuestController;
 
 
 public class MentorMenuController {
