@@ -95,7 +95,8 @@ public class MentorMenuController {
 
     }
     public void printClass() {
-
+        GroupController groupController = new GroupController();
+        groupController.displayGroups();
     }
 
     public void printTeam() {

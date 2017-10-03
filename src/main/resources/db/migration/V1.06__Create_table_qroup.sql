@@ -1,0 +1,4 @@
+CREATE TABLE IF NOT EXISTS `group` (
+  `name`	TEXT PRIMARY KEY UNIQUE NOT NULL
+);
+INSERT INTO `class` (`name`) VALUES ('2017.1');
