@@ -1,6 +1,7 @@
 package com.codecool.jlamas.database;
 
 import java.sql.*;
+import java.util.ArrayList;
 
 import com.codecool.jlamas.models.accountdata.Group;
 
@@ -24,4 +25,22 @@ public class GroupDAO {
         }
     }
 
+    public ArrayList<Group> selectAll() {
+        ArrayList<Group> groups = new ArrayList<>();
+        String query = "SELECT name FROM group";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt  = c.createStatement();
+             ResultSet rs    = stmt.executeQuery(query)){
+
+            while (rs.next()) {
+                Group group = new Group(rs.getString("name"));
+                groups.add(group);
+            }
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return groups;
+    }
 }
