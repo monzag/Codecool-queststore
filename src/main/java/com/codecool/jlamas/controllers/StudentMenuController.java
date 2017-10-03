@@ -16,10 +16,12 @@ public class StudentMenuController {
 
     private StudentView studentView;
     private Student student;
+    private WalletController walletController;
 
     public StudentMenuController(Student student) {
         this.student = student;
         this.studentView = new StudentView();
+        this.walletController = new WalletController(student);
     }
 
     public void start() {
@@ -40,7 +42,9 @@ public class StudentMenuController {
     }
 
     public void displayWallet() {
-        ;
+        walletController.displayBalance();
+        walletController.displayDoneQuests();
+        walletController.displayOwnedArtifacts();
     }
 
     public void buyArtifact() {
