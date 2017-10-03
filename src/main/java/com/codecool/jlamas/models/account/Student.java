@@ -8,7 +8,7 @@ import com.codecool.jlamas.models.accountdata.Wallet;
 
 public class Student extends Codecooler {
 
-    private String classId;
+    private Integer classId;
     private Integer teamId;
     private Wallet wallet;
 
@@ -25,7 +25,7 @@ public class Student extends Codecooler {
 
     }
 
-    public Student(Login login, Password password, Mail email, String name, String surname, String classId, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Integer classId, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.classId = classId;
@@ -34,7 +34,7 @@ public class Student extends Codecooler {
 
     }
 
-    public Student(Login login, Password password, Mail email, String name, String surname, String classId, Integer teamId, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Integer classId, Integer teamId, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.classId = classId;
@@ -43,7 +43,7 @@ public class Student extends Codecooler {
 
     }
 
-    public String getClassId() {
+    public Integer getClassId() {
         return this.classId;
     }
     public Integer getTeamId() {
@@ -54,7 +54,7 @@ public class Student extends Codecooler {
         return this.wallet;
     }
 
-    public void setClassId(String classId) {
+    public void setClassId(Integer classId) {
         this.classId = classId;
     }
     public void setTeamId(Integer teamId) {

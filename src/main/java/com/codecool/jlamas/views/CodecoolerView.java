@@ -3,23 +3,28 @@ package com.codecool.jlamas.views;
 import java.io.IOException;
 import java.util.Scanner;
 
-import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
+
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 
 
 
 public class CodecoolerView {
 
+    private Scanner input;
+
     public CodecoolerView() {
+        this.input = new Scanner(System.in);
     }
 
     public String getString(String msg) {
         String userInput;
 
         System.out.println("\n" + msg + ": ");
-        userInput = new Scanner(System.in).nextLine();
+        userInput = this.input.nextLine();
+
         return userInput;
+
     }
 
     public String getName() throws InvalidUserDataException {
@@ -59,16 +64,6 @@ public class CodecoolerView {
         return new Mail(mail);
     }
 
-    public Login getLogin(String name, String surname) {
-        String userLogin = name + "." + surname;
-
-        while (!Login.isValid(userLogin)) {
-            userLogin = getString("Generate login failed. \nPlease enter manually (5-20 chars, unique): ");
-        }
-
-        return new Login(userLogin);
-    }
-
     private boolean isName(String name) {
         return name.matches("[A-Z][a-z]{2,17}");
     }
@@ -80,7 +75,7 @@ public class CodecoolerView {
     public void printMenu(String[] options) {
         String output;
 
-        output = "\nMENU\n";
+        output = "\n";
         for (int i = 0; i < options.length; i++) {
             output += String.format("  %d) %s.\n", i+1, options[i]);
         }
@@ -91,7 +86,6 @@ public class CodecoolerView {
 
     public int getMenuOption() {
         int option;
-        Scanner input = new Scanner(System.in);
 
         System.out.print("Choose option: ");
         while (!input.hasNextInt()) {
@@ -105,10 +99,6 @@ public class CodecoolerView {
 
     public void printErrorMessage() {
         System.out.println("It's not a number!");
-    }
-
-    public void printIndexError() {
-        System.out.println("Bad number - record not exist!");
     }
 
     public void enterToContinue() {

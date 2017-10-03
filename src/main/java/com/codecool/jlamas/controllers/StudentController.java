@@ -1,7 +1,6 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -13,13 +12,6 @@ import com.codecool.jlamas.models.accountdata.Wallet;
 import com.codecool.jlamas.views.StudentView;
 
 public class StudentController {
-
-    private static final String EDIT_NAME = "1";
-    private static final String EDIT_SURNAME = "2";
-    private static final String EDIT_EMAIL = "3";
-    private static final String EDIT_PASSWORD = "4";
-    private static final String EDIT_CLASS = "5";
-    private static final String EDIT_TEAM = "6";
 
     private StudentView studentView = new StudentView();
     private StudentDAO studentDao = new StudentDAO();
@@ -37,8 +29,9 @@ public class StudentController {
             String name = studentView.getName();
             String surname = studentView.getSurname();
             Mail email = studentView.getMail();
-            Login login = studentView.getLogin(name, surname);
-            Password password = getPassword();
+
+            Login login = new Login("student");
+            Password password = new Password("student");
             Wallet wallet = new Wallet();
             Student student = new Student(login, password, email, name, surname, wallet);
             studentDao.insert(student);
@@ -46,18 +39,6 @@ public class StudentController {
         } catch (InvalidUserDataException e) {
 
         }
-    }
-
-    public Password getPassword() {
-        String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        String value = "";
-        while (value.length() < 8) {
-            char sign = alphabet.charAt(random.nextInt(36));
-            value += sign;
-        }
-
-        return new Password(value);
     }
 
     public void removeStudent() {
@@ -82,45 +63,11 @@ public class StudentController {
     }
 
     public void editStudent() {
-        try {
-            Student student = chooseStudent();
-            studentView.displayAttribute();
-            String option = studentView.getString("Your choice: ");
+        Student student = chooseStudent();
 
-            switch(option) {
-                case EDIT_NAME: 
-                    String name = studentView.getName();
-                    student.setName(name);
-                    break;
-                case EDIT_SURNAME: 
-                    String surname = studentView.getSurname();
-                    student.setSurname(surname);
-                    break;
-                case EDIT_EMAIL: 
-                    Mail email = studentView.getMail(); 
-                    student.setEmail(email);
-                    break;
-                case EDIT_PASSWORD: 
-                    String passwordText = studentView.getString("New password: ");
-                    student.setPassword(new Password(passwordText));
-                    break;
-                case EDIT_CLASS:
-                    // TODO
-                    String classId = "2017.1A";
-                    student.setClassId(classId);
-                    break;
-                case EDIT_TEAM:
-                    // TODO
-                    Integer teamId = 1;
-                    student.setTeamId(teamId);
-                    break;
-                default: studentView.printErrorMessage();
-                    break;
-            }
-
-            studentDao.update(student);
-        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
-            e.getMessage();
-        }
+        // Demo version:
+        String name = studentView.getAttribute();
+        student.setName(name);
+        studentDao.update(student);
     }
 }
