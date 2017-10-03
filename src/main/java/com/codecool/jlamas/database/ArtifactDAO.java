@@ -46,4 +46,24 @@ public class ArtifactDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public void update(Artifact artifact, String preUpdateName) {
+        String sql = "UPDATE quest SET name = ? , "
+                + "price = ? , "
+                + "description = ? "
+                + "WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setString(1, artifact.getName());
+            pstmt.setInt(2, artifact.getPrice());
+            pstmt.setString(3, artifact.getDescription());
+            pstmt.setString(4, preUpdateName);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
