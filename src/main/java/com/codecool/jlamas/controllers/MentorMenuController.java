@@ -123,7 +123,7 @@ public class MentorMenuController {
     }
 
     public void markQuest() {
-
+        questController.markQuestAsDone();
     }
 
     public void markArtifact() {
