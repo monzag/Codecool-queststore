@@ -9,7 +9,7 @@ import java.util.ArrayList;
 
 public class AdminMenuController {
 
-    public static final String[] OPTIONS = {"Display mentors", 
+    public static final String[] OPTIONS = {"Display mentors",
                                             "Add mentor",
                                             "Edit mentor",
                                             "Add class",
@@ -51,7 +51,7 @@ public class AdminMenuController {
                 case ADD_CLASS: addClass();
                     break;
                 case ADD_LEVEL: addLevel();
-                    break; 
+                    break;
                 case EDIT_QUEST: editQuest();
                     break;
             }
@@ -79,6 +79,8 @@ public class AdminMenuController {
     }
 
     public void editQuest() {
-        QuestController.editQuest();
+        QuestController questController = new QuestController();
+        Quest quest = new Quest();
+        questController.editQuest();
     }
 }
