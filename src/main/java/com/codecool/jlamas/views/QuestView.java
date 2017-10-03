@@ -5,9 +5,8 @@ import com.codecool.jlamas.models.quest.Quest;
 import java.util.ArrayList;
 
 public class QuestView {
-    Scanner input;
+
     public QuestView() {
-        this.input = new Scanner(System.in);
 
     }
 
@@ -15,12 +14,13 @@ public class QuestView {
         String userInput;
 
         System.out.print("\n" + msg + ": ");
-        userInput = this.input.nextLine();
+        userInput = System.console().readLine();
 
         return userInput;
     }
 
     public Integer getInt(String msg) {
+        Scanner input = new Scanner();
         Integer intInput;
 
         System.out.print("\n" + msg + ": ");
