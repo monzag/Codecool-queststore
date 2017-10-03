@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.views.StudentView;
 
 public class StudentMenuController {
 
@@ -8,18 +9,33 @@ public class StudentMenuController {
                                          "Buy artifact",
                                          "Display level"};
 
-    public static final String DISPLAY_WALLET = "1";
-    public static final String BUY_ARTIFACT = "2";
-    public static final String DISPLAY_LEVEL = "3";
-    
+    private static final int DISPLAY_WALLET = 1;
+    private static final int BUY_ARTIFACT = 2;
+    private static final int DISPLAY_LEVEL = 3;
+    private static final int EXIT = 0;
 
-    Student student;
+    private StudentView studentView;
+    private Student student;
 
     public StudentMenuController(Student student) {
         this.student = student;
+        this.studentView = new StudentView();
     }
 
     public void start() {
-        
+        Integer option = 100;
+        while (!option.equals(EXIT)) {
+            studentView.printMenu(MENU);
+            option = studentView.getMenuOption();
+
+            switch(option) {
+                case DISPLAY_WALLET: displayWallet();
+                    break;
+                case BUY_ARTIFACT: buyArtifact();
+                    break;
+                case DISPLAY_LEVEL: displayLevel();
+                    break;
+            }
+        }
     }
 }
