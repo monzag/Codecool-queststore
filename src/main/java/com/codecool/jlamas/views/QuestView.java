@@ -20,7 +20,7 @@ public class QuestView {
     }
 
     public Integer getInt(String msg) {
-        Scanner input = new Scanner();
+        Scanner input = new Scanner(System.in);
         Integer intInput;
 
         System.out.print("\n" + msg + ": ");
