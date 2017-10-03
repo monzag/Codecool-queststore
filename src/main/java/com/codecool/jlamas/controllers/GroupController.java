@@ -26,4 +26,17 @@ public class GroupController {
         ArrayList<Group> groups = groupDAO.selectAll();
         groupView.printAll(groups);
     }
+    
+
+    public Group chooseGroup() {
+        ArrayList<Group> groups = groupDAO.selectAll();
+        Integer record = groupView.getInt("Choose group: ");
+        Integer index = record - 1;
+        if (index >= groups.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+
+        return groups.get(index);
+    }
+
 }
