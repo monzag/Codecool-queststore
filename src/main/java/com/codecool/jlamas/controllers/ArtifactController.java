@@ -5,6 +5,10 @@ import com.codecool.jlamas.views.ArtifactView;
 
 public class ArtifactController {
 
+    private static final String EDIT_NAME = "1";
+    private static final String EDIT_PRICE = "2";
+    private static final String EDIT_DESCRIPTION = "3";
+
     private ArtifactDAO artifacts = new ArtifactDAO();
     private ArtifactView artifactView = new ArtifactView();
 
@@ -19,25 +23,21 @@ public class ArtifactController {
         try {
             Artifact artifact = chooseArtifact();
             artifactView.displayAttribute();
-            String option = mentorView.getString("Your choice: ");
+            String option = artifactView.getString("Your choice: ");
             switch(option) {
                 case EDIT_NAME:
-                    String name = mentorView.getName();
-                    mentor.setName(name);
+                    String name = artifactView.getString("New name: ");
+                    artifact.setName(name);
                     break;
-                case EDIT_SURNAME:
-                    String surname = mentorView.getSurname();
-                    mentor.setSurname(surname);
+                case EDIT_PRICE:
+                    Integer price = artifactView.getPrice();
+                    artifact.setPrice(price);
                     break;
-                case EDIT_EMAIL:
-                    Mail email = mentorView.getMail();
-                    mentor.setEmail(email);
+                case EDIT_DESCRIPTION:
+                    String description = artifactView.getString("New description: ");
+                    artifact.setDescription(description);
                     break;
-                case EDIT_PASSWORD:
-                    String passwordText = mentorView.getString("New password: ");
-                    mentor.setPassword(new Password(passwordText));
-                    break;
-                default: mentorView.printErrorMessage();
+                default: artifactView.printErrorMessage();
                     break;
             }
             mentorDao.update(mentor);

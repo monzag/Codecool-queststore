@@ -3,6 +3,7 @@ package com.codecool.jlamas.views;
 import com.codecool.jlamas.models.artifact.Artifact;
 
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class ArtifactView {
 
@@ -36,5 +37,17 @@ public class ArtifactView {
         output += "  0) Exit.\n";
 
         System.out.println(output);
+    }
+
+    public String getString(String msg) {
+        String userInput;
+
+        System.out.println("\n" + msg + ": ");
+        userInput = new Scanner(System.in).nextLine();
+        return userInput;
+    }
+
+    public void printErrorMessage() {
+        System.out.println("It's not a number!");
     }
 }
