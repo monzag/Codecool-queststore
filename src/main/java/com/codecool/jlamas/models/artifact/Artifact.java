@@ -39,4 +39,12 @@ public class Artifact {
     public void setDescription(String description) {
         this.description = description;
     }
+
+    public String toString() {
+        String asString;
+        asString = this.name + "  |  " + this.description + "  |  " + this.price;
+        asString += "\n================================\n";
+
+        return asString;
+    }
 }
