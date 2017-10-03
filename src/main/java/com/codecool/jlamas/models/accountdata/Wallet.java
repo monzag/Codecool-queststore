@@ -1,6 +1,7 @@
 package com.codecool.jlamas.models.accountdata;
 
 
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 
 import java.util.ArrayList;

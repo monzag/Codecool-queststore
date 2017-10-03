@@ -17,7 +17,7 @@ public class StudentDAO {
     public ArrayList<Student> requestAll() {
         String query = String.format("%s %s %s %s %s %s %s %s"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.class_tag"
-                ,         "student.team_tag, student.balance, student.coolcoins"
+                ,         "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
                 ,             "ON login.login = user.login"
@@ -81,7 +81,6 @@ public class StudentDAO {
 
         final Integer UNSIGNED_TEAM = 0;
         final Integer BALANCE = 0;
-        final Integer COOLCOINS = 0;
 
         String query;
 
@@ -98,12 +97,11 @@ public class StudentDAO {
                     student.getLogin().getValue(),
                     student.getPassword().getValue());
 
-            query += String.format("INSERT INTO `student` VALUES('%s', '%s', '%s', '%s', '%s'); ",
+            query += String.format("INSERT INTO `student` VALUES('%s', '%s', '%s', '%s'); ",
                     student.getLogin().getValue(),
                     student.getClassId(),
                     UNSIGNED_TEAM,
-                    BALANCE,
-                    COOLCOINS);
+                    BALANCE);
 
             stmt.executeUpdate(query);
 
@@ -141,7 +139,6 @@ public class StudentDAO {
                     student.getClassId(),
                     student.getTeamId(),
                     student.getWallet().getBalance(),
-                    student.getWallet().getCoolcoinsEarned(),
                     student.getLogin().getValue());
 
             stmt.executeUpdate(query);
@@ -156,7 +153,7 @@ public class StudentDAO {
     public Student getStudent(String userLogin) {
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.class_tag,"
-                , "student.team_tag, student.balance, student.coolcoins"
+                , "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
                 ,             "ON login.login = user.login"
@@ -178,7 +175,6 @@ public class StudentDAO {
             student.setClassId(rs.getString("class_tag"));
             student.setTeamId(rs.getInt("team_tag"));
             student.setWallet(new Wallet(rs.getInt("balance")));
-            student.getWallet().setCoolcoinsEarned(rs.getInt("coolcoins"));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());

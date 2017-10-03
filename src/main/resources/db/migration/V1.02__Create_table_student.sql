@@ -3,7 +3,6 @@ CREATE TABLE IF NOT EXISTS `student` (
 	`classtag`	TEXT NOT NULL,
 	`teamtag`	INTEGER NOT NULL,
 	`balance` INTEGER NOT NULL,
-	`coolcoins` INTEGER NOT NULL,
 	FOREIGN KEY (`login`) REFERENCES `user`(`login`) ON DELETE SET NULL
 );
 
