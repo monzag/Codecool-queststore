@@ -75,5 +75,9 @@ public class Student extends Codecooler {
         this.wallet.put(amount);
     }
 
+    public String toString() {
+        return super.toString() + "Group: " + group.getName();
+    }
+
 
 }
