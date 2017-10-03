@@ -1,5 +1,7 @@
 package com.codecool.jlamas.models.accountdata;
 
+import com.codecool.jlamas.database.UserDAO;
+
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -21,13 +23,18 @@ public class Mail extends AccountData {
     public static boolean isValid(final String value) {
         pattern = Pattern.compile(MAILPATTERN);
 		matcher = pattern.matcher(value);
-        boolean isUnique = isUnique(value);
+        boolean isUnique = isMailUnique(value);
 
 
-        if (isUnique && matcher.matches()){
-            return true;
-        } else {
+        return isUnique && matcher.matches();
+    }
+
+    public static boolean isMailUnique(String value){
+        UserDAO userData = new UserDAO();
+
+        if (userData.getMail(value) != null) {
             return false;
         }
+        return true;
     }
 }

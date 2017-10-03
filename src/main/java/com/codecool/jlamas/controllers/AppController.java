@@ -32,6 +32,7 @@ public class AppController {
 
             if (loginData.matchLogin(login, password)) {
                 launchUserController(login);
+                System.exit(0);
             }
 
             this.view.reportWrongLoginData();

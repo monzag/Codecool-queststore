@@ -1,7 +1,9 @@
 package com.codecool.jlamas.views;
 
+import java.io.IOException;
 import java.util.Scanner;
 
+import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 
@@ -18,7 +20,7 @@ public class CodecoolerView {
     public String getString(String msg) {
         String userInput;
 
-        System.out.print("\n" + msg + ": ");
+        System.out.println("\n" + msg + ": ");
         userInput = this.input.nextLine();
         return userInput;
 
@@ -61,24 +63,22 @@ public class CodecoolerView {
         return new Mail(mail);
     }
 
+    public Login getLogin(String name, String surname) {
+        String userLogin = name + "." + surname;
+
+        while (!Login.isValid(userLogin)) {
+            userLogin = getString("Generate login failed. \nPlease enter manually (5-20 chars, unique): ");
+        }
+
+        return new Login(userLogin);
+    }
+
     private boolean isName(String name) {
         return name.matches("[A-Z][a-z]{2,17}");
     }
 
     public void reportWrongLoginData() {
         System.out.println("Wrong login data. Do you want to try again?");
-    }
-
-    public static void reportResult(boolean state) {
-        if (state) {
-            System.out.println("Success!");
-        } else {
-            System.out.println("Failed!");
-        }
-    }
-
-    public static void inConstruction() {
-        System.out.println("\nMentor and student features in construction!\n");
     }
 
     public void printMenu(String[] options) {
@@ -112,6 +112,15 @@ public class CodecoolerView {
 
     public void printIndexError() {
         System.out.println("Bad number - record not exist!");
+
+    public void enterToContinue() {
+        try {
+            System.out.print("\nChoose an option: ");
+            System.in.read();
+        } catch (IOException e) {
+            System.out.println("INPUT INTERRUPTED");
+            e.printStackTrace();
+        }
     }
 
 }

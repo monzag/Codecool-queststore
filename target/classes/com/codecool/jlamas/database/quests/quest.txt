@@ -1,4 +1,0 @@
-ID: 0
-NAME: quest
-DESCRIPTION: super quest
-REWARD: 50

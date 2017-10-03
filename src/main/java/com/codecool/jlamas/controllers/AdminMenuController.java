@@ -31,13 +31,15 @@ public class AdminMenuController {
 
     public AdminMenuController(Admin admin) {
         this.admin = admin;
+        this.adminView = new AdminView();
+        this.mentorController = new MentorController();
     }
 
     public void start() {
-        boolean run = true;
-        while (run) {
+        Integer option = 100;
+        while (!option.equals(EXIT)) {
             adminView.printMenu(OPTIONS);
-            Integer option = adminView.getMenuOption();
+            option = adminView.getMenuOption();
 
             switch(option) {
                 case DISPLAY_MENTORS: displayAllMentors();
@@ -52,8 +54,6 @@ public class AdminMenuController {
                     break; 
                 case EDIT_QUEST: editQuest();
                     break;
-                case EXIT:
-                    run = false;
             }
         }
     }
@@ -79,10 +79,6 @@ public class AdminMenuController {
     }
 
     public void editQuest() {
-        QuestController questController = new QuestController();
-        questController.showAllQuests();
-        // user choice -> quest
-        Quest quest = new Quest();
-        questController.editQuest(quest);
+        QuestController.editQuest();
     }
 }

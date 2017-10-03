@@ -3,3 +3,4 @@ CREATE TABLE IF NOT EXISTS `login` (
   `password`	TEXT NOT NULL
 );
 INSERT INTO `login` VALUES ('admin','admin');
+INSERT INTO `login` VALUES ('mentor','mentor');

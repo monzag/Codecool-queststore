@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -11,6 +12,11 @@ import com.codecool.jlamas.models.accountdata.Password;
 import com.codecool.jlamas.views.MentorView;
 
 public class MentorController {
+
+    private static final String EDIT_NAME = "1";
+    private static final String EDIT_SURNAME = "2";
+    private static final String EDIT_EMAIL = "3";
+    private static final String EDIT_PASSWORD = "4";
 
     private MentorView mentorView = new MentorView();
     private MentorDAO mentorDao = new MentorDAO();
@@ -24,29 +30,61 @@ public class MentorController {
             String name = mentorView.getName();
             String surname = mentorView.getSurname();
             Mail email = mentorView.getMail();
-
-            Login login = new Login("mentor");
-            Password password = new Password("mentor");
-            Mentor mentor = new Mentor(login, password, email, name, surname);
+            Login login = mentorView.getLogin(name, surname);
+            Password password = getPassword();
+            
+            String classTag = "2017.1";
+            Mentor mentor = new Mentor(login, password, email, name, surname, classTag);
             mentorDao.insert(mentor);
 
         } catch (InvalidUserDataException e) {
-
+            System.out.println(e.getMessage());
         }
+    }
+
+    public Password getPassword() {
+        String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
+        Random random = new Random();
+        String value = "";
+        while (value.length() < 8) {
+            char sign = alphabet.charAt(random.nextInt(36));
+            value += sign;
+        }
+
+        return new Password(value);
     }
 
     public void editMentor() {
         try {
             Mentor mentor = chooseMentor();
+            mentorView.displayAttribute();
+            String option = mentorView.getString("Your choice: ");
 
-            // Demo version:
-            String name = mentorView.getAttribute();
-            mentor.setName(name);
+            switch(option) {
+                case EDIT_NAME: 
+                    String name = mentorView.getName();
+                    mentor.setName(name);
+                    break;
+                case EDIT_SURNAME: 
+                    String surname = mentorView.getSurname();
+                    mentor.setSurname(surname);
+                    break;
+                case EDIT_EMAIL: 
+                    Mail email = mentorView.getMail(); 
+                    mentor.setEmail(email);
+                    break;
+                case EDIT_PASSWORD: 
+                    String passwordText = mentorView.getString("New password: ");
+                    mentor.setPassword(new Password(passwordText));
+                    break;
+                default: mentorView.printErrorMessage();
+                    break;
+            }
+
             mentorDao.update(mentor);
-            
-        } catch (IndexOutOfBoundsException e) {
-            mentorView.printIndexError();
-        }
+        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
+            e.getMessage();
+        }   
     }
 
     public void removeMentor() {
@@ -55,7 +93,7 @@ public class MentorController {
             mentorDao.delete(mentor);
 
         } catch (IndexOutOfBoundsException e) {
-            mentorView.printIndexError();
+            e.getMessage();
         }
     }
 
