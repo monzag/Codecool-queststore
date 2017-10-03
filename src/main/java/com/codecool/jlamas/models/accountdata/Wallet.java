@@ -1,9 +1,15 @@
 package com.codecool.jlamas.models.accountdata;
 
 
+import com.codecool.jlamas.models.quest.Quest;
+
+import java.util.ArrayList;
+
 public class Wallet {
 
     private Integer balance;
+    private ArrayList<Quest> doneQuests;
+    private ArrayList<Artifact> artifacts;
 
     public Wallet() {
         this.balance = 0;
@@ -35,5 +41,9 @@ public class Wallet {
         return false;
     }
 
+    public void setDoneQuests(ArrayList<Quest> doneQuests) {
+
+        this.doneQuests = doneQuests;
+    }
 
 }
