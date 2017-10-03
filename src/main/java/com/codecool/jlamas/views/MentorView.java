@@ -11,16 +11,6 @@ public class MentorView extends CodecoolerView {
         super();
     }
 
-    public void displayAttribute() {
-        // Demo:
-        String[] attributes = {"name", 
-                               "surname",
-                               "email",
-                               "password"};
-        printMenu(attributes);
-
-    }
-
     public void displayAll(ArrayList<Mentor> mentors) {
         System.out.println("\nUsers:");
         Integer number = 1;
@@ -28,5 +18,14 @@ public class MentorView extends CodecoolerView {
             System.out.println(number + ". " + mentor);
             number++;
         }
+    }
+
+    public void displayAttribute() {
+        String[] attributes = {"name", 
+                               "surname",
+                               "email",
+                               "password"};
+        printMenu(attributes);
+
     }
 }

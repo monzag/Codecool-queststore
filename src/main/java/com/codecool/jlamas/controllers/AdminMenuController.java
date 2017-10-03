@@ -54,8 +54,6 @@ public class AdminMenuController {
                     break;
                 case EDIT_QUEST: editQuest();
                     break;
-                case EXIT:
-                    break;
             }
         }
     }
