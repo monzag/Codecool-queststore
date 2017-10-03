@@ -58,7 +58,7 @@ public class Quest {
     public String toString() {
         String asString;
 
-        asString = this.name + "  |  " + this.description + "  |  " + this.reward;
+        asString = "\n" + this.name + "  |  " + this.description + "  |  " + this.reward;
 
         asString += "\n================================\n";
 
