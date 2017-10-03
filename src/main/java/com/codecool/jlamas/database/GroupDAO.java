@@ -43,4 +43,19 @@ public class GroupDAO {
 
         return groups;
     }
+
+    public void update(Group group, String preUpdateName) {
+        String query = "UPDATE group SET name = ? WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(query);) {
+
+            pstmt.setString(1, group.getName());
+            pstmt.setString(2, preUpdateName);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
