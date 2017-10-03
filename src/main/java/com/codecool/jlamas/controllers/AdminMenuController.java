@@ -2,7 +2,6 @@ package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
-import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.views.AdminView;
 
 import java.util.ArrayList;
@@ -36,7 +35,7 @@ public class AdminMenuController {
     }
 
     public void start() {
-        Integer option = 100;
+        Integer option = 1;
         while (!option.equals(EXIT)) {
             adminView.printMenu(OPTIONS);
             option = adminView.getMenuOption();
@@ -80,7 +79,6 @@ public class AdminMenuController {
 
     public void editQuest() {
         QuestController questController = new QuestController();
-        Quest quest = new Quest();
         questController.editQuest();
     }
 }

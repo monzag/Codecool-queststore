@@ -46,7 +46,7 @@ public class MentorMenuController {
     public void start() {
         Integer option;
 
-        option = 100;
+        option = 1;
         while (!option.equals(EXIT)) {
             view.printMenu(MENU);
             option = view.getMenuOption();
