@@ -1,11 +1,9 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.views.CodecoolerView;
+import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.controllers.AdminMenuController;
-import com.codecool.jlamas.controllers.MentorMenuController;
 import com.codecool.jlamas.database.LoginDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.database.MentorDAO;
