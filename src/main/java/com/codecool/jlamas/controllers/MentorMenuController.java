@@ -33,10 +33,12 @@ public class MentorMenuController {
 
     private Mentor user;
     private MentorView view;
+    private StudentController studentController;
 
     public MentorMenuController(Mentor user) {
         this.user = user;
         this.view =  new MentorView();
+        this.studentController = new StudentController();
     }
 
     public void start() {
@@ -100,7 +102,7 @@ public class MentorMenuController {
     }
 
     public void addStudent() {
-
+        studentController.addStudent();
     }
 
     public void addQuest() {
