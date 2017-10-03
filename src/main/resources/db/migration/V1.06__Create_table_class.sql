@@ -1,5 +1,0 @@
-CREATE TABLE IF NOT EXISTS `class` (
-  `id`		INTEGER PRIMARY KEY UNIQUE NOT NULL,
-  `name`	TEXT 
-);
-INSERT INTO `class` (`name`) VALUES ('2017.1');
