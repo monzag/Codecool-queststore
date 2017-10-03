@@ -35,7 +35,7 @@ public class AdminMenuController {
     }
 
     public void start() {
-        Integer option = 100;
+        Integer option = 1;
         while (!option.equals(EXIT)) {
             adminView.printMenu(OPTIONS);
             option = adminView.getMenuOption();
