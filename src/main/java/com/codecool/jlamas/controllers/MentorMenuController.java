@@ -3,7 +3,6 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.models.account.Mentor;
 
 import com.codecool.jlamas.views.MentorView;
-import com.codecool.jlamas.controllers.QuestController;
 
 
 public class MentorMenuController {
@@ -33,10 +32,15 @@ public class MentorMenuController {
 
     private Mentor user;
     private MentorView view;
+    private StudentController studentController;
+    private QuestController questController;
 
     public MentorMenuController(Mentor user) {
         this.user = user;
         this.view =  new MentorView();
+        this.studentController = new StudentController();
+        this.questController = new QuestController();
+
     }
 
     public void start() {
@@ -65,15 +69,13 @@ public class MentorMenuController {
                 addStudent();
                 break;
             case ADD_QUEST :
-                QuestController questControll = new QuestController();
-                questControll.createQuest();
+                questController.createQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
                 break;
             case SHOW_QUEST :
-                questControll = new QuestController();
-                questControll.showAllQuests();
+                questController.showAllQuests();
                 break;
             case EDIT_ARTIFACT :
                 editArtifact();
@@ -100,11 +102,11 @@ public class MentorMenuController {
     }
 
     public void addStudent() {
-
+        studentController.addStudent();
     }
 
     public void addQuest() {
-
+        questController.createQuest();
     }
 
     public void addArtifact() {
@@ -112,7 +114,7 @@ public class MentorMenuController {
     }
 
     public void editQuest() {
-
+        questController.editQuest();
     }
 
     public void editArtifact() {
@@ -120,7 +122,7 @@ public class MentorMenuController {
     }
 
     public void markQuest() {
-
+        questController.markQuestAsDone();
     }
 
     public void markArtifact() {
