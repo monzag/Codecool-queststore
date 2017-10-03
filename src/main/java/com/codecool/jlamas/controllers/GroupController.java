@@ -39,4 +39,16 @@ public class GroupController {
         return groups.get(index);
     }
 
+    public void editGroup() {
+        displayGroups();
+        try {
+            Group group = chooseGroup();
+            String name = groupView.getString("New name of group: ");
+            group.setName(name);
+            groupDAO.update(group);
+            
+        } catch (IndexOutOfBoundsException e) {
+            e.getMessage();
+        }
+    }
 }
