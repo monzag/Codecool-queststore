@@ -61,6 +61,19 @@ public class ArtifactView {
         return userInput;
     }
 
+    public Integer getInt(String msg) {
+        Scanner input = new Scanner(System.in);
+        Integer intInput;
+
+        System.out.print("\n" + msg + ": ");
+        while (! input.hasNextInt()) {
+            printErrorMessage();
+            input.next();
+        }
+        intInput = input.nextInt();
+
+        return intInput;
+    }
     public void printErrorMessage() {
         System.out.println("It's not a number!");
     }

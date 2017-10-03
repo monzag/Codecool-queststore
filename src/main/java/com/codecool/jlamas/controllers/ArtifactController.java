@@ -35,7 +35,7 @@ public class ArtifactController {
                     artifact.setName(name);
                     break;
                 case EDIT_PRICE:
-                    Integer price = artifactView.getPrice();
+                    Integer price = artifactView.getInt("New price: ");
                     artifact.setPrice(price);
                     break;
                 case EDIT_DESCRIPTION:
