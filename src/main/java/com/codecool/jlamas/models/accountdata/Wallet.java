@@ -9,7 +9,7 @@ public class Wallet {
 
     private Integer balance;
     private ArrayList<Quest> doneQuests;
-    private ArrayList<Artifact> artifacts;
+    private ArrayList<Artifact> ownedArtifacts;
 
     public Wallet() {
         this.balance = 0;
@@ -42,8 +42,11 @@ public class Wallet {
     }
 
     public void setDoneQuests(ArrayList<Quest> doneQuests) {
-
         this.doneQuests = doneQuests;
+    }
+
+    public void setOwnedArtifacts(ArrayList<Artifact> ownedArtifacts) {
+        this.ownedArtifacts = ownedArtifacts;
     }
 
 }
