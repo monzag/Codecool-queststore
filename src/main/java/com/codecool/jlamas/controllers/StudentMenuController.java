@@ -23,7 +23,7 @@ public class StudentMenuController {
     }
 
     public void start() {
-        Integer option = 100;
+        Integer option = 1;
         while (!option.equals(EXIT)) {
             studentView.printMenu(MENU);
             option = studentView.getMenuOption();
@@ -37,5 +37,17 @@ public class StudentMenuController {
                     break;
             }
         }
+    }
+
+    public void displayWallet() {
+        ;
+    }
+
+    public void buyArtifact() {
+        ;
+    }
+
+    public void displayLevel() {
+        ;
     }
 }
