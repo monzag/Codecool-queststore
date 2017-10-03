@@ -43,10 +43,11 @@ public class GroupController {
         displayGroups();
         try {
             Group group = chooseGroup();
+            String oldName = group.getName();
             String name = groupView.getString("New name of group: ");
             group.setName(name);
-            groupDAO.update(group);
-            
+            groupDAO.update(group, oldName);
+
         } catch (IndexOutOfBoundsException e) {
             e.getMessage();
         }
