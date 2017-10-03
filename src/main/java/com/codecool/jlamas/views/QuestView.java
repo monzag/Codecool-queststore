@@ -38,4 +38,12 @@ public class QuestView {
             System.out.println(quest);
         }
     }
+
+    public void printEditMenu() {
+        String[] menuOptions = {"1.Edit name.", "2.Edit description.", "3.Edit reward."};
+
+        for (String option : menuOptions) {
+            System.out.println(option);
+        }
+    }
 }
