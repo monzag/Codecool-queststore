@@ -4,6 +4,7 @@ import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.database.QuestDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.views.QuestView;
 import com.codecool.jlamas.views.StudentView;
@@ -13,8 +14,8 @@ import java.util.ArrayList;
 public class WalletController {
 
     Student student;
-    private DoneQuestDAO doneQuestsDAO = new QuestDAO();
-    private OwnedArtifactDAO ownedArtifactsDAO = new ArtifactDAO();
+    private DoneQuestDAO doneQuestsDAO = new DoneQuestDAO();
+    private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
     private QuestView questView = new QuestView();
     private StudentView studentView = new StudentView();
 
@@ -41,7 +42,7 @@ public class WalletController {
 
     public void addOwnedArtifact(Artifact artifact) {
         this.student.getWallet().getDoneQuests().add(artifact);
-        ownedArtifactsDAO.insert(this.student.getLogin(), artifact);
+        ownedArtifactDAO.insert(this.student.getLogin(), artifact);
     }
 
 }
