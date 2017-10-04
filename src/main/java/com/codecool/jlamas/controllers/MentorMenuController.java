@@ -12,11 +12,11 @@ public class MentorMenuController {
                                          "Create team",
                                          "Add new Student",
                                          "Add new Quest",
-                                         "Add new Artifat",
+                                         "Add new Artifact",
                                          "Show Quests",
                                          "Edit existing Artifact",
                                          "Mark Quest as done",
-                                         "Mark Artifact as done",
+                                         "Mark Artifact as used",
                                          "Delete quest"};
 
     private static final int PRINT_CLASS = 1;
