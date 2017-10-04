@@ -2,7 +2,6 @@ package com.codecool.jlamas.views;
 
 import java.util.ArrayList;
 
-import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Student;
 
 public class StudentView extends CodecoolerView {
@@ -20,26 +19,17 @@ public class StudentView extends CodecoolerView {
         }
     }
 
-    public String getAttribute() {
-        String attribute = null;
-        String[] attributes = {"name", 
-                               "surname",
-                               "email",
-                               "password",
-                               "class",
-                               "team"};
+    public void displayAttribute() {
+        String[] attributes = {"Name", 
+                               "Surname",
+                               "Email",
+                               "Password",
+                               "Group",
+                               "Team"};
         printMenu(attributes);
+    }
 
-        // Demo:
-        System.out.println("\nYour choice: 1");
-        try {
-            attribute = getSurname();
-
-        } catch (InvalidUserDataException e) {
-
-        }
-
-        return attribute;
-
+    public void showBalance(Integer balance) {
+        System.out.println("\nYour balance: " + balance + " coolcoins\n");
     }
 }

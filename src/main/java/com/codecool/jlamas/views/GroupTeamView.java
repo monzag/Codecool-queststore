@@ -1,12 +1,11 @@
 package com.codecool.jlamas.views;
 
-import java.util.Scanner;
-import com.codecool.jlamas.models.quest.Quest;
 import java.util.ArrayList;
+import java.util.Scanner;
 
-public class QuestView {
+public class GroupTeamView {
 
-    public QuestView() {
+    public GroupTeamView() {
 
     }
 
@@ -17,6 +16,15 @@ public class QuestView {
         userInput = System.console().readLine();
 
         return userInput;
+    }
+
+    public <T> void printAll(ArrayList<T> objectList) {
+        System.out.print("\nGroups: \n");
+        Integer number = 1;
+        for (T object : objectList) {
+            System.out.println(number + ". " + object);
+            number++;
+        }
     }
 
     public Integer getInt(String msg) {
@@ -31,22 +39,5 @@ public class QuestView {
         intInput = input.nextInt();
 
         return intInput;
-    }
-
-    public void printQuestData(ArrayList<Quest> questList) {
-        Integer i = 1;
-        for(Quest quest : questList) {
-            System.out.print(i + ". ");
-            System.out.println(quest);
-            i++;
-        }
-    }
-
-    public void printEditMenu() {
-        String[] menuOptions = {"\n1.Edit name.", "2.Edit description.", "3.Edit reward."};
-
-        for (String option : menuOptions) {
-            System.out.println(option);
-        }
     }
 }
