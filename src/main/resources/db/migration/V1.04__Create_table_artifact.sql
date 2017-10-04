@@ -6,7 +6,6 @@ CREATE TABLE IF NOT EXISTS `artifact` (
 );
 
 CREATE TABLE IF NOT EXISTS `owned_artifact` (
-  `id`	INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
   `artifact_name`	TEXT,
   `owner_name`	TEXT,
 	FOREIGN KEY(`artifact_name`) REFERENCES `artifact`(`name`) ON DELETE SET NULL,
