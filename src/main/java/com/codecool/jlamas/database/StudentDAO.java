@@ -88,7 +88,7 @@ public class StudentDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
-            query = String.format("INSERT INTO `user` VALUES('%s', '%s', '%s', '%s', 'mentor'); ",
+            query = String.format("INSERT INTO `user` VALUES('%s', '%s', '%s', '%s', 'student'); ",
                     student.getLogin().getValue(),
                     student.getEmail().getValue(),
                     student.getName(),
