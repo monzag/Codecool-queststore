@@ -4,3 +4,4 @@ CREATE TABLE IF NOT EXISTS `login` (
 );
 INSERT INTO `login` VALUES ('admin','admin');
 INSERT INTO `login` VALUES ('mentor','mentor');
+INSERT INTO `login` VALUES ('student','student');

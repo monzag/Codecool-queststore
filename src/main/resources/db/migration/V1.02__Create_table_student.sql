@@ -6,3 +6,5 @@ CREATE TABLE IF NOT EXISTS `student` (
 	FOREIGN KEY (`login`) REFERENCES `user`(`login`) ON DELETE SET NULL
 );
 
+INSERT INTO `student` VALUES ('student','2017.1','Guwniaks','0');
+

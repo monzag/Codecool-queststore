@@ -48,7 +48,7 @@ public class ArtifactDAO {
     }
 
     public void update(Artifact artifact, String preUpdateName) {
-        String sql = "UPDATE quest SET name = ? , "
+        String sql = "UPDATE artifact SET name = ? , "
                 + "price = ? , "
                 + "description = ? "
                 + "WHERE name = ?";
