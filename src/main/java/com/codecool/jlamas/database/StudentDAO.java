@@ -158,8 +158,8 @@ public class StudentDAO {
                 , "FROM user"
                 ,     "INNER JOIN login"
                 ,             "ON login.login = user.login"
-                ,     "INNER JOIN mentor"
-                ,             "ON mentor.login = user.login"
+                ,     "INNER JOIN student"
+                ,             "ON student.login = user.login"
                 , userLogin);
 
 
