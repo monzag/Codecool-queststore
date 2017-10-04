@@ -1,7 +1,6 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -13,11 +12,6 @@ import com.codecool.jlamas.models.accountdata.Password;
 import com.codecool.jlamas.views.MentorView;
 
 public class MentorController {
-
-    private static final String EDIT_NAME = "1";
-    private static final String EDIT_SURNAME = "2";
-    private static final String EDIT_EMAIL = "3";
-    private static final String EDIT_PASSWORD = "4";
 
     private MentorView mentorView = new MentorView();
     private MentorDAO mentorDao = new MentorDAO();
@@ -68,34 +62,18 @@ public class MentorController {
     public void editMentor() {
         try {
             Mentor mentor = chooseMentor();
+
+            // Demo version:
             mentorView.displayAttribute();
-            String option = mentorView.getString("Your choice: ");
-
-            switch(option) {
-                case EDIT_NAME: 
-                    String name = mentorView.getName();
-                    mentor.setName(name);
-                    break;
-                case EDIT_SURNAME: 
-                    String surname = mentorView.getSurname();
-                    mentor.setSurname(surname);
-                    break;
-                case EDIT_EMAIL: 
-                    Mail email = mentorView.getMail(); 
-                    mentor.setEmail(email);
-                    break;
-                case EDIT_PASSWORD: 
-                    String passwordText = mentorView.getString("New password: ");
-                    mentor.setPassword(new Password(passwordText));
-                    break;
-                default: mentorView.printErrorMessage();
-                    break;
-            }
-
+            mentorView.enterToContinue();
+            System.out.println("New data: ");
+            String name = System.console().readLine();
+            mentor.setName(name);
             mentorDao.update(mentor);
-        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
+        } catch (IndexOutOfBoundsException e) {
             e.getMessage();
-        }   
+        }
+        
     }
 
     public void removeMentor() {

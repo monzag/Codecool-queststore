@@ -1,7 +1,6 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
-import java.util.Random;
 
 import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -95,6 +94,7 @@ public class StudentController {
     }
 
     public void editStudent() {
+
         try {
             Student student = chooseStudent();
             studentView.displayAttribute();

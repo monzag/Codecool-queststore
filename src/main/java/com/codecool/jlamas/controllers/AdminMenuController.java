@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public class AdminMenuController {
 
-    public static final String[] OPTIONS = {"Display mentors",
+    public static final String[] OPTIONS = {"Display mentors", 
                                             "Add mentor",
                                             "Edit mentor",
                                             "Add group",
@@ -50,8 +50,10 @@ public class AdminMenuController {
                 case ADD_GROUP: addGroup();
                     break;
                 case ADD_LEVEL: addLevel();
-                    break;
+                    break; 
                 case EDIT_QUEST: editQuest();
+                    break;
+                case EXIT:
                     break;
             }
         }

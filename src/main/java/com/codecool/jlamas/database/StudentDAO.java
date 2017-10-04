@@ -1,6 +1,5 @@
 package com.codecool.jlamas.database;
 
-import java.sql.*;
 import java.util.ArrayList;
 
 import com.codecool.jlamas.models.account.Student;

@@ -47,6 +47,7 @@ public class Student extends Codecooler {
     public Group getGroup() {
         return this.group;
     }
+
     public Integer getTeamId() {
         return this.teamId;
     }
@@ -57,6 +58,7 @@ public class Student extends Codecooler {
 
     public void setGroup(Group group) {
         this.group = group;
+
     }
     public void setTeamId(Integer teamId) {
         this.teamId = teamId;
