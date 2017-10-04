@@ -86,6 +86,7 @@ public class QuestController {
         Student student = students.chooseStudent();
         Quest quest = this.chooseQuest();
         doneQuestDAO.insert(student, quest);
+        student.getWallet().put(quest.getReward());
     }
 
     public void showQuest() {
