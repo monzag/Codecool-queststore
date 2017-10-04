@@ -12,7 +12,7 @@ public class GroupDAO {
     }
 
     public void insertGroup(Group group) {
-        String query = "INSERT INTO group(groupTag) VALUES (?);";
+        String query = "INSERT INTO group VALUES (?);";
 
         try (Connection c = ConnectDB.connect();
             PreparedStatement pstmt = c.prepareStatement(query);) {
