@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.DoneQuestDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
@@ -10,10 +11,12 @@ import java.util.ArrayList;
 public class QuestController {
     private QuestDAO questDAO;
     private QuestView view;
+    private DoneQuestDAO doneQuestDAO;
 
     public QuestController() {
         this.questDAO = new QuestDAO();
         this.view = new QuestView();
+        this.doneQuestDAO = new DoneQuestDAO();
     }
 
     public void editQuest() {
@@ -81,6 +84,8 @@ public class QuestController {
     public void markQuestAsDone() {
         StudentController students = new StudentController();
         Student student = students.chooseStudent();
+        Quest quest = this.chooseQuest();
+        doneQuestDAO.insert(student, quest);
     }
 
     public void showQuest() {
@@ -93,14 +98,14 @@ public class QuestController {
     }
 
     public Quest chooseQuest() throws IndexOutOfBoundsException {
-        ArrayList<Student> students = this.questDAO.selectAll();
+        ArrayList<Quest> quests = this.questDAO.selectAll();
         this.showAllQuests();
         Integer record = view.getMenuOption();
         Integer index = record - 1;
-        if (index >= students.size()) {
+        if (index >= quests.size()) {
             throw new IndexOutOfBoundsException();
         }
-        return students.get(index);
+        return quests.get(index);
     }
 
     public void dataEdit(Quest quest) {
