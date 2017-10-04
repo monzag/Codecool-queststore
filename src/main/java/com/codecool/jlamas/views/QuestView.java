@@ -63,4 +63,8 @@ public class QuestView {
         option = input.nextInt();
         return option;
     }
+
+    public void printIndexError() {
+        System.out.println("Bad number - record not exist!");
+    }
 }
