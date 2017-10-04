@@ -23,11 +23,11 @@ public class GroupController {
     }
 
     public void displayGroups() {
-        ArrayList<Group> groups = getGroups();
+        ArrayList<Group> groups = getAllGroups();
         groupView.printAll(groups);
     }
 
-    public ArrayList<Group> getGroups() {
+    public ArrayList<Group> getAllGroups() {
         return groupDAO.selectAll();
     }
     
@@ -35,11 +35,11 @@ public class GroupController {
         displayGroups();
         Integer record = groupView.getInt("Choose group: ");
         Integer index = record - 1;
-        if (index >= getGroups().size()) {
+        if (index >= getAllGroups().size()) {
             throw new IndexOutOfBoundsException();
         }
 
-        return getGroups().get(index);
+        return getAllGroups().get(index);
     }
 
     public void editGroup() {

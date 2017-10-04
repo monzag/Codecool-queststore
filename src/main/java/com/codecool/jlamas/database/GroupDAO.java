@@ -12,7 +12,7 @@ public class GroupDAO {
     }
 
     public void insertGroup(Group group) {
-        String query = "INSERT INTO group(name) VALUES (?);";
+        String query = "INSERT INTO group VALUES (?);";
 
         try (Connection c = ConnectDB.connect();
             PreparedStatement pstmt = c.prepareStatement(query);) {
@@ -27,14 +27,14 @@ public class GroupDAO {
 
     public ArrayList<Group> selectAll() {
         ArrayList<Group> groups = new ArrayList<>();
-        String query = "SELECT name FROM group";
+        String query = "SELECT groupTag FROM group";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt  = c.createStatement();
              ResultSet rs    = stmt.executeQuery(query)){
 
             while (rs.next()) {
-                Group group = new Group(rs.getString("name"));
+                Group group = new Group(rs.getString("groupTag"));
                 groups.add(group);
             }
         } catch (ClassNotFoundException|SQLException e) {
@@ -45,7 +45,7 @@ public class GroupDAO {
     }
 
     public void update(Group group, String preUpdateName) {
-        String query = "UPDATE group SET name = ? WHERE name = ?";
+        String query = "UPDATE group SET groupTag = ? WHERE groupTag = ?";
 
         try (Connection c = ConnectDB.connect();
                 PreparedStatement pstmt = c.prepareStatement(query);) {
