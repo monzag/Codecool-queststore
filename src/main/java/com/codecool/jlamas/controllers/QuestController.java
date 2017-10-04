@@ -83,10 +83,14 @@ public class QuestController {
 
     public void markQuestAsDone() {
         StudentController students = new StudentController();
-        Student student = students.chooseStudent();
-        Quest quest = this.chooseQuest();
-        doneQuestDAO.insert(student, quest);
-        student.getWallet().put(quest.getReward());
+        try {
+            Student student = students.chooseStudent();
+            Quest quest = this.chooseQuest();
+            doneQuestDAO.insert(student, quest);
+            student.getWallet().put(quest.getReward());
+        } catch (IndexOutOfBoundsException e) {
+            view.printIndexError();
+        }
     }
 
     public void showQuest() {
