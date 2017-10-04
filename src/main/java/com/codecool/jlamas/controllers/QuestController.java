@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.DoneQuestDAO;
+import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
@@ -12,11 +13,13 @@ public class QuestController {
     private QuestDAO questDAO;
     private QuestView view;
     private DoneQuestDAO doneQuestDAO;
+    private StudentDAO studentDAO;
 
     public QuestController() {
         this.questDAO = new QuestDAO();
         this.view = new QuestView();
         this.doneQuestDAO = new DoneQuestDAO();
+        this.studentDAO = new StudentDAO();
     }
 
     public void editQuest() {
@@ -88,6 +91,7 @@ public class QuestController {
             Quest quest = this.chooseQuest();
             doneQuestDAO.insert(student, quest);
             student.getWallet().put(quest.getReward());
+            studentDAO.update(student);
         } catch (IndexOutOfBoundsException e) {
             view.printIndexError();
         }
