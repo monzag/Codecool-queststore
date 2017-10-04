@@ -43,7 +43,7 @@ public class StudentMenuController {
 
     public void displayWallet() {
         this.walletController.displayBalance();
-        //walletController.displayDoneQuests();
+        this.walletController.displayDoneQuests();
         //walletController.displayOwnedArtifacts();
     }
 
