@@ -42,9 +42,9 @@ public class StudentMenuController {
     }
 
     public void displayWallet() {
-        walletController.displayBalance();
-        walletController.displayDoneQuests();
-        walletController.displayOwnedArtifacts();
+        // this.walletController.displayBalance();
+        // walletController.displayDoneQuests();
+        //walletController.displayOwnedArtifacts();
     }
 
     public void buyArtifact() {

@@ -20,7 +20,7 @@ public class WalletController {
     }
 
     public void displayBalance() {
-        studentView.showBalance(this.student.getWallet().getBalance());
+        this.studentView.showBalance(this.student.getWallet().getBalance());
     }
 
     public void displayDoneQuests() {
