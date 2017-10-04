@@ -1,4 +1,4 @@
 CREATE TABLE IF NOT EXISTS `team` (
     `id`	INTEGER PRIMARY KEY UNIQUE NOT NULL,
-  `name`	TEXT 
+    `team_tag`	TEXT 
 );
