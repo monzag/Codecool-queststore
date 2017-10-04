@@ -3,6 +3,7 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.models.account.Mentor;
 
 import com.codecool.jlamas.views.MentorView;
+import com.codecool.jlamas.controllers.QuestController;
 
 
 public class MentorMenuController {
@@ -12,12 +13,11 @@ public class MentorMenuController {
                                          "Create team",
                                          "Add new Student",
                                          "Add new Quest",
-                                         "Add new Artifact",
+                                         "Add new Artifat",
                                          "Show Quests",
                                          "Edit existing Artifact",
                                          "Mark Quest as done",
-                                         "Mark Artifact as used",
-                                         "Delete quest"};
+                                         "Mark Artifact as done"};
 
     private static final int PRINT_CLASS = 1;
     private static final int PRINT_TEAM = 2;
@@ -29,28 +29,20 @@ public class MentorMenuController {
     private static final int EDIT_ARTIFACT = 8;
     private static final int MARK_QUEST = 9;
     private static final int MARK_ARTIFACT = 10;
-    private static final int DELETE_QUEST = 11;
     private static final int EXIT = 0;
 
     private Mentor user;
     private MentorView view;
-    private StudentController studentController;
-    private QuestController questController;
-    private ArtifactController artifactController;
 
     public MentorMenuController(Mentor user) {
         this.user = user;
         this.view =  new MentorView();
-        this.studentController = new StudentController();
-        this.questController = new QuestController();
-        this.artifactController = new ArtifactController();
-
     }
 
     public void start() {
         Integer option;
 
-        option = 1;
+        option = 100;
         while (!option.equals(EXIT)) {
             view.printMenu(MENU);
             option = view.getMenuOption();
@@ -73,13 +65,15 @@ public class MentorMenuController {
                 addStudent();
                 break;
             case ADD_QUEST :
-                questController.createQuest();
+                QuestController questControll = new QuestController();
+                questControll.createQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
                 break;
             case SHOW_QUEST :
-                questController.showAllQuests();
+                questControll = new QuestController();
+                questControll.showAllQuests();
                 break;
             case EDIT_ARTIFACT :
                 editArtifact();
@@ -90,15 +84,11 @@ public class MentorMenuController {
             case MARK_ARTIFACT :
                 markArtifact();
                 break;
-            case DELETE_QUEST :
-                deleteQuest();
-                break;
         }
 
     }
     public void printClass() {
-        GroupController groupController = new GroupController();
-        groupController.displayGroups();
+
     }
 
     public void printTeam() {
@@ -109,32 +99,28 @@ public class MentorMenuController {
 
     }
 
-    public void deleteQuest() {
-        questController.deleteQuest();
-    }
-
     public void addStudent() {
-        studentController.addStudent();
+
     }
 
     public void addQuest() {
-        questController.createQuest();
+
     }
 
     public void addArtifact() {
-        artifactController.createArtifact();
+
     }
 
     public void editQuest() {
-        questController.editQuest();
+
     }
 
     public void editArtifact() {
-        artifactController.editArtifact();
+
     }
 
     public void markQuest() {
-        questController.markQuestAsDone();
+
     }
 
     public void markArtifact() {
