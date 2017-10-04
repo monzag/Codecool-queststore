@@ -4,7 +4,6 @@ public class Quest {
     private String name;
     private String description;
     private Integer reward;
-    private boolean isDone;
 
     public Quest(){
 
@@ -14,7 +13,6 @@ public class Quest {
         this.name = name;
         this.description = description;
         this.reward = reward;
-        this.isDone = false;
     }
 
     public String getName() {
@@ -29,10 +27,6 @@ public class Quest {
         return this.reward;
     }
 
-    public boolean getStatus() {
-        return this.isDone;
-    }
-
     public void setName(String name) {
         this.name = name;
     }
@@ -43,16 +37,6 @@ public class Quest {
 
     public void setReward(Integer reward) {
         this.reward = reward;
-    }
-
-    public void changeStatus() {
-        if (this.isDone == false) {
-            this.isDone = true;
-
-        } else {
-            this.isDone = false;
-        }
-
     }
 
     public String toString() {

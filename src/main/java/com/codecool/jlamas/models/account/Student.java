@@ -17,15 +17,6 @@ public class Student extends Codecooler {
 
     }
 
-    public Student(Login login, Password password, Mail email, String name, String surname, Wallet wallet) {
-
-        super(login, password, email, name, surname);
-        this.group = null;
-        this.teamId = null;
-        this.wallet = wallet;
-
-    }
-
     public Student(Login login, Password password, Mail email, String name, String surname, Group group, Wallet wallet) {
 
         super(login, password, email, name, surname);

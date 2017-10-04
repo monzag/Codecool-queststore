@@ -41,12 +41,12 @@ public class StudentController {
             Login login = studentView.getLogin(name, surname);
             Password password = getPassword();
             Group group = getGroup();
-            Wallet wallet = new Wallet();
+            Wallet wallet = new Wallet(0);
             Student student = new Student(login, password, email, name, surname, group, wallet);
             studentDao.insert(student);
 
         } catch (InvalidUserDataException e) {
-
+            e.getMessage();
         }
     }
 
@@ -56,7 +56,7 @@ public class StudentController {
         try {
             group = groupController.chooseGroup();
         } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
+            studentView.printIndexError();
         }
         return group;
     }
@@ -79,7 +79,7 @@ public class StudentController {
             studentDao.delete(student);
 
         } catch (IndexOutOfBoundsException e) {
-
+            studentView.printIndexError();
         }
     }
 
