@@ -1,15 +1,19 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
 import com.codecool.jlamas.views.QuestView;
+
 import java.util.ArrayList;
 
 public class QuestController {
     private QuestDAO questDAO;
+    private QuestView view;
 
     public QuestController() {
         this.questDAO = new QuestDAO();
+        this.view = new QuestView();
     }
 
     public void editQuest() {
@@ -41,7 +45,6 @@ public class QuestController {
     }
 
     public void createQuest() {
-        QuestView view = new QuestView();
         String name = view.getString("Type quest name");
         String description = view.getString("Type quest description");
         Integer reward = view.getInt("Type reward value");
@@ -76,7 +79,8 @@ public class QuestController {
     }
 
     public void markQuestAsDone() {
-
+        StudentController students = new StudentController();
+        Student student = students.chooseStudent();
     }
 
     public void showQuest() {
@@ -86,7 +90,17 @@ public class QuestController {
     public void showAllQuests() {
         QuestView view = new QuestView();
         view.printQuestData(this.questDAO.selectAll());
+    }
 
+    public Quest chooseQuest() throws IndexOutOfBoundsException {
+        ArrayList<Student> students = this.questDAO.selectAll();
+        this.showAllQuests();
+        Integer record = view.getMenuOption();
+        Integer index = record - 1;
+        if (index >= students.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return students.get(index);
     }
 
     public void dataEdit(Quest quest) {
