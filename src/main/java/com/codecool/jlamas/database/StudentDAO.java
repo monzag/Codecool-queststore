@@ -13,6 +13,7 @@ import com.codecool.jlamas.models.accountdata.Wallet;
 public class StudentDAO {
 
     public StudentDAO() {
+
     }
 
     public ArrayList<Student> requestAll() {
@@ -165,6 +166,7 @@ public class StudentDAO {
 
 
         Student student = new Student();
+        DoneQuestDAO doneQuests = new DoneQuestDAO();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query);) {
@@ -177,6 +179,7 @@ public class StudentDAO {
             student.setGroup(new Group(rs.getString("group_tag")));
             student.setTeamId(rs.getInt("team_tag"));
             student.setWallet(new Wallet(rs.getInt("balance")));
+            student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
