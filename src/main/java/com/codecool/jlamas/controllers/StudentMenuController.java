@@ -42,8 +42,8 @@ public class StudentMenuController {
     }
 
     public void displayWallet() {
-        // this.walletController.displayBalance();
-        // walletController.displayDoneQuests();
+        this.walletController.displayBalance();
+        //walletController.displayDoneQuests();
         //walletController.displayOwnedArtifacts();
     }
 
