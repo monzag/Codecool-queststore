@@ -42,6 +42,7 @@ public class StudentDAO {
                 student.setEmail(new Mail(rs.getString("email")));
                 student.setGroup(new Group(rs.getString("group_tag")));
                 student.setTeamId(rs.getInt("team_tag"));
+                student.setWallet(new Wallet(rs.getInt("balance")));
                 students.add(student);
             }
 
