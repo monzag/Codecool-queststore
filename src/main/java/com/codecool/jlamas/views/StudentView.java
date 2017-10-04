@@ -20,12 +20,16 @@ public class StudentView extends CodecoolerView {
     }
 
     public void displayAttribute() {
-        String[] attributes = {"name", 
-                               "surname",
-                               "email",
-                               "password",
-                               "class",
-                               "team"};
+        String[] attributes = {"Name", 
+                               "Surname",
+                               "Email",
+                               "Password",
+                               "Group",
+                               "Team"};
         printMenu(attributes);
+    }
+
+    public void showBalance(Integer balance) {
+        System.out.println("\nYour balance: " + balance + " coolcoins\n");
     }
 }

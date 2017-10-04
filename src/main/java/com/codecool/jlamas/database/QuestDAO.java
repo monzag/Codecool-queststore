@@ -63,4 +63,18 @@ public class QuestDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public void deleteQuest(Quest quest) {
+        String sql = "DELETE FROM quest WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+        pstmt.setString(1, quest.getName());
+        pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }

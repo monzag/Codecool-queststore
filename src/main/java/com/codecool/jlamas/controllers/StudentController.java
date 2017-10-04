@@ -6,6 +6,7 @@ import java.util.Random;
 import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
@@ -18,7 +19,7 @@ public class StudentController {
     private static final String EDIT_SURNAME = "2";
     private static final String EDIT_EMAIL = "3";
     private static final String EDIT_PASSWORD = "4";
-    private static final String EDIT_CLASS = "5";
+    private static final String EDIT_GROUP = "5";
     private static final String EDIT_TEAM = "6";
 
     private StudentView studentView = new StudentView();
@@ -39,13 +40,25 @@ public class StudentController {
             Mail email = studentView.getMail();
             Login login = studentView.getLogin(name, surname);
             Password password = getPassword();
+            Group group = getGroup();
             Wallet wallet = new Wallet();
-            Student student = new Student(login, password, email, name, surname, wallet);
+            Student student = new Student(login, password, email, name, surname, group, wallet);
             studentDao.insert(student);
 
         } catch (InvalidUserDataException e) {
 
         }
+    }
+
+    public Group getGroup() {
+        Group group = new Group();
+        GroupController groupController = new GroupController();
+        try {
+            group = groupController.chooseGroup();
+        } catch (IndexOutOfBoundsException e) {
+            e.getMessage();
+        }
+        return group;
     }
 
     public Password getPassword() {
@@ -104,10 +117,9 @@ public class StudentController {
                     String passwordText = studentView.getString("New password: ");
                     student.setPassword(new Password(passwordText));
                     break;
-                case EDIT_CLASS:
-                    // TODO
-                    String classId = "2017.1A";
-                    student.setClassId(classId);
+                case EDIT_GROUP:
+                    GroupController groupController = new GroupController();
+                    groupController.editGroup();
                     break;
                 case EDIT_TEAM:
                     // TODO

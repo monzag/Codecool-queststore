@@ -1,14 +1,13 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.views.CodecoolerView;
-//import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.controllers.AdminMenuController;
-import com.codecool.jlamas.controllers.MentorMenuController;
+import com.codecool.jlamas.models.account.Mentor;
+import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.database.LoginDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.database.MentorDAO;
+import com.codecool.jlamas.database.StudentDAO;
 
 public class AppController {
 
@@ -57,8 +56,10 @@ public class AppController {
             MentorMenuController mentorMenu = new MentorMenuController(mentor);
             mentorMenu.start();
         } else if (userType.equals("student")) {
-            // TODO
+            StudentDAO studentData = new StudentDAO();
+            Student student = studentData.getStudent(login);
+            StudentMenuController studentMenu = new StudentMenuController(student);
+            studentMenu.start();
         }
-
     }
 }

@@ -6,6 +6,7 @@ import java.util.Random;
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
+import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
@@ -32,9 +33,8 @@ public class MentorController {
             Mail email = mentorView.getMail();
             Login login = mentorView.getLogin(name, surname);
             Password password = getPassword();
-            
-            String classTag = "2017.1";
-            Mentor mentor = new Mentor(login, password, email, name, surname, classTag);
+            Group group = getGroup();
+            Mentor mentor = new Mentor(login, password, email, name, surname, group);
             mentorDao.insert(mentor);
 
         } catch (InvalidUserDataException e) {
@@ -52,6 +52,17 @@ public class MentorController {
         }
 
         return new Password(value);
+    }
+
+    public Group getGroup() {
+        Group group = new Group();
+        GroupController groupController = new GroupController();
+        try {
+            group = groupController.chooseGroup();
+        } catch (IndexOutOfBoundsException e) {
+            e.getMessage();
+        }
+        return group;
     }
 
     public void editMentor() {
