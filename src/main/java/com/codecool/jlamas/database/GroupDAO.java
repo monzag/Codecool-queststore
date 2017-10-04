@@ -12,7 +12,7 @@ public class GroupDAO {
     }
 
     public void insertGroup(Group group) {
-        String query = "INSERT INTO group VALUES (?);";
+        String query = "INSERT INTO `group` VALUES (?);";
 
         try (Connection c = ConnectDB.connect();
             PreparedStatement pstmt = c.prepareStatement(query);) {
@@ -45,7 +45,7 @@ public class GroupDAO {
     }
 
     public void update(Group group, String preUpdateName) {
-        String query = "UPDATE group SET group_tag = ? WHERE group_tag = ?";
+        String query = "UPDATE `group` SET group_tag = ? WHERE group_tag = ?";
 
         try (Connection c = ConnectDB.connect();
                 PreparedStatement pstmt = c.prepareStatement(query);) {
