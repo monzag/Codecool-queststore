@@ -124,7 +124,7 @@ public class StudentDAO {
              Statement stmt = c.createStatement();) {
 
             query = String.format("UPDATE `user` SET login = '%s', email = '%s', name = '%s', surname = '%s', " +
-                                  "type = 'mentor' WHERE login = '%s'; ",
+                                  "type = 'student' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
                     student.getEmail().getValue(),
                     student.getName(),
@@ -136,8 +136,8 @@ public class StudentDAO {
                     student.getPassword().getValue(),
                     student.getLogin().getValue());
 
-            query += String.format("UPDATE `mentor` SET login = '%s', group_tag = '%s', team_tag = '%s', " +
-                                   "balance = '%s', coolcoins = '%s' WHERE login = '%s'; ",
+            query += String.format("UPDATE `student` SET login = '%s', group_tag = '%s', team_tag = '%s', " +
+                                   "balance = '%s' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
                     student.getGroup().getName(),
                     student.getTeamId(),
