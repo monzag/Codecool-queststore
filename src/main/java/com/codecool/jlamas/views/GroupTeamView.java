@@ -19,9 +19,11 @@ public class GroupTeamView {
     }
 
     public <T> void printAll(ArrayList<T> objectList) {
-        System.out.print("\nGroups: ");
+        System.out.print("\nGroups: \n");
+        Integer number = 1;
         for (T object : objectList) {
-            System.out.print(object);
+            System.out.println(number + ". " + object);
+            number++;
         }
     }
 
