@@ -18,7 +18,7 @@ public class StudentDAO {
 
     public ArrayList<Student> requestAll() {
         String query = String.format("%s %s %s %s %s %s %s %s"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
                 ,         "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
