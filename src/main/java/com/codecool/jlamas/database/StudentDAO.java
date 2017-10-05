@@ -13,11 +13,12 @@ import com.codecool.jlamas.models.accountdata.Wallet;
 public class StudentDAO {
 
     public StudentDAO() {
+
     }
 
     public ArrayList<Student> requestAll() {
         String query = String.format("%s %s %s %s %s %s %s %s"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
                 ,         "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
@@ -42,6 +43,7 @@ public class StudentDAO {
                 student.setEmail(new Mail(rs.getString("email")));
                 student.setGroup(new Group(rs.getString("group_tag")));
                 student.setTeamId(rs.getInt("team_tag"));
+                student.setWallet(new Wallet(rs.getInt("balance")));
                 students.add(student);
             }
 
@@ -122,7 +124,7 @@ public class StudentDAO {
              Statement stmt = c.createStatement();) {
 
             query = String.format("UPDATE `user` SET login = '%s', email = '%s', name = '%s', surname = '%s', " +
-                                  "type = 'mentor' WHERE login = '%s'; ",
+                                  "type = 'student' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
                     student.getEmail().getValue(),
                     student.getName(),
@@ -134,8 +136,8 @@ public class StudentDAO {
                     student.getPassword().getValue(),
                     student.getLogin().getValue());
 
-            query += String.format("UPDATE `mentor` SET login = '%s', group_tag = '%s', team_tag = '%s', " +
-                                   "balance = '%s', coolcoins = '%s' WHERE login = '%s'; ",
+            query += String.format("UPDATE `student` SET login = '%s', group_tag = '%s', team_tag = '%s', " +
+                                   "balance = '%s' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
                     student.getGroup().getName(),
                     student.getTeamId(),
@@ -164,6 +166,7 @@ public class StudentDAO {
 
 
         Student student = new Student();
+        DoneQuestDAO doneQuests = new DoneQuestDAO();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query);) {
@@ -176,6 +179,7 @@ public class StudentDAO {
             student.setGroup(new Group(rs.getString("group_tag")));
             student.setTeamId(rs.getInt("team_tag"));
             student.setWallet(new Wallet(rs.getInt("balance")));
+            student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());

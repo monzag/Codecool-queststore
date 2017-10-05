@@ -1,15 +1,25 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.DoneQuestDAO;
+import com.codecool.jlamas.database.StudentDAO;
+import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
 import com.codecool.jlamas.views.QuestView;
+
 import java.util.ArrayList;
 
 public class QuestController {
     private QuestDAO questDAO;
+    private QuestView view;
+    private DoneQuestDAO doneQuestDAO;
+    private StudentDAO studentDAO;
 
     public QuestController() {
         this.questDAO = new QuestDAO();
+        this.view = new QuestView();
+        this.doneQuestDAO = new DoneQuestDAO();
+        this.studentDAO = new StudentDAO();
     }
 
     public void editQuest() {
@@ -41,7 +51,6 @@ public class QuestController {
     }
 
     public void createQuest() {
-        QuestView view = new QuestView();
         String name = view.getString("Type quest name");
         String description = view.getString("Type quest description");
         Integer reward = view.getInt("Type reward value");
@@ -76,7 +85,16 @@ public class QuestController {
     }
 
     public void markQuestAsDone() {
-
+        StudentController students = new StudentController();
+        try {
+            Student student = students.chooseStudent();
+            Quest quest = this.chooseQuest();
+            doneQuestDAO.insert(student, quest);
+            student.getWallet().put(quest.getReward());
+            studentDAO.update(student);
+        } catch (IndexOutOfBoundsException e) {
+            view.printIndexError();
+        }
     }
 
     public void showQuest() {
@@ -86,7 +104,17 @@ public class QuestController {
     public void showAllQuests() {
         QuestView view = new QuestView();
         view.printQuestData(this.questDAO.selectAll());
+    }
 
+    public Quest chooseQuest() throws IndexOutOfBoundsException {
+        ArrayList<Quest> quests = this.questDAO.selectAll();
+        this.showAllQuests();
+        Integer record = view.getMenuOption();
+        Integer index = record - 1;
+        if (index >= quests.size()) {
+            throw new IndexOutOfBoundsException();
+        }
+        return quests.get(index);
     }
 
     public void dataEdit(Quest quest) {

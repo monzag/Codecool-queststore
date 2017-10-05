@@ -49,4 +49,22 @@ public class QuestView {
             System.out.println(option);
         }
     }
+
+    public int getMenuOption() {
+        int option;
+        Scanner input = new Scanner(System.in);
+
+        System.out.print("Choose option: ");
+        while (!input.hasNextInt()) {
+            System.out.println("This is not a number!");
+            input.next();
+        }
+
+        option = input.nextInt();
+        return option;
+    }
+
+    public void printIndexError() {
+        System.out.println("Bad number - record not exist!");
+    }
 }
