@@ -8,4 +8,3 @@ CREATE TABLE IF NOT EXISTS `user` (
 INSERT INTO `user` VALUES ('admin', 'admin@admin.com','Jerzy','Mardaus', 'admin');
 INSERT INTO `user` VALUES ('mentor', 'mentor@mentor.pl','Janusz','Kwasniewski', 'mentor');
 INSERT INTO `user` VALUES ('student', 'student@student.pl','Arek','Zegarek', 'student');
-
