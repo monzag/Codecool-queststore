@@ -6,6 +6,8 @@ import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import static org.mockito.Mockito.*;
+
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,12 +23,14 @@ class MentorTest {
 
     @BeforeEach
     public void setUp() {
-        login = new Login("testMentor");
-        password = new Password("mentor");
-        mail = new Mail("testMentor@mail.com");
+        login = spy(Login.class);
+        password = spy(Password.class);
+        mail = spy(Mail.class);
         name = "testMentorName";
         surname = "testMentorSurname";
-        group = new Group("2017.1");
+        group = spy(Group.class);
+        group.setName("2017.1");
+        
 
         mentor = new Mentor(login, password, mail,name, surname, group);
     }
@@ -38,18 +42,13 @@ class MentorTest {
 
     @Test
     void testConstructorWithoutGroup() {
-        Login login = new Login("testMentor");
-        Password password = new Password("mentor");
-        Mail mail = new Mail("testMentor@mail.com");
+        
         assertNotNull(new Mentor(login, password, mail, name, surname));
     }
 
     @Test
     void testConstructorWithGroup() {
-        Login login = new Login("testMentor");
-        Password password = new Password("mentor");
-        Mail mail = new Mail("testMentor@mail.com");
-        Group group = new Group("2017.1");
+        
         assertNotNull(new Mentor(login, password, mail, name, surname, group));
     }
 
@@ -61,7 +60,7 @@ class MentorTest {
 
     @Test
     void setGroup() {
-        Group testGroup = new Group("2017.test");
+        Group testGroup = spy(Group.class);
         mentor.setGroup(testGroup);
         Group actual = mentor.getGroup();
         assertEquals(testGroup, actual);
