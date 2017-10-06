@@ -35,6 +35,7 @@ public class StudentController {
 
     public void addStudent() {
         try {
+            SendMail sendPassword = new SendMail();
             String name = studentView.getName();
             String surname = studentView.getSurname();
             Mail email = studentView.getMail();
@@ -44,6 +45,8 @@ public class StudentController {
             Wallet wallet = new Wallet(0);
             Student student = new Student(login, password, email, name, surname, group, wallet);
             studentDao.insert(student);
+            String logData = "Login: " + login.getValue() + " Password: " + password.getValue();
+            sendPassword.sendMail(email.getValue(), logData);
 
         } catch (InvalidUserDataException e) {
             e.getMessage();
@@ -101,19 +104,19 @@ public class StudentController {
             String option = studentView.getString("Your choice: ");
 
             switch(option) {
-                case EDIT_NAME: 
+                case EDIT_NAME:
                     String name = studentView.getName();
                     student.setName(name);
                     break;
-                case EDIT_SURNAME: 
+                case EDIT_SURNAME:
                     String surname = studentView.getSurname();
                     student.setSurname(surname);
                     break;
-                case EDIT_EMAIL: 
-                    Mail email = studentView.getMail(); 
+                case EDIT_EMAIL:
+                    Mail email = studentView.getMail();
                     student.setEmail(email);
                     break;
-                case EDIT_PASSWORD: 
+                case EDIT_PASSWORD:
                     String passwordText = studentView.getString("New password: ");
                     student.setPassword(new Password(passwordText));
                     break;
