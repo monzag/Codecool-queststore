@@ -25,7 +25,14 @@ class LoginTest {
     }
 
     @Test
-    void isLoginUnique() {
+    void testGetLoginValue(){
+        assertEquals("login", login.getValue());
+    }
+
+    @Test
+    void testSetLoginValue(){
+        login.setValue("new");
+        assertEquals( "new", login.getValue());
     }
 
 }
