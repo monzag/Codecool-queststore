@@ -30,15 +30,7 @@ public class MentorDAO {
              ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
-                Mentor mentor = new Mentor();
-
-                mentor.setName(rs.getString("name"));
-                mentor.setSurname(rs.getString("surname"));
-                mentor.setLogin(new Login(rs.getString("login")));
-                mentor.setPassword(new Password(rs.getString("password")));
-                mentor.setEmail(new Mail(rs.getString("email")));
-                mentor.setGroup(new Group(rs.getString("group_tag")));
-
+                Mentor mentor = getMentorFromResultSet(rs);
                 mentors.add(mentor);
             }
 
@@ -48,6 +40,8 @@ public class MentorDAO {
 
         return mentors;
     }
+
+
 
     public boolean insert(Mentor mentor) {
     // true if was successful
@@ -146,6 +140,9 @@ public class MentorDAO {
     }
 
     public Mentor getMentor(String userLogin) {
+
+        Mentor mentor = null;
+
         String query = String.format("%s %s %s %s %s %s WHERE user.type = 'mentor' AND login.login = '%s';"
             , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group_tag"
             , "FROM user"
@@ -155,24 +152,33 @@ public class MentorDAO {
             ,             "ON mentor.login = user.login"
             , userLogin);
 
-
-        Mentor mentor = new Mentor();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
-             ResultSet rs = stmt.executeQuery(query);) {
 
-            mentor.setName(rs.getString("name"));
-            mentor.setSurname(rs.getString("surname"));
-            mentor.setLogin(new Login(rs.getString("login")));
-            mentor.setPassword(new Password(rs.getString("password")));
-            mentor.setEmail(new Mail(rs.getString("email")));
-            mentor.setGroup(new Group(rs.getString("group_tag")));
+             ResultSet rs = stmt.executeQuery(query);) {
+             mentor = getMentorFromResultSet(rs);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
 
         return mentor;
+    }
+
+
+    public Mentor getMentorFromResultSet(ResultSet rs) throws SQLException{
+
+        Mentor mentor = new Mentor();
+
+        mentor.setName(rs.getString("name"));
+        mentor.setSurname(rs.getString("surname"));
+        mentor.setLogin(new Login(rs.getString("login")));
+        mentor.setPassword(new Password(rs.getString("password")));
+        mentor.setEmail(new Mail(rs.getString("email")));
+        mentor.setGroup(new Group(rs.getString("group_tag")));
+
+        return mentor;
+
     }
 
 }
