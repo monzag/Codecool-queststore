@@ -23,3 +23,6 @@ hs_err_pid*
 
 # idea working directory
 .idea
+*.iml
+/target
+dependency-reduced-pom.xml
