@@ -72,7 +72,6 @@ public class StudentController {
             char sign = alphabet.charAt(random.nextInt(36));
             value += sign;
         }
-
         return new Password(value);
     }
 
@@ -132,7 +131,6 @@ public class StudentController {
                 default: studentView.printErrorMessage();
                     break;
             }
-
             studentDao.update(student);
         } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
             e.getMessage();
