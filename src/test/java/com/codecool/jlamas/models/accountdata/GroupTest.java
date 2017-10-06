@@ -15,6 +15,11 @@ class GroupTest {
     }
 
     @Test
+    void testEmptyConstructor() {
+        new Group();
+    }
+
+    @Test
     void setName() {
         String name = "new name";
         group.setName( name );
