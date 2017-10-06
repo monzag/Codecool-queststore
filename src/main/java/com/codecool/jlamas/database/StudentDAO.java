@@ -3,6 +3,7 @@ package com.codecool.jlamas.database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
@@ -17,6 +18,8 @@ public class StudentDAO {
     }
 
     public ArrayList<Student> requestAll() {
+
+        Student student = null;
         String query = String.format("%s %s %s %s %s %s %s %s"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
                 ,         "student.team_tag, student.balance"
@@ -34,16 +37,7 @@ public class StudentDAO {
              ResultSet rs = stmt.executeQuery(query);) {
 
             while (rs.next()) {
-                Student student = new Student();
-
-                student.setName(rs.getString("name"));
-                student.setSurname(rs.getString("surname"));
-                student.setLogin(new Login(rs.getString("login")));
-                student.setPassword(new Password(rs.getString("password")));
-                student.setEmail(new Mail(rs.getString("email")));
-                student.setGroup(new Group(rs.getString("group_tag")));
-                student.setTeamId(rs.getInt("team_tag"));
-                student.setWallet(new Wallet(rs.getInt("balance")));
+                student = getStudentFromResultSet(rs);
                 students.add(student);
             }
 
@@ -154,38 +148,48 @@ public class StudentDAO {
     }
 
     public Student getStudent(String userLogin) {
+
+        Student student = null;
+
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
                 , "student.team_tag, student.balance"
                 , "FROM user"
-                ,     "INNER JOIN login"
-                ,             "ON login.login = user.login"
-                ,     "INNER JOIN student"
-                ,             "ON student.login = user.login"
+                , "INNER JOIN login"
+                , "ON login.login = user.login"
+                , "INNER JOIN student"
+                , "ON student.login = user.login"
                 , userLogin);
 
-
-        Student student = new Student();
-        DoneQuestDAO doneQuests = new DoneQuestDAO();
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query);) {
+             getStudentFromResultSet(rs);
 
-            student.setName(rs.getString("name"));
-            student.setSurname(rs.getString("surname"));
-            student.setLogin(new Login(rs.getString("login")));
-            student.setPassword(new Password(rs.getString("password")));
-            student.setEmail(new Mail(rs.getString("email")));
-            student.setGroup(new Group(rs.getString("group_tag")));
-            student.setTeamId(rs.getInt("team_tag"));
-            student.setWallet(new Wallet(rs.getInt("balance")));
-            student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
-
-        } catch (ClassNotFoundException|SQLException e) {
+        } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return student;
     }
 
-}
+    public Student getStudentFromResultSet(ResultSet rs) throws SQLException{
+
+        Student student = new Student();
+        DoneQuestDAO doneQuests = new DoneQuestDAO();
+
+        student.setName(rs.getString("name"));
+        student.setSurname(rs.getString("surname"));
+        student.setLogin(new Login(rs.getString("login")));
+        student.setPassword(new Password(rs.getString("password")));
+        student.setEmail(new Mail(rs.getString("email")));
+        student.setGroup(new Group(rs.getString("group_tag")));
+        student.setTeamId(rs.getInt("team_tag"));
+        student.setWallet(new Wallet(rs.getInt("balance")));
+        student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
+
+        return student;
+
+    }
+
+    }
+
