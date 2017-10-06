@@ -11,6 +11,7 @@ class QuestTest {
 
     @BeforeEach
     void setUp(){
+
         this.quest = new Quest("Quest Name", "description", 20);
     }
 
@@ -31,11 +32,6 @@ class QuestTest {
     }
 
     @Test
-    void testGetStatus() {
-        assertEquals(false, quest.getStatus());
-    }
-
-    @Test
     void testSetName() {
         quest.setName("New name");
         assertEquals("New name", quest.getName());
@@ -52,12 +48,6 @@ class QuestTest {
         Integer reward = 40;
         quest.setReward(40);
         assertEquals(reward, quest.getReward());
-    }
-
-    @Test
-    void testChangeStatus() {
-        quest.changeStatus();
-        assertEquals(true, quest.getStatus());
     }
 
     @Test
