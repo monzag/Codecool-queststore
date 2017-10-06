@@ -24,6 +24,8 @@ public class Wallet {
         return this.balance;
     }
 
+    public void setBalance(Integer balance) { this.balance = balance; }
+
     public void put(Integer amount) {
         this.balance += amount;
     }

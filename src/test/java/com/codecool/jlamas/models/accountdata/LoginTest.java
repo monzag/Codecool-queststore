@@ -34,5 +34,4 @@ class LoginTest {
         login.setValue("new");
         assertEquals( "new", login.getValue());
     }
-
 }
