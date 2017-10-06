@@ -30,5 +30,4 @@ class MailTest {
         String invalidMail = "zle";
         assertFalse(mail.isValid(invalidMail));
     }
-
 }
