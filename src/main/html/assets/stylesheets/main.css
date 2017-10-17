@@ -135,7 +135,7 @@ body {
 .menu-bar img {
   height: 140px;
   margin-top: 35px;
-  margin-bottom: 35px;
+  margin-bottom: 70px;
   border: 2px solid gray;
   border-radius: 50%;
 }
@@ -158,4 +158,14 @@ body {
   color: #2a2929;
   font-weight: 900;
   background-color: gray;
+}
+
+/* FOOTER */
+footer {
+  position: absolute;
+  bottom: 10px;
+  color: gray;
+  width: 170px;
+  text-align: center;
+  border-top: 2px solid gray;
 }
