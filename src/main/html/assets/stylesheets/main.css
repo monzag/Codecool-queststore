@@ -66,3 +66,10 @@ body {
   position: fixed;
   border-bottom: 1px solid #2a2929;
 }
+.primary-header img {
+  height: 40px;
+  width: 230px;
+  padding: 0px;
+  margin: 0px;
+  border: none;
+}
