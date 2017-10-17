@@ -55,3 +55,14 @@ body {
   background-size: cover;
   font: 300 16px/22px 'Muli', sans-serif;;
 }
+.primary-header {
+  width: 100%;
+  height: 40px;
+  background-color:white;
+  padding-top: 10px;
+  padding-left: 10px;
+  padding-bottom: 10px;
+  padding-right: 40px;
+  position: fixed;
+  border-bottom: 1px solid #2a2929;
+}
