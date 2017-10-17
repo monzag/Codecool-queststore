@@ -120,14 +120,23 @@ body {
   justify-content: center;
   align-items: center;
 }
-.menu-bar li {
+/* menu bar buttons */
+.menu-bar a {
   width: 170px;
   height: 16px;
   padding: 4px;
   border: 2px solid gray;
   border-radius: 3px;
   margin-bottom: 12px;
+  text-decoration: none;
+  color: gray;
   display: flex;
   justify-content: center;
   align-items: center;
+}
+.menu-bar a:hover {
+  text-decoration: none;
+  color: #2a2929;
+  font-weight: 900;
+  background-color: gray;
 }
