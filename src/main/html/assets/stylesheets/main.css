@@ -120,3 +120,14 @@ body {
   justify-content: center;
   align-items: center;
 }
+.menu-bar li {
+  width: 170px;
+  height: 16px;
+  padding: 4px;
+  border: 2px solid gray;
+  border-radius: 3px;
+  margin-bottom: 12px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
