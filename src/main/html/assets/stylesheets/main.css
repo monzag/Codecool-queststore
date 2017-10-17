@@ -73,3 +73,8 @@ body {
   margin: 0px;
   border: none;
 }
+.primary-header nav {
+  float: right;
+  margin-right: 20px;
+  text-transform: uppercase;
+}
