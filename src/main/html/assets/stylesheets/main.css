@@ -48,7 +48,7 @@ table {
 /* GRID */
 body {
   background-color: gray;
-  background-image: url("background_rev_fixed.png");
+  background-image: url("../pics/web/bcg.png");
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: right;
