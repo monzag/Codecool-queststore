@@ -47,3 +47,7 @@ table {
 }
 
 /* GRID */
+body {
+  background-color: #2a2929;
+  font: 300 16px/22px 'Muli', sans-serif;;
+}
