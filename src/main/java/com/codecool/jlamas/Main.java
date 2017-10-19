@@ -1,15 +1,16 @@
 package com.codecool.jlamas;
 
-import com.codecool.jlamas.controllers.AdminController;
+import org.flywaydb.core.Flyway;
 import com.codecool.jlamas.controllers.AppController;
-import com.codecool.jlamas.models.account.Admin;
 
 public class Main {
     public static void main(String[] args) {
-        Admin admin = (Admin)AppController.login();
-        if (admin != null) {
-            AdminController user = new AdminController(admin);
-            user.menu();    
-        }
+
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:sqlite:./target/database", "jlamas", null);
+        flyway.migrate();
+
+        AppController ctrl = new AppController();
+        ctrl.login();
     }
 }

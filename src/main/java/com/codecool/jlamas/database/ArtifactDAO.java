@@ -1,86 +1,69 @@
 package com.codecool.jlamas.database;
 
+
+import com.codecool.jlamas.models.artifact.Artifact;
+
+import java.sql.*;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
 
-public class ArtifactDAO implements DAO {
+public class ArtifactDAO {
 
-    // private final String FILEPATH = "database/artifacts/";
+    public ArtifactDAO() {
 
-    // public ArtifactDAO() {
-    // }
+    }
 
-    // public Artifact load(String id) {
-    //     try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
-    //         Artifact artifact = new Artifact();
-    //         String rId = br.readLine();
-    //         String rName = br.readLine();
-    //         String rDescription = br.readLine();
-    //         String rValue = br.readLine();
-    //         String rType = br.readLine();
+    public ArrayList<Artifact> requestAll(){
+        ArrayList<Artifact> artifactList = new ArrayList<>();
+        String sql = "SELECT name, price, description FROM artifact";
 
-    //         if (rId.startsWith("ID: ")) {
-    //             artifact.setId(rId.substring("ID: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rName.startsWith("NAME: ")) {
-    //             artifact.setLogin(rName.substring("NAME: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rDescription.startsWith("DESCRIPTION: ")) {
-    //             artifact.setDescription(rDescription.substring("DESCRIPTION: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rValue.startsWith("VALUE: ")) {
-    //             artifact.setValue(Integer.parseInt(rValue.substring("VALUE: ".length())));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rType.startsWith("TYPE: ")) {
-    //             artifact.setType(rType.substring("TYPE: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         return artifact;
-    //     } catch (IOException e) {
-    //         System.out.println("File not found.");
-    //     }
-    // }
+        try (Connection c = ConnectDB.connect();
+             Statement stmt  = c.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
 
-    // public ArrayList<Artifact> loadAll() {
-    //     ArrayList<Artifact> artifactList = new ArrayList<>();
+            while (rs.next()) {
+                Artifact artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
+                artifactList.add(artifact);
+            }
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
-    //     File[] files = new File(FILEPATH).listFiles();
+        return artifactList;
+    }
 
-    //     for (File file : files) {
-    //         int dotPosition = file.getName().lastIndexOf(".");
-    //         artifactList.add(load(file.getName().substring(0, dotPosition)));
-    //     }
-    //     return artifactList;
-    // }
+    public void insert(Artifact artifact) {
+        String sql = "INSERT INTO artifact(name, price, description) VALUES (?, ?, ?);";
 
-    // public void save(Artifact artifact) {
-    //     try (FileWriter fw = new FileWriter(FILEPATH + artifact.getId() + ".txt")) {
-    //         fw.write("ID: " + artifact.getId());
-    //         fw.write("NAME: " + artifact.getName());
-    //         fw.write("DESCRIPTION: " + artifact.getDescription());
-    //         fw.write("VALUE: " + artifact.getValue());
-    //         fw.write("TYPE: " + artifact.getType());
-    //     } catch (IOException e) {
-    //         System.out.println("Filepath not found.");
-    //     }
-    // }
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
 
+            pstmt.setString(1, artifact.getName());
+            pstmt.setInt(2, artifact.getPrice());
+            pstmt.setString(3, artifact.getDescription());
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void update(Artifact artifact, String preUpdateName) {
+        String sql = "UPDATE artifact SET name = ? , "
+                + "price = ? , "
+                + "description = ? "
+                + "WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setString(1, artifact.getName());
+            pstmt.setInt(2, artifact.getPrice());
+            pstmt.setString(3, artifact.getDescription());
+            pstmt.setString(4, preUpdateName);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
