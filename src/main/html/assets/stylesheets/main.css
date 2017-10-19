@@ -185,6 +185,8 @@ footer {
   flex-direction: column;
   text-align: center;
 }
+
+/* ADD NEW FORM */
 .add h3 {
   background-color: #2a2929;
   border-bottom: 3px solid gray;
@@ -212,14 +214,13 @@ footer {
 .input-table tr th:last-child {
   padding-left: 25px;
 }
-/*.input-table tr:last-child {
-  padding-bottom: 0px;
-}*/
 input {
   height: 20px;
   border: 1.5px solid gray;
   border-radius: 3px;
 }
+
+/* NEW ADD FORM BUTTON */
 .submit {
   margin: 0 40% 40px 40%;
   height: 27px;
@@ -234,4 +235,8 @@ input {
 .submit:hover {
   background-color: red;
   font-weight: 900;
+}
+.add a {
+  text-decoration: none;
+  color: white;
 }
