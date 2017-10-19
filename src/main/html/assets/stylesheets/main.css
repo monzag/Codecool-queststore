@@ -314,7 +314,7 @@ input {
     font-weight: 600;
     display: flex;
     flex-direction: column;
-    text-align: center;
+    text-align: left;
 }
 
 .users-table h3 {
@@ -330,15 +330,19 @@ input {
   font-weight: 600;
 }
 
+.users-table tr {
+    
+}
+
 .users-table th {
     opacity: .5;
 }
 
-.btn {
+.users-table .btn {
     border: 1.5px solid #2a2929;
     border-radius: 5px;
     margin-top: 12px;
-    width: 40%;
+    width: 90px;
     background-color: #254375 ;
     color: white;
     text-decoration: none;
@@ -353,14 +357,16 @@ input {
     opacity: .8;  
 }
 
+#remove-btn {
+  margin-right:10px;
+  float: right;
+  height: 25px;
+}
+
 #edit-btn {
+  
   margin-right: 20px;
-  float: left;
+  float: right;
   height: 25px;
 
 }
-
-#remove-btn {
-  margin-right:10px;
-  float: none;
-  height: 25px;
