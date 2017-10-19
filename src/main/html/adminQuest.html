@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>questore</title>
+  <link rel="stylesheet" href="assets/stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+</head>
+
+<body>
+  <header class="primary-header">
+      <div w3-include-html="header.html"></div>
+  </header>
+  <section class="menu-bar">
+    <div class="frame">
+      <img src="assets/pics/profiles/student.jpg">
+      <nav>
+        <ul class="menu-nav">
+          <li><a href="adminProfile.html">profile</a></li>
+          <li><a href="mentorList.html">mentors</a></li>
+          <li><a href="adminClass.html">groups</a></li>
+          <li><a href="">levels</a></li>
+          <li><a href="adminQuest.html">quests</a></li>
+        </ul>
+      </nav>
+    </div>
+    <footer>
+      <small>&copy; pyLamas</small>
+    </footer>
+  </section>
+    
+  <section class="users-table">
+    <h3>Quest</h3>
+    <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+	<th>Reward</th>
+      </tr>
+      <tr>
+        <td>1.</td>
+        <td>Exploring a dungeon</td>
+        <td>Finishing a Teamwork week</td>
+	    <td>100cc/person</td>
+        <td class="btn" id="edit-btn">Edit</td>
+        <td class="btn" id="remove-btn">Remove</td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td>Solving the magic puzzle</td>
+        <td>Finishing an SI assignment</td>
+	    <td>100cc</td>
+        <td class="btn" id="edit-btn">Edit</td>
+        <td class="btn" id="remove-btn">Remove</td>
+      </tr>
+      <tr>
+        <td>3.</td>
+        <td>Slaying a dragon</td>
+        <td>Passing a Checkpoint</td>
+	    <td>500cc</td>
+        <td class="btn" id="edit-btn">Edit</td>
+        <td class="btn" id="remove-btn">Remove</td>
+      </tr>   
+      <tr>
+        <td>4.</td>
+        <td>Spot trap</td>
+        <td>Spot a major mistake in the assignment</td>
+	    <td>50cc</td>
+        <td class="btn" id="edit-btn">Edit</td>
+        <td class="btn" id="remove-btn">Remove</td>
+      </tr> 
+      <tr>
+        <td>5.</td>
+        <td>Taming a pet</td>
+        <td>Doing a demo about a pet project</td>
+	    <td>100cc</td>
+        <td class="btn" id="edit-btn">Edit</td>
+        <td class="btn" id="remove-btn">Remove</td>
+      </tr>
+      <tr>
+        <td>6.</td>
+        <td>Recruiting some n00bs</td>
+        <td>Taking part in the student screening process</td>
+	    <td>100cc</td>
+        <td class="btn" id="edit-btn">Edit</td>
+        <td class="btn" id="remove-btn">Remove</td>
+      </tr> 
+    </table>
+  </section>
+
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>
