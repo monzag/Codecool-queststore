@@ -101,12 +101,13 @@ input {
   height: 30px;
   border-radius: 3px;
   border: 1px solid white;
-  margin-top: 18px;
-  width: 35%;
+  margin-top: 12px;
+  width: 40%;
   background-color: #2a2929;
   color: white;
   text-decoration: none;
   font: 300 18px/18px 'Muli', sans-serif;
+  cursor: pointer;
 }
 .btn-login:hover {
   background-color: #4f4b4b;
