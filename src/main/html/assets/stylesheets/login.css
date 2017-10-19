@@ -68,14 +68,15 @@ body {
 .logo {
   width: 230px;
   height: 25px;
-  padding-bottom: 3px;
-  margin-bottom: 3px;
+  padding-bottom: 6px;
+  margin-bottom: 6px;
   border-bottom: 1px solid white;
 }
 .container header h3 {
   position: relative;
   width: 230px;
   height: 25px;
+  margin-top: 6px;
   margin-bottom: 25px;
   text-align: center;
   font-size: 25px;
@@ -83,7 +84,8 @@ body {
   letter-spacing: 3px;
 }
 .lables {
-  margin-top: 50px;
+  margin-top: 69px;
+  letter-spacing: 1.5px;
 }
 input {
   margin-top: 5px;
