@@ -50,13 +50,33 @@ table {
 body {
   background-color: #2a2929;
   font: 300 16px/22px 'Muli', sans-serif;
+  color: white;
 }
 .container {
-  position:absolute;
+  position: absolute;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  width:30%;
+  /*background-color: red;*/
+}
+.container header h1 {
+  float: left;
+  width: 230px;
+  height: 25px;
 }
 .logo {
   width: 230px;
+  height: 25px;
+}
+.container header h3 {
+  float: right;
+  width: 230px;
+  height: 25px;
+  margin-bottom: 5px;
+  /*background-color: yellow;*/
+  text-align: right;
+  font-size: 25px;
+  line-height: 25px;
+  letter-spacing: 3px;
 }
