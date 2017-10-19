@@ -58,25 +58,37 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
   width:30%;
-  /*background-color: red;*/
+  display: flex;
+  justify-content: center;
 }
 .container header h1 {
-  float: left;
   width: 230px;
   height: 25px;
 }
 .logo {
   width: 230px;
   height: 25px;
+  padding-bottom: 3px;
+  margin-bottom: 3px;
+  border-bottom: 1px solid white;
 }
 .container header h3 {
-  float: right;
+  position: relative;
   width: 230px;
   height: 25px;
-  margin-bottom: 5px;
-  /*background-color: yellow;*/
-  text-align: right;
+  margin-bottom: 25px;
+  text-align: center;
   font-size: 25px;
   line-height: 25px;
   letter-spacing: 3px;
+}
+.lables {
+  background-color: red;
+  width: 100%
+}
+lable {
+  margin-top: 25px;
+}
+input {
+  display: block;
 }
