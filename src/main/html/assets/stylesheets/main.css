@@ -169,3 +169,56 @@ footer {
   text-align: center;
   border-top: 2px solid gray;
 }
+
+/* Profile view */
+.profile {
+  float: left;
+  margin-left: 300px;
+  margin-top: 150px;
+}
+
+.profile table {
+  margin: 20px;
+  padding: 20px; 
+  /*background-color: rgba(0, 0, 0, 0.6)*/
+  /*opacity: .5;*/
+}
+
+.profile table th {
+    float: left;
+    margin: 20px 20px 20px 0px;
+    font-size: 30px;
+    font-family: 'Russo One', sans-serif;
+}
+
+.profile table td {
+    padding: 10px;
+    font-family: "Contata One";
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+.change-password {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+    
+}
+
+.btn {
+ border-radius: 3px;
+ border: 1px solid white;
+ background-color: #2a2929 ;
+ color: white;
+ text-decoration: none;
+ cursor: pointer;
+ width: 50%;
+}
+
+.password {
+    font-size: 15px;
+    padding: 10px, 20px;
+    display: flex;
+    justify-content: center;
+    padding: 5px;
+}
