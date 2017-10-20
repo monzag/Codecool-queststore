@@ -322,6 +322,13 @@ input {
     opacity: .5;
 }
 
+.users-table #add-btn {
+   opacity: 1;
+   float: right;
+   height: 25px;
+   margin-right: 70px;
+}
+
 .btn {
     border: 1.5px solid #2a2929;
     border-radius: 5px;
@@ -335,6 +342,10 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#add-btn:hover {
+   opacity: .8;
 }
 
 .btn:hover {
