@@ -297,6 +297,8 @@ input {
     display: flex;
     flex-direction: column;
     text-align: left;
+    padd
+    
 }
 
 .users-table h3 {
@@ -313,11 +315,23 @@ input {
 }
 
 .users-table tr {
-    
+  
 }
 
 .users-table th {
     opacity: .5;
+}
+
+.users-table th a {
+   text-decoration: none;
+   color: white;
+}
+
+.users-table #add-btn {
+   opacity: 1;
+   float: right;
+   height: 25px;
+   margin-right: 70px;
 }
 
 .btn {
@@ -333,6 +347,10 @@ input {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+#add-btn:hover {
+   opacity: .8;
 }
 
 .btn:hover {
@@ -353,7 +371,43 @@ input {
 
 #password {
     height: 25px;
+    width: 200px;   
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+#send {
+    height: 30px;
+    margin-left: 30%;
+}
+
+textarea {
+    height: 200px;
     width: 200px;
-    
-    
+}
+
+input, textarea {
+    font-size: 13pt;
+    border: 1px solid #787878;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 5px;
+    width: 80%;
 }
