@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>questore</title>
+  <link rel="stylesheet" href="assets/stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+</head>
+
+<body>
+  <header class="primary-header">
+      <div w3-include-html="header.html"></div>
+  </header>
+  <section class="menu-bar">
+    <div class="frame">
+      <img src="assets/pics/profiles/student.jpg">
+      <nav>
+        <ul class="menu-nav">
+          <li><a href="adminProfile.html">profile</a></li>
+          <li><a href="mentorList.html">mentors</a></li>
+          <li><a href="adminClass.html">groups</a></li>
+          <li><a href="admin_levels.html">levels</a></li>
+          <li><a href="adminQuest.html">quests</a></li>
+        </ul>
+      </nav>
+    </div>
+    <footer>
+      <small>&copy; pyLamas</small>
+    </footer>
+  </section>
+  <section class="users-table">
+      <h3>Contact</h3>
+      <section class="content">
+            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d5123.890609578871!2d19.956973503056883!3d50.049855892632294!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47165b489ea84927%3A0xe9af4b2d94f34d29!2s%C5%9Alusarska+9%2C+33-332+Krak%C3%B3w!5e0!3m2!1spl!2spl!4v1508451977255" width="500" height="400" frameborder="0" style="border:0" allowfullscreen></iframe>
+          <form class="contact">
+              <input name="name" placeholder="Name" type="text" required/> <br/>
+              <input name="email" placeholder="E-mail" type="text" required/> <br/>
+              <textarea name="message" placeholder="Message" required></textarea>
+              <input type="submit" value="SEND" class="btn" id="send"/>
+            </form>
+      </section>
+  </section>
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>
