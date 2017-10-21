@@ -1,5 +1,8 @@
 package com.codecool.jlamas.models.account;
 
+import java.awt.GradientPaint;
+
+import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
@@ -7,7 +10,7 @@ import com.codecool.jlamas.models.accountdata.Password;
 
 public class Mentor extends Codecooler {
 
-    private Integer classId;
+    private Group group;
 
     public Mentor() {
 
@@ -15,24 +18,24 @@ public class Mentor extends Codecooler {
 
     public Mentor(Login login, Password password, Mail email, String name, String surname) {
         super(login, password, email, name, surname);
-        this.classId = 0;
+        this.group = null;
     }
 
-    public Mentor(Login login, Password password, Mail email, String name, String surname, Integer classId) {
+    public Mentor(Login login, Password password, Mail email, String name, String surname, Group group) {
         super(login, password, email, name, surname);
-        this.classId = classId;
+        this.group = group;
     }
 
-    public Integer getClassId() {
-        return this.classId;
+    public Group getGroup() {
+        return this.group;
     }
 
-    public void setClassId(Integer classId) {
-        this.classId = classId;
+    public void setGroup(Group group) {
+        this.group = group;
     }
 
     public String toString() {
-        return super.toString() + "class : " + this.classId + "\n";
+        return super.toString() + "class : " + this.group + "\n";
     }
 
 

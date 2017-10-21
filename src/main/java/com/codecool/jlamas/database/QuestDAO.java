@@ -1,78 +1,80 @@
 package com.codecool.jlamas.database;
 
+import com.codecool.jlamas.models.quest.Quest;
+import java.sql.*;
 import java.util.ArrayList;
-import java.io.File;
-import java.io.FileWriter;
-import java.io.FileReader;
-import java.io.BufferedReader;
-import java.io.IOException;
 
-public class QuestDAO implements DAO {
+public class QuestDAO {
+    public QuestDAO() {
 
-    // private final String FILEPATH = "database/quests/";
+    }
 
-    // public QuestDAO() {
-    // }
+    public void insertQuest(Quest quest) {
+        String sql = "INSERT INTO quest(name, description, reward) VALUES (?, ?, ?);";
 
-    // public Quest load(String id) {
-    //     try (BufferedReader br = new BufferedReader(new FileReader(FILEPATH + id + ".txt"))) {
-    //         Quest quest = new Quest();
-    //         String rId = br.readLine();
-    //         String rName = br.readLine();
-    //         String rDescription = br.readLine();
-    //         String rReward = br.readLine();
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(sql);) {
 
-    //         if (rId.startsWith("ID: ")) {
-    //             quest.setId(rId.substring("ID: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rName.startsWith("NAME: ")) {
-    //             quest.setLogin(rName.substring("NAME: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rDescription.startsWith("DESCRIPTION: ")) {
-    //             quest.setDescription(rDescription.substring("DESCRIPTION: ".length()));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         if (rReward.startsWith("REWARD: ")) {
-    //             quest.setReward(Integer.parseInt(rReward.substring("REWARD: ".length())));
-    //         }
-    //         else {
-    //             return null;
-    //         }
-    //         return quest;
-    //     } catch (IOException e) {
-    //         System.out.println("File not found.");
-    //     }
-    // }
+            pstmt.setString(1, quest.getName());
+            pstmt.setString(2, quest.getDescription());
+            pstmt.setInt(3, quest.getReward());
+            pstmt.executeUpdate();
 
-    // public ArrayList<Quest> loadAll() {
-    //     ArrayList<Quest> questList = new ArrayList<>();
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
-    //     File[] files = new File(FILEPATH).listFiles();
+    public ArrayList<Quest> selectAll(){
+        ArrayList<Quest> questList = new ArrayList<Quest>();
+        String sql = "SELECT name, description, reward FROM quest";
 
-    //     for (File file : files) {
-    //         int dotPosition = file.getName().lastIndexOf(".");
-    //         questList.add(load(file.getName().substring(0, dotPosition)));
-    //     }
-    //     return questList;
-    // }
+        try (Connection c = ConnectDB.connect();
+             Statement stmt  = c.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
 
-    // public void save(Quest quest) {
-    //     try (FileWriter fw = new FileWriter(FILEPATH + quest.getId() + ".txt")) {
-    //         fw.write("ID: " + quest.getId());
-    //         fw.write("NAME: " + quest.getName());
-    //         fw.write("DESCRIPTION: " + quest.getDescription());
-    //         fw.write("REWARD: " + quest.getReward());
-    //     } catch (IOException e) {
-    //         System.out.println("Filepath not found.");
-    //     }
-    // }
+            while (rs.next()) {
+                Quest quest = new Quest(rs.getString("name"), rs.getString("description"), rs.getInt("reward"));
+                questList.add(quest);
+            }
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
 
+        return questList;
+    }
+
+    public void updateQuest(Quest quest, String preUpdateName) {
+        String sql = "UPDATE quest SET name = ? , "
+                + "description = ? , "
+                + "reward = ? "
+                + "WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setString(1, quest.getName());
+            pstmt.setString(2, quest.getDescription());
+            pstmt.setInt(3, quest.getReward());
+            pstmt.setString(4, preUpdateName);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteQuest(Quest quest) {
+        String sql = "DELETE FROM quest WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+                PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+        pstmt.setString(1, quest.getName());
+        pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
