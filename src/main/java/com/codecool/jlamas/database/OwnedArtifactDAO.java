@@ -59,7 +59,7 @@ public class OwnedArtifactDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
             stmt.executeQuery(query);
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
             return false;
         }
