@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.DoneQuestDAO;
+import com.codecool.jlamas.database.OwnedArtifactDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
@@ -11,7 +12,7 @@ public class WalletController {
 
     Student student;
     private DoneQuestDAO doneQuestsDAO = new DoneQuestDAO();
-    // private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
+    private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
     private QuestView questView = new QuestView();
     private StudentView studentView = new StudentView();
 
@@ -37,8 +38,8 @@ public class WalletController {
     }
 
     public void addOwnedArtifact(Artifact artifact) {
-    //     this.student.getWallet().getDoneQuests().add(artifact);
-    //     ownedArtifactDAO.insert(this.student.getLogin(), artifact);
+        this.student.getWallet().getOwnedArtifacts().add(artifact);
+        ownedArtifactDAO.insert(this.student.getLogin(), artifact);
     }
 
 }
