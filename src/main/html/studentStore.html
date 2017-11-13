@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>questore</title>
+  <link rel="stylesheet" href="assets/stylesheets/main.css">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+  <script src="https://www.w3schools.com/lib/w3.js"></script>
+</head>
+
+<body>
+  <header class="primary-header">
+      <div w3-include-html="header.html"></div>
+  </header>
+  <section class="menu-bar">
+    <div class="frame">
+      <img src="assets/pics/profiles/student.jpg">
+      <nav>
+        <ul class="menu-nav">
+          <li><a href="studentProfile.html">profile</a></li>
+          <li><a href="student_artifacts.html">artifacts</a></li>
+          <li><a href="">store</a></li>
+        </ul>
+      </nav>
+    </div>
+    <footer>
+      <small>&copy; pyLamas</small>
+    </footer>
+  </section>
+    
+  <section class="users-table">
+    <h3>Artifacts store</h3>
+    <h5>Balance:  2137 CC</h5>
+    <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Price</th>
+	<th>Description</th>
+      </tr>
+      <tr>
+        <td>1.</td>
+        <td>Combat training</td>
+        <td>50 cc</td>
+	<td>Private mentoring</td>
+        <td class="btn" id="edit-btn">Buy</td>
+      </tr>
+      <tr>
+        <td>2.</td>
+        <td>Sanctuary</td>
+        <td>300 cc</td>
+	<td>You can spend a day in home office</td>
+        <td class="btn" id="edit-btn">Buy</td>
+      </tr>
+      <tr>
+        <td>3.</td>
+        <td>Time Travel</td>
+        <td>500 cc</td>
+	<td>extend SI week assignment deadline by one day</td>
+        <td class="btn" id="edit-btn">Buy</td>
+      </tr>   
+      <tr>
+        <td>4.</td>
+        <td>Circle of Sorcery</td>
+        <td>1000 cc</td>
+	<td>60 min workshop by a mentor(s) of the chosen topic</td>
+        <td class="btn" id="edit-btn">Buy</td>
+      </tr> 
+      <tr>
+        <td>5.</td>
+        <td>Summon Code Elemental</td>
+        <td>1000 cc</td>
+	<td>mentor joins a students' team for a one hour</td>
+        <td class="btn" id="edit-btn">Buy</td>
+      </tr>
+      <tr>
+        <td>6.</td>
+        <td>Tome of knowledge</td>
+        <td>500 cc</td>
+	<td>Extra material for the current topic</td>
+        <td class="btn" id="edit-btn">Buy</td>
+      </tr> 
+    </table>
+  </section>
+
+  <script>
+    w3.includeHTML();
+  </script>
+</body>
+</html>
+
