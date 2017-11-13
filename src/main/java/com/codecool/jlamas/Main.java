@@ -15,8 +15,10 @@ public class Main {
         // create local server
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
 
+        // set routes
         // server.createContext("/url", new ControllerName());
-        // server.createContext("/static", new Static());
+
+        server.createContext("/static", new Static());
         server.setExecutor(null);
 
         server.start();
