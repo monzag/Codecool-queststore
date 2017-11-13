@@ -3,10 +3,7 @@ package com.codecool.jlamas.database;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 
 public class OwnedArtifactDAO {
@@ -52,5 +49,20 @@ public class OwnedArtifactDAO {
         }
 
         return artifactList;
+    }
+
+    public boolean delete(Artifact artifact, Student student) {
+
+        String query = String.format("DELETE FROM `owned_artifact` WHERE artifact_name = '%s' AND owner_name = '%s';",
+                artifact.getName(), student.getLogin());
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+            stmt.executeQuery(query);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+            return false;
+        }
+        return true;
     }
 }
