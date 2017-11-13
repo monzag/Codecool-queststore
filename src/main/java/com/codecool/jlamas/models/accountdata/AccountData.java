@@ -11,7 +11,7 @@ public abstract class AccountData {
     }
 
     protected static  boolean isLengthValid(String value, Integer minLen, Integer maxLen) {
-        if (value.length() > minLen && value.length() < maxLen ) {
+        if (value.length() >= minLen && value.length() <= maxLen ) {
             return true;
 
         }else {
