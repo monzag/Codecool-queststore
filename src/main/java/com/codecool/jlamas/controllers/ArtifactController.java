@@ -84,8 +84,9 @@ public class ArtifactController {
             ownedArtifactDAO.delete(artifact, student);
         } catch (IndexOutOfBoundsException e) {
             artifactView.printErrorMessage();
+            return false;
         }
-
+    return true;
     }
 }
 
