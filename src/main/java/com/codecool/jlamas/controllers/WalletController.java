@@ -9,14 +9,6 @@ import com.codecool.jlamas.views.ArtifactView;
 import com.codecool.jlamas.views.QuestView;
 import com.codecool.jlamas.views.StudentView;
 
-import java.util.ArrayList;
-
-import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.artifact.Artifact;
-import com.codecool.jlamas.models.quest.Quest;
-import com.codecool.jlamas.views.QuestView;
-import com.codecool.jlamas.views.StudentView;
-
 public class WalletController {
 
     Student student;
@@ -48,10 +40,18 @@ public class WalletController {
         doneQuestsDAO.insert(this.student, quest);
     }
 
-    public boolean buyArtifact() throws IndexOutOfBoundsException {
-        Artifact artifact = artifactController.chooseArtifact();
-        if (student.getWallet().take(artifact.getPrice())) {
-            student.getWallet().
+    public void buyArtifact() throws IndexOutOfBoundsException {
+        try {
+            Artifact artifact = artifactController.chooseArtifact();
+            if (student.getWallet().take(artifact.getPrice())) {
+                addOwnedArtifact(artifact);
+                ownedArtifactDAO.insert(student, artifact);
+            }
+            else {
+                System.out.println("Not enough money!");
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
         }
     }
 
