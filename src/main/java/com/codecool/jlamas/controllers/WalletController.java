@@ -1,7 +1,9 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.database.DoneQuestDAO;
 import com.codecool.jlamas.database.OwnedArtifactDAO;
+import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
@@ -12,6 +14,8 @@ import com.codecool.jlamas.views.StudentView;
 public class WalletController {
 
     Student student;
+    private StudentDAO studentDAO = new StudentDAO();
+    private ArtifactDAO artifactDAO = new ArtifactDAO();
     private DoneQuestDAO doneQuestsDAO = new DoneQuestDAO();
     private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
     private QuestView questView = new QuestView();
@@ -42,10 +46,10 @@ public class WalletController {
 
     public void buyArtifact() throws IndexOutOfBoundsException {
         try {
-            Artifact artifact = artifactController.chooseArtifact();
+            Artifact artifact = artifactController.chooseArtifact(artifactDAO.requestAll());
             if (student.getWallet().take(artifact.getPrice())) {
+                studentDAO.update(student);
                 addOwnedArtifact(artifact);
-                ownedArtifactDAO.insert(student, artifact);
             }
             else {
                 System.out.println("Not enough money!");
