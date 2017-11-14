@@ -105,31 +105,6 @@ public class MentorDAO {
             return false;
         }
         return true;
-
-    }
-
-    public boolean delete(Mentor mentor) {
-        String query;
-
-        try (Connection c = ConnectDB.connect();
-             Statement stmt = c.createStatement();) {
-
-            query = String.format("DELETE FROM `user` WHERE login = '%s'; ",
-                    mentor.getLogin().getValue());
-
-            query += String.format("DELETE FROM `login` WHERE login = '%s'; ",
-                    mentor.getLogin().getValue());
-
-            query += String.format("DELETE FROM `mentor` WHERE login = '%s'; ",
-                    mentor.getLogin().getValue());
-
-            stmt.executeUpdate(query);
-
-        } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
-        }
-        return true;
     }
 
     public boolean delete(Mentor mentor) {
