@@ -18,7 +18,6 @@ public class StudentDAO {
     }
 
     public ArrayList<Student> requestAll() {
-
         Student student = null;
         String query = String.format("%s %s %s %s %s %s %s %s"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
@@ -116,7 +115,6 @@ public class StudentDAO {
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
-
             query = String.format("UPDATE `user` SET login = '%s', email = '%s', name = '%s', surname = '%s', " +
                                   "type = 'student' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
@@ -137,7 +135,6 @@ public class StudentDAO {
                     student.getTeamId(),
                     student.getWallet().getBalance(),
                     student.getLogin().getValue());
-
             stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
@@ -148,7 +145,6 @@ public class StudentDAO {
     }
 
     public Student getStudent(String userLogin) {
-
         Student student = null;
 
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
@@ -190,6 +186,4 @@ public class StudentDAO {
         return student;
 
     }
-
-    }
-
+}
