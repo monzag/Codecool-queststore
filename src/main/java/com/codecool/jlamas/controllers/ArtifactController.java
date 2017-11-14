@@ -43,7 +43,7 @@ public class ArtifactController {
             artifactView.displayAttribute();
             String option = artifactView.getString("Your choice: ");
 
-            switch(option) {
+            switch (option) {
                 case EDIT_NAME:
                     String name = artifactView.getString("New name: ");
                     artifact.setName(name);
@@ -56,7 +56,8 @@ public class ArtifactController {
                     String description = artifactView.getString("New description: ");
                     artifact.setDescription(description);
                     break;
-                default: artifactView.printErrorMessage();
+                default:
+                    artifactView.printErrorMessage();
                     break;
             }
             artifacts.update(artifact, oldName);
