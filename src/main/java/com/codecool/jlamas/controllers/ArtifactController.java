@@ -86,7 +86,7 @@ public class ArtifactController {
             artifactView.printErrorMessage();
             return false;
         }
-    return true;
+        return true;
     }
 }
 
