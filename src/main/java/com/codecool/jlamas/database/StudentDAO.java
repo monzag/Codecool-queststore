@@ -160,7 +160,7 @@ public class StudentDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query);) {
-             getStudentFromResultSet(rs);
+             student = getStudentFromResultSet(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
