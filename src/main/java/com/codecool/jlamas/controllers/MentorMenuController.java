@@ -136,10 +136,6 @@ public class MentorMenuController {
     public void markQuest() {
         questController.markQuestAsDone();
     }
-
-    public void markArtifact() {
-
-    }
-
-
+  
+    public void markArtifact() {artifactController.useArtifact();}
 }
