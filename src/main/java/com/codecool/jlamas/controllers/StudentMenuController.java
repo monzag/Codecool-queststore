@@ -44,11 +44,11 @@ public class StudentMenuController {
     public void displayWallet() {
         this.walletController.displayBalance();
         this.walletController.displayDoneQuests();
-        //walletController.displayOwnedArtifacts();
+        this.walletController.displayOwnedArtifacts();
     }
 
     public void buyArtifact() {
-        ;
+
     }
 
     public void displayLevel() {
