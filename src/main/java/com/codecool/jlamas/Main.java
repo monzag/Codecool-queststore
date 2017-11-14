@@ -9,9 +9,9 @@ public class Main {
     public static void main(String[] args) throws Exception {
 
         // set database migration
-//        Flyway flyway = new Flyway();
-//        flyway.setDataSource("jdbc:sqlite:./target/database", "jlamas", null);
-//        flyway.migrate();
+        Flyway flyway = new Flyway();
+        flyway.setDataSource("jdbc:sqlite:./target/database", "jlamas", null);
+        flyway.migrate();
 
         // create local server
         HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
