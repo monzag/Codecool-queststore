@@ -1,5 +1,6 @@
 package com.codecool.jlamas;
 
+import com.codecool.jlamas.controllers.ShopController;
 import org.flywaydb.core.Flyway;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
@@ -18,6 +19,7 @@ public class Main {
         // set routes
         // server.createContext("/url", new ControllerName());
 
+        server.createContext("/shop", new ShopController());
         server.createContext("/static", new Static());
         server.setExecutor(null);
 
