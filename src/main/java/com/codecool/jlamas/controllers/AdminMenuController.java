@@ -43,7 +43,8 @@ public class AdminMenuController implements HttpHandler {
                 response = "";
             }
             else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/remove/.+")) {
-                response = "";
+                // TODO wrong url path done b-hand currently it does nothing beside back to list
+                response = this.removeGroup(httpExchange);
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/add")) {
                 response = this.displayNewGroupForm();
@@ -173,11 +174,17 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String removeMentor(HttpExchange httpExchange) throws IOException {
-        System.out.println("here");
         MentorController mentorController = new MentorController();
         mentorController.removeMentor(this.parseLogin(httpExchange));
 
         return this.displayMentors();
+    }
+
+    private String removeGroup(HttpExchange httpExchange) throws IOException {
+        GroupController groupController = new GroupController();
+        groupController.removeGroup(this.parseLogin(httpExchange));
+
+        return this.displayGroups();
     }
 
     private String parseLogin(HttpExchange httpExchange) {
