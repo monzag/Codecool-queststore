@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.codecool.jlamas.database.GroupDAO;
 import com.codecool.jlamas.models.accountdata.Group;
@@ -24,9 +25,9 @@ public class GroupController {
         return this.groupDAO.selectAll();
     }
 
-    public void createGroupFromString(String groupTag) {
+    public void createGroupFromMap(Map<String, String> attrs) {
         //TODO data validation --> groupView.getString("\nType name of new group: ")
-        Group group = new Group(groupTag);
+        Group group = new Group(attrs.get("class"));
         groupDAO.insertGroup(group);
     }
 
