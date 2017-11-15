@@ -51,8 +51,8 @@
 			<td> 1. </td>
 			<td>{{ student.getName() }}</td>
 			<td>{{ student.getSurname() }}</td>
-			<td class="btn" id="edit-btn">Edit</td>
-        		<td class="btn" id="remove-btn">Remove</td>
+			<td><a class="btn" id="edit-btn" href="/mentor/groups/edit/{{ student.getLogin.getValue() }}">Edit</td>
+        		<td><a class="btn" id="remove-btn" href="/mentor/groups/remove/{{ student.getLogin.getValue() }}">Remove</td>
 		</tr>
 	{% endfor %}
         
