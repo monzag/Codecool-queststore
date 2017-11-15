@@ -6,7 +6,16 @@ package com.codecool.jlamas.controllers;
 
 // import java.util.ArrayList;
 
-public class AdminMenuController {
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+
+import java.io.IOException;
+
+public class AdminController implements HttpHandler {
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
+    }
 
 //    public static final String[] OPTIONS = {"Display mentors",
 //                                            "Add mentor",
@@ -28,7 +37,7 @@ public class AdminMenuController {
 //    private MentorController mentorController = new MentorController();
 //    ArrayList<Mentor> mentors;
 //
-//    public AdminMenuController(Admin admin) {
+//    public AdminController(Admin admin) {
 //        this.admin = admin;
 //        this.adminView = new AdminView();
 //        this.mentorController = new MentorController();
