@@ -38,7 +38,7 @@ public class AdminMenuController implements HttpHandler {
                 response = "";
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list")) {
-                response = "";
+                response = this.displayGroups();
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list/edit")) {
                 response = "";
@@ -72,13 +72,23 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayMentors() {
-        //JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_list.twig");
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_list.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
         model.with("login", "student");
         model.with("mentors", new MentorController().getAllMentors());
+
+        return template.render(model);
+    }
+
+    private String displayGroups() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_groups_list.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
 
         return template.render(model);
     }
