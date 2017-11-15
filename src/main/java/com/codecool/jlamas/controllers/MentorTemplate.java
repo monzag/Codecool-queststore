@@ -37,11 +37,19 @@ public class MentorTemplate implements HttpHandler {
             if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/remove/.+")) {
                 response = this.removeStudent(httpExchange);
             }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
+                response = this.displayEditFormula();
+            }
         }
 
         if (method.equals("POST")) {
             if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
                 response = this.addStudent(httpExchange);
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
+                response = this.editStudent(httpExchange);
             }
         }
 
@@ -127,6 +135,18 @@ public class MentorTemplate implements HttpHandler {
 
     private String parseLogin(HttpExchange httpExchange) {
         return httpExchange.getRequestURI().getPath().split("/")[4];
+    }
+
+    private String displayEditFormula() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/editStudent.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+
+        String response = template.render(model);
+
+        return response;
     }
 
 }
