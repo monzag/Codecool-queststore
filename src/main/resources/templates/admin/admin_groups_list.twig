@@ -40,8 +40,8 @@
             <tr>
                 <td>1.</td>
                 <td>{{ group.getName }}</td>
-                <td class="btn" id="edit-btn">Edit</td>
-                <td class="btn" id="remove-btn">Remove</td>
+                <td><a class="btn" id="edit-btn" href="/admin/groups/list/edit/{{ group.getName }}">Edit</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/groups/list/remove/{{ group.getName }}">Remove</a></td>
             </tr>
         {%  endfor %}
     </table>
