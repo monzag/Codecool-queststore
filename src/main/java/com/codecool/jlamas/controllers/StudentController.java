@@ -96,10 +96,13 @@ public class StudentController {
         return studentDao.getStudent(login);
     }
 
-    public void editStudent(String login) {
-
+    public void editStudent(String login, String name, String surname, String email, String groupName) {
         try {
             Student student = studentDao.getStudent(login);
+            student.setName(name);
+            student.setSurname(surname);
+            student.setEmail(new Mail(email));
+            student.setGroup(new Group(groupName));
             studentDao.update(student);
         } catch (NullPointerException e) {
             e.getMessage();
