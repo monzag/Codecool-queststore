@@ -54,6 +54,9 @@ public class AdminMenuController implements HttpHandler {
             if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
                 response = this.addMentor(httpExchange);
             }
+            if (httpExchange.getRequestURI().getPath().equals("/admin/groups/add")) {
+                response = this.addGroup(httpExchange);
+            }
             if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
                 response = this.editMentor(httpExchange);
             }
@@ -108,6 +111,18 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayExistingMentorForm(HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_edit.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
+        model.with("groups", new GroupController().getAllGroups());
+
+        return template.render(model);
+    }
+
     private String displayNewGroupForm() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_add.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -131,6 +146,19 @@ public class AdminMenuController implements HttpHandler {
         return this.displayMentors();
     }
 
+    private String addGroup(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        // TODO data validation!
+        GroupController ctrl = new GroupController();
+        ctrl.createGroupFromMap(inputs);
+
+        return this.displayGroups();
+    }
+
     private String editMentor(HttpExchange httpExchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
@@ -150,18 +178,6 @@ public class AdminMenuController implements HttpHandler {
         mentorController.removeMentor(this.parseLogin(httpExchange));
 
         return this.displayMentors();
-    }
-
-    private String displayExistingMentorForm(HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_edit.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
-        model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
-        model.with("groups", new GroupController().getAllGroups());
-
-        return template.render(model);
     }
 
     private String parseLogin(HttpExchange httpExchange) {
