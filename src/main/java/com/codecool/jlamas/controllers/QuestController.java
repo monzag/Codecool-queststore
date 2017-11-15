@@ -84,21 +84,20 @@ public class QuestController {
         }
     }
 
-    public void markQuestAsDone() {
-        StudentController students = new StudentController();
-        try {
-            Student student = students.chooseStudent();
-            Quest quest = this.chooseQuest();
-            doneQuestDAO.insert(student, quest);
-            student.getWallet().put(quest.getReward());
-            studentDAO.update(student);
-        } catch (IndexOutOfBoundsException e) {
-            view.printIndexError();
-        }
-    }
+//    public void markQuestAsDone() {
+//        StudentController students = new StudentController();
+//        try {
+//            Student student = students.chooseStudent();
+//            Quest quest = this.chooseQuest();
+//            doneQuestDAO.insert(student, quest);
+//            student.getWallet().put(quest.getReward());
+//            studentDAO.update(student);
+//        } catch (IndexOutOfBoundsException e) {
+//            view.printIndexError();
+//        }
+//    }
 
     public void showQuest() {
-
     }
 
     public void showAllQuests() {
