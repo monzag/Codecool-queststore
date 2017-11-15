@@ -38,12 +38,12 @@ public class ArtifactController {
 
     public void editArtifact() {
         try {
-            Artifact artifact = chooseArtifact();
+            Artifact artifact = chooseArtifact(artifacts.requestAll());
             String oldName = artifact.getName();
             artifactView.displayAttribute();
             String option = artifactView.getString("Your choice: ");
 
-            switch(option) {
+            switch (option) {
                 case EDIT_NAME:
                     String name = artifactView.getString("New name: ");
                     artifact.setName(name);
@@ -56,7 +56,8 @@ public class ArtifactController {
                     String description = artifactView.getString("New description: ");
                     artifact.setDescription(description);
                     break;
-                default: artifactView.printErrorMessage();
+                default:
+                    artifactView.printErrorMessage();
                     break;
             }
             artifacts.update(artifact, oldName);
@@ -65,15 +66,14 @@ public class ArtifactController {
         }
     }
 
-    public Artifact chooseArtifact() throws IndexOutOfBoundsException {
-        ArrayList<Artifact> allArtifacts = artifacts.requestAll();
-        artifactView.printArtifacts(allArtifacts);
+    public Artifact chooseArtifact(ArrayList<Artifact> artifacts) throws IndexOutOfBoundsException {
+        artifactView.printArtifacts(artifacts);
         Integer record = artifactView.getMenuOption();
         Integer index = record - 1;
-        if (index >= allArtifacts.size()) {
+        if (index >= artifacts.size()) {
             throw new IndexOutOfBoundsException();
         }
-        return allArtifacts.get(index);
+        return artifacts.get(index);
     }
 
 //    public boolean useArtifact() throws IndexOutOfBoundsException {
@@ -88,5 +88,6 @@ public class ArtifactController {
 //        }
 //        return true;
 //    }
+
 }
 

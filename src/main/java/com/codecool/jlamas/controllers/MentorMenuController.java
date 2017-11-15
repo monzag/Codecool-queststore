@@ -73,7 +73,7 @@ public class MentorMenuController {
                 addStudent();
                 break;
             case ADD_QUEST :
-                questController.createQuest();
+                addQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
