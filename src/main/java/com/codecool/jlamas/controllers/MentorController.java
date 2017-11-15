@@ -55,6 +55,18 @@ public class MentorController {
         mentorDao.insert(new Mentor(login, password, email, name, surname, group));
     }
 
+    public void editMentorFromMap(Map<String, String> attrs, String login) {
+        // TODO data validation
+        Mentor mentor = this.getMentor(login);
+        mentor.setEmail(new Mail(attrs.get("email")));
+        // TODO GroupController
+        // mentor.setGroup(new Group(attrs.get("group")));
+        mentor.setName(attrs.get("name"));
+        mentor.setSurname(attrs.get("surname"));
+
+        mentorDao.update(mentor);
+    }
+
     public Password getPassword() {
         String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
         Random random = new Random();
