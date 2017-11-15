@@ -22,24 +22,16 @@ public class MentorController {
         
     }
 
-    public void addMentor() {
-        try {
-            String name = mentorView.getName();
-            String surname = mentorView.getSurname();
-            Mail email = mentorView.getMail();
-            Login login = mentorView.getLogin(name, surname);
-            Password password = getPassword();
-            Group group = getGroup();
-            Mentor mentor = new Mentor(login, password, email, name, surname, group);
-            mentorDao.insert(mentor);
+    public ArrayList<Mentor> getAllMentors() {
+        return mentorDao.requestAll();
+    }
 
-        } catch (InvalidUserDataException e) {
-            System.out.println(e.getMessage());
-        }
+    public Mentor getMentor(String login) {
+        return this.mentorDao.getMentor(login);
     }
 
     public void createMentorFromMap(Map<String, String> attrs) {
-        // TODO data validation
+        // TODO data validation check MentorView class <- CodecoolerView
         Password password = this.getPassword();
         Mail email = new Mail(attrs.get("email"));
         String name = attrs.get("name");
@@ -51,7 +43,7 @@ public class MentorController {
     }
 
     public void editMentorFromMap(Map<String, String> attrs, String login) {
-        // TODO data validation
+        // TODO data validation check MentorView class <- CodecoolerView
         Mentor mentor = this.getMentor(login);
         mentor.setEmail(new Mail(attrs.get("email")));
         // TODO GroupController
@@ -122,26 +114,4 @@ public class MentorController {
         mentorDao.delete(this.getMentor(login));
     }
 
-    public Mentor chooseMentor() throws IndexOutOfBoundsException {
-        ArrayList<Mentor> mentors = mentorDao.requestAll();
-        mentorView.displayAll(mentors);
-        Integer record = mentorView.getMenuOption();
-        Integer index = record - 1;
-        if (index >= mentors.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return mentors.get(index);
-    }
-
-    public void displayMentors() {
-        mentorView.displayAll(mentorDao.requestAll());
-    }
-
-    public ArrayList<Mentor> getAllMentors() {
-        return mentorDao.requestAll();
-    }
-
-    public Mentor getMentor(String login) {
-        return this.mentorDao.getMentor(login);
-    }
 }
