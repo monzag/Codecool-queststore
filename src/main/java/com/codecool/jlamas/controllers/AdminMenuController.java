@@ -17,7 +17,6 @@ import java.io.OutputStream;
 public class AdminMenuController implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        System.out.println(httpExchange.getRequestURI().getPath());
         String response = "";
         String method = httpExchange.getRequestMethod();
 
@@ -73,6 +72,7 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayMentors() {
+        //JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_list.twig");
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_list.twig");
         JtwigModel model = JtwigModel.newModel();
 
