@@ -1,9 +1,11 @@
 package com.codecool.jlamas;
 
-import com.codecool.jlamas.controllers.TemplateController;
 import org.flywaydb.core.Flyway;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
+
+import com.codecool.jlamas.controllers.AdminController;
+import com.codecool.jlamas.controllers.TemplateController;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -18,7 +20,8 @@ public class Main {
 
         // set routes
         // server.createContext("/url", new ControllerName());
-        server.createContext("/template", new TemplateController());
+        server.createContext("/template", new AdminController());
+        server.createContext("/admin", new TemplateController());
         server.createContext("/static", new Static());
         server.setExecutor(null);
 
