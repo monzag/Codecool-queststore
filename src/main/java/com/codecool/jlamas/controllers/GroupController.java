@@ -27,7 +27,7 @@ public class GroupController {
 
     public void createGroupFromMap(Map<String, String> attrs) {
         //TODO data validation --> groupView.getString("\nType name of new group: ")
-        Group group = new Group(attrs.get("class"));
+        Group group = new Group(attrs.get("name"));
         groupDAO.insertGroup(group);
     }
 
