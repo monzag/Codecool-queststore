@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import java.nio.file.attribute.GroupPrincipal;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
@@ -37,7 +38,8 @@ public class MentorController {
         String name = attrs.get("name");
         String surname = attrs.get("surname");
         Login login = mentorView.getLogin(name, surname);
-        Group group = new Group(attrs.get("group"));
+        // TODO no group choosen
+        Group group = new GroupController().getGroup(attrs.get("class"));
 
         mentorDao.insert(new Mentor(login, password, email, name, surname, group));
     }
