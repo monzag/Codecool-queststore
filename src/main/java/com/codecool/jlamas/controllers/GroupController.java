@@ -31,32 +31,17 @@ public class GroupController {
         groupDAO.insertGroup(group);
     }
 
-    public void displayGroups() {
-        ArrayList<Group> groups = getAllGroups();
-        groupView.printAll(groups);
-    }
-    
-    public Group chooseGroup() {
-        displayGroups();
-        Integer record = groupView.getInt("Choose group: ");
-        Integer index = record - 1;
-        if (index >= getAllGroups().size()) {
-            throw new IndexOutOfBoundsException();
-        }
 
-        return getAllGroups().get(index);
-    }
-
-    public void editGroup() {
-        try {
-            Group group = chooseGroup();
-            String oldName = group.getName();
-            String name = groupView.getString("New name of group: ");
-            group.setName(name);
-            groupDAO.update(group, oldName);
-
-        } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
-        }
-    }
+//    public void editGroup() {
+//        try {
+//            Group group = chooseGroup();
+//            String oldName = group.getName();
+//            String name = groupView.getString("New name of group: ");
+//            group.setName(name);
+//            groupDAO.update(group, oldName);
+//
+//        } catch (IndexOutOfBoundsException e) {
+//            e.getMessage();
+//        }
+//    }
 }
