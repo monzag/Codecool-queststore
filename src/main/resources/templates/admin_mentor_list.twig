@@ -35,13 +35,15 @@
         <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Surname</th>
             <th>Class</th>
             <th>E-mail</th>
         </tr>
         {%  for mentor in mentors %}
         <tr>
             <td>1.</td>
-            <td>{{ mentor.getName }} {{ mentor.getSurname }}</td>
+            <td>{{ mentor.getName }}</td>
+            <td>{{ mentor.getSurname }}</td>
             <td>{{ mentor.getGroup.getName }}</td>
             <td>{{ mentor.getEmail.getValue }}</td>
             <td class="btn" id="edit-btn">Edit</td>
