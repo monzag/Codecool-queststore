@@ -75,4 +75,15 @@ public class GroupDAO {
 
         return group;
     }
+
+    public void delete(Group group) {
+        String query = "DELETE FROM `group` WHERE group_tag = '" + group.getName() + "';";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+             stmt.executeUpdate(query);
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
