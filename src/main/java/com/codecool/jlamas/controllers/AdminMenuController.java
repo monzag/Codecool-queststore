@@ -14,7 +14,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.IOException;
 import java.io.OutputStream;
 
-public class AdminController implements HttpHandler {
+public class AdminMenuController implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         System.out.println(httpExchange.getRequestURI().getPath());
