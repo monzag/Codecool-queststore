@@ -1,5 +1,6 @@
 package com.codecool.jlamas;
 
+import com.codecool.jlamas.controllers.MentorTemplate;
 import com.codecool.jlamas.controllers.TemplateController;
 import org.flywaydb.core.Flyway;
 import com.sun.net.httpserver.HttpServer;
@@ -14,12 +15,13 @@ public class Main {
         flyway.migrate();
 
         // create local server
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
 
         // set routes
         // server.createContext("/url", new ControllerName());
         server.createContext("/template", new TemplateController());
         server.createContext("/static", new Static());
+        server.createContext("/mentor", new MentorTemplate());
         server.setExecutor(null);
 
         server.start();
