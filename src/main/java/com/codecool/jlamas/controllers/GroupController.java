@@ -16,6 +16,14 @@ public class GroupController {
         this.groupDAO = new GroupDAO();
     }
 
+    public Group getGroup(String groupTag) {
+        return this.groupDAO.getGroup(groupTag);
+    }
+
+    public ArrayList<Group> getAllGroups() {
+        return this.groupDAO.selectAll();
+    }
+
     public void createGroup() {
         String name = groupView.getString("\nType name of new group: ");
         Group group = new Group(name);
@@ -25,10 +33,6 @@ public class GroupController {
     public void displayGroups() {
         ArrayList<Group> groups = getAllGroups();
         groupView.printAll(groups);
-    }
-
-    public ArrayList<Group> getAllGroups() {
-        return groupDAO.selectAll();
     }
     
     public Group chooseGroup() {
