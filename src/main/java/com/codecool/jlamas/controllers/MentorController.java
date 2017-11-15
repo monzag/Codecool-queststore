@@ -27,19 +27,19 @@ public class MentorController {
     }
 
     public void addMentor() {
-        try {
-            String name = mentorView.getName();
-            String surname = mentorView.getSurname();
-            Mail email = mentorView.getMail();
-            Login login = mentorView.getLogin(name, surname);
-            Password password = getPassword();
-            Group group = getGroup();
-            Mentor mentor = new Mentor(login, password, email, name, surname, group);
-            mentorDao.insert(mentor);
-
-        } catch (InvalidUserDataException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            String name = mentorView.getName();
+//            String surname = mentorView.getSurname();
+//            Mail email = mentorView.getMail();
+//            Login login = mentorView.getLogin(name, surname);
+//            Password password = getPassword();
+//            Group group = getGroup();
+//            Mentor mentor = new Mentor(login, password, email, name, surname, group);
+//            mentorDao.insert(mentor);
+//
+//        } catch (InvalidUserDataException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public Password getPassword() {
@@ -81,9 +81,9 @@ public class MentorController {
                     mentor.setSurname(surname);
                     break;
                 case EDIT_EMAIL: 
-                    Mail email = mentorView.getMail(); 
-                    mentor.setEmail(email);
-                    break;
+//                    Mail email = mentorView.getMail();
+//                    mentor.setEmail(email);
+//                    break;
                 case EDIT_PASSWORD: 
                     String passwordText = mentorView.getString("New password: ");
                     mentor.setPassword(new Password(passwordText));

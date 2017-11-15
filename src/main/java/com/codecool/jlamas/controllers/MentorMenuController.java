@@ -114,7 +114,7 @@ public class MentorMenuController {
     }
 
     public void addStudent() {
-        studentController.addStudent();
+
     }
 
     public void addQuest() {
