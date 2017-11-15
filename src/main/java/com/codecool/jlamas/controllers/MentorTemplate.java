@@ -33,6 +33,10 @@ public class MentorTemplate implements HttpHandler {
             if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
                 response = this.displayAddStudentFormula();
             }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/remove/.+")) {
+                response = this.removeStudent(httpExchange);
+            }
         }
 
         if (method.equals("POST")) {
@@ -116,6 +120,16 @@ public class MentorTemplate implements HttpHandler {
         return map;
     }
 
+    private String removeStudent(HttpExchange httpExchange) {
+        String login = parseLogin(httpExchange);
+        studentController.removeStudent(login);
+
+        return displayGroups();
+    }
+
+    private String parseLogin(HttpExchange httpExchange) {
+        return httpExchange.getRequestURI().getPath().split("/")[4];
+    }
 
 }
 
