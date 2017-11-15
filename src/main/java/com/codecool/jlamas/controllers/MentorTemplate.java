@@ -39,7 +39,7 @@ public class MentorTemplate implements HttpHandler {
             }
 
             if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
-                response = this.displayEditFormula();
+                response = this.displayEditFormula(httpExchange);
             }
         }
 
@@ -137,16 +137,17 @@ public class MentorTemplate implements HttpHandler {
         return httpExchange.getRequestURI().getPath().split("/")[4];
     }
 
-    private String displayEditFormula() {
+    private String displayEditFormula(HttpExchange httpExchange) {
+        String login = parseLogin(httpExchange);
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/editStudent.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
         model.with("login", "student");
+        model.with("student", studentController.chooseStudent(login));
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
 }
