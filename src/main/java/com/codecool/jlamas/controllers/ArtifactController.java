@@ -76,17 +76,17 @@ public class ArtifactController {
         return allArtifacts.get(index);
     }
 
-    public boolean useArtifact() throws IndexOutOfBoundsException {
-        StudentController students = new StudentController();
-        try {
-            Student student = students.chooseStudent();
-            Artifact artifact = chooseArtifact();
-            ownedArtifactDAO.delete(artifact, student);
-        } catch (IndexOutOfBoundsException e) {
-            artifactView.printErrorMessage();
-            return false;
-        }
-        return true;
-    }
+//    public boolean useArtifact() throws IndexOutOfBoundsException {
+//        StudentController students = new StudentController();
+//        try {
+//            Student student = students.chooseStudent();
+//            Artifact artifact = chooseArtifact();
+//            ownedArtifactDAO.delete(artifact, student);
+//        } catch (IndexOutOfBoundsException e) {
+//            artifactView.printErrorMessage();
+//            return false;
+//        }
+//        return true;
+//    }
 }
 
