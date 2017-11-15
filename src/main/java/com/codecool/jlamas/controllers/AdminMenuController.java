@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.models.account.Mentor;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -108,10 +109,9 @@ public class AdminMenuController implements HttpHandler {
         String formData = br.readLine();
 
         Map inputs = parseFormData(formData);
-        System.out.println(inputs.get("name"));
-        System.out.println(inputs.get("surname"));
-        System.out.println(inputs.get("email"));
-        System.out.println(inputs.get("class"));
+        // TODO data validation!
+        MentorController ctrl = new MentorController();
+        ctrl.createMentorFromMap(inputs);
 
         return this.displayMentors();
     }
