@@ -24,9 +24,9 @@ public class GroupController {
         return this.groupDAO.selectAll();
     }
 
-    public void createGroup() {
-        String name = groupView.getString("\nType name of new group: ");
-        Group group = new Group(name);
+    public void createGroupFromString(String groupTag) {
+        //TODO data validation --> groupView.getString("\nType name of new group: ")
+        Group group = new Group(groupTag);
         groupDAO.insertGroup(group);
     }
 
