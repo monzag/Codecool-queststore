@@ -26,10 +26,12 @@ public class AdminMenuController implements HttpHandler {
                 response = this.displayMentors();
             }
             else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
+                // TODO wrong url path done b-hand
                 response = this.displayExistingMentorForm(httpExchange);
             }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list/remove/.+")) {
-                response = "";
+            else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/remove/.+")) {
+                // TODO wrong url path done b-hand
+                response = this.removeMentor(httpExchange);
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
                 response = this.displayNewMentorForm();
@@ -111,10 +113,6 @@ public class AdminMenuController implements HttpHandler {
         String formData = br.readLine();
 
         Map inputs = parseFormData(formData);
-        System.out.println(inputs.get("name"));
-        System.out.println(inputs.get("surname"));
-        System.out.println(inputs.get("email"));
-        System.out.println(inputs.get("class"));
         // TODO data validation!
         MentorController ctrl = new MentorController();
         ctrl.createMentorFromMap(inputs);
@@ -128,13 +126,17 @@ public class AdminMenuController implements HttpHandler {
         String formData = br.readLine();
 
         Map inputs = parseFormData(formData);
-        System.out.println(inputs.get("name"));
-        System.out.println(inputs.get("surname"));
-        System.out.println(inputs.get("email"));
-        System.out.println(inputs.get("class"));
         // TODO data validation!
         MentorController ctrl = new MentorController();
         ctrl.editMentorFromMap(inputs, this.parseLogin(httpExchange));
+
+        return this.displayMentors();
+    }
+
+    private String removeMentor(HttpExchange httpExchange) throws IOException {
+        System.out.println("here");
+        MentorController mentorController = new MentorController();
+        mentorController.removeMentor(this.parseLogin(httpExchange));
 
         return this.displayMentors();
     }
