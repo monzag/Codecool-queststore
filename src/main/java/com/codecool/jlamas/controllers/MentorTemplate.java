@@ -150,5 +150,22 @@ public class MentorTemplate implements HttpHandler {
         return template.render(model);
     }
 
+    private String editStudent(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("name").toString();
+        String surname = inputs.get("surname").toString();
+        String email = inputs.get("email").toString();
+        String groupName = inputs.get("group").toString();
+        String login = parseLogin(httpExchange);
+        studentController.editStudent(login, name, surname, email, groupName);
+
+        return displayGroups();
+    }
+
 }
 
