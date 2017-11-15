@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.account.Mentor;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -26,10 +25,10 @@ public class AdminMenuController implements HttpHandler {
             else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/list")) {
                 response = this.displayMentors();
             }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/list/edit")) {
-                response = "";
+            else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
+                response = this.displayExistingMentorForm(httpExchange);
             }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list/remove")) {
+            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list/remove/.+")) {
                 response = "";
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
@@ -116,12 +115,27 @@ public class AdminMenuController implements HttpHandler {
         return this.displayMentors();
     }
 
+    private String displayExistingMentorForm(HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_edit.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
+
+        return template.render(model);
+    }
+
+    private String parseLogin(HttpExchange httpExchange) {
+        return httpExchange.getRequestURI().getPath().split("/")[5];
+    }
+
+
     private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
         Map<String, String> map = new HashMap<>();
         String[] pairs = formData.split("&");
         for(String pair : pairs){
             String[] keyValue = pair.split("=");
-            // We have to decode the value because it's urlencoded. see: https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms
             String value = new URLDecoder().decode(keyValue[1], "UTF-8");
             map.put(keyValue[0], value);
         }
