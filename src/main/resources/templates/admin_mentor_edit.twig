@@ -30,7 +30,7 @@
 </section>
 
 <form id="2" class="add" method="POST">
-    <h3>Add new mentor</h3>
+    <h3>Edit mentor {{ mentor.getName }}</h3>
 
     <table class="input-table">
         <tr>
@@ -47,7 +47,13 @@
         </tr>
         <tr>
             <th>Class:</th>
-            <th><input type="text" name="class" value="{{ mentor.getGroup.getName }}"></th>
+            <th>
+                <select name="class">
+                    {% for group in groups %}
+                        <option value="{{ group.getName }}">{{ group.getName }}</option>
+                    {% endfor %}
+                </select>
+            </th>
         </tr>
     </table>
     <button class="submit" type="submit" form="2">submit</button>
