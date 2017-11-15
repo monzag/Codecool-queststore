@@ -122,4 +122,8 @@ public class MentorController {
     public void displayMentors() {
         mentorView.displayAll(mentorDao.requestAll());
     }
+
+    public ArrayList<Mentor> getAllMentors() {
+        return new MentorDAO().requestAll();
+    }
 }
