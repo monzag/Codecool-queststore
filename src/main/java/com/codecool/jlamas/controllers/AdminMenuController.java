@@ -39,10 +39,10 @@ public class AdminMenuController implements HttpHandler {
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list")) {
                 response = this.displayGroups();
             }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list/edit")) {
+            else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/edit/.+")) {
                 response = "";
             }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list/remove")) {
+            else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/remove/.+")) {
                 response = "";
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/add")) {
