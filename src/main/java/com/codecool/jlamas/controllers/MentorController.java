@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Random;
 
 import com.codecool.jlamas.database.MentorDAO;
@@ -40,6 +41,18 @@ public class MentorController {
         } catch (InvalidUserDataException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    public void createMentorFromMap(Map<String, String> attrs) {
+        // TODO data validation
+        Password password = this.getPassword();
+        Mail email = new Mail(attrs.get("email"));
+        String name = attrs.get("name");
+        String surname = attrs.get("surname");
+        Login login = mentorView.getLogin(name, surname);
+        Group group = new Group(attrs.get("group"));
+
+        mentorDao.insert(new Mentor(login, password, email, name, surname, group));
     }
 
     public Password getPassword() {
