@@ -33,11 +33,13 @@ public class MentorController {
 
     public void createMentorFromMap(Map<String, String> attrs) {
         // TODO data validation check MentorView class <- CodecoolerView
+
         Password password = this.getPassword();
         Mail email = new Mail(attrs.get("email"));
         String name = attrs.get("name");
         String surname = attrs.get("surname");
         Login login = mentorView.getLogin(name, surname);
+
         // TODO no group choosen
         Group group = new GroupController().getGroup(attrs.get("class"));
 
@@ -46,12 +48,15 @@ public class MentorController {
 
     public void editMentorFromMap(Map<String, String> attrs, String login) {
         // TODO data validation check MentorView class <- CodecoolerView
+
         Mentor mentor = this.getMentor(login);
         mentor.setEmail(new Mail(attrs.get("email")));
-        // TODO GroupController
-        // mentor.setGroup(new Group(attrs.get("group")));
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
+
+        // TODO no group choosen
+        Group group = new GroupController().getGroup(attrs.get("class"));
+        mentor.setGroup(group);
 
         mentorDao.update(mentor);
     }
