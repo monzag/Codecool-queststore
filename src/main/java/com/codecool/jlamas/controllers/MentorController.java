@@ -124,6 +124,6 @@ public class MentorController {
     }
 
     public ArrayList<Mentor> getAllMentors() {
-        return new MentorDAO().requestAll();
+        mentorDao.requestAll();
     }
 }
