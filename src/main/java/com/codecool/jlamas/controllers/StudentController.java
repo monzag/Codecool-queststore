@@ -33,24 +33,24 @@ public class StudentController {
         studentView.displayAll(studentDao.requestAll());
     }
 
-    public void addStudent() {
-        try {
+    public void addStudent(String name, String surname, String mail, String groupName) {
+//        try {
+            System.out.println("in StudentController");
             SendMail sendPassword = new SendMail();
-            String name = studentView.getName();
-            String surname = studentView.getSurname();
-            Mail email = studentView.getMail();
-            Login login = studentView.getLogin(name, surname);
+            Mail email = new Mail(mail);
+            Login login = new Login("testLogin");
             Password password = getPassword();
-            Group group = getGroup();
+            Group group = new Group(groupName);
             Wallet wallet = new Wallet(0);
             Student student = new Student(login, password, email, name, surname, group, wallet);
+            System.out.println(student);
             studentDao.insert(student);
-            String logData = "Login: " + login.getValue() + " Password: " + password.getValue();
-            sendPassword.sendMail(email.getValue(), logData);
+//            String logData = "Login: " + login.getValue() + " Password: " + password.getValue();
+//            sendPassword.sendMail(email.getValue(), logData);
 
-        } catch (InvalidUserDataException e) {
-            e.getMessage();
-        }
+//        } catch (InvalidUserDataException e) {
+//            e.getMessage();
+//        }
     }
 
     public Group getGroup() {
@@ -112,9 +112,9 @@ public class StudentController {
                     student.setSurname(surname);
                     break;
                 case EDIT_EMAIL:
-                    Mail email = studentView.getMail();
-                    student.setEmail(email);
-                    break;
+//                    Mail email = studentView.getMail();
+//                    student.setEmail(email);
+//                    break;
                 case EDIT_PASSWORD:
                     String passwordText = studentView.getString("New password: ");
                     student.setPassword(new Password(passwordText));
