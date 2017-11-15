@@ -26,11 +26,11 @@ public class AdminMenuController implements HttpHandler {
                 response = this.displayMentors();
             }
             else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
-                // TODO wrong url path done b-hand
+                // TODO wrong url path done b-hand currently it does nothing beside back to list
                 response = this.displayExistingMentorForm(httpExchange);
             }
             else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/remove/.+")) {
-                // TODO wrong url path done b-hand
+                // TODO wrong url path done b-hand currently it does nothing beside back to list
                 response = this.removeMentor(httpExchange);
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
@@ -92,6 +92,7 @@ public class AdminMenuController implements HttpHandler {
 
         // instead of value 'student' login from cookie
         model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
 
         return template.render(model);
     }
@@ -148,6 +149,7 @@ public class AdminMenuController implements HttpHandler {
         // instead of value 'student' login from cookie
         model.with("login", "student");
         model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
+        model.with("groups", new GroupController().getAllGroups());
 
         return template.render(model);
     }
