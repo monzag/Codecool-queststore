@@ -52,6 +52,9 @@ public class AdminMenuController implements HttpHandler {
             if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
                 response = this.addMentor(httpExchange);
             }
+            if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
+                response = this.editMentor(httpExchange);
+            }
         }
 
         httpExchange.sendResponseHeaders(200, response.length());
@@ -108,9 +111,30 @@ public class AdminMenuController implements HttpHandler {
         String formData = br.readLine();
 
         Map inputs = parseFormData(formData);
+        System.out.println(inputs.get("name"));
+        System.out.println(inputs.get("surname"));
+        System.out.println(inputs.get("email"));
+        System.out.println(inputs.get("class"));
         // TODO data validation!
         MentorController ctrl = new MentorController();
         ctrl.createMentorFromMap(inputs);
+
+        return this.displayMentors();
+    }
+
+    private String editMentor(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        System.out.println(inputs.get("name"));
+        System.out.println(inputs.get("surname"));
+        System.out.println(inputs.get("email"));
+        System.out.println(inputs.get("class"));
+        // TODO data validation!
+        MentorController ctrl = new MentorController();
+        ctrl.editMentorFromMap(inputs, this.parseLogin(httpExchange));
 
         return this.displayMentors();
     }
