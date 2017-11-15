@@ -1,6 +1,6 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.database.StudentDAO;
+import com.codecool.jlamas.models.account.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -71,9 +71,7 @@ public class MentorTemplate implements HttpHandler {
 
         // profile pic found by login
         model.with("login", "student");
-
-        StudentDAO studentDAO = new StudentDAO();
-        model.with("students", studentDAO.requestAll());
+        model.with("students", studentController.getStudents());
 
         String response = template.render(model);
 
