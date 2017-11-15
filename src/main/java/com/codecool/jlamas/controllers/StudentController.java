@@ -75,13 +75,13 @@ public class StudentController {
         return new Password(value);
     }
 
-    public void removeStudent() {
+    public void removeStudent(String login) {
         try {
-            Student student = chooseStudent();
+            Student student = studentDao.getStudent(login);
             studentDao.delete(student);
 
         } catch (IndexOutOfBoundsException e) {
-            studentView.printIndexError();
+
         }
     }
 
