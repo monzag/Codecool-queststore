@@ -29,8 +29,8 @@ public class StudentController {
 
     }
 
-    public void displayAll() {
-        studentView.displayAll(studentDao.requestAll());
+    public ArrayList<Student> getStudents() {
+        return studentDao.requestAll();
     }
 
     public void addStudent(String name, String surname, String mail, String groupName) {
@@ -85,54 +85,23 @@ public class StudentController {
         }
     }
 
-    public Student chooseStudent() throws IndexOutOfBoundsException {
-        ArrayList<Student> students = studentDao.requestAll();
-        studentView.displayAll(students);
-        Integer record = studentView.getMenuOption();
-        Integer index = record - 1;
-        if (index >= students.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return students.get(index);
+    public Student chooseStudent(String login) {
+//        ArrayList<Student> students = studentDao.requestAll();
+//        studentView.displayAll(students);
+//        Integer record = studentView.getMenuOption();
+//        Integer index = record - 1;
+//        if (index >= students.size()) {
+//            throw new IndexOutOfBoundsException();
+//        }
+        return studentDao.getStudent(login);
     }
 
-    public void editStudent() {
-        try {
-            Student student = chooseStudent();
-            studentView.displayAttribute();
-            String option = studentView.getString("Your choice: ");
+    public void editStudent(String login) {
 
-            switch(option) {
-                case EDIT_NAME:
-                    String name = studentView.getName();
-                    student.setName(name);
-                    break;
-                case EDIT_SURNAME:
-                    String surname = studentView.getSurname();
-                    student.setSurname(surname);
-                    break;
-                case EDIT_EMAIL:
-//                    Mail email = studentView.getMail();
-//                    student.setEmail(email);
-//                    break;
-                case EDIT_PASSWORD:
-                    String passwordText = studentView.getString("New password: ");
-                    student.setPassword(new Password(passwordText));
-                    break;
-                case EDIT_GROUP:
-                    GroupController groupController = new GroupController();
-                    groupController.editGroup();
-                    break;
-                case EDIT_TEAM:
-                    // TODO
-                    Integer teamId = 1;
-                    student.setTeamId(teamId);
-                    break;
-                default: studentView.printErrorMessage();
-                    break;
-            }
+        try {
+            Student student = studentDao.getStudent(login);
             studentDao.update(student);
-        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
+        } catch (NullPointerException e) {
             e.getMessage();
         }
     }
