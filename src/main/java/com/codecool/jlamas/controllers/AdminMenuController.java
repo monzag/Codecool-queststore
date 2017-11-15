@@ -1,18 +1,15 @@
 package com.codecool.jlamas.controllers;
 
-// import com.codecool.jlamas.models.account.Admin;
-// import com.codecool.jlamas.models.account.Mentor;
-// import com.codecool.jlamas.views.AdminView;
-
-// import java.util.ArrayList;
-
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+
 
 public class AdminMenuController implements HttpHandler {
     @Override
@@ -35,7 +32,7 @@ public class AdminMenuController implements HttpHandler {
                 response = "";
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
-                response = "";
+                response = this.displayNewMentorForm();
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list")) {
                 response = this.displayGroups();
@@ -52,7 +49,9 @@ public class AdminMenuController implements HttpHandler {
         }
 
         if (method.equals("POST")) {
-
+            if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
+                response = this.addMentor(httpExchange);
+            }
         }
 
         httpExchange.sendResponseHeaders(200, response.length());
@@ -82,6 +81,16 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayNewMentorForm() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_add.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        return template.render(model);
+    }
+
     private String displayGroups() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_groups_list.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -92,26 +101,31 @@ public class AdminMenuController implements HttpHandler {
 
         return template.render(model);
     }
-//
-//    public void createMentor() {
-//        mentorController.addMentor();
-//    }
-//
-//    public void editMentor() {
-//        mentorController.editMentor();
-//    }
-//
-//    public void addGroup() {
-//        GroupController groupController = new GroupController();
-//        groupController.createGroup();
-//    }
-//
-//    public void addLevel() {
-//        ;
-//    }
-//
-//    public void editQuest() {
-//        QuestController questController = new QuestController();
-//        questController.editQuest();
-//    }
+
+    private String addMentor(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        System.out.println(inputs.get("name"));
+        System.out.println(inputs.get("surname"));
+        System.out.println(inputs.get("email"));
+        System.out.println(inputs.get("class"));
+
+        return this.displayMentors();
+    }
+
+    private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
+        Map<String, String> map = new HashMap<>();
+        String[] pairs = formData.split("&");
+        for(String pair : pairs){
+            String[] keyValue = pair.split("=");
+            // We have to decode the value because it's urlencoded. see: https://en.wikipedia.org/wiki/POST_(HTTP)#Use_for_submitting_web_forms
+            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
+            map.put(keyValue[0], value);
+        }
+        return map;
+    }
+
 }
