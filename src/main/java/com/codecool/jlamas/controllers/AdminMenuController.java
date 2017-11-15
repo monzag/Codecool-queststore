@@ -65,6 +65,7 @@ public class AdminMenuController implements HttpHandler {
     private String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin.twig");
         JtwigModel model = JtwigModel.newModel();
+
         // instead of value 'student' login from cookie
         model.with("login", "student");
 
@@ -74,6 +75,9 @@ public class AdminMenuController implements HttpHandler {
     private String displayMentors() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_list.twig");
         JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
         model.with("mentors", new MentorController().getAllMentors());
 
         return template.render(model);
