@@ -77,7 +77,7 @@ public class MentorTemplate implements HttpHandler {
     }
 
     private String displayAddStudentFormula() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentorAddStudent.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/addStudent.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
