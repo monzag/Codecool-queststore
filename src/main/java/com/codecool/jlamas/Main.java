@@ -16,12 +16,12 @@ public class Main {
         flyway.migrate();
 
         // create local server
-        HttpServer server = HttpServer.create(new InetSocketAddress(8000), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8801), 0);
 
         // set routes
         // server.createContext("/url", new ControllerName());
-        server.createContext("/template", new AdminController());
-        server.createContext("/admin", new TemplateController());
+        server.createContext("/template", new TemplateController());
+        server.createContext("/admin", new AdminController());
         server.createContext("/static", new Static());
         server.setExecutor(null);
 
