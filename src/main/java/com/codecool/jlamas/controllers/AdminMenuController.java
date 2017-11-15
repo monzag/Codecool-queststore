@@ -46,7 +46,7 @@ public class AdminMenuController implements HttpHandler {
                 response = "";
             }
             else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/add")) {
-                response = "";
+                response = this.displayNewGroupForm();
             }
         }
 
@@ -86,6 +86,17 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayGroups() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_list.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
+
+        return template.render(model);
+    }
+
     private String displayNewMentorForm() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_add.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -97,13 +108,12 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
-    private String displayGroups() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_list.twig");
+    private String displayNewGroupForm() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_add.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
         model.with("login", "student");
-        model.with("groups", new GroupController().getAllGroups());
 
         return template.render(model);
     }
