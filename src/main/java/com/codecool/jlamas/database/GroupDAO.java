@@ -58,4 +58,21 @@ public class GroupDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public Group getGroup(String groupTag) {
+        Group group = null;
+        String query = "SELECT group_tag FROM `group` WHERE group_tag = '" + groupTag +"';";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(query)){
+
+             group = new Group(rs.getString("group_tag"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return group;
+    }
 }
