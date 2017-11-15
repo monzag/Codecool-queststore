@@ -66,7 +66,7 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
@@ -76,7 +76,7 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayMentors() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_list.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_list.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
@@ -87,7 +87,7 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayNewMentorForm() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_add.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_add.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
@@ -98,7 +98,7 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayGroups() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_groups_list.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_list.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
@@ -143,7 +143,7 @@ public class AdminMenuController implements HttpHandler {
     }
 
     private String displayExistingMentorForm(HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin_mentor_edit.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_edit.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
