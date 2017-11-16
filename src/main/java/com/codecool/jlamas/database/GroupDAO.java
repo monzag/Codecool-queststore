@@ -44,19 +44,44 @@ public class GroupDAO {
         return groups;
     }
 
-    public void update(Group group, String preUpdateName) {
-        String query = "UPDATE `group` SET group_tag = ? WHERE group_tag = ?";
+//    public void update(Group group, String preUpdateName) {
+//        String query = "UPDATE `group` SET group_tag = ? WHERE group_tag = ?";
+//
+//        try (Connection c = ConnectDB.connect();
+//                PreparedStatement pstmt = c.prepareStatement(query);) {
+//
+//            pstmt.setString(1, preUpdateName);
+//            pstmt.setString(2, group.getName());
+//            pstmt.executeUpdate();
+//
+//        } catch (ClassNotFoundException|SQLException e) {
+//            System.out.println(e.getMessage());
+//        }
+//    }
 
+    public void update(Group group, String newName) {
+        String query = "";
         try (Connection c = ConnectDB.connect();
-                PreparedStatement pstmt = c.prepareStatement(query);) {
+             Statement stmt = c.createStatement();) {
 
-            pstmt.setString(1, preUpdateName);
-            pstmt.setString(2, group.getName());
-            pstmt.executeUpdate();
+            query = String.format("UPDATE `group` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                    newName,
+                    group.getName());
+
+            query += String.format("UPDATE `mentor` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                    newName,
+                    group.getName());
+
+            query += String.format("UPDATE `student` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                    newName,
+                    group.getName());
+
+            stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
+
     }
 
     public Group getGroup(String groupTag) {
