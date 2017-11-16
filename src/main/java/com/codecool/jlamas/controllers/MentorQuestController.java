@@ -14,7 +14,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class MentorQuestController implements HttpHandler {
-    private QuestDAO questDAO = new QuestDAO();
+    private QuestController questController = new QuestController();
     private ArrayList<Quest> questsList;
 
     @Override
@@ -30,6 +30,10 @@ public class MentorQuestController implements HttpHandler {
 
             if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/add")) {
                 response = displayAddQuest();
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/quest/remove/.+")) {
+                response = this.removeQuest(httpExchange);
             }
 
         }
@@ -66,7 +70,7 @@ public class MentorQuestController implements HttpHandler {
     }
 
     private String displayQuests() {
-        questsList = questDAO.selectAll();
+        questsList = questController.showAllQuests();
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor_quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -86,10 +90,23 @@ public class MentorQuestController implements HttpHandler {
 
         Quest quest = new Quest(questName, description, reward);
 
-        questDAO.insertQuest(quest);
+        questController.createQuest(quest);
 
         return displayQuests();
 
+    }
+
+    private String parseQuestName(HttpExchange httpExchange) {
+        return httpExchange.getRequestURI().getPath().split("/")[4];
+    }
+
+    private String removeQuest(HttpExchange httpExchange) {
+        String questName = parseQuestName(httpExchange);
+        Quest quest = questController.chooseQuest(questName);
+        System.out.println(quest.getName());
+        questController.deleteQuest(quest);
+        System.out.println("2");
+        return displayQuests();
     }
 }
 
