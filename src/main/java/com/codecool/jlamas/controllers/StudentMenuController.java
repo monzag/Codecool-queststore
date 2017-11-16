@@ -16,6 +16,7 @@ public class StudentMenuController {
 
     private StudentView studentView;
     private WalletController walletController;
+    private Student student;
 
     public StudentMenuController(Student student) {
         this.student = student;
