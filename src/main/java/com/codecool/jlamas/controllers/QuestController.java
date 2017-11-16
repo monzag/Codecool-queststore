@@ -22,31 +22,8 @@ public class QuestController {
         this.studentDAO = new StudentDAO();
     }
 
-    public void editQuest() {
-        ArrayList<Quest> questsList = this.questDAO.selectAll();
-        QuestView view = new QuestView();
-        boolean correctChoice = false;
-        Integer questID;
-        Integer index = null;
-        Quest quest;
-        String questOldName;
-
-        view.printQuestData(questsList);
-
-        while (!correctChoice) {
-            questID = view.getInt("Choose number of quest You want to edit: ");
-
-            if (questID <= questsList.size() & questID > 0) {
-                correctChoice = true;
-                index = questID - 1;
-            }
-        }
-
-        quest = questsList.get(index);
-        questOldName = quest.getName();
-        this.dataEdit(quest);
-        questDAO.updateQuest(quest, questOldName);
-
+    public void editQuest(String oldName, Quest quest) {
+        questDAO.updateQuest(quest, oldName);
 
     }
 

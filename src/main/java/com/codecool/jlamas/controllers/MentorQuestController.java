@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.database.QuestDAO;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -12,36 +11,26 @@ import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class MentorQuestController implements HttpHandler {
     private QuestController questController = new QuestController();
     private ArrayList<Quest> questsList;
+    private Map<String, Callable> getCommands = new HashMap<>();
+    private Map<String, Callable> postCommands = new HashMap<>();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-
         String response = "";
         String method = httpExchange.getRequestMethod();
 
         if (method.equals("GET")) {
-            if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/show")) {
-                response = displayQuests();
-            }
-
-            if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/add")) {
-                response = displayAddQuest();
-            }
-
-            if (httpExchange.getRequestURI().getPath().matches("/mentor/quest/remove/.+")) {
-                response = this.removeQuest(httpExchange);
-            }
-
+            response = findCommand(httpExchange, getCommands);
         }
 
         if (method.equals("POST")) {
-            if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/add")) {
-                response = addQuest(httpExchange);
-            }
+            response = findCommand(httpExchange, postCommands);
         }
 
         httpExchange.sendResponseHeaders(200, response.length());
@@ -83,6 +72,7 @@ public class MentorQuestController implements HttpHandler {
         String formData = br.readLine();
         
         Map inputs = parseFormData(formData);
+        System.out.println("2");
 
         String questName = (String) inputs.get("questName");
         String description = (String) inputs.get("description");
@@ -103,10 +93,76 @@ public class MentorQuestController implements HttpHandler {
     private String removeQuest(HttpExchange httpExchange) {
         String questName = parseQuestName(httpExchange);
         Quest quest = questController.chooseQuest(questName);
-        System.out.println(quest.getName());
+
         questController.deleteQuest(quest);
-        System.out.println("2");
+
         return displayQuests();
     }
-}
 
+    private String displayEditQuestForm(HttpExchange httpExchange) {
+        String questName = parseQuestName(httpExchange);
+        Quest quest = questController.chooseQuest(questName);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/edit_quest.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("quest", quest);
+
+        return template.render(model);
+    }
+
+    private String editQuest(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+
+        String name = inputs.get("questName").toString();
+        String description = inputs.get("description").toString();
+        Integer reward = Integer.valueOf(inputs.get("reward").toString());
+        String oldName = parseQuestName(httpExchange);
+
+        Quest quest = new Quest(name, description, reward);
+
+        questController.editQuest(oldName, quest);
+
+        return displayQuests();
+    }
+
+    private void addGetCommands(HttpExchange httpExchange) {
+        getCommands.put("/mentor/quest/show", () -> { return displayQuests();} );
+        getCommands.put("/mentor/quest/add", () -> {return displayAddQuest();} );
+        getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
+        getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
+    }
+
+    private void addPostCommands(HttpExchange httpExchange) {
+        postCommands.put("/mentor/quest/add", () -> { return addQuest(httpExchange);}  );
+        postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
+    }
+
+    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
+        String response = null;
+        String path = httpExchange.getRequestURI().getPath();
+        Set<String> keys = mapName.keySet();
+
+        addGetCommands(httpExchange);
+        addPostCommands(httpExchange);
+
+        for (String key : keys) {
+
+            if (path.matches(key)) {
+
+                try {
+                    response = (String) mapName.get(key).call();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return response;
+    }
+
+}
