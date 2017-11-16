@@ -40,7 +40,7 @@ public class StudentController {
             Mail email = new Mail(mail);
             Login login = new Login("testLogin");
             Password password = getPassword();
-            Group group = new Group(groupName);
+            Group group = new GroupController().getGroup(groupName);
             Wallet wallet = new Wallet(0);
             Student student = new Student(login, password, email, name, surname, group, wallet);
             System.out.println(student);
