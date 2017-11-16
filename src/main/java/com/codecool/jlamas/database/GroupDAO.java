@@ -50,8 +50,8 @@ public class GroupDAO {
         try (Connection c = ConnectDB.connect();
                 PreparedStatement pstmt = c.prepareStatement(query);) {
 
-            pstmt.setString(1, group.getName());
-            pstmt.setString(2, preUpdateName);
+            pstmt.setString(1, preUpdateName);
+            pstmt.setString(2, group.getName());
             pstmt.executeUpdate();
 
         } catch (ClassNotFoundException|SQLException e) {
