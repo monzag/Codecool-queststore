@@ -87,6 +87,7 @@ public class AdminMenuController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_list.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        // TODO display unsigned mentors group other than 'null'
         // instead of value 'student' login from cookie
         model.with("login", "student");
         model.with("mentors", new MentorController().getAllMentors());
