@@ -43,19 +43,25 @@
     <table class="input-table">
       <tr>
         <th>Name:</th>
-        <th><input type="text" name="name" value=""></th>
+        <th><input type="text" name="name" value="" required></th>
       </tr>
       <tr>
         <th>Surname:</th>
-        <th><input type="text" name="surname" value=""></th>
+        <th><input type="text" name="surname" value="" required></th>
       </tr>
       <tr>
         <th>Email:</th>
-        <th><input type="email" name="email" value=""></th>
+        <th><input type="email" name="email" value="" required></th>
       </tr>
       <tr>
         <th>Group:</th>
-        <th><input type="text" name="group" value=""></th>
+        <th>
+		<select name="group">
+                    {% for group in groups %}
+                    <option value="{{ group.getName() }}">{{ group.getName }}</option>
+                    {% endfor %}
+                </select>
+	</th>
       </tr>
       <!-- optional only in student creation -->
       <!--tr>
