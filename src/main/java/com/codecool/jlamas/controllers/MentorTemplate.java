@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.database.StudentDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -33,11 +32,23 @@ public class MentorTemplate implements HttpHandler {
             if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
                 response = this.displayAddStudentFormula();
             }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/remove/.+")) {
+                response = this.removeStudent(httpExchange);
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
+                response = this.displayEditFormula(httpExchange);
+            }
         }
 
         if (method.equals("POST")) {
             if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
                 response = this.addStudent(httpExchange);
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
+                response = this.editStudent(httpExchange);
             }
         }
 
@@ -67,9 +78,7 @@ public class MentorTemplate implements HttpHandler {
 
         // profile pic found by login
         model.with("login", "student");
-
-        StudentDAO studentDAO = new StudentDAO();
-        model.with("students", studentDAO.requestAll());
+        model.with("students", studentController.getStudents());
 
         String response = template.render(model);
 
@@ -116,6 +125,46 @@ public class MentorTemplate implements HttpHandler {
         return map;
     }
 
+    private String removeStudent(HttpExchange httpExchange) {
+        String login = parseLogin(httpExchange);
+        studentController.removeStudent(login);
+
+        return displayGroups();
+    }
+
+    private String parseLogin(HttpExchange httpExchange) {
+        return httpExchange.getRequestURI().getPath().split("/")[4];
+    }
+
+    private String displayEditFormula(HttpExchange httpExchange) {
+        String login = parseLogin(httpExchange);
+
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/editStudent.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("student", studentController.chooseStudent(login));
+
+        return template.render(model);
+    }
+
+    private String editStudent(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("name").toString();
+        String surname = inputs.get("surname").toString();
+        String email = inputs.get("email").toString();
+        String groupName = inputs.get("group").toString();
+        String login = parseLogin(httpExchange);
+        studentController.editStudent(login, name, surname, email, groupName);
+
+        return displayGroups();
+    }
 
 }
 

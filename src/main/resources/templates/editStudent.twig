@@ -5,7 +5,6 @@
   <title>questore</title>
   <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 <body>
@@ -36,31 +35,34 @@
       <small>&copy; pyLamas</small>
     </footer>
   </section>
-    
-  <section class="users-table">
-    <h3>Class KRK.2017.1 A</h3>
-    <table style="width:100%">
-      <tr>
-        <th>ID</th>
-        <th>Name</th>
-        <th>Surname</th>
-        <th class="btn" id="add-btn"><a href="/mentor/groups/addStudent">Add new</a></th>
-      </tr>
-	{% for student in students %}
-		<tr>
-			<td> 1. </td>
-			<td>{{ student.getName() }}</td>
-			<td>{{ student.getSurname() }}</td>
-			<td><a class="btn" id="edit-btn" href="/mentor/groups/edit/{{ student.getLogin.getValue() }}">Edit</td>
-        		<td><a class="btn" id="remove-btn" href="/mentor/groups/remove/{{ student.getLogin.getValue() }}">Remove</td>
-		</tr>
-	{% endfor %}
-        
-    </table>
-  </section>
+  <form method="POST" class="add">
+    <h3>Edit student student</h3>
 
-  <script>
-    w3.includeHTML();
-  </script>
+    <table class="input-table">
+      <tr>
+        <th>Name:</th>
+        <th><input type="text" name="name" value="{{ student.getName() }}"></th>
+      </tr>
+      <tr>
+        <th>Surname:</th>
+        <th><input type="text" name="surname" value="{{ student.getSurname() }}"></th>
+      </tr>
+      <tr>
+        <th>Email:</th>
+        <th><input type="email" name="email" value="{{ student.getEmail() }}"></th>
+      </tr>
+      <tr>
+        <th>Group:</th>
+        <th><input type="text" name="group" value="{{ student.getGroup.getName() }}"></th>
+      </tr>
+      <!-- optional only in student creation -->
+      <!--tr>
+        <th>Team:</th>
+        <th><input type="text" name="class" value=""></th>
+      </tr> -->
+    </table>
+
+      <button class="submit" type="submit">submit</button>
+  </form>
 </body>
 </html>

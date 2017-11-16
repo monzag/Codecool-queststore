@@ -85,10 +85,10 @@ public class MentorMenuController {
                 editArtifact();
                 break;
             case MARK_QUEST :
-                markQuest();
+//                markQuest();
                 break;
             case MARK_ARTIFACT :
-                markArtifact();
+//                markArtifact();
                 break;
             case DELETE_QUEST :
                 deleteQuest();
@@ -133,9 +133,9 @@ public class MentorMenuController {
         artifactController.editArtifact();
     }
 
-    public void markQuest() {
-        questController.markQuestAsDone();
-    }
+//    public void markQuest() {
+//        questController.markQuestAsDone();
+//    }
   
-    public void markArtifact() {artifactController.useArtifact();}
+//    public void markArtifact() {artifactController.useArtifact();}
 }
