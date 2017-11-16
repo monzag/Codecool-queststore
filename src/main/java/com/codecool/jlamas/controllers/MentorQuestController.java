@@ -36,11 +36,19 @@ public class MentorQuestController implements HttpHandler {
                 response = this.removeQuest(httpExchange);
             }
 
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/quest/edit/.+")) {
+                response = this.displayEditQuestForm(httpExchange);
+            }
+
         }
 
         if (method.equals("POST")) {
             if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/add")) {
                 response = addQuest(httpExchange);
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/quest/edit/.+")) {
+                response = editQuest(httpExchange);
             }
         }
 
@@ -103,9 +111,39 @@ public class MentorQuestController implements HttpHandler {
     private String removeQuest(HttpExchange httpExchange) {
         String questName = parseQuestName(httpExchange);
         Quest quest = questController.chooseQuest(questName);
-        System.out.println(quest.getName());
+
         questController.deleteQuest(quest);
-        System.out.println("2");
+        
+        return displayQuests();
+    }
+
+    private String displayEditQuestForm(HttpExchange httpExchange) {
+        String questName = parseQuestName(httpExchange);
+        Quest quest = questController.chooseQuest(questName);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/edit_quest.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("quest", quest);
+
+        return template.render(model);
+    }
+
+    private String editQuest(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+
+        String name = inputs.get("questName").toString();
+        String description = inputs.get("description").toString();
+        Integer reward = Integer.valueOf(inputs.get("reward").toString());
+        String oldName = parseQuestName(httpExchange);
+
+        Quest quest = new Quest(name, description, reward);
+
+        questController.editQuest(oldName, quest);
+
         return displayQuests();
     }
 }
