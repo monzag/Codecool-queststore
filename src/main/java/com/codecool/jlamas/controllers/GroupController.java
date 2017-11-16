@@ -32,9 +32,16 @@ public class GroupController {
     }
 
     public void createGroupFromMap(Map<String, String> attrs) {
-        //TODO data validation --> groupView.getString("\nType name of new group: ")
+        // TODO data validation --> groupView.getString("\nType name of new group: ")
         Group group = new Group(attrs.get("name"));
         groupDAO.insertGroup(group);
+    }
+
+    public void editGroupFromMap(Map<String, String> attrs, String groupTag) {
+        // TODO data validation --> groupView.getString("\nType name of new group: ")
+        // TODO GroupDAO update method is different to any other similar
+        Group group = this.groupDAO.getGroup(groupTag);
+        groupDAO.update(group, attrs.get("name"));
     }
 
     public void removeGroup(String groupTag) {
