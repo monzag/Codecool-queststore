@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import java.nio.file.attribute.GroupPrincipal;
 import java.util.ArrayList;
 import java.util.Map;
 import java.util.Random;
@@ -72,50 +71,6 @@ public class MentorController {
 
         return new Password(value);
     }
-
-//    public Group getGroup() {
-//        Group group = new Group();
-//        GroupController groupController = new GroupController();
-//        try {
-//            group = groupController.chooseGroup();
-//        } catch (IndexOutOfBoundsException e) {
-//            e.getMessage();
-//        }
-//        return group;
-//    }
-
-//    public void editMentor() {
-//        try {
-//            Mentor mentor = chooseMentor();
-//            mentorView.displayAttribute();
-//            String option = mentorView.getString("Your choice: ");
-//
-//            switch(option) {
-//                case EDIT_NAME:
-//                    String name = mentorView.getName();
-//                    mentor.setName(name);
-//                    break;
-//                case EDIT_SURNAME:
-//                    String surname = mentorView.getSurname();
-//                    mentor.setSurname(surname);
-//                    break;
-//                case EDIT_EMAIL:
-//                    Mail email = mentorView.getMail();
-//                    mentor.setEmail(email);
-//                    break;
-//                case EDIT_PASSWORD:
-//                    String passwordText = mentorView.getString("New password: ");
-//                    mentor.setPassword(new Password(passwordText));
-//                    break;
-//                default: mentorView.printErrorMessage();
-//                    break;
-//            }
-//
-//            mentorDao.update(mentor);
-//        } catch (IndexOutOfBoundsException|InvalidUserDataException e) {
-//            e.getMessage();
-//        }
-//    }
 
     public void removeMentor(String login) {
         mentorDao.delete(this.getMentor(login));
