@@ -35,7 +35,9 @@
     </footer>
   </section>
   <section class="users-table">
-    <h4>{{ message }}</h4>
+    {% if (message.length > 0) %}
+       <h4>{{ message }}</h4>
+    {% endif %}
     <h3>Quest</h3>
     <table style="width:100%">
       <tr>

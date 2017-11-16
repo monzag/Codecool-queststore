@@ -37,7 +37,9 @@
   </section>
     
   <section class="users-table">
-    <h4>{{ message }}</h4>
+    {% if (message.length > 0) %}
+       <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px"><h4>{{ message }}</h4>
+    {% endif %}
     <h3>Class KRK.2017.1 A</h3>
     <table style="width:100%">
       <tr>
