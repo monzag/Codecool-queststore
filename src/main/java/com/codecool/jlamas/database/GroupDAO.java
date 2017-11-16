@@ -44,21 +44,6 @@ public class GroupDAO {
         return groups;
     }
 
-//    public void update(Group group, String preUpdateName) {
-//        String query = "UPDATE `group` SET group_tag = ? WHERE group_tag = ?";
-//
-//        try (Connection c = ConnectDB.connect();
-//                PreparedStatement pstmt = c.prepareStatement(query);) {
-//
-//            pstmt.setString(1, preUpdateName);
-//            pstmt.setString(2, group.getName());
-//            pstmt.executeUpdate();
-//
-//        } catch (ClassNotFoundException|SQLException e) {
-//            System.out.println(e.getMessage());
-//        }
-//    }
-
     public void update(Group group, String newName) {
         String query = "";
         try (Connection c = ConnectDB.connect();
