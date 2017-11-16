@@ -5,17 +5,15 @@
   <title>questore</title>
   <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
-
 <body>
   <header class="primary-header">
     <img src="/static/assets/pics/web/logo.jpg">
     <nav class="primary-nav">
       <ul>
-        <li><a href="">about</a></li><!--
-     --><li><a href="">contact</a></li><!--
-     --><li><a class="logout-btn" href="">logout</a></li>
+        <li><a href="">about</a></li>
+     	<li><a href="">contact</a></li>
+     	<li><a class="logout-btn" href="">logout</a></li>
       </ul>
     </nav>
   </header>
@@ -36,31 +34,28 @@
       <small>&copy; pyLamas</small>
     </footer>
   </section>
-    
   <section class="users-table">
-    <h3>Class KRK.2017.1 A</h3>
+    <h4>{{ message }}</h4>
+    <h3>Quest</h3>
     <table style="width:100%">
       <tr>
         <th>ID</th>
         <th>Name</th>
-        <th>Surname</th>
-        <th class="btn" id="add-btn"><a href="/mentor/groups/addStudent">Add new</a></th>
+        <th>Description</th>
+        <th>Reward</th>
       </tr>
-	{% for student in students %}
-		<tr>
-			<td> 1. </td>
-			<td>{{ student.getName() }}</td>
-			<td>{{ student.getSurname() }}</td>
-			<td><a class="btn" id="edit-btn" href="/mentor/groups/edit/{{ student.getLogin.getValue() }}">Edit</td>
-        		<td><a class="btn" id="remove-btn" href="/mentor/groups/remove/{{ student.getLogin.getValue() }}">Remove</td>
-		</tr>
-	{% endfor %}
-        
+        {% set i = 0 %}
+        {% for quest in questsList %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ quest.getName() }}</td>
+                <td>{{ quest.getDescription() }}</td>
+                <td>{{ quest.getReward() }}</td>
+                <td><a class="btn" id="edit-btn" href="/mentor/groups/quest/{{ studentLogin }}/mark/{{ quest.getName() }}">Mark</td>
+            </tr>
+        {% endfor %}
     </table>
   </section>
-
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>

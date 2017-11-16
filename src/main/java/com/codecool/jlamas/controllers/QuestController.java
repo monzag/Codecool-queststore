@@ -37,18 +37,11 @@ public class QuestController {
         questDAO.deleteQuest(quest);
     }
 
-//    public void markQuestAsDone() {
-//        StudentController students = new StudentController();
-//        try {
-//            Student student = students.chooseStudent();
-//            Quest quest = this.chooseQuest();
-//            doneQuestDAO.insert(student, quest);
-//            student.getWallet().put(quest.getReward());
-//            studentDAO.update(student);
-//        } catch (IndexOutOfBoundsException e) {
-//            view.printIndexError();
-//        }
-//    }
+    public void markQuestAsDone(Student student, Quest quest) {
+        doneQuestDAO.insert(student, quest);
+        student.getWallet().put(quest.getReward());
+        studentDAO.update(student);
+    }
 
     public void showQuest() {
     }
@@ -62,7 +55,6 @@ public class QuestController {
 
     public Quest chooseQuest(String questName) {
         Quest quest = questDAO.selectQuest(questName);
-
         return quest;
     }
 
