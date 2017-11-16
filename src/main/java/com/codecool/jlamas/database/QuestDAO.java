@@ -77,4 +77,22 @@ public class QuestDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public Quest selectQuest(String questName) {
+        String sql = "SELECT name, description, reward FROM quest WHERE name = ?";
+        Quest quest = null;
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);
+             ResultSet rs    = pstmt.executeQuery(sql)) {
+
+            pstmt.setString(1, questName);
+            pstmt.executeUpdate();
+            quest = new Quest(rs.getString("name"), rs.getString("description"), rs.getInt("reward"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return quest;
+    }
 }
