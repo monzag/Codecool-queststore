@@ -42,11 +42,11 @@ public class MentorTemplate implements HttpHandler {
                 response = this.displayEditFormula(httpExchange);
             }
 
-            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/.+")) {
-                response = this.displayQuestsToMark("");
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/[A-Za-z0-9.]+")) {
+                response = this.displayQuestsToMark("", httpExchange);
             }
 
-            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/[A-Z a-z 0-9 .]+/mark")) {
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+")) {
                 response = this.markQuest(httpExchange);
             }
         }
@@ -176,14 +176,15 @@ public class MentorTemplate implements HttpHandler {
         return displayGroups("Successful edit student!");
     }
 
-    private String displayQuestsToMark(String message) {
+    private String displayQuestsToMark(String message, HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/markQuest.twig");
         JtwigModel model = JtwigModel.newModel();
-
+        String login = parseUrl(httpExchange, 4);
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
-        model.with("quests", quests);
+        model.with("studentLogin", login);
+        model.with("questsList", questController.showAllQuests());
 
         String response = template.render(model);
 
@@ -193,10 +194,10 @@ public class MentorTemplate implements HttpHandler {
     private String markQuest(HttpExchange httpExchange) {
         String login = parseUrl(httpExchange, 4);
 
-        String questName = parseUrl(httpExchange, 5);
+        String questName = parseUrl(httpExchange, 6);
         questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
 
-        return displayQuestsToMark("Successful marked");
+        return displayQuestsToMark("Successful marked", httpExchange);
     }
 
 }
