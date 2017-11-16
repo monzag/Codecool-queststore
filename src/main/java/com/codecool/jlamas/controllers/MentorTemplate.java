@@ -13,6 +13,7 @@ import java.util.Map;
 public class MentorTemplate implements HttpHandler {
 
     private StudentController studentController = new StudentController();
+    private QuestController questController = new QuestController();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -26,7 +27,7 @@ public class MentorTemplate implements HttpHandler {
             }
 
             if (httpExchange.getRequestURI().getPath().equals("/mentor/groups")) {
-                response = this.displayGroups();
+                response = this.displayGroups("");
             }
 
             if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
@@ -39,6 +40,14 @@ public class MentorTemplate implements HttpHandler {
 
             if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
                 response = this.displayEditFormula(httpExchange);
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/.+")) {
+                response = this.displayQuestsToMark("");
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/[A-Z a-z 0-9 .]+/mark")) {
+                response = this.markQuest(httpExchange);
             }
         }
 
@@ -72,12 +81,13 @@ public class MentorTemplate implements HttpHandler {
         return response;
     }
 
-    private String displayGroups() {
+    private String displayGroups(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/showGroups.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
         model.with("login", "student");
+        model.with("message", message);
         model.with("students", studentController.getStudents());
 
         String response = template.render(model);
@@ -110,7 +120,7 @@ public class MentorTemplate implements HttpHandler {
         String groupName = inputs.get("group").toString();
         studentController.addStudent(name, surname, email, groupName);
 
-        return displayGroups();
+        return displayGroups("Successful added new student!");
 
     }
 
@@ -126,18 +136,18 @@ public class MentorTemplate implements HttpHandler {
     }
 
     private String removeStudent(HttpExchange httpExchange) {
-        String login = parseLogin(httpExchange);
+        String login = parseUrl(httpExchange, 4);
         studentController.removeStudent(login);
 
-        return displayGroups();
+        return displayGroups("Successful removed student!");
     }
 
-    private String parseLogin(HttpExchange httpExchange) {
-        return httpExchange.getRequestURI().getPath().split("/")[4];
+    private String parseUrl(HttpExchange httpExchange, int index) {
+        return httpExchange.getRequestURI().getPath().split("/")[index];
     }
 
     private String displayEditFormula(HttpExchange httpExchange) {
-        String login = parseLogin(httpExchange);
+        String login = parseUrl(httpExchange, 4);
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/editStudent.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -160,10 +170,33 @@ public class MentorTemplate implements HttpHandler {
         String surname = inputs.get("surname").toString();
         String email = inputs.get("email").toString();
         String groupName = inputs.get("group").toString();
-        String login = parseLogin(httpExchange);
+        String login = parseUrl(httpExchange, 4);
         studentController.editStudent(login, name, surname, email, groupName);
 
-        return displayGroups();
+        return displayGroups("Successful edit student!");
+    }
+
+    private String displayQuestsToMark(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/markQuest.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("message", message);
+        model.with("quests", quests);
+
+        String response = template.render(model);
+
+        return response;
+    }
+
+    private String markQuest(HttpExchange httpExchange) {
+        String login = parseUrl(httpExchange, 4);
+
+        String questName = parseUrl(httpExchange, 5);
+        questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
+
+        return displayQuestsToMark("Successful marked");
     }
 
 }
