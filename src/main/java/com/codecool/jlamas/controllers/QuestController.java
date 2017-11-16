@@ -50,38 +50,14 @@ public class QuestController {
 
     }
 
-    public void createQuest() {
-        String name = view.getString("Type quest name");
-        String description = view.getString("Type quest description");
-        Integer reward = view.getInt("Type reward value");
-        Quest quest = new Quest(name, description, reward);
+    public void createQuest(Quest quest) {
 
         this.questDAO.insertQuest(quest);
 
     }
 
-    public void deleteQuest() {
-        ArrayList<Quest> questsList = this.questDAO.selectAll();
-        QuestView view = new QuestView();
-        boolean correctChoice = false;
-        Integer questID;
-        Integer index = null;
-        Quest quest;
-        view.printQuestData(questsList);
-
-        while (!correctChoice) {
-            questID = view.getInt("Choose number of quest You want to delete or 0 to exit: ");
-
-            if (questID <= questsList.size() & questID > 0) {
-                correctChoice = true;
-                index = questID - 1;
-                quest = questsList.get(index);
-                questDAO.deleteQuest(quest);
-
-            } else if (questID == 0) {
-                correctChoice = true;
-            }
-        }
+    public void deleteQuest(Quest quest) {
+        questDAO.deleteQuest(quest);
     }
 
 //    public void markQuestAsDone() {
@@ -100,20 +76,17 @@ public class QuestController {
     public void showQuest() {
     }
 
-    public void showAllQuests() {
-        QuestView view = new QuestView();
-        view.printQuestData(this.questDAO.selectAll());
+    public ArrayList<Quest> showAllQuests() {
+        ArrayList<Quest> questsList = new ArrayList<>();
+        questsList = this.questDAO.selectAll();
+
+        return questsList;
     }
 
-    public Quest chooseQuest() throws IndexOutOfBoundsException {
-        ArrayList<Quest> quests = this.questDAO.selectAll();
-        this.showAllQuests();
-        Integer record = view.getMenuOption();
-        Integer index = record - 1;
-        if (index >= quests.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return quests.get(index);
+    public Quest chooseQuest(String questName) {
+        Quest quest = questDAO.selectQuest(questName);
+
+        return quest;
     }
 
     public void dataEdit(Quest quest) {
