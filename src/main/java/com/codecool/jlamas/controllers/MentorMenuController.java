@@ -121,7 +121,7 @@ public class MentorMenuController implements HttpHandler{
         String groupName = inputs.get("group").toString();
         studentController.addStudent(name, surname, email, groupName);
 
-        return displayGroups("Success!! Student has been added");
+        return displayGroups("Student has been added");
 
     }
 
@@ -140,7 +140,7 @@ public class MentorMenuController implements HttpHandler{
         String login = parseUrl(httpExchange, 4);
         studentController.removeStudent(login);
 
-        return displayGroups("Success!! Student has been removed");
+        return displayGroups("Student has been removed");
     }
 
     private String parseUrl(HttpExchange httpExchange, int index) {
@@ -174,7 +174,7 @@ public class MentorMenuController implements HttpHandler{
         String login = parseUrl(httpExchange, 4);
         studentController.editStudent(login, name, surname, email, groupName);
 
-        return displayGroups("Success!! Student has been edited");
+        return displayGroups("Student has been edited");
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
@@ -198,7 +198,7 @@ public class MentorMenuController implements HttpHandler{
         String questName = parseUrl(httpExchange, 6);
         questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
 
-        return displayQuestsToMark("Success!! Quest has been marked", httpExchange);
+        return displayQuestsToMark("Quest has been marked", httpExchange);
     }
 
 }
