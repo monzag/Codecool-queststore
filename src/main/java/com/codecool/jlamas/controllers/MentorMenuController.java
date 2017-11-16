@@ -73,7 +73,7 @@ public class MentorMenuController {
                 addStudent();
                 break;
             case ADD_QUEST :
-                addQuest();
+//                addQuest();
                 break;
             case ADD_ARTIFACT :
                 addArtifact();
@@ -91,7 +91,7 @@ public class MentorMenuController {
 //                markArtifact();
                 break;
             case DELETE_QUEST :
-                deleteQuest();
+//                deleteQuest();
                 break;
         }
 
@@ -109,17 +109,17 @@ public class MentorMenuController {
 
     }
 
-    public void deleteQuest() {
-        questController.deleteQuest();
-    }
+//    public void deleteQuest() {
+//        questController.deleteQuest();
+//    }
 
     public void addStudent() {
 
     }
 
-    public void addQuest() {
-        questController.createQuest();
-    }
+//    public void addQuest() {
+//        questController.createQuest();
+//    }
 
     public void addArtifact() {
         artifactController.createArtifact();
