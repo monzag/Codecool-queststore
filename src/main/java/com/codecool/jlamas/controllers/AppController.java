@@ -47,9 +47,9 @@ public class AppController {
         String userType = this.userData.getType(login);
 
         if (userType.equals("admin")) {
-            Admin admin = this.userData.getAdmin(login);
-            AdminMenuController adminMenu = new AdminMenuController(admin);
-            adminMenu.start();
+//            Admin admin = this.userData.getAdmin(login);
+//            AdminMenuController adminMenu = new AdminMenuController(admin);
+//            adminMenu.start();
         } else if (userType.equals("mentor")) {
             MentorDAO mentorData = new MentorDAO();
             Mentor mentor = mentorData.getMentor(login);
