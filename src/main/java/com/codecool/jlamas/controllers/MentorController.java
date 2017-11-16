@@ -22,12 +22,16 @@ public class MentorController {
         
     }
 
+    public Mentor getMentor(String login) {
+        return this.mentorDao.getMentor(login);
+    }
+
     public ArrayList<Mentor> getAllMentors() {
         return mentorDao.requestAll();
     }
 
-    public Mentor getMentor(String login) {
-        return this.mentorDao.getMentor(login);
+    public void removeMentor(String login) {
+        mentorDao.delete(this.getMentor(login));
     }
 
     public void createMentorFromMap(Map<String, String> attrs) {
@@ -70,10 +74,6 @@ public class MentorController {
         }
 
         return new Password(value);
-    }
-
-    public void removeMentor(String login) {
-        mentorDao.delete(this.getMentor(login));
     }
 
 }

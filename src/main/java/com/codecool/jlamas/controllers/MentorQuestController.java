@@ -19,16 +19,25 @@ public class MentorQuestController implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        questsList = questDAO.selectAll();
-
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor_quests.twig");
-        JtwigModel model = JtwigModel.newModel();
 
         String response = "";
         String method = httpExchange.getRequestMethod();
 
         if (method.equals("GET")) {
-            response = template.render(model.with("questsList", questsList));
+            if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/show")) {
+                response = displayQuests();
+            }
+
+            if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/add")) {
+                response = displayAddQuest();
+            }
+
+        }
+
+        if (method.equals("POST")) {
+            if (httpExchange.getRequestURI().getPath().equals("/mentor/quest/add")) {
+                response = addQuest(httpExchange);
+            }
         }
 
         httpExchange.sendResponseHeaders(200, response.length());
@@ -47,6 +56,40 @@ public class MentorQuestController implements HttpHandler {
             map.put(keyValue[0], value);
         }
         return map;
+    }
+
+    private String displayAddQuest() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/add_quest.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        return template.render(model);
+    }
+
+    private String displayQuests() {
+        questsList = questDAO.selectAll();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor_quests.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        return template.render(model.with("questsList", questsList));
+    }
+
+    private String addQuest(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+        
+        Map inputs = parseFormData(formData);
+
+        String questName = (String) inputs.get("questName");
+        String description = (String) inputs.get("description");
+        Integer reward = Integer.valueOf(inputs.get("reward").toString());
+
+        Quest quest = new Quest(questName, description, reward);
+
+        questDAO.insertQuest(quest);
+
+        return displayQuests();
+
     }
 }
 

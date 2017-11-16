@@ -4,7 +4,9 @@ import org.flywaydb.core.Flyway;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
 
-import com.codecool.jlamas.controllers.AdminController;
+import com.codecool.jlamas.controllers.AdminMenuController;
+import com.codecool.jlamas.controllers.TemplateController;
+import com.codecool.jlamas.controllers.MentorTemplate;
 import com.codecool.jlamas.controllers.TemplateController;
 
 public class Main {
@@ -16,12 +18,13 @@ public class Main {
         flyway.migrate();
 
         // create local server
-        HttpServer server = HttpServer.create(new InetSocketAddress(8801), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
 
         // set routes
         // server.createContext("/url", new ControllerName());
         server.createContext("/template", new TemplateController());
-        server.createContext("/admin", new AdminController());
+        server.createContext("/admin", new AdminMenuController());
+        server.createContext("/mentor", new MentorTemplate());
         server.createContext("/static", new Static());
         server.setExecutor(null);
 
