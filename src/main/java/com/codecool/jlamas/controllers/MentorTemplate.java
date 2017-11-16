@@ -70,7 +70,7 @@ public class MentorTemplate implements HttpHandler {
     }
 
     private String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentorProfile.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -82,7 +82,7 @@ public class MentorTemplate implements HttpHandler {
     }
 
     private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/showGroups.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showGroups.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -96,11 +96,12 @@ public class MentorTemplate implements HttpHandler {
     }
 
     private String displayAddStudentFormula() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/addStudent.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addStudent.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
         model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
 
         String response = template.render(model);
 
@@ -149,7 +150,7 @@ public class MentorTemplate implements HttpHandler {
     private String displayEditFormula(HttpExchange httpExchange) {
         String login = parseUrl(httpExchange, 4);
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/editStudent.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editStudent.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -177,7 +178,7 @@ public class MentorTemplate implements HttpHandler {
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/markQuest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/markQuest.twig");
         JtwigModel model = JtwigModel.newModel();
         String login = parseUrl(httpExchange, 4);
         // profile pic found by login
