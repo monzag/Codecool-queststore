@@ -256,6 +256,19 @@ input {
     border: 1.5px solid gray;
     border-radius: 3px;
 }
+.input-table tr th select {
+    height: 32px;
+    margin: 0px;
+    padding: 0px;
+    border: 1.5px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    width: 85%;
+}
+.input-table tr th select:hover {
+    border: 2px solid #254375;
+}
+
 
 /* NEW ADD FORM BUTTON */
 .submit {
