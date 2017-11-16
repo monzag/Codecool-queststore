@@ -87,7 +87,10 @@ public class GroupDAO {
     }
 
     public void delete(Group group) {
-        String query = "DELETE FROM `group` WHERE group_tag = '" + group.getName() + "';";
+        String query = "DELETE FROM `group` WHERE group_tag = '" + group.getName() + "'; ";
+        query += String.format("UPDATE `mentor` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                null,
+                group.getName());
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
