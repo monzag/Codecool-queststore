@@ -37,8 +37,8 @@
   </section>
     
   <section class="users-table">
-    {% if (message.lenght > 0) %}
-       <h4>{{ message }}</h4>
+    {% if (message.length > 0) %}
+       <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px"><h4>{{ message }}</h4>
     {% endif %}
     <h3>Class KRK.2017.1 A</h3>
     <table style="width:100%">
@@ -48,9 +48,7 @@
         <th>Surname</th>
         <th class="btn" id="add-btn"><a href="/mentor/groups/addStudent">Add new</a></th>
       </tr>
-	{% set i = 0 %}
 	{% for student in students %}
-		{% set i = i + 1 %}
 		<tr>
 			<td> 1. </td>
 			<td>{{ student.getName() }}</td>
