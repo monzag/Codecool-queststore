@@ -38,6 +38,7 @@
   </section>
     
   <section class="users-table">
+    <h4>{{ message }}</h4>
     <h3>Class KRK.2017.1 A</h3>
     <table style="width:100%">
       <tr>
@@ -53,6 +54,7 @@
 			<td>{{ student.getSurname() }}</td>
 			<td><a class="btn" id="edit-btn" href="/mentor/groups/edit/{{ student.getLogin.getValue() }}">Edit</td>
         		<td><a class="btn" id="remove-btn" href="/mentor/groups/remove/{{ student.getLogin.getValue() }}">Remove</td>
+			<td><a class="btn" id="remove-btn" href="/mentor/groups/quest/{{ student.getLogin.getValue() }}">Quest</td>
 		</tr>
 	{% endfor %}
         
