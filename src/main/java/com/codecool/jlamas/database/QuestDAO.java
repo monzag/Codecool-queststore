@@ -65,13 +65,15 @@ public class QuestDAO {
     }
 
     public void deleteQuest(Quest quest) {
-        String sql = "DELETE FROM quest WHERE name = ?";
+        String query;
 
         try (Connection c = ConnectDB.connect();
-                PreparedStatement pstmt = c.prepareStatement(sql);) {
+                Statement stmt = c.createStatement()) {
 
-        pstmt.setString(1, quest.getName());
-        pstmt.executeUpdate();
+            query = String.format("DELETE FROM `quest` WHERE name = '%s'; ",
+                    quest.getName());
+
+            stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
@@ -79,20 +81,20 @@ public class QuestDAO {
     }
 
     public Quest selectQuest(String questName) {
-        String sql = "SELECT name, description, reward FROM quest WHERE name = ?";
+        String sql = String.format("SELECT * FROM `quest` WHERE name = '%s'; ",
+                questName);
         Quest quest = null;
 
         try (Connection c = ConnectDB.connect();
-             PreparedStatement pstmt = c.prepareStatement(sql);
-             ResultSet rs    = pstmt.executeQuery(sql)) {
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
 
-            pstmt.setString(1, questName);
-            pstmt.executeUpdate();
             quest = new Quest(rs.getString("name"), rs.getString("description"), rs.getInt("reward"));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
+
         return quest;
     }
 }
