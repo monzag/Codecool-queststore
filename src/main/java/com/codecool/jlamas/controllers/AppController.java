@@ -51,10 +51,10 @@ public class AppController {
 //            AdminMenuController adminMenu = new AdminMenuController(admin);
 //            adminMenu.start();
         } else if (userType.equals("mentor")) {
-            MentorDAO mentorData = new MentorDAO();
-            Mentor mentor = mentorData.getMentor(login);
-            MentorMenuController mentorMenu = new MentorMenuController(mentor);
-            mentorMenu.start();
+//            MentorDAO mentorData = new MentorDAO();
+//            Mentor mentor = mentorData.getMentor(login);
+//            MentorMenuController mentorMenu = new MentorMenuController(mentor);
+//            mentorMenu.start();
         } else if (userType.equals("student")) {
             StudentDAO studentData = new StudentDAO();
             Student student = studentData.getStudent(login);
