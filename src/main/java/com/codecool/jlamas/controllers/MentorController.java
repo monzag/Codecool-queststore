@@ -73,16 +73,16 @@ public class MentorController {
         return new Password(value);
     }
 
-    public Group getGroup() {
-        Group group = new Group();
-        GroupController groupController = new GroupController();
-        try {
-            group = groupController.chooseGroup();
-        } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
-        }
-        return group;
-    }
+//    public Group getGroup() {
+//        Group group = new Group();
+//        GroupController groupController = new GroupController();
+//        try {
+//            group = groupController.chooseGroup();
+//        } catch (IndexOutOfBoundsException e) {
+//            e.getMessage();
+//        }
+//        return group;
+//    }
 
 //    public void editMentor() {
 //        try {
