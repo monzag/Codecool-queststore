@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.models.accountdata.Group;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -40,7 +41,7 @@ public class AdminMenuController implements HttpHandler {
                 response = this.displayGroups();
             }
             else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/edit/.+")) {
-                response = "";
+                response = this.displayExistingGroupForm(httpExchange);
             }
             else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/remove/.+")) {
                 // TODO wrong url path done b-hand currently it does nothing beside back to list
@@ -60,6 +61,9 @@ public class AdminMenuController implements HttpHandler {
             }
             if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
                 response = this.editMentor(httpExchange);
+            }
+            if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/edit/.+")) {
+                response = this.editGroup(httpExchange);
             }
         }
 
@@ -124,6 +128,17 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayExistingGroupForm(HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_edit.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("group", new GroupController().getGroup(this.parseLogin(httpExchange)));
+
+        return template.render(model);
+    }
+
     private String displayNewGroupForm() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_add.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -171,6 +186,19 @@ public class AdminMenuController implements HttpHandler {
         ctrl.editMentorFromMap(inputs, this.parseLogin(httpExchange));
 
         return this.displayMentors();
+    }
+
+    private String editGroup(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        // TODO data validation!
+        GroupController ctrl = new GroupController();
+        ctrl.editGroupFromMap(inputs, this.parseLogin(httpExchange));
+
+        return this.displayGroups();
     }
 
     private String removeMentor(HttpExchange httpExchange) throws IOException {
