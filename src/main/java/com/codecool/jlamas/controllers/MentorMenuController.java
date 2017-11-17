@@ -260,11 +260,20 @@ public class MentorMenuController implements HttpHandler{
         getCommands.put("/mentor/quest/add", () -> {return displayAddQuest();} );
         getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
         getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
+        getCommands.put("/mentor", () -> {return displayProfile();} );
+        getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
+        getCommands.put("/mentor/groups/addStudent", () -> {return displayAddStudentFormula();} );
+        getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
+        getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
+        getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
+        getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
     }
 
     private void addPostCommands(HttpExchange httpExchange) {
         postCommands.put("/mentor/quest/add", () -> { return addQuest(httpExchange);}  );
         postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
+        postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
+        postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
     }
 
     private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
