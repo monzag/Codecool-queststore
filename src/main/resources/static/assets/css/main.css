@@ -426,4 +426,6 @@ input, textarea {
 h4 {
     color: darkgreen;
     padding: 10px;
+    display: inline-block;
+    width: 50%;
 }
