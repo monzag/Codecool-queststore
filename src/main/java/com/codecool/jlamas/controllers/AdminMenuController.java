@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.accountdata.Group;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -10,61 +9,26 @@ import java.io.*;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 
 public class AdminMenuController implements HttpHandler {
+
+    private Map<String, Callable> getCommands = new HashMap<String, Callable>();
+    private Map<String, Callable> postCommands = new HashMap<String, Callable>();
+
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
         if (method.equals("GET")) {
-
-            if (httpExchange.getRequestURI().getPath().equals("/admin")) {
-                response = this.displayProfile();
-            }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/list")) {
-                response = this.displayMentors();
-            }
-            else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
-                // TODO wrong url path done b-hand currently it does nothing beside back to list
-                response = this.displayExistingMentorForm(httpExchange);
-            }
-            else if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/remove/.+")) {
-                // TODO wrong url path done b-hand currently it does nothing beside back to list
-                response = this.removeMentor(httpExchange);
-            }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
-                response = this.displayNewMentorForm();
-            }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/list")) {
-                response = this.displayGroups();
-            }
-            else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/edit/.+")) {
-                response = this.displayExistingGroupForm(httpExchange);
-            }
-            else if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/remove/.+")) {
-                // TODO wrong url path done b-hand currently it does nothing beside back to list
-                response = this.removeGroup(httpExchange);
-            }
-            else if (httpExchange.getRequestURI().getPath().equals("/admin/groups/add")) {
-                response = this.displayNewGroupForm();
-            }
+            response = this.findCommand(httpExchange, getCommands);
         }
 
         if (method.equals("POST")) {
-            if (httpExchange.getRequestURI().getPath().equals("/admin/mentors/add")) {
-                response = this.addMentor(httpExchange);
-            }
-            if (httpExchange.getRequestURI().getPath().equals("/admin/groups/add")) {
-                response = this.addGroup(httpExchange);
-            }
-            if (httpExchange.getRequestURI().getPath().matches("/admin/mentors/list/edit/.+")) {
-                response = this.editMentor(httpExchange);
-            }
-            if (httpExchange.getRequestURI().getPath().matches("/admin/groups/list/edit/.+")) {
-                response = this.editGroup(httpExchange);
-            }
+            response = this.findCommand(httpExchange, postCommands);
         }
 
         httpExchange.sendResponseHeaders(200, response.length());
@@ -230,6 +194,46 @@ public class AdminMenuController implements HttpHandler {
             map.put(keyValue[0], value);
         }
         return map;
+    }
+
+    private void addGetCommands (HttpExchange httpExchange) {
+        getCommands.put("/admin", () -> {return this.displayProfile();} );
+        getCommands.put("/admin/mentors/list", () -> {return this.displayMentors();} );
+        getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayExistingMentorForm(httpExchange);} );
+        getCommands.put("/admin/mentors/list/remove/.+", () -> { return this.removeMentor(httpExchange);} );
+        getCommands.put("/admin/mentors/add", () -> {return this.displayNewMentorForm();} );
+        getCommands.put("/admin/groups/list", () -> {return this.displayGroups();} );
+        getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayExistingGroupForm(httpExchange);} );
+        getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
+        getCommands.put("/admin/groups/add", () -> {return this.displayNewGroupForm();} );
+    }
+
+    private void addPostCommands (HttpExchange httpExchange) {
+        postCommands.put("/admin/mentors/add", () -> { return this.addMentor(httpExchange);} );
+        postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
+        postCommands.put("/admin/mentors/list/edit/.+", () -> { return this.editMentor(httpExchange);} );
+        postCommands.put("/admin/groups/list/edit/.+", () -> { return this.editGroup(httpExchange);} );
+
+    }
+
+    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
+        String response = null;
+        String path = httpExchange.getRequestURI().getPath();
+        Set<String> keys = mapName.keySet();
+
+        this.addGetCommands(httpExchange);
+        this.addPostCommands(httpExchange);
+
+        for (String key : keys) {
+            if (path.matches(key)) {
+                try {
+                    response = (String) mapName.get(key).call();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+        return response;
     }
 
 }
