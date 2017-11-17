@@ -178,7 +178,7 @@ public class MentorMenuController implements HttpHandler{
     }
 
     private String displayAddQuest() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/add_quest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/add_quest.twig");
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model);
@@ -186,7 +186,7 @@ public class MentorMenuController implements HttpHandler{
 
     private String displayQuests() {
         questsList = questController.showAllQuests();
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor_quests.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model.with("questsList", questsList));
@@ -228,7 +228,7 @@ public class MentorMenuController implements HttpHandler{
     private String displayEditQuestForm(HttpExchange httpExchange) {
         String questName = parseQuestName(httpExchange);
         Quest quest = questController.chooseQuest(questName);
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/edit_quest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("quest", quest);
