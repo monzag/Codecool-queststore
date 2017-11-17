@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 import com.codecool.jlamas.database.GroupDAO;
 import com.codecool.jlamas.models.accountdata.Group;
@@ -16,10 +17,35 @@ public class GroupController {
         this.groupDAO = new GroupDAO();
     }
 
+    public Group getGroup(String groupTag) {
+        return this.groupDAO.getGroup(groupTag);
+    }
+
+    public ArrayList<Group> getAllGroups() {
+        return groupDAO.selectAll();
+    }
+
     public void createGroup() {
         String name = groupView.getString("\nType name of new group: ");
         Group group = new Group(name);
         groupDAO.insertGroup(group);
+    }
+
+    public void createGroupFromMap(Map<String, String> attrs) {
+        // TODO data validation --> groupView.getString("\nType name of new group: ")
+        Group group = new Group(attrs.get("name"));
+        groupDAO.insertGroup(group);
+    }
+
+    public void editGroupFromMap(Map<String, String> attrs, String groupTag) {
+        // TODO data validation --> groupView.getString("\nType name of new group: ")
+        // TODO GroupDAO update method is different to any other similar
+        Group group = this.groupDAO.getGroup(groupTag);
+        groupDAO.update(group, attrs.get("name"));
+    }
+
+    public void removeGroup(String groupTag) {
+        this.groupDAO.delete(this.groupDAO.getGroup(groupTag));
     }
 
     public void displayGroups() {
@@ -27,10 +53,6 @@ public class GroupController {
         groupView.printAll(groups);
     }
 
-    public ArrayList<Group> getAllGroups() {
-        return groupDAO.selectAll();
-    }
-    
     public Group chooseGroup() {
         displayGroups();
         Integer record = groupView.getInt("Choose group: ");

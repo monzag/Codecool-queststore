@@ -37,20 +37,10 @@ public class QuestController {
         questDAO.deleteQuest(quest);
     }
 
-//    public void markQuestAsDone() {
-//        StudentController students = new StudentController();
-//        try {
-//            Student student = students.chooseStudent();
-//            Quest quest = this.chooseQuest();
-//            doneQuestDAO.insert(student, quest);
-//            student.getWallet().put(quest.getReward());
-//            studentDAO.update(student);
-//        } catch (IndexOutOfBoundsException e) {
-//            view.printIndexError();
-//        }
-//    }
-
-    public void showQuest() {
+    public void markQuestAsDone(Student student, Quest quest) {
+        doneQuestDAO.insert(student, quest);
+        student.getWallet().put(quest.getReward());
+        studentDAO.update(student);
     }
 
     public ArrayList<Quest> showAllQuests() {
@@ -62,35 +52,6 @@ public class QuestController {
 
     public Quest chooseQuest(String questName) {
         Quest quest = questDAO.selectQuest(questName);
-
         return quest;
-    }
-
-    public void dataEdit(Quest quest) {
-        QuestView view = new QuestView();
-        boolean correctChoice = false;
-        Integer optionNumber = null;
-
-        while (!correctChoice) {
-            view.printEditMenu();
-            optionNumber = view.getInt("Choose data to edit: ");
-
-            if (optionNumber > 0 && optionNumber <= 3) {
-                correctChoice = true;
-            }
-        }
-
-        if (optionNumber == 1) {
-            String name = view.getString("Enter new name for quest: ");
-            quest.setName(name);
-
-        } else if (optionNumber == 2) {
-            String description = view.getString("Enter new description for quest: ");
-            quest.setDescription(description);
-
-        } else if (optionNumber == 3) {
-            Integer reward = view.getInt("Enter new reward value for quest: ");
-            quest.setReward(reward);
-        }
     }
 }

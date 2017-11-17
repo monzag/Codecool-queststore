@@ -44,16 +44,57 @@ public class GroupDAO {
         return groups;
     }
 
-    public void update(Group group, String preUpdateName) {
-        String query = "UPDATE `group` SET group_tag = ? WHERE group_tag = ?";
+    public void update(Group group, String newName) {
+        String query = "";
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+
+            query = String.format("UPDATE `group` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                    newName,
+                    group.getName());
+
+            query += String.format("UPDATE `mentor` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                    newName,
+                    group.getName());
+
+            query += String.format("UPDATE `student` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                    newName,
+                    group.getName());
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public Group getGroup(String groupTag) {
+        Group group = null;
+        String query = "SELECT group_tag FROM `group` WHERE group_tag = '" + groupTag +"';";
 
         try (Connection c = ConnectDB.connect();
-                PreparedStatement pstmt = c.prepareStatement(query);) {
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(query)){
 
-            pstmt.setString(1, group.getName());
-            pstmt.setString(2, preUpdateName);
-            pstmt.executeUpdate();
+             group = new Group(rs.getString("group_tag"));
 
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return group;
+    }
+
+    public void delete(Group group) {
+        String query = "DELETE FROM `group` WHERE group_tag = '" + group.getName() + "'; ";
+        query += String.format("UPDATE `mentor` SET group_tag = '%s' WHERE group_tag = '%s'; ",
+                null,
+                group.getName());
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+             stmt.executeUpdate(query);
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }

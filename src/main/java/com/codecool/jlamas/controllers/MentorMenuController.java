@@ -1,141 +1,204 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.account.Mentor;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 
-import com.codecool.jlamas.views.MentorView;
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
+public class MentorMenuController implements HttpHandler{
 
-public class MentorMenuController {
+    private StudentController studentController = new StudentController();
+    private QuestController questController = new QuestController();
 
-    public static final String[] MENU = {"Print class",
-                                         "Print team",
-                                         "Create team",
-                                         "Add new Student",
-                                         "Add new Quest",
-                                         "Add new Artifact",
-                                         "Show Quests",
-                                         "Edit existing Artifact",
-                                         "Mark Quest as done",
-                                         "Mark Artifact as used",
-                                         "Delete quest"};
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
 
-    private static final int PRINT_CLASS = 1;
-    private static final int PRINT_TEAM = 2;
-    private static final int CREATE_TEAM = 3;
-    private static final int ADD_STUDENT = 4;
-    private static final int ADD_QUEST = 5;
-    private static final int ADD_ARTIFACT = 6;
-    private static final int SHOW_QUEST = 7;
-    private static final int EDIT_ARTIFACT = 8;
-    private static final int MARK_QUEST = 9;
-    private static final int MARK_ARTIFACT = 10;
-    private static final int DELETE_QUEST = 11;
-    private static final int EXIT = 0;
+        String response = "";
+        String method = httpExchange.getRequestMethod();
 
-    private Mentor user;
-    private MentorView view;
-    private StudentController studentController;
-    private QuestController questController;
-    private ArtifactController artifactController;
+        if (method.equals("GET")) {
+            if (httpExchange.getRequestURI().getPath().equals("/mentor")) {
+                response = this.displayProfile();
+            }
 
-    public MentorMenuController(Mentor user) {
-        this.user = user;
-        this.view =  new MentorView();
-        this.studentController = new StudentController();
-        this.questController = new QuestController();
-        this.artifactController = new ArtifactController();
+            if (httpExchange.getRequestURI().getPath().equals("/mentor/groups")) {
+                response = this.displayGroups("");
+            }
 
-    }
+            if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
+                response = this.displayAddStudentFormula();
+            }
 
-    public void start() {
-        Integer option;
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/remove/.+")) {
+                response = this.removeStudent(httpExchange);
+            }
 
-        option = 1;
-        while (!option.equals(EXIT)) {
-            view.printMenu(MENU);
-            option = view.getMenuOption();
-            this.resolveOption(option);
-        }
-    }
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
+                response = this.displayEditFormula(httpExchange);
+            }
 
-    private void resolveOption(Integer option) {
-    // adding new option should add also to view MENU
-        switch (option) {
-            case PRINT_CLASS :
-                printClass();
-                break;
-            case PRINT_TEAM :
-                printTeam();
-            case CREATE_TEAM :
-                createTeam();
-                break;
-            case ADD_STUDENT :
-                addStudent();
-                break;
-            case ADD_QUEST :
-                addQuest();
-                break;
-            case ADD_ARTIFACT :
-                addArtifact();
-                break;
-            case SHOW_QUEST :
-                questController.showAllQuests();
-                break;
-            case EDIT_ARTIFACT :
-                editArtifact();
-                break;
-            case MARK_QUEST :
-//                markQuest();
-                break;
-            case MARK_ARTIFACT :
-//                markArtifact();
-                break;
-            case DELETE_QUEST :
-                deleteQuest();
-                break;
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/[A-Za-z0-9.]+")) {
+                response = this.displayQuestsToMark("", httpExchange);
+            }
+
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+")) {
+                response = this.markQuest(httpExchange);
+            }
         }
 
-    }
-    public void printClass() {
-        GroupController groupController = new GroupController();
-        groupController.displayGroups();
-    }
+        if (method.equals("POST")) {
+            if (httpExchange.getRequestURI().getPath().equals("/mentor/groups/addStudent")) {
+                response = this.addStudent(httpExchange);
+            }
 
-    public void printTeam() {
+            if (httpExchange.getRequestURI().getPath().matches("/mentor/groups/edit/.+")) {
+                response = this.editStudent(httpExchange);
+            }
+        }
 
-    }
 
-    public void createTeam() {
-
-    }
-
-    public void deleteQuest() {
-        questController.deleteQuest();
-    }
-
-    public void addStudent() {
+        httpExchange.sendResponseHeaders(200, response.length());
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
 
     }
 
-    public void addQuest() {
-        questController.createQuest();
+    private String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+
+        String response = template.render(model);
+
+        return response;
     }
 
-    public void addArtifact() {
-        artifactController.createArtifact();
+    private String displayGroups(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showGroups.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("message", message);
+        model.with("students", studentController.getStudents());
+
+        String response = template.render(model);
+
+        return response;
     }
 
-    public void editQuest() {
-        questController.editQuest();
+    private String displayAddStudentFormula() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addStudent.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
+
+        String response = template.render(model);
+
+        return response;
     }
 
-    public void editArtifact() {
-        artifactController.editArtifact();
+    private String addStudent(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("name").toString();
+        String surname = inputs.get("surname").toString();
+        String email = inputs.get("email").toString();
+        String groupName = inputs.get("group").toString();
+        studentController.addStudent(name, surname, email, groupName);
+
+        return displayGroups("Student has been added");
+
     }
 
-//    public void markQuest() {
-//        questController.markQuestAsDone();
-//    }
-  
-//    public void markArtifact() {artifactController.useArtifact();}
+    private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
+        Map<String, String> map = new HashMap<>();
+        String[] pairs = formData.split("&");
+        for(String pair : pairs){
+            String[] keyValue = pair.split("=");
+            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
+            map.put(keyValue[0], value);
+        }
+        return map;
+    }
+
+    private String removeStudent(HttpExchange httpExchange) {
+        String login = parseUrl(httpExchange, 4);
+        studentController.removeStudent(login);
+
+        return displayGroups("Student has been removed");
+    }
+
+    private String parseUrl(HttpExchange httpExchange, int index) {
+        return httpExchange.getRequestURI().getPath().split("/")[index];
+    }
+
+    private String displayEditFormula(HttpExchange httpExchange) {
+        String login = parseUrl(httpExchange, 4);
+
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editStudent.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("student", studentController.chooseStudent(login));
+
+        return template.render(model);
+    }
+
+    private String editStudent(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("name").toString();
+        String surname = inputs.get("surname").toString();
+        String email = inputs.get("email").toString();
+        String groupName = inputs.get("group").toString();
+        String login = parseUrl(httpExchange, 4);
+        studentController.editStudent(login, name, surname, email, groupName);
+
+        return displayGroups("Student has been edited");
+    }
+
+    private String displayQuestsToMark(String message, HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/markQuest.twig");
+        JtwigModel model = JtwigModel.newModel();
+        String login = parseUrl(httpExchange, 4);
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("message", message);
+        model.with("studentLogin", login);
+        model.with("questsList", questController.showAllQuests());
+
+        String response = template.render(model);
+
+        return response;
+    }
+
+    private String markQuest(HttpExchange httpExchange) {
+        String login = parseUrl(httpExchange, 4);
+
+        String questName = parseUrl(httpExchange, 6);
+        questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
+
+        return displayQuestsToMark("Quest has been marked", httpExchange);
+    }
+
 }

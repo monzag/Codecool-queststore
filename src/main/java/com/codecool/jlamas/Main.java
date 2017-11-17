@@ -1,10 +1,11 @@
 package com.codecool.jlamas;
 
-import com.codecool.jlamas.controllers.MentorTemplate;
-import com.codecool.jlamas.controllers.TemplateController;
+import com.codecool.jlamas.controllers.*;
 import org.flywaydb.core.Flyway;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
+
+import com.codecool.jlamas.controllers.TemplateController;
 
 public class Main {
     public static void main(String[] args) throws Exception {
@@ -15,13 +16,15 @@ public class Main {
         flyway.migrate();
 
         // create local server
-        HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8112), 0);
 
         // set routes
         // server.createContext("/url", new ControllerName());
         server.createContext("/template", new TemplateController());
+        server.createContext("/admin", new AdminMenuController());
+        server.createContext("/mentor", new MentorMenuController());
+        server.createContext("/mentor/quest", new MentorQuestController());
         server.createContext("/static", new Static());
-        server.createContext("/mentor", new MentorTemplate());
         server.setExecutor(null);
 
         server.start();
