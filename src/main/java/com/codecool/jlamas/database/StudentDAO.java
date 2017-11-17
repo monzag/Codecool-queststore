@@ -160,7 +160,7 @@ public class StudentDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query);) {
-             getStudentFromResultSet(rs);
+             student = getStudentFromResultSet(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -172,6 +172,7 @@ public class StudentDAO {
 
         Student student = new Student();
         DoneQuestDAO doneQuests = new DoneQuestDAO();
+        OwnedArtifactDAO ownedArtifacts = new OwnedArtifactDAO();
 
         student.setName(rs.getString("name"));
         student.setSurname(rs.getString("surname"));
@@ -182,6 +183,7 @@ public class StudentDAO {
         student.setTeamId(rs.getInt("team_tag"));
         student.setWallet(new Wallet(rs.getInt("balance")));
         student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
+        student.getWallet().setOwnedArtifacts(ownedArtifacts.requestAllBy(student));
 
         return student;
 

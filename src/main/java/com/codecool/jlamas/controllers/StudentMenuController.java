@@ -15,8 +15,8 @@ public class StudentMenuController {
     private static final int EXIT = 0;
 
     private StudentView studentView;
-    private Student student;
     private WalletController walletController;
+    private Student student;
 
     public StudentMenuController(Student student) {
         this.student = student;
@@ -44,11 +44,11 @@ public class StudentMenuController {
     public void displayWallet() {
         this.walletController.displayBalance();
         this.walletController.displayDoneQuests();
-        //walletController.displayOwnedArtifacts();
+        this.walletController.displayOwnedArtifacts();
     }
 
     public void buyArtifact() {
-        ;
+        this.walletController.buyArtifact();
     }
 
     public void displayLevel() {

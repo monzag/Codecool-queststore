@@ -1,85 +1,239 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.models.account.Mentor;
-import com.codecool.jlamas.views.AdminView;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 
-import java.util.ArrayList;
+import java.io.*;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
-public class AdminMenuController {
 
-    public static final String[] OPTIONS = {"Display mentors",
-                                            "Add mentor",
-                                            "Edit mentor",
-                                            "Add group",
-                                            "Add level",
-                                            "Edit quest"};
+public class AdminMenuController implements HttpHandler {
 
-    private static final int DISPLAY_MENTORS = 1;
-    private static final int ADD_MENTOR = 2;
-    private static final int EDIT_MENTOR = 3;
-    private static final int ADD_GROUP = 4;
-    private static final int ADD_LEVEL = 5;
-    private static final int EDIT_QUEST = 6;
-    private static final int EXIT = 0;
+    private Map<String, Callable> getCommands = new HashMap<String, Callable>();
+    private Map<String, Callable> postCommands = new HashMap<String, Callable>();
 
-    private Admin admin;
-    private AdminView adminView = new AdminView();;
-    private MentorController mentorController = new MentorController();
-    ArrayList<Mentor> mentors;
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+        String response = "";
+        String method = httpExchange.getRequestMethod();
 
-    public AdminMenuController(Admin admin) {
-        this.admin = admin;
-        this.adminView = new AdminView();
-        this.mentorController = new MentorController();
+        if (method.equals("GET")) {
+            response = this.findCommand(httpExchange, getCommands);
+        }
+
+        if (method.equals("POST")) {
+            response = this.findCommand(httpExchange, postCommands);
+        }
+
+        httpExchange.sendResponseHeaders(200, response.length());
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(response.getBytes());
+        os.close();
     }
 
-    public void start() {
-        Integer option = 1;
-        while (!option.equals(EXIT)) {
-            adminView.printMenu(OPTIONS);
-            option = adminView.getMenuOption();
+    private String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin.twig");
+        JtwigModel model = JtwigModel.newModel();
 
-            switch(option) {
-                case DISPLAY_MENTORS: displayAllMentors();
-                    break;
-                case ADD_MENTOR: createMentor();
-                    break;
-                case EDIT_MENTOR: editMentor();
-                    break;
-                case ADD_GROUP: addGroup();
-                    break;
-                case ADD_LEVEL: addLevel();
-                    break;
-                case EDIT_QUEST: editQuest();
-                    break;
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        return template.render(model);
+    }
+
+    private String displayMentors() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_list.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // TODO display unsigned mentors group other than 'null'
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("mentors", new MentorController().getAllMentors());
+
+        return template.render(model);
+    }
+
+    private String displayGroups() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_list.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
+
+        return template.render(model);
+    }
+
+    private String displayNewMentorForm() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_add.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("groups", new GroupController().getAllGroups());
+
+        return template.render(model);
+    }
+
+    private String displayExistingMentorForm(HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_edit.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
+        model.with("groups", new GroupController().getAllGroups());
+
+        return template.render(model);
+    }
+
+    private String displayExistingGroupForm(HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_edit.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("group", new GroupController().getGroup(this.parseLogin(httpExchange)));
+
+        return template.render(model);
+    }
+
+    private String displayNewGroupForm() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_add.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        return template.render(model);
+    }
+
+    private String addMentor(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        // TODO data validation!
+        MentorController ctrl = new MentorController();
+        ctrl.createMentorFromMap(inputs);
+
+        return this.displayMentors();
+    }
+
+    private String addGroup(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        // TODO data validation!
+        GroupController ctrl = new GroupController();
+        ctrl.createGroupFromMap(inputs);
+
+        return this.displayGroups();
+    }
+
+    private String editMentor(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        // TODO data validation!
+        MentorController ctrl = new MentorController();
+        ctrl.editMentorFromMap(inputs, this.parseLogin(httpExchange));
+
+        return this.displayMentors();
+    }
+
+    private String editGroup(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        // TODO data validation!
+        GroupController ctrl = new GroupController();
+        ctrl.editGroupFromMap(inputs, this.parseLogin(httpExchange));
+
+        return this.displayGroups();
+    }
+
+    private String removeMentor(HttpExchange httpExchange) throws IOException {
+        MentorController mentorController = new MentorController();
+        mentorController.removeMentor(this.parseLogin(httpExchange));
+
+        return this.displayMentors();
+    }
+
+    private String removeGroup(HttpExchange httpExchange) throws IOException {
+        GroupController groupController = new GroupController();
+        groupController.removeGroup(this.parseLogin(httpExchange));
+
+        return this.displayGroups();
+    }
+
+    private String parseLogin(HttpExchange httpExchange) {
+        return httpExchange.getRequestURI().getPath().split("/")[5];
+    }
+
+
+    private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
+        Map<String, String> map = new HashMap<>();
+        String[] pairs = formData.split("&");
+        for(String pair : pairs){
+            String[] keyValue = pair.split("=");
+            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
+            map.put(keyValue[0], value);
+        }
+        return map;
+    }
+
+    private void addGetCommands (HttpExchange httpExchange) {
+        getCommands.put("/admin", () -> {return this.displayProfile();} );
+        getCommands.put("/admin/mentors/list", () -> {return this.displayMentors();} );
+        getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayExistingMentorForm(httpExchange);} );
+        getCommands.put("/admin/mentors/list/remove/.+", () -> { return this.removeMentor(httpExchange);} );
+        getCommands.put("/admin/mentors/add", () -> {return this.displayNewMentorForm();} );
+        getCommands.put("/admin/groups/list", () -> {return this.displayGroups();} );
+        getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayExistingGroupForm(httpExchange);} );
+        getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
+        getCommands.put("/admin/groups/add", () -> {return this.displayNewGroupForm();} );
+    }
+
+    private void addPostCommands (HttpExchange httpExchange) {
+        postCommands.put("/admin/mentors/add", () -> { return this.addMentor(httpExchange);} );
+        postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
+        postCommands.put("/admin/mentors/list/edit/.+", () -> { return this.editMentor(httpExchange);} );
+        postCommands.put("/admin/groups/list/edit/.+", () -> { return this.editGroup(httpExchange);} );
+
+    }
+
+    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
+        String response = null;
+        String path = httpExchange.getRequestURI().getPath();
+        Set<String> keys = mapName.keySet();
+
+        this.addGetCommands(httpExchange);
+        this.addPostCommands(httpExchange);
+
+        for (String key : keys) {
+            if (path.matches(key)) {
+                try {
+                    response = (String) mapName.get(key).call();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
+        return response;
     }
 
-    public void displayAllMentors() {
-        mentorController.displayMentors();
-    }
-
-    public void createMentor() {
-        mentorController.addMentor();
-    }
-
-    public void editMentor() {
-        mentorController.editMentor();
-    }
-
-    public void addGroup() {
-        GroupController groupController = new GroupController();
-        groupController.createGroup();
-    }
-
-    public void addLevel() {
-        ;
-    }
-
-    public void editQuest() {
-        QuestController questController = new QuestController();
-        questController.editQuest();
-    }
 }

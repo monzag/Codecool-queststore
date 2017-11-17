@@ -14,9 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class MentorMenuController implements HttpHandler{
-
-    private StudentController studentController = new StudentController();
+public class MentorQuestController implements HttpHandler {
     private QuestController questController = new QuestController();
     private ArrayList<Quest> questsList;
     private Map<String, Callable> getCommands = new HashMap<>();
@@ -24,7 +22,6 @@ public class MentorMenuController implements HttpHandler{
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-
         String response = "";
         String method = httpExchange.getRequestMethod();
 
@@ -36,68 +33,10 @@ public class MentorMenuController implements HttpHandler{
             response = findCommand(httpExchange, postCommands);
         }
 
-
         httpExchange.sendResponseHeaders(200, response.length());
         OutputStream os = httpExchange.getResponseBody();
         os.write(response.getBytes());
         os.close();
-
-    }
-
-    private String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
-
-        String response = template.render(model);
-
-        return response;
-    }
-
-    private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showGroups.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("message", message);
-        model.with("students", studentController.getStudents());
-
-        String response = template.render(model);
-
-        return response;
-    }
-
-    private String displayAddStudentFormula() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addStudent.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("groups", new GroupController().getAllGroups());
-
-        String response = template.render(model);
-
-        return response;
-    }
-
-    private String addStudent(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
-
-        System.out.println(formData);
-        Map inputs = parseFormData(formData);
-        String name = inputs.get("name").toString();
-        String surname = inputs.get("surname").toString();
-        String email = inputs.get("email").toString();
-        String groupName = inputs.get("group").toString();
-        studentController.addStudent(name, surname, email, groupName);
-
-        return displayGroups("Student has been added");
-
     }
 
     private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
@@ -105,75 +44,11 @@ public class MentorMenuController implements HttpHandler{
         String[] pairs = formData.split("&");
         for(String pair : pairs){
             String[] keyValue = pair.split("=");
+
             String value = new URLDecoder().decode(keyValue[1], "UTF-8");
             map.put(keyValue[0], value);
         }
         return map;
-    }
-
-    private String removeStudent(HttpExchange httpExchange) {
-        String login = parseUrl(httpExchange, 4);
-        studentController.removeStudent(login);
-
-        return displayGroups("Student has been removed");
-    }
-
-    private String parseUrl(HttpExchange httpExchange, int index) {
-        return httpExchange.getRequestURI().getPath().split("/")[index];
-    }
-
-    private String displayEditFormula(HttpExchange httpExchange) {
-        String login = parseUrl(httpExchange, 4);
-
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editStudent.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("student", studentController.chooseStudent(login));
-
-        return template.render(model);
-    }
-
-    private String editStudent(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
-
-        System.out.println(formData);
-        Map inputs = parseFormData(formData);
-        String name = inputs.get("name").toString();
-        String surname = inputs.get("surname").toString();
-        String email = inputs.get("email").toString();
-        String groupName = inputs.get("group").toString();
-        String login = parseUrl(httpExchange, 4);
-        studentController.editStudent(login, name, surname, email, groupName);
-
-        return displayGroups("Student has been edited");
-    }
-
-    private String displayQuestsToMark(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/markQuest.twig");
-        JtwigModel model = JtwigModel.newModel();
-        String login = parseUrl(httpExchange, 4);
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("message", message);
-        model.with("studentLogin", login);
-        model.with("questsList", questController.showAllQuests());
-
-        String response = template.render(model);
-
-        return response;
-    }
-
-    private String markQuest(HttpExchange httpExchange) {
-        String login = parseUrl(httpExchange, 4);
-
-        String questName = parseUrl(httpExchange, 6);
-        questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
-
-        return displayQuestsToMark("Quest has been marked", httpExchange);
     }
 
     private String displayAddQuest() {
@@ -195,7 +70,7 @@ public class MentorMenuController implements HttpHandler{
         InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
         String formData = br.readLine();
-
+        
         Map inputs = parseFormData(formData);
         System.out.println("2");
 
@@ -289,4 +164,5 @@ public class MentorMenuController implements HttpHandler{
 
         return response;
     }
+
 }

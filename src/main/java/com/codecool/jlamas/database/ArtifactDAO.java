@@ -17,8 +17,8 @@ public class ArtifactDAO {
         String sql = "SELECT name, price, description FROM artifact";
 
         try (Connection c = ConnectDB.connect();
-             Statement stmt  = c.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)){
 
             while (rs.next()) {
                 Artifact artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
