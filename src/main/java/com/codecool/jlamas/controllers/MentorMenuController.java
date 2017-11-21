@@ -266,7 +266,7 @@ public class MentorMenuController implements HttpHandler{
         getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
         getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
         getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
-        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange)}; );
+        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
     }
 
     private void addPostCommands(HttpExchange httpExchange) {
@@ -275,6 +275,7 @@ public class MentorMenuController implements HttpHandler{
         postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
         postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
         postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
+        postCommands.put("/mentor/artifact/edit/.+", () -> { return editArtifact(httpExchange);} );
     }
 
     private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
