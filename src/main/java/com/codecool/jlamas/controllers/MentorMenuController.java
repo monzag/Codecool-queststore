@@ -24,7 +24,6 @@ public class MentorMenuController implements HttpHandler{
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-
         String response = "";
         String method = httpExchange.getRequestMethod();
 
@@ -36,13 +35,11 @@ public class MentorMenuController implements HttpHandler{
             response = findCommand(httpExchange, postCommands);
         }
 
-
         final byte[] finalResponseBytes = response.getBytes("UTF-8");
         httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
         OutputStream os = httpExchange.getResponseBody();
         os.write(finalResponseBytes);
         os.close();
-
     }
 
     private String displayProfile() {
