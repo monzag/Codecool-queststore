@@ -209,12 +209,9 @@ public class MentorMenuController implements HttpHandler{
 
     }
 
-    private String parseQuestName(HttpExchange httpExchange) {
-        return httpExchange.getRequestURI().getPath().split("/")[4];
-    }
 
     private String removeQuest(HttpExchange httpExchange) {
-        String questName = parseQuestName(httpExchange);
+        String questName = parseUrl(httpExchange, 4);
         Quest quest = questController.chooseQuest(questName);
 
         questController.deleteQuest(quest);
@@ -223,7 +220,7 @@ public class MentorMenuController implements HttpHandler{
     }
 
     private String displayEditQuestForm(HttpExchange httpExchange) {
-        String questName = parseQuestName(httpExchange);
+        String questName = parseUrl(httpExchange, 4);
         Quest quest = questController.chooseQuest(questName);
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -243,7 +240,7 @@ public class MentorMenuController implements HttpHandler{
         String name = inputs.get("questName").toString();
         String description = inputs.get("description").toString();
         Integer reward = Integer.valueOf(inputs.get("reward").toString());
-        String oldName = parseQuestName(httpExchange);
+        String oldName = parseUrl(httpExchange, 4);
 
         Quest quest = new Quest(name, description, reward);
 
