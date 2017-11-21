@@ -5,7 +5,6 @@
     <title>questore</title>
     <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 <body>
@@ -36,29 +35,24 @@
     </footer>
 </section>
 <form method="POST" class="add">
-    <!-- <h3>Add new mentor</h3> -->
-    <h3>Add new quest</h3>
+    <h3>Add new artifact</h3>
 
     <table class="input-table">
         <tr>
-            <th>Quest Name:</th>
-            <th><input type="text" name="questName" value="{{ quest.getName() }}"></th>
+            <th>Artifact Name:</th>
+            <th><input type="text" name="artifactName" value=""></th>
         </tr>
         <tr>
             <th>Description:</th>
-            <th><input type="text" name="description" value="{{ quest.getDescription() }}"></th>
+            <th><input type="text" name="description" value=""></th>
         </tr>
         <tr>
-            <th>Reward:</th>
-            <th><input type="text" name="reward" value="{{ quest.getReward() }}"></th>
+            <th>Price:</th>
+            <th><input type="text" name="price" value=""></th>
         </tr>
     </table>
 
     <button class="submit" type="submit">submit</button>
 </form>
-
-<script>
-    w3.includeHTML();
-</script>
 </body>
 </html>

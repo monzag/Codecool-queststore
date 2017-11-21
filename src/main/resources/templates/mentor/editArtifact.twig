@@ -5,7 +5,6 @@
   <title>questore</title>
   <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 <body>
@@ -36,44 +35,23 @@
     </footer>
   </section>
   <form method="POST" class="add">
-    <!-- <h3>Add new mentor</h3> -->
-    <h3>Add new student</h3>
+    <h3>Edit artifact</h3>
 
     <table class="input-table">
       <tr>
         <th>Name:</th>
-        <th><input type="text" name="name" value="" required></th>
+        <th><input type="text" name="artifactName" value="{{ artifact.getName() }}"></th>
       </tr>
       <tr>
-        <th>Surname:</th>
-        <th><input type="text" name="surname" value="" required></th>
+        <th>Description:</th>
+        <th><input type="text" name="description" value="{{ artifact.getDescription() }}"></th>
       </tr>
       <tr>
-        <th>Email:</th>
-        <th><input type="email" name="email" value="" required></th>
+        <th>Price:</th>
+        <th><input type="text" name="price" value="{{ artifact.getPrice() }}"></th>
       </tr>
-      <tr>
-        <th>Group:</th>
-        <th>
-		<select name="group">
-                    {% for group in groups %}
-                    <option value="{{ group.getName() }}">{{ group.getName }}</option>
-                    {% endfor %}
-                </select>
-	</th>
-      </tr>
-      <!-- optional only in student creation -->
-      <!--tr>
-        <th>Team:</th>
-        <th><input type="text" name="class" value=""></th>
-      </tr> -->
     </table>
-
-      <button class="submit" type="submit">submit</button>
+   <button class="submit" type="submit">submit</button>
   </form>
-
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>

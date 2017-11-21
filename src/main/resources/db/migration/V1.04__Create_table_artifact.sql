@@ -1,8 +1,9 @@
 CREATE TABLE IF NOT EXISTS `artifact` (
-	`name`	TEXT NOT NULL UNIQUE,
+	`id` INTEGER UNIQUE NOT NULL,
+	`name` TEXT NOT NULL UNIQUE,
 	`price`	INTEGER NOT NULL,
 	`description`	TEXT NOT NULL,
-	PRIMARY KEY(`name`)
+	PRIMARY KEY(`id`)
 );
 
 CREATE TABLE IF NOT EXISTS `owned_artifact` (

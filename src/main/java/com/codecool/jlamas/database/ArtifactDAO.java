@@ -14,14 +14,15 @@ public class ArtifactDAO {
 
     public ArrayList<Artifact> requestAll(){
         ArrayList<Artifact> artifactList = new ArrayList<>();
-        String sql = "SELECT name, price, description FROM artifact";
+        String sql = "SELECT id, name, price, description FROM artifact";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(sql)){
 
             while (rs.next()) {
-                Artifact artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
+                Artifact artifact = new Artifact(rs.getInt("id"), rs.getString("name"),
+                                    rs.getInt("price"), rs.getString("description"));
                 artifactList.add(artifact);
             }
         } catch (ClassNotFoundException|SQLException e) {
@@ -48,7 +49,7 @@ public class ArtifactDAO {
     }
 
     public void update(Artifact artifact, String preUpdateName) {
-        String sql = "UPDATE artifact SET name = ? , "
+        String sql = "UPDATE artifact(name, price, description) SET name = ? , "
                 + "price = ? , "
                 + "description = ? "
                 + "WHERE name = ?";
@@ -61,6 +62,40 @@ public class ArtifactDAO {
             pstmt.setString(3, artifact.getDescription());
             pstmt.setString(4, preUpdateName);
             pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public Artifact selectArtifact(String artifactName) {
+        String sql = String.format("SELECT * FROM `artifact` WHERE name = '%s'; ",
+                artifactName);
+        Artifact artifact = null;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return artifact;
+    }
+
+    public void deleteArtifact(Artifact artifact) {
+        String query;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            query = String.format("DELETE FROM `artifact` WHERE name = '%s'; ",
+                    artifact.getName());
+
+            stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
