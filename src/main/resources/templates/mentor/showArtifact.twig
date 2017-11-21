@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>questore</title>
+  <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
+  <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+</head>
+
+<body>
+  <header class="primary-header">
+    <img src="/static/assets/pics/web/logo.jpg">
+    <nav class="primary-nav">
+      <ul>
+        <li><a href="">about</a></li><!--
+     --><li><a href="">contact</a></li><!--
+     --><li><a class="logout-btn" href="">logout</a></li>
+      </ul>
+    </nav>
+  </header>
+  <section class="menu-bar">
+    <div class="frame">
+      <img src="/static/assets/pics/profiles/{{ login }}.jpg">
+      <nav>
+        <ul class="menu-nav">
+          <li><a href="/mentor">profile</a></li>
+          <li><a href="/mentor/groups">groups</a></li>
+          <li><a href="/mentor/team">teams</a></li>
+          <li><a href="/mentor/quest/show">quests</a></li>
+          <li><a href="/mentor/artifact/show">artifacts</a></li>
+        </ul>
+      </nav>
+    </div>
+    <footer>
+      <small>&copy; pyLamas</small>
+    </footer>
+  </section>
+    
+  <section class="users-table">
+   <div>
+    {% if (message.length > 0) %}
+       <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px;display:inline-block" ><h4>{{ message }}</h4>
+    {% endif %}
+   </div>
+    <h3>Artifact</h3>
+        <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Price</th>
+      </tr>
+      <tr>
+          {% set i = 0 %}
+        {% for artifact in artifacts %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ artifact.getName() }}</td>
+                <td>{{ artifact.getDescription() }}</td>
+                <td>{{ artifact.getPrice }}</td>
+                <td><a class="btn" id="edit-btn" href="/mentor/artifact/edit/{{ artifact.getName() }}">Edit</a></td>
+                <td><a class="btn" id="remove-btn" href="/mentor/artifact/remove/{{ artifact.getName() }}">Remove</a></td>
+
+      </tr>
+        {% endfor %}
+      <tr>
+        <th class="btn" id="add-btn"><a href="/mentor/artifact/add">Add new</a></th>
+      </tr>
+    </table>
+  </section>
+</body>
+</html>
