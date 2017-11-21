@@ -3,7 +3,6 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.database.OwnedArtifactDAO;
 import com.codecool.jlamas.database.StudentDAO;
-import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.views.ArtifactView;
 
@@ -15,7 +14,7 @@ public class ArtifactController {
     private static final String EDIT_PRICE = "2";
     private static final String EDIT_DESCRIPTION = "3";
 
-    private ArtifactDAO artifacts = new ArtifactDAO();
+    private ArtifactDAO artifactDao = new ArtifactDAO();
     private ArtifactView artifactView = new ArtifactView();
     private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
     private StudentDAO studentDAO = new StudentDAO();
@@ -23,8 +22,11 @@ public class ArtifactController {
     public ArtifactController() {
     }
 
-    public void displayArtifacts() {
-        artifactView.printArtifacts(artifacts.requestAll());
+    public ArrayList<Artifact> displayArtifacts() {
+        ArrayList<Artifact> artifacts = new ArrayList<>();
+        artifacts = artifactDao.requestAll();
+
+        return artifacts;
     }
 
     public void createArtifact() {
@@ -33,12 +35,12 @@ public class ArtifactController {
         String description = artifactView.getString("Type artifact description");
         Artifact artifact = new Artifact(name, price, description);
 
-        this.artifacts.insert(artifact);
+        this.artifactDao.insert(artifact);
     }
 
     public void editArtifact() {
         try {
-            Artifact artifact = chooseArtifact(artifacts.requestAll());
+            Artifact artifact = chooseArtifact(artifactDao.requestAll());
             String oldName = artifact.getName();
             artifactView.displayAttribute();
             String option = artifactView.getString("Your choice: ");
@@ -60,7 +62,7 @@ public class ArtifactController {
                     artifactView.printErrorMessage();
                     break;
             }
-            artifacts.update(artifact, oldName);
+            artifactDao.update(artifact, oldName);
         } catch (IndexOutOfBoundsException e) {
             e.getMessage();
         }
