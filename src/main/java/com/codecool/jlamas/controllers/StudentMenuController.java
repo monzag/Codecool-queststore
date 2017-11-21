@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.ArtifactDAO;
+import com.codecool.jlamas.database.OwnedArtifactDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -54,7 +55,7 @@ public class StudentMenuController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("artifacts", new ArtifactDAO().requestAll());
+        model.with("artifacts", new OwnedArtifactDAO().requestAllBy(student));
 
         return template.render(model);
     }
