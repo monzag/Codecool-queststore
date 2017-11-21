@@ -54,7 +54,6 @@ public class StudentMenuController implements HttpHandler {
     private String displayWallet() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
-
         model.with("artifacts", new OwnedArtifactDAO().requestAllBy(student));
 
         return template.render(model);
@@ -85,7 +84,7 @@ public class StudentMenuController implements HttpHandler {
         String artifactName = parseUrl(httpExchange, 4);
         walletController.addOwnedArtifact(new ArtifactController().chooseArtifact(artifactName));
 
-        return displayBoughtArtifact("Quest has been marked", httpExchange);
+        return displayBoughtArtifact("Artifact bought", httpExchange);
     }
 
     private String parseUrl(HttpExchange httpExchange, int index) {
