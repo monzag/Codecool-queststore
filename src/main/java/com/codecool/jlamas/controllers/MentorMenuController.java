@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -372,6 +371,6 @@ public class MentorMenuController implements HttpHandler{
 
         artifactController.editArtifact(oldName, name, description, price);
 
-        return displayQuests();
+        return displayArtifact("Artifact has been edited");
     }
 }
