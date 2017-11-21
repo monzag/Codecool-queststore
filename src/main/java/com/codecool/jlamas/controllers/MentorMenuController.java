@@ -263,6 +263,7 @@ public class MentorMenuController implements HttpHandler{
         getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
+        getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
     }
 
     private void addPostCommands(HttpExchange httpExchange) {
