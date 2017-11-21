@@ -91,7 +91,7 @@ public class ArtifactDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
 
-            query = String.format("DELETE FROM `quest` WHERE name = '%s'; ",
+            query = String.format("DELETE FROM `artifact` WHERE name = '%s'; ",
                     artifact.getName());
 
             stmt.executeUpdate(query);
