@@ -2,56 +2,70 @@ package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.views.StudentView;
+import com.sun.net.httpserver.HttpExchange;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class StudentMenuController {
 
-    public static final String[] MENU = {"Display wallet",
-                                         "Buy artifact",
-                                         "Display level"};
-
-    private static final int DISPLAY_WALLET = 1;
-    private static final int BUY_ARTIFACT = 2;
-    private static final int DISPLAY_LEVEL = 3;
-    private static final int EXIT = 0;
-
-    private StudentView studentView;
     private WalletController walletController;
-    private Student student;
+    private Student student = new Student();
+    private Map<String, Callable> getCommands = new HashMap<>();
+    private Map<String, Callable> postCommands = new HashMap<>();
 
-    public StudentMenuController(Student student) {
-        this.student = student;
-        this.studentView = new StudentView();
-        this.walletController = new WalletController(student);
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+        String response = "";
+        String method = httpExchange.getRequestMethod();
+
+        if (method.equals("GET")) {
+            response = findCommand(httpExchange, getCommands);
+        }
+
+        if (method.equals("POST")) {
+            response = findCommand(httpExchange, postCommands);
+        }
+
+        final byte[] finalResponseBytes = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(finalResponseBytes);
+        os.close();
     }
 
-    public void start() {
-        Integer option = 1;
-        while (!option.equals(EXIT)) {
-            studentView.printMenu(MENU);
-            option = studentView.getMenuOption();
+    private void addGetCommands(HttpExchange httpExchange) {
+        getCommands.put("/student", () -> { return displayProfile(httpExchange);} );
+        getCommands.put("/student/wallet", () -> { return displayWallet();} );
+        getCommands.put("/student/store", () -> {return displayStore();} );
+    }
 
-            switch(option) {
-                case DISPLAY_WALLET: displayWallet();
-                    break;
-                case BUY_ARTIFACT: buyArtifact();
-                    break;
-                case DISPLAY_LEVEL: displayLevel();
-                    break;
+    private void addPostCommands(HttpExchange httpExchange) {
+        postCommands.put("/student/wallet/add/.+", () -> { return buyArtifact(httpExchange);}  );
+    }
+
+    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
+        String response = null;
+        String path = httpExchange.getRequestURI().getPath();
+        Set<String> keys = mapName.keySet();
+
+        addGetCommands(httpExchange);
+        addPostCommands(httpExchange);
+
+        for (String key : keys) {
+
+            if (path.matches(key)) {
+                try {
+                    response = (String) mapName.get(key).call();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
-    }
-
-    public void displayWallet() {
-        this.walletController.displayBalance();
-        this.walletController.displayDoneQuests();
-        this.walletController.displayOwnedArtifacts();
-    }
-
-    public void buyArtifact() {
-        this.walletController.buyArtifact();
-    }
-
-    public void displayLevel() {
-        ;
+        return response;
     }
 }
