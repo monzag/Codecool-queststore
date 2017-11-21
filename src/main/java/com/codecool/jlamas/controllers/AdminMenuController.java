@@ -7,6 +7,7 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -31,9 +32,10 @@ public class AdminMenuController implements HttpHandler {
             response = this.findCommand(httpExchange, postCommands);
         }
 
-        httpExchange.sendResponseHeaders(200, response.length());
+        final byte[] finalResponseBytes = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
         OutputStream os = httpExchange.getResponseBody();
-        os.write(response.getBytes());
+        os.write(finalResponseBytes);
         os.close();
     }
 
