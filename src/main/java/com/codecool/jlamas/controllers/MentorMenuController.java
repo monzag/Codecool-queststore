@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -18,6 +19,7 @@ public class MentorMenuController implements HttpHandler{
 
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
+    private ArtifactController artifactController = new ArtifactController();
     private ArrayList<Quest> questsList;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -290,6 +292,20 @@ public class MentorMenuController implements HttpHandler{
                 }
             }
         }
+
+        return response;
+    }
+
+    public String displayArtifact(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("message", message);
+        model.with("artifacts", artifactController.displayArtifacts());
+
+        String response = template.render(model);
 
         return response;
     }
