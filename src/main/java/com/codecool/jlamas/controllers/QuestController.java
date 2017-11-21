@@ -44,10 +44,7 @@ public class QuestController {
     }
 
     public ArrayList<Quest> showAllQuests() {
-        ArrayList<Quest> questsList = new ArrayList<>();
-        questsList = this.questDAO.selectAll();
-
-        return questsList;
+        return this.questDAO.selectAll();
     }
 
     public Quest chooseQuest(String questName) {
