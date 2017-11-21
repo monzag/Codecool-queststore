@@ -1,57 +1,112 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.views.StudentView;
+import com.sun.net.httpserver.HttpExchange;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
+
+import java.io.IOException;
+import java.io.OutputStream;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.Callable;
 
 public class StudentMenuController {
 
-    public static final String[] MENU = {"Display wallet",
-                                         "Buy artifact",
-                                         "Display level"};
-
-    private static final int DISPLAY_WALLET = 1;
-    private static final int BUY_ARTIFACT = 2;
-    private static final int DISPLAY_LEVEL = 3;
-    private static final int EXIT = 0;
-
-    private StudentView studentView;
     private WalletController walletController;
-    private Student student;
+    private Student student = new Student();
+    private Map<String, Callable> getCommands = new HashMap<>();
+    private Map<String, Callable> postCommands = new HashMap<>();
 
-    public StudentMenuController(Student student) {
-        this.student = student;
-        this.studentView = new StudentView();
-        this.walletController = new WalletController(student);
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+        String response = "";
+        String method = httpExchange.getRequestMethod();
+
+        if (method.equals("GET")) {
+            response = findCommand(httpExchange, getCommands);
+        }
+
+        if (method.equals("POST")) {
+            response = findCommand(httpExchange, postCommands);
+        }
+
+        final byte[] finalResponseBytes = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(finalResponseBytes);
+        os.close();
     }
 
-    public void start() {
-        Integer option = 1;
-        while (!option.equals(EXIT)) {
-            studentView.printMenu(MENU);
-            option = studentView.getMenuOption();
+    private String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
+        JtwigModel model = JtwigModel.newModel();
 
-            switch(option) {
-                case DISPLAY_WALLET: displayWallet();
-                    break;
-                case BUY_ARTIFACT: buyArtifact();
-                    break;
-                case DISPLAY_LEVEL: displayLevel();
-                    break;
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        return template.render(model);
+    }
+
+    private String displayWallet() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("student", "student");
+        model.with("artifacts", new ArtifactDAO().requestAll());
+
+        return template.render(model);
+    }
+
+    private String displayStore() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("student", "student");
+        model.with("artifacts", new ArtifactDAO().requestAll());
+
+        return template.render(model);
+    }
+
+    private String buyArtifact(HttpExchange httpExchange) {
+        //TODO;
+        return "";
+    }
+
+    private void addGetCommands(HttpExchange httpExchange) {
+        getCommands.put("/student", () -> { return displayProfile();} );
+        getCommands.put("/student/wallet", () -> { return displayWallet();} );
+        getCommands.put("/student/store", () -> {return displayStore();} );
+    }
+
+    private void addPostCommands(HttpExchange httpExchange) {
+        postCommands.put("/student/wallet/add/.+", () -> { return buyArtifact(httpExchange);}  );
+    }
+
+    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
+        String response = null;
+        String path = httpExchange.getRequestURI().getPath();
+        Set<String> keys = mapName.keySet();
+
+        addGetCommands(httpExchange);
+        addPostCommands(httpExchange);
+
+        for (String key : keys) {
+
+            if (path.matches(key)) {
+                try {
+                    response = (String) mapName.get(key).call();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
         }
+        return response;
     }
 
-    public void displayWallet() {
-        this.walletController.displayBalance();
-        this.walletController.displayDoneQuests();
-        this.walletController.displayOwnedArtifacts();
-    }
 
-    public void buyArtifact() {
-        this.walletController.buyArtifact();
-    }
-
-    public void displayLevel() {
-        ;
-    }
 }

@@ -2,6 +2,7 @@ package com.codecool.jlamas.models.artifact;
 
 public class Artifact {
 
+    private Integer id;
     private String name;
     private Integer price;
     private String description;
@@ -10,10 +11,15 @@ public class Artifact {
 
     }
 
-    public Artifact(String name, Integer price, String description) {
+    public Artifact(Integer id, String name, Integer price, String description) {
+        this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
+    }
+
+    public Integer getId() {
+        return this.id();
     }
 
     public String getName() {
@@ -26,6 +32,10 @@ public class Artifact {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public void setName(Integer id) {
+        this.id = id;
     }
 
     public void setName(String name) {
