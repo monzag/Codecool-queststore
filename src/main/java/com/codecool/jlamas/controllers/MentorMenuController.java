@@ -310,4 +310,21 @@ public class MentorMenuController implements HttpHandler{
 
         return response;
     }
+
+    public String addArtifact(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("artifactName").toString();
+        String description = inputs.get("description").toString();
+        Integer price = Integer.valueOf(inputs.get("price").toString());
+        artifactController.createArtifact(name, description, price);
+
+
+        return displayArtifact("Artifact has been added");
+
+    }
 }
