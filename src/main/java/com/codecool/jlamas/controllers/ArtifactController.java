@@ -29,12 +29,8 @@ public class ArtifactController {
         return artifacts;
     }
 
-    public void createArtifact() {
-        String name = artifactView.getString("Type artifact name");
-        Integer price = artifactView.getInt("Type price value");
-        String description = artifactView.getString("Type artifact description");
+    public void createArtifact(String name, String description, Integer price) {
         Artifact artifact = new Artifact(name, price, description);
-
         this.artifactDao.insert(artifact);
     }
 
