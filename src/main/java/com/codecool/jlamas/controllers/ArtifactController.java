@@ -45,14 +45,9 @@ public class ArtifactController {
         artifactDao.update(artifact, oldName);
     }
 
-    public Artifact chooseArtifact(ArrayList<Artifact> artifacts) throws IndexOutOfBoundsException {
-        artifactView.printArtifacts(artifacts);
-        Integer record = artifactView.getMenuOption();
-        Integer index = record - 1;
-        if (index >= artifacts.size()) {
-            throw new IndexOutOfBoundsException();
-        }
-        return artifacts.get(index);
+    public Artifact chooseArtifact(String artifactName) {
+        Artifact artifact = artifactDao.selectArtifact(artifactName);
+        return artifact;
     }
 
 //    public boolean useArtifact() throws IndexOutOfBoundsException {
