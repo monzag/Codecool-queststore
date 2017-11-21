@@ -66,4 +66,22 @@ public class ArtifactDAO {
             System.out.println(e.getMessage());
         }
     }
+
+    public Artifact selectArtifact(String artifactName) {
+        String sql = String.format("SELECT * FROM `artifact` WHERE name = '%s'; ",
+                artifactName);
+        Artifact artifact = null;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return artifact;
+    }
 }
