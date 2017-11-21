@@ -1,6 +1,5 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -264,6 +263,7 @@ public class MentorMenuController implements HttpHandler{
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
         getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
+        getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
     }
 
     private void addPostCommands(HttpExchange httpExchange) {
@@ -306,6 +306,15 @@ public class MentorMenuController implements HttpHandler{
         model.with("login", "student");
         model.with("message", message);
         model.with("artifacts", artifactController.displayArtifacts());
+
+        String response = template.render(model);
+
+        return response;
+    }
+
+    public String displayAddArtifact() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
 
         String response = template.render(model);
 
