@@ -2,9 +2,8 @@ package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.artifact.Artifact;
-import com.codecool.jlamas.views.StudentView;
 import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -15,7 +14,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class StudentMenuController {
+public class StudentMenuController implements HttpHandler {
 
     private Student student = new Student();
     private WalletController walletController = new WalletController(student);
