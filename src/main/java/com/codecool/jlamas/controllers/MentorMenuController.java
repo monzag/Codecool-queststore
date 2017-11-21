@@ -337,4 +337,11 @@ public class MentorMenuController implements HttpHandler{
         return displayArtifact("Artifact has been added");
 
     }
+
+    public String removeArtifact(HttpExchange httpExchange) {
+        String login = parseUrl(httpExchange, 4);
+        artifactController.removeArtifact();
+
+        return displayArtifact("Artifact has been removed");
+    }
 }
