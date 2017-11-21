@@ -29,6 +29,12 @@ public class ArtifactController {
         return artifacts;
     }
 
+    public void removeArtifact(String name) {
+        Artifact artifact = artifactDao.selectArtifact(name);
+        artifactDao.deleteArtifact(artifact);
+    }
+
+
     public void createArtifact(String name, String description, Integer price) {
         Artifact artifact = new Artifact(name, price, description);
         this.artifactDao.insert(artifact);
