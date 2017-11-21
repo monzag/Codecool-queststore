@@ -1,8 +1,12 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.views.StudentView;
 import com.sun.net.httpserver.HttpExchange;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -38,8 +42,43 @@ public class StudentMenuController {
         os.close();
     }
 
+    private String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        return template.render(model);
+    }
+
+    private String displayWallet() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("student", "student");
+        model.with("artifacts", new ArtifactDAO().requestAll());
+
+        return template.render(model);
+    }
+
+    private String displayStore() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("student", "student");
+        model.with("artifacts", new ArtifactDAO().requestAll());
+
+        return template.render(model);
+    }
+
+    private String buyArtifact(HttpExchange httpExchange) {
+        //TODO;
+        return "";
+    }
+
     private void addGetCommands(HttpExchange httpExchange) {
-        getCommands.put("/student", () -> { return displayProfile(httpExchange);} );
+        getCommands.put("/student", () -> { return displayProfile();} );
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
         getCommands.put("/student/store", () -> {return displayStore();} );
     }
@@ -68,4 +107,6 @@ public class StudentMenuController {
         }
         return response;
     }
+
+
 }
