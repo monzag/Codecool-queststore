@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -344,5 +345,21 @@ public class MentorMenuController implements HttpHandler{
         artifactController.removeArtifact(name);
 
         return displayArtifact("Artifact has been removed");
+    }
+
+    public String editArtifact(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("artifactName").toString();
+        String description = inputs.get("description").toString();
+        Integer price = Integer.valueOf(inputs.get("price").toString());
+        String oldName = parseUrl(httpExchange, 4);
+
+        artifactController.editArtifact(oldName, name, description, price);
+
+        return displayQuests();
     }
 }
