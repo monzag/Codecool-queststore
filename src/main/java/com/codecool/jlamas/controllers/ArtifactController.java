@@ -40,34 +40,9 @@ public class ArtifactController {
         this.artifactDao.insert(artifact);
     }
 
-    public void editArtifact() {
-        try {
-            Artifact artifact = chooseArtifact(artifactDao.requestAll());
-            String oldName = artifact.getName();
-            artifactView.displayAttribute();
-            String option = artifactView.getString("Your choice: ");
-
-            switch (option) {
-                case EDIT_NAME:
-                    String name = artifactView.getString("New name: ");
-                    artifact.setName(name);
-                    break;
-                case EDIT_PRICE:
-                    Integer price = artifactView.getInt("New price: ");
-                    artifact.setPrice(price);
-                    break;
-                case EDIT_DESCRIPTION:
-                    String description = artifactView.getString("New description: ");
-                    artifact.setDescription(description);
-                    break;
-                default:
-                    artifactView.printErrorMessage();
-                    break;
-            }
-            artifactDao.update(artifact, oldName);
-        } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
-        }
+    public void editArtifact(String oldName, String name, String description, Integer price) {
+        Artifact artifact = new Artifact(name, price, description);
+        artifactDao.update(artifact, oldName);
     }
 
     public Artifact chooseArtifact(ArrayList<Artifact> artifacts) throws IndexOutOfBoundsException {
