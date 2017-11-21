@@ -271,6 +271,7 @@ public class MentorMenuController implements HttpHandler{
         postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
         postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
         postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
+        postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
     }
 
     private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
