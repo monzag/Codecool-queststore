@@ -23,10 +23,7 @@ public class ArtifactController {
     }
 
     public ArrayList<Artifact> displayArtifacts() {
-        ArrayList<Artifact> artifacts = new ArrayList<>();
-        artifacts = artifactDao.requestAll();
-
-        return artifacts;
+        return artifactDao.requestAll();
     }
 
     public void removeArtifact(String name) {
