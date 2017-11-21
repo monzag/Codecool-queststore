@@ -266,6 +266,7 @@ public class MentorMenuController implements HttpHandler{
         getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
         getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
         getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
+        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange)}; );
     }
 
     private void addPostCommands(HttpExchange httpExchange) {
@@ -345,6 +346,16 @@ public class MentorMenuController implements HttpHandler{
         artifactController.removeArtifact(name);
 
         return displayArtifact("Artifact has been removed");
+    }
+
+    public String displayEditArtifactFormula(HttpExchange httpExchange) {
+        String artifactName = parseUrl(httpExchange, 4);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("artifact", artifactController.chooseArtifact(artifactName));
+
+        return template.render(model);
     }
 
     public String editArtifact(HttpExchange httpExchange) throws IOException {
