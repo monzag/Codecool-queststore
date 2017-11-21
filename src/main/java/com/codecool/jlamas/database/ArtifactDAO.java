@@ -84,4 +84,20 @@ public class ArtifactDAO {
 
         return artifact;
     }
+
+    public void deleteArtifact(Artifact artifact) {
+        String query;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            query = String.format("DELETE FROM `quest` WHERE name = '%s'; ",
+                    artifact.getName());
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
