@@ -18,6 +18,7 @@ public class MentorMenuController implements HttpHandler{
 
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
+    private ArtifactController artifactController = new ArtifactController();
     private ArrayList<Quest> questsList;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -209,12 +210,9 @@ public class MentorMenuController implements HttpHandler{
 
     }
 
-    private String parseQuestName(HttpExchange httpExchange) {
-        return httpExchange.getRequestURI().getPath().split("/")[4];
-    }
 
     private String removeQuest(HttpExchange httpExchange) {
-        String questName = parseQuestName(httpExchange);
+        String questName = parseUrl(httpExchange, 4);
         Quest quest = questController.chooseQuest(questName);
 
         questController.deleteQuest(quest);
@@ -223,7 +221,7 @@ public class MentorMenuController implements HttpHandler{
     }
 
     private String displayEditQuestForm(HttpExchange httpExchange) {
-        String questName = parseQuestName(httpExchange);
+        String questName = parseUrl(httpExchange, 4);
         Quest quest = questController.chooseQuest(questName);
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -243,7 +241,7 @@ public class MentorMenuController implements HttpHandler{
         String name = inputs.get("questName").toString();
         String description = inputs.get("description").toString();
         Integer reward = Integer.valueOf(inputs.get("reward").toString());
-        String oldName = parseQuestName(httpExchange);
+        String oldName = parseUrl(httpExchange, 4);
 
         Quest quest = new Quest(name, description, reward);
 
@@ -264,6 +262,10 @@ public class MentorMenuController implements HttpHandler{
         getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
+        getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
+        getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
+        getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
+        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
     }
 
     private void addPostCommands(HttpExchange httpExchange) {
@@ -271,6 +273,8 @@ public class MentorMenuController implements HttpHandler{
         postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
         postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
         postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
+        postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
+        postCommands.put("/mentor/artifact/edit/.+", () -> { return editArtifact(httpExchange);} );
     }
 
     private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
@@ -295,5 +299,78 @@ public class MentorMenuController implements HttpHandler{
         }
 
         return response;
+    }
+
+    public String displayArtifact(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("message", message);
+        model.with("artifacts", artifactController.displayArtifacts());
+
+        String response = template.render(model);
+
+        return response;
+    }
+
+    public String displayAddArtifact() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        String response = template.render(model);
+
+        return response;
+    }
+
+    public String addArtifact(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("artifactName").toString();
+        String description = inputs.get("description").toString();
+        Integer price = Integer.valueOf(inputs.get("price").toString());
+        artifactController.createArtifact(name, description, price);
+
+
+        return displayArtifact("Artifact has been added");
+
+    }
+
+    public String removeArtifact(HttpExchange httpExchange) {
+        String name = parseUrl(httpExchange, 4);
+        artifactController.removeArtifact(name);
+
+        return displayArtifact("Artifact has been removed");
+    }
+
+    public String displayEditArtifactFormula(HttpExchange httpExchange) {
+        String artifactName = parseUrl(httpExchange, 4);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("artifact", artifactController.chooseArtifact(artifactName));
+
+        return template.render(model);
+    }
+
+    public String editArtifact(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        String name = inputs.get("artifactName").toString();
+        String description = inputs.get("description").toString();
+        Integer price = Integer.valueOf(inputs.get("price").toString());
+        String oldName = parseUrl(httpExchange, 4);
+
+        artifactController.editArtifact(oldName, name, description, price);
+
+        return displayArtifact("Artifact has been edited");
     }
 }

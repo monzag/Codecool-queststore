@@ -45,18 +45,18 @@ public class WalletController {
     }
 
     public void buyArtifact() throws IndexOutOfBoundsException {
-        try {
-            Artifact artifact = artifactController.chooseArtifact(artifactDAO.requestAll());
-            if (student.getWallet().take(artifact.getPrice())) {
-                studentDAO.update(student);
-                addOwnedArtifact(artifact);
-            }
-            else {
-                System.out.println("Not enough money!");
-            }
-        } catch (IndexOutOfBoundsException e) {
-            System.out.println(e.getMessage());
-        }
+//        try {
+//            Artifact artifact = artifactController.chooseArtifact(artifactDAO.requestAll());
+//            if (student.getWallet().take(artifact.getPrice())) {
+//                studentDAO.update(student);
+//                addOwnedArtifact(artifact);
+//            }
+//            else {
+//                System.out.println("Not enough money!");
+//            }
+//        } catch (IndexOutOfBoundsException e) {
+//            System.out.println(e.getMessage());
+//        }
     }
 
     public void addOwnedArtifact(Artifact artifact) {
