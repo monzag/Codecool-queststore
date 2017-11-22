@@ -5,6 +5,7 @@ import java.util.Map;
 import java.util.Random;
 
 import com.codecool.jlamas.database.MentorDAO;
+import com.codecool.jlamas.exceptions.EmailAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.accountdata.Group;
@@ -35,9 +36,12 @@ public class MentorController {
         mentorDao.delete(this.getMentor(login));
     }
 
-    public void createMentorFromMap(Map<String, String> attrs) {
+    public void createMentorFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         Password password = this.getPassword();
+        if (!Mail.isValid(attrs.get("email"))) {
+            throw new EmailAlreadyUsedException();
+        }
         Mail email = new Mail(attrs.get("email"));
         String name = attrs.get("name");
         String surname = attrs.get("surname");
