@@ -25,7 +25,7 @@
         <img src="/static/assets/pics/profiles/student1.jpg">
         <nav>
             <ul class="menu-nav">
-                <li><a href="/student/profile">profile</a></li>
+                <li><a href="/student">profile</a></li>
                 <li><a href="/student/wallet">wallet</a></li>
                 <li><a href="/student/store">store</a></li>
             </ul>
@@ -36,8 +36,30 @@
         <small>&copy; pyLamas</small>
     </footer>
 </section>
-<video width="800" height="600" controls border>
-    <source src="/static/assets/video/getRich.mp4" type="video/mp4">
-</video>
+<section class="users-table">
+    <div>
+        {% if (message.length > 0) %}
+        <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px;display:inline-block" ><h4>{{ message }}</h4>
+        {% endif %}
+    </div>
+    <h3>Artifact store</h3>
+    <h5>Balance: {{ student.getWallet().getBalance() }}</h5>
+    <table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        {% for artifact in artifacts %}
+        <tr>
+            <td>{{ artifact.getName() }}</td>
+            <td>{{ artifact.getDescription() }}</td>
+            <td>{{ artifact.getPrice() }}</td>
+            <td>guwno</td>
+            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</td>
+        </tr>
+        {% endfor %}
+    </table>
+</section>
 </body>
 </html>

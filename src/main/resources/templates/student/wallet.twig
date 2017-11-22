@@ -36,9 +36,9 @@
         <small>&copy; pyLamas</small>
     </footer>
 </section>
-<h3>Your balance: {{ student.getWallet().getBalance() }}</h3><br>
 <section class="users-table">
     <h3>Your artifacts</h3>
+    <h5>Your balance: {{ student.getWallet().getBalance() }}</h5>
     <table style="width:100%">
         <tr>
             <th>Name</th>
@@ -48,8 +48,8 @@
         {% for artifact in artifacts %}
         <tr>
             <td>{{ artifact.getName() }}</td>
-            <td>{{ artifact.getPrice() }}</td>
             <td>{{ artifact.getDescription() }}</td>
+            <td>{{ artifact.getPrice() }}</td>
         </tr>
         {% endfor %}
     </table>
