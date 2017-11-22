@@ -75,9 +75,7 @@ public class MentorDAO {
 
     public boolean update(Mentor mentor) {
         // true if was successful
-
         String query;
-        System.out.println("here");
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
