@@ -11,16 +11,16 @@ public class Artifact {
 
     }
 
-    public Artifact(Integer id, String name, Integer price, String description) {
-        this.id = id;
+    public Artifact(String name, Integer price, String description) {
+//        this.id = id;
         this.name = name;
         this.price = price;
         this.description = description;
     }
 
-    public Integer getId() {
-        return this.id();
-    }
+//    public Integer getId() {
+//        return this.id();
+//    }
 
     public String getName() {
         return this.name;
