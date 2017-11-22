@@ -62,6 +62,7 @@ public class MentorMenuController implements HttpHandler{
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
+        model.with("groups", new GroupController().getAllGroups());
         model.with("students", studentController.getStudents());
 
         String response = template.render(model);
