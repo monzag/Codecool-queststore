@@ -2,6 +2,7 @@ package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.database.OwnedArtifactDAO;
+import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -17,7 +18,7 @@ import java.util.concurrent.Callable;
 
 public class StudentMenuController implements HttpHandler {
 
-    private Student student = new Student();
+    private Student student = new StudentDAO().getStudent("student");
     private WalletController walletController = new WalletController(student);
     private Map<String, Callable> getCommands = new HashMap<>();
 
@@ -54,6 +55,8 @@ public class StudentMenuController implements HttpHandler {
     private String displayWallet() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
+
+        model.with("student", student);
         model.with("artifacts", new OwnedArtifactDAO().requestAllBy(student));
 
         return template.render(model);
@@ -63,13 +66,14 @@ public class StudentMenuController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("student", student);
         model.with("artifacts", new ArtifactDAO().requestAll());
 
         return template.render(model);
     }
 
-    private String displayBoughtArtifact(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
+    private String displayBoughtArtifact(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/buyArtifact.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("message", message);
@@ -80,11 +84,16 @@ public class StudentMenuController implements HttpHandler {
     }
 
     private String buyArtifact(HttpExchange httpExchange) {
-        //String login = parseUrl(httpExchange, 3);
         String artifactName = parseUrl(httpExchange, 4);
-        walletController.addOwnedArtifact(new ArtifactController().chooseArtifact(artifactName));
+        String message;
 
-        return displayBoughtArtifact("Artifact bought", httpExchange);
+        if (walletController.buyArtifact(new ArtifactController().chooseArtifact(artifactName))) {
+            message = "Artifact bought";
+        } else {
+            message = "Artifact can't be bought";
+        }
+
+        return displayBoughtArtifact(message);
     }
 
     private String parseUrl(HttpExchange httpExchange, int index) {
@@ -95,7 +104,7 @@ public class StudentMenuController implements HttpHandler {
         getCommands.put("/student", () -> { return displayMovie();} );
         getCommands.put("/student/profile", () -> { return displayProfile();} );
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
-        getCommands.put("/student/wallet/add/.+", () -> { return buyArtifact(httpExchange);}  );
+        getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
         getCommands.put("/student/store", () -> {return displayStore();} );
     }
 
