@@ -59,10 +59,12 @@ public class MentorController {
 
         Mentor mentor = this.getMentor(login);
 
-        if (!Mail.isValid(attrs.get("email"))) {
-            throw new EmailAlreadyUsedException();
+        if (!mentor.hasEmail(attrs.get("email"))) {
+            if (!Mail.isValid(attrs.get("email"))) {
+                throw new EmailAlreadyUsedException();
+            }
+            mentor.setEmail(new Mail(attrs.get("email")));
         }
-        mentor.setEmail(new Mail(attrs.get("email")));
 
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
