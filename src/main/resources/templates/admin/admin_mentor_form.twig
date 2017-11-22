@@ -53,15 +53,28 @@
     <table class="input-table">
         <tr>
             <th>Name:</th>
-            <th><input type="text" name="name" value="{{ mentor.getName }}{{ name }}"></th>
+            <th>
+                <input type="text" name="name"
+                       value="{{ mentor.getName }}{{ name }}"
+                       title="Name should be between 3 and 17 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}">
+            </th>
         </tr>
         <tr>
             <th>Surname:</th>
-            <th><input type="text" name="surname" value="{{ mentor.getSurname }}{{ surname }}"></th>
+            <th>
+                <input type="text" name="surname"
+                       value="{{ mentor.getSurname }}{{ surname }}"
+                       title="Name should be between 3 and 17 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}">
+            </th>
         </tr>
         <tr>
             <th>Email:</th>
-            <th><input type="email" name="email" value="{{ mentor.getEmail.getValue }}"></th>
+            <th>
+                <input type="email" name="email"
+                       value="{{ mentor.getEmail.getValue }}">
+            </th>
         </tr>
         <tr>
             <th>Class:</th>
