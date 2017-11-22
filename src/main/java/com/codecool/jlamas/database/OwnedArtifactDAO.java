@@ -12,7 +12,7 @@ public class OwnedArtifactDAO {
 
     }
 
-    public void insert(Student student, Artifact artifact) {
+    public boolean insert(Student student, Artifact artifact) {
         String sql = "INSERT INTO owned_artifact(artifact_name, owner_name) VALUES (?, ?);";
 
         try (Connection c = ConnectDB.connect();
@@ -22,9 +22,12 @@ public class OwnedArtifactDAO {
             pstmt.setString(2, student.getLogin().getValue());
             pstmt.executeUpdate();
 
+            return true;
+
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public ArrayList<Artifact> requestAllBy(Student student) {
