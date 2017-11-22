@@ -41,8 +41,8 @@ public class MentorController {
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
         }
-
         Mail email = new Mail(attrs.get("email"));
+
         String name = attrs.get("name");
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
@@ -55,18 +55,21 @@ public class MentorController {
         mentorDao.insert(mentor);
     }
 
-    public void editMentorFromMap(Map<String, String> attrs, String login) {
-        // TODO data validation check MentorView class <- CodecoolerView
+    public void editMentorFromMap(Map<String, String> attrs, String login) throws EmailAlreadyUsedException {
 
         Mentor mentor = this.getMentor(login);
+
+        if (!Mail.isValid(attrs.get("email"))) {
+            throw new EmailAlreadyUsedException();
+        }
         mentor.setEmail(new Mail(attrs.get("email")));
+
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
-
-        // TODO no group choosen
         Group group = new GroupController().getGroup(attrs.get("class"));
         mentor.setGroup(group);
 
+        mentor.correctNames();
         mentorDao.update(mentor);
     }
 
