@@ -38,8 +38,6 @@ public class MentorController {
 
     public void createMentorFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
-        Password password = this.getPassword();
-
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
         }
@@ -48,6 +46,7 @@ public class MentorController {
         String name = attrs.get("name");
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
+        Password password = Password.generate();
         Group group = groupController.getGroup(attrs.get("class"));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
@@ -69,18 +68,6 @@ public class MentorController {
         mentor.setGroup(group);
 
         mentorDao.update(mentor);
-    }
-
-    public Password getPassword() {
-        String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
-        Random random = new Random();
-        String value = "";
-        while (value.length() < 8) {
-            char sign = alphabet.charAt(random.nextInt(36));
-            value += sign;
-        }
-
-        return new Password(value);
     }
 
 }
