@@ -39,13 +39,15 @@
 </section>
 
 <form id="2" class="add" method="POST">
-    {% if name.length > 0 %}
-        <h5>This email was already used!</h5>
-    {% endif %}
     {% if mentor != null %}
         <h3>Edit mentor {{ mentor.getName }}</h3>
     {% else %}
         <h3>Add new mentor</h3>
+    {% endif %}
+    {% if name.length > 0 %}
+        <div class="fail">
+            <h5>This email was already used!</h5>
+        </div>
     {% endif %}
 
     <table class="input-table">
