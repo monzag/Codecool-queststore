@@ -44,11 +44,19 @@
     <table class="input-table">
         <tr>
             <th>Name:</th>
-            <th><input type="text" name="name" value=""></th>
+            <th>
+                <input type="text" name="name" value=""
+                       pattern="[A-Za-ząćęłńóśźżĄĘŁŃÓŚŹŻ]{3,17}"
+                       title="between 3 and 17 letters long, first capital">
+            </th>
         </tr>
         <tr>
             <th>Surname:</th>
-            <th><input type="text" name="surname" value=""></th>
+            <th>
+                <input type="text" name="surname" value=""
+                       pattern="[A-Za-ząćęłńóśźżĄĘŁŃÓŚŹŻ]{3,17}"
+                       title="between 3 and 17 letters long, first capital">
+            </th>
         </tr>
         <tr>
             <th>Email:</th>
