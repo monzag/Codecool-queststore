@@ -21,7 +21,7 @@ public class ArtifactDAO {
              ResultSet rs = stmt.executeQuery(sql)){
 
             while (rs.next()) {
-                Artifact artifact = new Artifact(rs.getInt("id"), rs.getString("name"),
+                Artifact artifact = new Artifact(rs.getString("name"),
                                     rs.getInt("price"), rs.getString("description"));
                 artifactList.add(artifact);
             }
@@ -49,7 +49,7 @@ public class ArtifactDAO {
     }
 
     public void update(Artifact artifact, String preUpdateName) {
-        String sql = "UPDATE artifact(name, price, description) SET name = ? , "
+        String sql = "UPDATE artifact SET name = ? , "
                 + "price = ? , "
                 + "description = ? "
                 + "WHERE name = ?";
