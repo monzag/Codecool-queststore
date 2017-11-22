@@ -44,19 +44,16 @@ public class WalletController {
         doneQuestsDAO.insert(this.student, quest);
     }
 
-    public void buyArtifact() throws IndexOutOfBoundsException {
-//        try {
-//            Artifact artifact = artifactController.chooseArtifact(artifactDAO.requestAll());
-//            if (student.getWallet().take(artifact.getPrice())) {
-//                studentDAO.update(student);
-//                addOwnedArtifact(artifact);
-//            }
-//            else {
-//                System.out.println("Not enough money!");
-//            }
-//        } catch (IndexOutOfBoundsException e) {
-//            System.out.println(e.getMessage());
-//        }
+    public boolean buyArtifact(Artifact artifact) {
+        try {
+            if (student.getWallet().take(artifact.getPrice())) {
+                studentDAO.update(student);
+                return addOwnedArtifact(artifact);
+            }
+        } catch (IndexOutOfBoundsException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
     }
 
     public boolean addOwnedArtifact(Artifact artifact) {
