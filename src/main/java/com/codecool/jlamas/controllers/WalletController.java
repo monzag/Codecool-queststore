@@ -59,9 +59,9 @@ public class WalletController {
 //        }
     }
 
-    public void addOwnedArtifact(Artifact artifact) {
+    public boolean addOwnedArtifact(Artifact artifact) {
         this.student.getWallet().getOwnedArtifacts().add(artifact);
-        ownedArtifactDAO.insert(this.student, artifact);
+        return ownedArtifactDAO.insert(this.student, artifact);
     }
 
 }
