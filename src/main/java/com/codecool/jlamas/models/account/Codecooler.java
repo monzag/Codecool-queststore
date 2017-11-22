@@ -59,6 +59,9 @@ public class Codecooler {
         this.surname = surname;
     }
 
+    public boolean hasEmail(String checked) {
+        return this.email.getValue().equals(checked);
+    }
     public void correctNames() {
         this.name = this.capitalize(this.name);
         this.surname = this.capitalize(this.surname);
