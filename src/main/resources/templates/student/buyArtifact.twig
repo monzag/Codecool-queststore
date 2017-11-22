@@ -55,7 +55,7 @@
             <td>{{ artifact.getName() }}</td>
             <td>{{ artifact.getDescription() }}</td>
             <td>{{ artifact.getPrice() }}</td>
-            <td class="btn" id="edit-btn" href="/student/wallet/add/{{ artifact.getName() }}">Buy</td>
+            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</a></td>
         </tr>
         {% endfor %}
     </table>
