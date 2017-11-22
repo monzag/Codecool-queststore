@@ -39,13 +39,15 @@ public class MentorController {
     public void createMentorFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         Password password = this.getPassword();
+
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
         }
+
         Mail email = new Mail(attrs.get("email"));
         String name = attrs.get("name");
         String surname = attrs.get("surname");
-        Login login = mentorView.getLogin(name, surname);
+        Login login = Login.generate(name, surname);
         Group group = groupController.getGroup(attrs.get("class"));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
