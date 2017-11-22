@@ -59,5 +59,14 @@ public class Codecooler {
         this.surname = surname;
     }
 
+    public void correctNames() {
+        this.name = this.capitalize(this.name);
+        this.surname = this.capitalize(this.surname);
+    }
+
+    private static String capitalize(String name) {
+        return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
+    }
+
 
 }
