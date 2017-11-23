@@ -236,6 +236,24 @@ footer {
     line-height: 22px;
     font-weight: 600;
 }
+.add div.fail h5 {
+    background-color: red;
+    width: 40%;
+    height: 2em;
+    left: 20%;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.add div.fail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
 .input-table {
     margin-bottom: 25px;
     padding-bottom: 15px;

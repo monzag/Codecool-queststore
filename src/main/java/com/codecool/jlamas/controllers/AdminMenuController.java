@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -52,7 +53,6 @@ public class AdminMenuController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_list.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        // TODO display unsigned mentors group other than 'null'
         // instead of value 'student' login from cookie
         model.with("login", "student");
         model.with("mentors", new MentorController().getAllMentors());
@@ -71,24 +71,19 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
-    private String displayNewMentorForm() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_add.twig");
+    private String displayMentorForm(HttpExchange httpExchange, Map<String, String> inputs) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_form.twig");
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
         model.with("login", "student");
-        model.with("groups", new GroupController().getAllGroups());
-
-        return template.render(model);
-    }
-
-    private String displayExistingMentorForm(HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_edit.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
-        model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
+        if (httpExchange != null) {
+            model.with("mentor", new MentorController().getMentor(this.parseLogin(httpExchange)));
+        }
+        if (inputs != null) {
+            model.with("name", inputs.get("name"));
+            model.with("surname", inputs.get("surname"));
+        }
         model.with("groups", new GroupController().getAllGroups());
 
         return template.render(model);
@@ -121,9 +116,13 @@ public class AdminMenuController implements HttpHandler {
         String formData = br.readLine();
 
         Map inputs = parseFormData(formData);
-        // TODO data validation!
+
         MentorController ctrl = new MentorController();
-        ctrl.createMentorFromMap(inputs);
+        try {
+            ctrl.createMentorFromMap(inputs);
+        } catch (InvalidUserDataException e) {
+            return this.displayMentorForm(null, inputs);
+        }
 
         return this.displayMentors();
     }
@@ -147,9 +146,12 @@ public class AdminMenuController implements HttpHandler {
         String formData = br.readLine();
 
         Map inputs = parseFormData(formData);
-        // TODO data validation!
         MentorController ctrl = new MentorController();
-        ctrl.editMentorFromMap(inputs, this.parseLogin(httpExchange));
+        try {
+            ctrl.editMentorFromMap(inputs, this.parseLogin(httpExchange));
+        } catch (InvalidUserDataException e) {
+            return this.displayMentorForm(null, inputs);
+        }
 
         return this.displayMentors();
     }
@@ -200,9 +202,9 @@ public class AdminMenuController implements HttpHandler {
     private void addGetCommands (HttpExchange httpExchange) {
         getCommands.put("/admin", () -> {return this.displayProfile();} );
         getCommands.put("/admin/mentors/list", () -> {return this.displayMentors();} );
-        getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayExistingMentorForm(httpExchange);} );
+        getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayMentorForm(httpExchange, null);} );
         getCommands.put("/admin/mentors/list/remove/.+", () -> { return this.removeMentor(httpExchange);} );
-        getCommands.put("/admin/mentors/add", () -> {return this.displayNewMentorForm();} );
+        getCommands.put("/admin/mentors/add", () -> {return this.displayMentorForm(null, null);} );
         getCommands.put("/admin/groups/list", () -> {return this.displayGroups();} );
         getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayExistingGroupForm(httpExchange);} );
         getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
