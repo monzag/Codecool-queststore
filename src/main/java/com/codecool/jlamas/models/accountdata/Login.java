@@ -29,4 +29,18 @@ public class Login extends AccountData {
         }
         return true;
     }
+
+    public static Login generate(String name, String surname) {
+        String[] expected = {name, ".", surname, ""};
+        int addon = 1;
+        while (!isValid(fromArr(expected))) {
+            expected[3] = String.valueOf(addon);
+            addon += 1;
+        }
+        return new Login(fromArr(expected));
+    }
+
+    private static String fromArr(String[] expected) {
+        return String.join("", expected);
+    }
 }

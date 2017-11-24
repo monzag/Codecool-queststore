@@ -186,6 +186,5 @@ public class StudentDAO {
         student.getWallet().setOwnedArtifacts(ownedArtifacts.requestAllBy(student));
 
         return student;
-
     }
 }
