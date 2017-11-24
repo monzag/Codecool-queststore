@@ -43,8 +43,32 @@
 
     <table class="input-table">
         <tr>
-            <th>Name:</th>
-            <th><input type="text" name="name" value=""></th>
+            <th>City:</th>
+            <th>
+                <select name="city">
+                    {% for city in cities %}
+                        <option value="{{ city.getName }}">{{ city.getName }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th>Year:</th>
+            <th>
+                <select name="year">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th>Class:</th>
+            <th>
+                <select name="number">
+                    <option value="1">1</option>
+                </select>
+            </th>
         </tr>
     </table>
     <button class="submit" type="submit" form="1">submit</button>
