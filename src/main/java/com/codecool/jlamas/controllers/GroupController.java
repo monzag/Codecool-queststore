@@ -3,11 +3,15 @@ package com.codecool.jlamas.controllers;
 import java.util.ArrayList;
 import java.util.Map;
 
+import com.codecool.jlamas.database.CityDAO;
 import com.codecool.jlamas.database.GroupDAO;
 import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.views.GroupTeamView;
 
 public class GroupController {
+
+    // decide on maximum amount of groups on one year
+    private static final int MAX_GROUPS = 4;
 
     private GroupTeamView groupView;
     private GroupDAO groupDAO;
@@ -17,8 +21,8 @@ public class GroupController {
         this.groupDAO = new GroupDAO();
     }
 
-    public Group getGroup(String groupTag) {
-        return this.groupDAO.getGroup(groupTag);
+    public Group getGroup(Integer id) {
+        return this.groupDAO.getGroup(id);
     }
 
     public ArrayList<Group> getAllGroups() {
@@ -28,24 +32,29 @@ public class GroupController {
     public void createGroup() {
         String name = groupView.getString("\nType name of new group: ");
         Group group = new Group(name);
-        groupDAO.insertGroup(group);
+        groupDAO.insert(group);
     }
 
     public void createGroupFromMap(Map<String, String> attrs) {
         // TODO data validation --> groupView.getString("\nType name of new group: ")
-        Group group = new Group(attrs.get("name"));
-        groupDAO.insertGroup(group);
+        CityDAO cityDAO = new CityDAO();
+        Group group = new Group();
+        group.setCity(cityDAO.get(attrs.get("city")));
+        group.setYear(Integer.valueOf(attrs.get("year")));
+        group.setNumber(Integer.valueOf(attrs.get("number")));
+
+        groupDAO.insert(group);
     }
 
-    public void editGroupFromMap(Map<String, String> attrs, String groupTag) {
+    public void editGroupFromMap(Map<String, String> attrs, Integer id) {
         // TODO data validation --> groupView.getString("\nType name of new group: ")
         // TODO GroupDAO update method is different to any other similar
-        Group group = this.groupDAO.getGroup(groupTag);
-        groupDAO.update(group, attrs.get("name"));
+        Group group = this.groupDAO.getGroup(id);
+        groupDAO.update(group);
     }
 
-    public void removeGroup(String groupTag) {
-        this.groupDAO.delete(this.groupDAO.getGroup(groupTag));
+    public void removeGroup(Integer groupID) {
+        this.groupDAO.delete(this.groupDAO.getGroup(groupID));
     }
 
     public void displayGroups() {
@@ -70,10 +79,19 @@ public class GroupController {
             String oldName = group.getName();
             String name = groupView.getString("New name of group: ");
             group.setName(name);
-            groupDAO.update(group, oldName);
+            groupDAO.update(group);
 
         } catch (IndexOutOfBoundsException e) {
             e.getMessage();
         }
+    }
+
+    public ArrayList<Integer> getAvailableGroupNumbers(Integer year) {
+        ArrayList<Integer> groupNumbers = new ArrayList<Integer>();
+
+//        for (int i = 1; i == MAX_GROUPS; i++) {
+//            numbers.add(i);
+//        }
+        return groupNumbers;
     }
 }
