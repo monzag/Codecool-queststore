@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.models.accountdata.City;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -8,6 +9,7 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.*;
 import java.net.URLDecoder;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -93,9 +95,11 @@ public class AdminMenuController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_edit.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        GroupController ctrl = new GroupController();
+
         // instead of value 'student' login from cookie
         model.with("login", "student");
-        model.with("group", new GroupController().getGroup(this.parseLogin(httpExchange)));
+        model.with("group", ctrl.getGroup(this.parseGroupID(httpExchange)));
 
         return template.render(model);
     }
@@ -104,8 +108,11 @@ public class AdminMenuController implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_add.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        CityController ctrl = new CityController();
         // instead of value 'student' login from cookie
         model.with("login", "student");
+        model.with("cities", ctrl.getAll());
+        model.with("years", ctrl.getYears());
 
         return template.render(model);
     }
@@ -164,7 +171,7 @@ public class AdminMenuController implements HttpHandler {
         Map inputs = parseFormData(formData);
         // TODO data validation!
         GroupController ctrl = new GroupController();
-        ctrl.editGroupFromMap(inputs, this.parseLogin(httpExchange));
+        ctrl.editGroupFromMap(inputs, this.parseGroupID(httpExchange));
 
         return this.displayGroups();
     }
@@ -178,13 +185,17 @@ public class AdminMenuController implements HttpHandler {
 
     private String removeGroup(HttpExchange httpExchange) throws IOException {
         GroupController groupController = new GroupController();
-        groupController.removeGroup(this.parseLogin(httpExchange));
+        groupController.removeGroup(this.parseGroupID(httpExchange));
 
         return this.displayGroups();
     }
 
     private String parseLogin(HttpExchange httpExchange) {
         return httpExchange.getRequestURI().getPath().split("/")[5];
+    }
+
+    private Integer parseGroupID(HttpExchange httpExchange) {
+        return Integer.valueOf(this.parseLogin(httpExchange));
     }
 
 
