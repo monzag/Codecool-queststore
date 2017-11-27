@@ -1,13 +1,10 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.views.CodecoolerView;
 import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.database.LoginDAO;
-import com.codecool.jlamas.database.UserDAO;
-import com.codecool.jlamas.database.MentorDAO;
-import com.codecool.jlamas.database.StudentDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
@@ -17,6 +14,10 @@ import org.jtwig.JtwigTemplate;
 import java.io.*;
 import java.net.HttpCookie;
 import java.net.URLDecoder;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.UUID;
@@ -165,6 +166,22 @@ public class AppController implements HttpHandler {
         this.addCookieToDb(cookie, login);
 
         return cookie;
+    }
+
+    public void addCookieToDb(HttpCookie cookie, String login) {
+        String query = "INSERT INTO `cookies` VALUES (?, ?);";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(query);) {
+
+            pstmt.setString(1, cookie.getValue());
+            pstmt.setString(2, login);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
     }
 
 }
