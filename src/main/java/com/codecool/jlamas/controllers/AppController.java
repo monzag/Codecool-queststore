@@ -12,6 +12,7 @@ import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
 import java.io.IOException;
+import java.net.HttpCookie;
 
 public class AppController implements HttpHandler {
 
@@ -27,7 +28,24 @@ public class AppController implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+        String response;
+        String method = httpExchange.getRequestMethod();
+        HttpCookie cookie = getCookie(httpExchange);
 
+        if (cookie != null) {
+            if (method.equals("GET")) {
+//                go to user Controller
+            } else {
+                response = logout(cookie, httpExchange);
+            }
+
+        } else {
+            if (method.equals("GET")) {
+                response = displayLoginFormula();
+            } else {
+                response = login(httpExchange);
+            }
+        }
     }
 
     public void login() {
