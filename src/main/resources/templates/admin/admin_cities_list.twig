@@ -55,8 +55,8 @@
                 <td>{{ city.getID }}</td>
                 <td>{{ city.getName }}</td>
                 <td>{{ city.getShortName }}</td>
-                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/edit/{{ mentor.getLogin.getValue }}">Edit</a></td>
-                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/remove/{{ mentor.getLogin.getValue }}">Remove</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/cities/list/edit/{{ city.getID }}{{ mentor.getLogin.getValue }}">Edit</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/cities/list/remove/{{  city.getID }}{{ mentor.getLogin.getValue }}">Remove</a></td>
             </tr>
         {%  endfor %}
     </table>

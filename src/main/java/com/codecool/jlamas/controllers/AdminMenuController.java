@@ -201,6 +201,13 @@ public class AdminMenuController implements HttpHandler {
         return this.displayGroups();
     }
 
+    private String removeCity(HttpExchange httpExchange) throws IOException {
+        CityController cityController = new CityController();
+        cityController.removeCity(this.parseGroupID(httpExchange));
+
+        return this.displayGroups();
+    }
+
     private String parseLogin(HttpExchange httpExchange) {
         return httpExchange.getRequestURI().getPath().split("/")[5];
     }
@@ -232,6 +239,7 @@ public class AdminMenuController implements HttpHandler {
         getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
         getCommands.put("/admin/groups/add", () -> {return this.displayNewGroupForm();} );
         getCommands.put("/admin/cities/list", () -> {return this.displayCities();} );
+        getCommands.put("/admin/cities/list/remove/.+", () -> {return this.removeCity(httpExchange);} );
     }
 
     private void addPostCommands (HttpExchange httpExchange) {

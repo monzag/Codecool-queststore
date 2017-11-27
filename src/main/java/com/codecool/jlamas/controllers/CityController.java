@@ -23,6 +23,10 @@ public class CityController {
         return this.dao.requestAll();
     }
 
+    public void removeCity(Integer id) {
+        this.dao.delete(id);
+    }
+
     public ArrayList<Integer> getYears() {
         ArrayList<Integer> years = new ArrayList<Integer>();
 

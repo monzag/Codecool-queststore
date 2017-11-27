@@ -79,14 +79,13 @@ public class CityDAO {
         return city;
     }
 
-    public void delete(City city) {
+    public void delete(Integer id) {
         String query;
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
 
-            query = String.format("DELETE FROM `city` WHERE name = '%s'; ",
-                    city.getName());
+            query = String.format("DELETE FROM `city` WHERE id = %s; ", id);
 
             stmt.executeUpdate(query);
 
