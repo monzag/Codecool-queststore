@@ -19,6 +19,7 @@ import java.net.HttpCookie;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.UUID;
 
 public class AppController implements HttpHandler {
 
@@ -141,6 +142,8 @@ public class AppController implements HttpHandler {
 //            Student student = studentData.getStudent(login);
 //            StudentMenuController studentMenu = new StudentMenuController(student);
 //            studentMenu.start();
+        } else {
+            displayLoginFormula(httpExchange);
         }
     }
 
@@ -153,4 +156,15 @@ public class AppController implements HttpHandler {
 
         return cookie;
     }
+
+    public HttpCookie createCookie(HttpExchange httpExchange, String login) {
+        // Create a new cookie
+        String sessionId = UUID.randomUUID().toString();
+        HttpCookie cookie = new HttpCookie("sessionId", sessionId);
+        httpExchange.getResponseHeaders().add("Set-Cookie", cookie.toString());
+        this.addCookieToDb(cookie, login);
+
+        return cookie;
+    }
+
 }
