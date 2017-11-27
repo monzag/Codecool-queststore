@@ -17,6 +17,7 @@ public class Main {
         HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
 
         // server.createContext("/url", new ControllerName());
+        server.createContext("/", new AppController());
         server.createContext("/template", new TemplateController());
         server.createContext("/admin", new AdminMenuController());
         server.createContext("/mentor", new MentorMenuController());
