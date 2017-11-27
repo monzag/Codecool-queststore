@@ -97,24 +97,6 @@ public class AppController implements HttpHandler {
         return map;
     }
 
-//        boolean isLogging = true;
-//        while (isLogging) {
-//
-//            String login = this.view.getString("Login");
-//            String password = this.view.getString("Password");
-//
-//            if (loginData.matchLogin(login, password)) {
-//                launchUserController(login);
-//                System.exit(0);
-//            }
-//
-//            this.view.reportWrongLoginData();
-//            String tryAgain = this.view.getString("Y or anything else");
-//            if (!tryAgain.equalsIgnoreCase("y")) {
-//                isLogging = false;
-//            }
-//        }
-
     public void launchUserController(String login, HttpExchange httpExchange) throws IOException {
 
         String userType = this.userData.getType(login);
