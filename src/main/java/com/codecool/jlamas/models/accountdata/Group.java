@@ -14,7 +14,7 @@ public class Group {
     @Deprecated
     public Group(String name) {
         this.id = 1;
-        this.city = new City("Kraków", "krk");
+        this.city = new City(1,"Kraków", "krk");
         this.year = 2017;
         this.number = 1;
     }

@@ -22,7 +22,7 @@ public class CityDAO {
 
             while (rs.next()) {
 
-                City city = new City(rs.getString("name"), rs.getString("short"));
+                City city = new City(rs.getInt("id"), rs.getString("name"), rs.getString("short"));
                 cities.add(city);
             }
         } catch (ClassNotFoundException|SQLException e) {
@@ -32,7 +32,7 @@ public class CityDAO {
     }
 
     public boolean insert(City city) {
-        String query = String.format("INSERT INTO artifact(id, name, short) VALUES (%s, '%s', '%s');",
+        String query = String.format("INSERT INTO `city` VALUES (%s, '%s', '%s');",
                 null, city.getName(), city.getShortName());
 
         try (Connection c = ConnectDB.connect();
@@ -49,7 +49,7 @@ public class CityDAO {
 
     }
     public void update(City city, String newName, String newShortName) {
-        String query = String.format("UPDATE city SET name = '%s', short = '%s' WHERE name = '%s'",
+        String query = String.format("UPDATE city SET id = %s, name = '%s', short = '%s' WHERE name = '%s'",
                 newName, newShortName, city.getName());
 
         try (Connection c = ConnectDB.connect();
@@ -71,7 +71,7 @@ public class CityDAO {
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query)) {
 
-            city = new City(rs.getString("name"), rs.getString("short"));
+            city = new City(rs.getInt("id"), rs.getString("name"), rs.getString("short"));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
