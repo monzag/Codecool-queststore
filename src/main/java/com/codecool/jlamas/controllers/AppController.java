@@ -11,6 +11,8 @@ import com.codecool.jlamas.database.StudentDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
+import org.jtwig.JtwigModel;
+import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -61,6 +63,13 @@ public class AppController implements HttpHandler {
     public void sendRedirectResponse(HttpExchange httpExchange) throws IOException {
         httpExchange.getResponseHeaders().set("Location", "/admin");
         httpExchange.sendResponseHeaders(302,-1);
+    }
+
+    public String displayLoginFormula() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        return template.render(model);
     }
 
     public void login() {
