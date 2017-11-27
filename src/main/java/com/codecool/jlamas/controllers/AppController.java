@@ -45,7 +45,7 @@ public class AppController implements HttpHandler {
 
         } else {
             if (method.equals("GET")) {
-                displayLoginFormula();
+                displayLoginFormula(httpExchange);
             } else {
                 login(httpExchange);
             }
@@ -65,11 +65,12 @@ public class AppController implements HttpHandler {
         httpExchange.sendResponseHeaders(302,-1);
     }
 
-    public String displayLoginFormula() {
+    public void displayLoginFormula(HttpExchange httpExchange) throws IOException {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        return template.render(model);
+        String response = template.render(model);
+        sendOKResponse(response, httpExchange);
     }
 
     public void login() {
