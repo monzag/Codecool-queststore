@@ -52,7 +52,7 @@
         </tr>
         {%  for city in cities %}
             <tr>
-                <td>{{ city.getID }}</td>
+                <td>{{ city.getID }}.</td>
                 <td>{{ city.getName }}</td>
                 <td>{{ city.getShortName }}</td>
                 <td><a class="btn" id="edit-btn" href="/admin/cities/list/edit/{{ city.getID }}{{ mentor.getLogin.getValue }}">Edit</a></td>
