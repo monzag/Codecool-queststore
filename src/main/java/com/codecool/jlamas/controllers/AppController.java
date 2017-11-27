@@ -1,10 +1,6 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.*;
-import com.codecool.jlamas.views.CodecoolerView;
-import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.models.account.Mentor;
-import com.codecool.jlamas.models.account.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -24,17 +20,14 @@ public class AppController implements HttpHandler {
 
     LoginDAO loginData;
     UserDAO userData;
-    CodecoolerView view;
 
     public AppController() {
         this.loginData = new LoginDAO();
         this.userData = new UserDAO();
-        this.view = new CodecoolerView();
     }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
-        String response;
         String method = httpExchange.getRequestMethod();
         HttpCookie cookie = getCookie(httpExchange);
 
@@ -42,7 +35,7 @@ public class AppController implements HttpHandler {
             if (method.equals("GET")) {
                 sendRedirectResponse(httpExchange);
             } else {
-                logout(cookie, httpExchange);
+//                logout(cookie, httpExchange);
             }
 
         } else {
@@ -170,7 +163,7 @@ public class AppController implements HttpHandler {
         String query = "INSERT INTO `cookies` VALUES (?, ?);";
 
         try (Connection c = ConnectDB.connect();
-             PreparedStatement pstmt = c.prepareStatement(query);) {
+             PreparedStatement pstmt = c.prepareStatement(query)) {
 
             pstmt.setString(1, cookie.getValue());
             pstmt.setString(2, login);
@@ -181,5 +174,7 @@ public class AppController implements HttpHandler {
         }
 
     }
+
+
 
 }
