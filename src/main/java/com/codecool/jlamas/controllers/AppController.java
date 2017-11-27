@@ -8,8 +8,12 @@ import com.codecool.jlamas.database.LoginDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.database.StudentDAO;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
 
-public class AppController {
+import java.io.IOException;
+
+public class AppController implements HttpHandler {
 
     LoginDAO loginData;
     UserDAO userData;
@@ -19,6 +23,11 @@ public class AppController {
         this.loginData = new LoginDAO();
         this.userData = new UserDAO();
         this.view = new CodecoolerView();
+    }
+
+    @Override
+    public void handle(HttpExchange httpExchange) throws IOException {
+
     }
 
     public void login() {
