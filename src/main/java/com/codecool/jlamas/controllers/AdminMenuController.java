@@ -122,6 +122,23 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayGroupForm(HttpExchange httpExchange) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_group_form.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        CityController cityController = new CityController();
+        GroupController groupController = new GroupController();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        model.with("cities", cityController.getAll());
+        model.with("years", groupController.getYears());
+        model.with("numbers", groupController.getAvailableGroupNumbers());
+
+        return template.render(model);
+    }
+
     private String displayExistingGroupForm(HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_edit.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -143,7 +160,7 @@ public class AdminMenuController implements HttpHandler {
         // instead of value 'student' login from cookie
         model.with("login", "student");
         model.with("cities", ctrl.getAll());
-        model.with("years", ctrl.getYears());
+        //model.with("years", ctrl.getYears());
 
         return template.render(model);
     }
@@ -277,7 +294,7 @@ public class AdminMenuController implements HttpHandler {
         getCommands.put("/admin/groups/list", () -> {return this.displayGroups();} );
         getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayExistingGroupForm(httpExchange);} );
         getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
-        getCommands.put("/admin/groups/add", () -> {return this.displayNewGroupForm();} );
+        getCommands.put("/admin/groups/add", () -> {return this.displayGroupForm(httpExchange);} );
         getCommands.put("/admin/cities/list", () -> {return this.displayCities();} );
         getCommands.put("/admin/cities/add", () -> {return this.displayCityForm(null, null, "");} );
         getCommands.put("/admin/cities/list/remove/.+", () -> {return this.removeCity(httpExchange);} );
