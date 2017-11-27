@@ -1,5 +1,6 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.accountdata.City;
 import com.sun.net.httpserver.HttpExchange;
@@ -102,6 +103,25 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayCityForm(HttpExchange httpExchange, Map<String, String> inputs, String errmsg) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_city_form.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+
+        if (httpExchange != null) {
+            model.with("city", new CityController().getCity(this.parseGroupID(httpExchange)));
+        }
+        if (inputs != null) {
+            model.with("name", inputs.get("name"));
+            model.with("shortname", inputs.get("shortname"));
+        }
+        model.with("msg", errmsg);
+
+        return template.render(model);
+    }
+
     private String displayExistingGroupForm(HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_groups_edit.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -174,6 +194,22 @@ public class AdminMenuController implements HttpHandler {
         return this.displayMentors();
     }
 
+    private String editCity(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
+
+        Map inputs = parseFormData(formData);
+        CityController ctrl = new CityController();
+        try {
+            ctrl.editCityFromMap(this.parseGroupID(httpExchange), inputs);
+        } catch (InvalidCityDataException e) {
+            return this.displayCityForm(null, inputs, e.getMessage());
+        }
+
+        return this.displayCities();
+    }
+
     private String editGroup(HttpExchange httpExchange) throws IOException {
         InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
         BufferedReader br = new BufferedReader(isr);
@@ -199,6 +235,10 @@ public class AdminMenuController implements HttpHandler {
         groupController.removeGroup(this.parseGroupID(httpExchange));
 
         return this.displayGroups();
+    }
+
+    private String addCity(HttpExchange httpExchange) {
+        return "";
     }
 
     private String removeCity(HttpExchange httpExchange) throws IOException {
@@ -239,15 +279,18 @@ public class AdminMenuController implements HttpHandler {
         getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
         getCommands.put("/admin/groups/add", () -> {return this.displayNewGroupForm();} );
         getCommands.put("/admin/cities/list", () -> {return this.displayCities();} );
+        getCommands.put("/admin/cities/add", () -> {return this.displayCityForm(null, null, "");} );
         getCommands.put("/admin/cities/list/remove/.+", () -> {return this.removeCity(httpExchange);} );
+        getCommands.put("/admin/cities/list/edit/.+", () -> {return this.displayCityForm(httpExchange, null, "");} );
     }
 
     private void addPostCommands (HttpExchange httpExchange) {
         postCommands.put("/admin/mentors/add", () -> { return this.addMentor(httpExchange);} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
+        postCommands.put("/admin/cities/add", () -> { return this.addCity(httpExchange);} );
         postCommands.put("/admin/mentors/list/edit/.+", () -> { return this.editMentor(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/.+", () -> { return this.editGroup(httpExchange);} );
-
+        postCommands.put("/admin/cities/list/edit/.+", () -> { return this.editCity(httpExchange);} );
     }
 
     private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
