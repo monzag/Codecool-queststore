@@ -14,9 +14,11 @@ import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
-import java.io.IOException;
-import java.io.OutputStream;
+import java.io.*;
 import java.net.HttpCookie;
+import java.net.URLDecoder;
+import java.util.HashMap;
+import java.util.Map;
 
 public class AppController implements HttpHandler {
 
@@ -73,26 +75,41 @@ public class AppController implements HttpHandler {
         sendOKResponse(response, httpExchange);
     }
 
-    public void login() {
+    public void login(HttpExchange httpExchange) throws IOException {
+        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
+        BufferedReader br = new BufferedReader(isr);
+        String formData = br.readLine();
 
-        boolean isLogging = true;
-        while (isLogging) {
+        System.out.println(formData);
+        Map inputs = parseFormData(formData);
+        String login = inputs.get("login").toString();
+        String password = inputs.get("password").toString();
 
-            String login = this.view.getString("Login");
-            String password = this.view.getString("Password");
-
-            if (loginData.matchLogin(login, password)) {
-                launchUserController(login);
-                System.exit(0);
-            }
-
-            this.view.reportWrongLoginData();
-            String tryAgain = this.view.getString("Y or anything else");
-            if (!tryAgain.equalsIgnoreCase("y")) {
-                isLogging = false;
-            }
+        if (this.isLoginMatch(login, password)) {
+            HttpCookie cookie = createCookie(httpExchange, login);
+            sendRedirectResponse(httpExchange);
+        } else {
+            displayLoginFormula(httpExchange);
         }
     }
+
+//        boolean isLogging = true;
+//        while (isLogging) {
+//
+//            String login = this.view.getString("Login");
+//            String password = this.view.getString("Password");
+//
+//            if (loginData.matchLogin(login, password)) {
+//                launchUserController(login);
+//                System.exit(0);
+//            }
+//
+//            this.view.reportWrongLoginData();
+//            String tryAgain = this.view.getString("Y or anything else");
+//            if (!tryAgain.equalsIgnoreCase("y")) {
+//                isLogging = false;
+//            }
+//        }
 
     public void launchUserController(String login) {
 
