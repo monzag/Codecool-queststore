@@ -30,6 +30,8 @@
                 <li><a href="/admin/mentors/add">add mentor</a></li>
                 <li><a href="/admin/groups/list">groups</a></li>
                 <li><a href="/admin/groups/add">add group</a></li>
+                <li><a href="/admin/cities/list">cities</a></li>
+                <li><a href="/admin/cities/add">add city</a></li>
             </ul>
         </nav>
     </div>
@@ -43,35 +45,37 @@
 
     <table class="input-table">
         <tr>
-            <th>City:</th>
-            <th>
-                <select name="city">
+            <td>City:</td>
+            <td>
+                <select id="select-width" name="city">
                     {% for city in cities %}
                         <option value="{{ city.getName }}">{{ city.getName }}</option>
                     {% endfor %}
                 </select>
-            </th>
-        </tr>
+            </td>
         <tr>
-            <th>Year:</th>
-            <th>
-                <select name="year">
+            <td>Year:</td>
+            <td>
+                <select id="select-width" name="year">
                     {% for year in years %}
                         <option value="{{ year }}">{{ year }}</option>
                     {% endfor %}
                 </select>
-            </th>
+            </td>
         </tr>
         <tr>
-            <th>Class:</th>
-            <th>
-                <select name="number">
+            <td>Group:</td>
+            <td>
+                <select id="select-width" name="number">
                     <option value="1">1</option>
                 </select>
-            </th>
+            </td>
         </tr>
+
     </table>
+
     <button class="submit" type="submit" form="1">submit</button>
+
 </form>
 
 </body>
