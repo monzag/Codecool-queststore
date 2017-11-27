@@ -10,8 +10,10 @@ import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.database.StudentDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.IOException;
+import java.io.OutputStream;
 import java.net.HttpCookie;
 
 public class AppController implements HttpHandler {
@@ -36,16 +38,29 @@ public class AppController implements HttpHandler {
             if (method.equals("GET")) {
 //                go to user Controller
             } else {
-                response = logout(cookie, httpExchange);
+                logout(cookie, httpExchange);
             }
 
         } else {
             if (method.equals("GET")) {
-                response = displayLoginFormula();
+                displayLoginFormula();
             } else {
-                response = login(httpExchange);
+                login(httpExchange);
             }
         }
+    }
+
+    public void sendOKResponse(String response, HttpExchange httpExchange) throws IOException{
+        final byte[] finalResponseBytes = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(finalResponseBytes);
+        os.close();
+    }
+
+    public void sendRedirectResponse(HttpExchange httpExchange) throws IOException {
+        httpExchange.getResponseHeaders().set("Location", "/admin");
+        httpExchange.sendResponseHeaders(302,-1);
     }
 
     public void login() {
