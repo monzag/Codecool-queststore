@@ -73,6 +73,17 @@ public class AdminMenuController implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayCities() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_cities_list.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("cities", new CityController().getAll());
+
+        return template.render(model);
+    }
+
     private String displayMentorForm(HttpExchange httpExchange, Map<String, String> inputs) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_mentor_form.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -220,6 +231,7 @@ public class AdminMenuController implements HttpHandler {
         getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayExistingGroupForm(httpExchange);} );
         getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
         getCommands.put("/admin/groups/add", () -> {return this.displayNewGroupForm();} );
+        getCommands.put("/admin/cities/list", () -> {return this.displayCities();} );
     }
 
     private void addPostCommands (HttpExchange httpExchange) {
