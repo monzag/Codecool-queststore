@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
 import com.codecool.jlamas.database.CityDAO;
@@ -12,6 +13,9 @@ public class GroupController {
 
     // decide on maximum amount of groups on one year
     private static final int MAX_GROUPS = 4;
+    // decide which years beside current will be displayed
+    private static final int PAST_YEARS = 1;
+    private static final int NEXT_YEARS = 4;
 
     private GroupTeamView groupView;
     private GroupDAO groupDAO;
@@ -86,12 +90,23 @@ public class GroupController {
         }
     }
 
-    public ArrayList<Integer> getAvailableGroupNumbers(Integer year) {
+    public ArrayList<Integer> getYears() {
+        ArrayList<Integer> years = new ArrayList<Integer>();
+
+        Integer year = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = year-PAST_YEARS; i < year+NEXT_YEARS; i++) {
+            years.add(i);
+        }
+        return years;
+    }
+
+    public ArrayList<Integer> getAvailableGroupNumbers() {
         ArrayList<Integer> groupNumbers = new ArrayList<Integer>();
 
-//        for (int i = 1; i == MAX_GROUPS; i++) {
-//            numbers.add(i);
-//        }
+        for (int i = 1; i < MAX_GROUPS+1 ; i++) {
+            groupNumbers.add(i);
+        }
+
         return groupNumbers;
     }
 }
