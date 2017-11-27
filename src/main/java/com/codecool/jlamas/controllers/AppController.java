@@ -40,7 +40,7 @@ public class AppController implements HttpHandler {
 
         if (cookie != null) {
             if (method.equals("GET")) {
-//                go to user Controller
+                sendRedirectResponse(httpExchange);
             } else {
                 logout(cookie, httpExchange);
             }
@@ -85,9 +85,9 @@ public class AppController implements HttpHandler {
         String login = inputs.get("login").toString();
         String password = inputs.get("password").toString();
 
-        if (this.isLoginMatch(login, password)) {
-            HttpCookie cookie = createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange);
+        if (loginData.matchLogin(login, password)) {
+            launchUserController(login, httpExchange);
+
         } else {
             displayLoginFormula(httpExchange);
         }
@@ -122,14 +122,15 @@ public class AppController implements HttpHandler {
 //            }
 //        }
 
-    public void launchUserController(String login) {
+    public void launchUserController(String login, HttpExchange httpExchange) throws IOException {
 
         String userType = this.userData.getType(login);
 
         if (userType.equals("admin")) {
 //            Admin admin = this.userData.getAdmin(login);
-//            AdminMenuController adminMenu = new AdminMenuController(admin);
-//            adminMenu.start();
+            createCookie(httpExchange, login);
+            sendRedirectResponse(httpExchange);
+
         } else if (userType.equals("mentor")) {
 //            MentorDAO mentorData = new MentorDAO();
 //            Mentor mentor = mentorData.getMentor(login);
