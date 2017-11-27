@@ -261,7 +261,7 @@ footer {
     display: flex;
     justify-content: center;
 }
-.input-table tr th {
+.input-table tr th, td {
     padding-bottom: 25px;
     color: #2a2929;
     font-weight: 600;
@@ -282,6 +282,18 @@ input {
     border-radius: 5px;
     background-color: white;
     width: 85%;
+}
+.input-table tr td select {
+    height: 32px;
+    margin: 0px;
+    padding: 0px;
+    border: 1.5px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    width: 85%;
+}
+#select-width {
+    width:150px;
 }
 .input-table tr th select:hover {
     border: 2px solid #254375;
