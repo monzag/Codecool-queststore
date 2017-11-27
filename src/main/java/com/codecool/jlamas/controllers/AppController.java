@@ -143,4 +143,14 @@ public class AppController implements HttpHandler {
 //            studentMenu.start();
         }
     }
+
+    public HttpCookie getCookie(HttpExchange httpExchange) {
+        String cookieStr = httpExchange.getRequestHeaders().getFirst("Cookie");
+        HttpCookie cookie = null;
+        if (cookieStr != null) {  // Cookie already exists
+            cookie = HttpCookie.parse(cookieStr).get(0);
+        }
+
+        return cookie;
+    }
 }
