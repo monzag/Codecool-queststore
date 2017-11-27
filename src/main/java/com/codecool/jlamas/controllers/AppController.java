@@ -7,7 +7,6 @@ import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
@@ -15,7 +14,6 @@ import java.io.*;
 import java.net.HttpCookie;
 import java.net.URLDecoder;
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.HashMap;
