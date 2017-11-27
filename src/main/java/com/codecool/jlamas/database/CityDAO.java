@@ -1,5 +1,8 @@
 package com.codecool.jlamas.database;
 
+import com.codecool.jlamas.exceptions.InvalidCityDataException;
+import com.codecool.jlamas.exceptions.InvalidCityNameException;
+import com.codecool.jlamas.exceptions.InvalidCityShortNameException;
 import com.codecool.jlamas.models.accountdata.City;
 
 import java.sql.*;
@@ -48,9 +51,9 @@ public class CityDAO {
         return true;
 
     }
-    public void update(City city, String newName, String newShortName) {
-        String query = String.format("UPDATE city SET id = %s, name = '%s', short = '%s' WHERE name = '%s'",
-                newName, newShortName, city.getName());
+    public void update(City city) throws InvalidCityDataException {
+        String query = String.format("UPDATE city SET name = '%s', short = '%s' WHERE id = %s;",
+                city.getName(), city.getShortName(), city.getID());
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
@@ -59,12 +62,35 @@ public class CityDAO {
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
+            if (e.getMessage().contains("city.name")) {
+                throw new InvalidCityNameException();
+            }
+            else {
+                throw new InvalidCityShortNameException();
+            }
         }
     }
 
     public City get(String name) {
         String query = String.format("SELECT * FROM `city` WHERE name = '%s'; ",
                 name);
+        City city = null;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(query)) {
+
+            city = new City(rs.getInt("id"), rs.getString("name"), rs.getString("short"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return city;
+    }
+
+    public City get(Integer id) {
+        String query = String.format("SELECT * FROM `city` WHERE id = %s; ",
+                id);
         City city = null;
 
         try (Connection c = ConnectDB.connect();
