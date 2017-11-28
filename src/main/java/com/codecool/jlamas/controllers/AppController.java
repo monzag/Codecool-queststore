@@ -101,15 +101,15 @@ public class AppController implements HttpHandler {
 
         if (userType.equals("admin")) {
             cookieController.createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange);
+            sendRedirectResponse(httpExchange,  "/admin");
 
         } else if (userType.equals("mentor")) {
             cookieController.createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange);
+            sendRedirectResponse(httpExchange, "/mentor");
 
         } else if (userType.equals("student")) {
             cookieController.createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange);
+            sendRedirectResponse(httpExchange, "/student");
 
         } else {
             displayLoginFormula(httpExchange);
