@@ -63,10 +63,4 @@ public class TeamPurchase {
             return 1;
         } else return 0;
     }
-
-    public void setMarkedFromInteger(Integer status) {
-        if (status == 0) {
-            this.isMarked = false;
-        } else this.isMarked = true;
-    }
 }
