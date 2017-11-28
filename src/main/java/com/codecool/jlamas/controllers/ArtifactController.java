@@ -26,8 +26,8 @@ public class ArtifactController {
     }
 
 
-    public void createArtifact(String name, String description, Integer price) {
-        Artifact artifact = new Artifact(name, price, description);
+    public void createArtifact(String name, String description, Integer price, String type) {
+        Artifact artifact = new Artifact(name, price, description, type);
         this.artifactDao.insert(artifact);
     }
 
