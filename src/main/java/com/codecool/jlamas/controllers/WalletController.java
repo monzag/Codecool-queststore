@@ -7,9 +7,6 @@ import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.quest.Quest;
-import com.codecool.jlamas.views.ArtifactView;
-import com.codecool.jlamas.views.QuestView;
-import com.codecool.jlamas.views.StudentView;
 
 public class WalletController {
 
@@ -18,25 +15,10 @@ public class WalletController {
     private ArtifactDAO artifactDAO = new ArtifactDAO();
     private DoneQuestDAO doneQuestsDAO = new DoneQuestDAO();
     private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
-    private QuestView questView = new QuestView();
-    private StudentView studentView = new StudentView();
     private ArtifactController artifactController = new ArtifactController();
-    private ArtifactView artifactView = new ArtifactView();
 
     public WalletController(Student student) {
         this.student = student;
-    }
-
-    public void displayBalance() {
-        this.studentView.showBalance(this.student.getWallet().getBalance());
-    }
-
-    public void displayDoneQuests() {
-        questView.printQuestData(this.student.getWallet().getDoneQuests());
-    }
-
-    public void displayOwnedArtifacts() {
-        artifactView.printArtifacts(ownedArtifactDAO.requestAllBy(this.student));
     }
 
     public void addDoneQuest(Quest quest) {
