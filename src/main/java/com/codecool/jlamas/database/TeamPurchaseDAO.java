@@ -81,7 +81,9 @@ public class TeamPurchaseDAO {
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
+            return false;
         }
+        return true;
     }
 
     private boolean intToBoolean(Integer status) {
