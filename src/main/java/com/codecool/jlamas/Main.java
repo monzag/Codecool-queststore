@@ -15,9 +15,7 @@ public class Main {
         flyway.migrate();
 
         HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
-
-        // server.createContext("/url", new ControllerName());
-        server.createContext("/template", new TemplateController());
+        
         server.createContext("/admin", new AdminMenuController());
         server.createContext("/mentor", new MentorMenuController());
         server.createContext("/student", new StudentMenuController());
