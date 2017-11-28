@@ -334,7 +334,8 @@ public class MentorMenuController implements HttpHandler{
         String name = inputs.get("artifactName").toString();
         String description = inputs.get("description").toString();
         Integer price = Integer.valueOf(inputs.get("price").toString());
-        artifactController.createArtifact(name, description, price);
+        String type = inputs.get("type").toString();
+        artifactController.createArtifact(name, description, price, type);
 
 
         return displayArtifact("Artifact has been added");
@@ -367,9 +368,10 @@ public class MentorMenuController implements HttpHandler{
         String name = inputs.get("artifactName").toString();
         String description = inputs.get("description").toString();
         Integer price = Integer.valueOf(inputs.get("price").toString());
+        String type = inputs.get("type").toString();
         String oldName = parseUrl(httpExchange, 4);
 
-        artifactController.editArtifact(oldName, name, description, price);
+        artifactController.editArtifact(oldName, name, description, price, type);
 
         return displayArtifact("Artifact has been edited");
     }
