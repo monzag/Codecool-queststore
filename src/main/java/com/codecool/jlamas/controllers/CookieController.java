@@ -33,4 +33,9 @@ public class CookieController {
 
         return cookie;
     }
+
+    public void logout(HttpCookie cookie) {
+        session.removeCookieFromDb(cookie);
+        removeCookie(cookie);
+    }
 }
