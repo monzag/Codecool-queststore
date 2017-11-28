@@ -75,7 +75,7 @@ public class AppController implements HttpHandler {
 
         System.out.println(formData);
         Map inputs = parseFormData(formData);
-        String login = inputs.get("login").toString();
+        String login = inputs.get("username").toString();
         String password = inputs.get("password").toString();
 
         if (loginData.matchLogin(login, password)) {
@@ -142,7 +142,7 @@ public class AppController implements HttpHandler {
     }
 
     public void addCookieToDb(HttpCookie cookie, String login) {
-        String query = "INSERT INTO `cookies` VALUES (?, ?);";
+        String query = "INSERT INTO `cookie` VALUES (?, ?);";
 
         try (Connection c = ConnectDB.connect();
              PreparedStatement pstmt = c.prepareStatement(query)) {
