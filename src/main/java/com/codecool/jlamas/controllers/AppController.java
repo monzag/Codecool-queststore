@@ -53,8 +53,8 @@ public class AppController implements HttpHandler {
         os.close();
     }
 
-    public void sendRedirectResponse(HttpExchange httpExchange) throws IOException {
-        httpExchange.getResponseHeaders().set("Location", "/admin");
+    public void sendRedirectResponse(HttpExchange httpExchange, String location) throws IOException {
+        httpExchange.getResponseHeaders().set("Location", location);
         httpExchange.sendResponseHeaders(302,-1);
     }
 
