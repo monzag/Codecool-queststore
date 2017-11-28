@@ -3,7 +3,7 @@
 <head>
   <title>questore</title>
   <meta charset="utf-8">
-  <link rel="stylesheet" href="assets/stylesheets/login.css">
+    <link href="/static/assets/css/login.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
 
 </head>
@@ -17,7 +17,7 @@
    --><h3>questore</h3>
     <header>
 
-    <section class="lables">
+    <form method="POST" class="labels">
       <lable>
         username:
         <input type="text" name="username" id="username">
@@ -26,10 +26,8 @@
         password:
         <input type="text" name="password" id="password">
       </lable>
-      <a href="">
-        <button class="btn-login">login</button>
-      </a>
-    </section>
+      <button class="btn-login" type="submit">login</button>
+    </form>
   </div>
 </body>
 </html>
