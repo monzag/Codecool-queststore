@@ -6,6 +6,7 @@ import com.sun.net.httpserver.HttpExchange;
 import java.net.HttpCookie;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.UUID;
 
@@ -47,4 +48,26 @@ public class CookieController {
 
     }
 
+    public String getLoginByCookie(HttpExchange httpExchange) {
+        String login = "";
+        HttpCookie cookie = getCookie(httpExchange);
+        String query = "SELECT login FROM `cookie` WHERE sessionId = (?);";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(query)) {
+
+            pstmt.setString(1, cookie.getValue());
+            pstmt.executeUpdate();
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                login = rs.getString("login");
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return login;
+    }
 }
