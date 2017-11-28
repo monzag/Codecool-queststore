@@ -71,7 +71,18 @@ public class TeamPurchaseDAO {
         }
     }
 
-    
+    public boolean delete(TeamPurchase purchase) {
+        String sql = "DELETE FROM team_purchase WHERE id = ?";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setInt(1, purchase.getId());
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 
     private boolean intToBoolean(Integer status) {
         if (status.equals(0)) {
