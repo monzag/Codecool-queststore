@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.SessionDAO;
+import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -37,8 +38,9 @@ public class MentorMenuController implements HttpHandler{
 
         if (cookie != null) {
             this.mentor = session.getUserByCookie(httpExchange);
+            String userType = new UserDAO().getType(mentor.getLogin().getValue());
 
-            if (mentor != null) {
+            if (mentor != null && userType.equals("mentor")) {
 
                 if (method.equals("GET")) {
                     response = findCommand(httpExchange, getCommands);
@@ -66,6 +68,7 @@ public class MentorMenuController implements HttpHandler{
 
         // profile pic found by login
         model.with("login", "student");
+        model.with("mentor", mentor);
 
         String response = template.render(model);
 
