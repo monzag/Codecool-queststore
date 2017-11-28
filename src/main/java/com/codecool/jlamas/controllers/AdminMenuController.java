@@ -1,12 +1,15 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.models.account.Admin;
+import com.codecool.jlamas.database.*;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.*;
+import java.net.HttpCookie;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.Map;
@@ -18,25 +21,37 @@ public class AdminMenuController implements HttpHandler {
 
     private Map<String, Callable> getCommands = new HashMap<String, Callable>();
     private Map<String, Callable> postCommands = new HashMap<String, Callable>();
+    private Admin admin;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        if (method.equals("GET")) {
-            response = this.findCommand(httpExchange, getCommands);
+        HttpCookie cookie = new CookieController().getCookie(httpExchange);
+
+        if (cookie != null) {
+
+            this.admin = new UserDAO().getAdmin(new CookieController().getLoginByCookie(httpExchange));
+
+
+            if (method.equals("GET")) {
+                response = this.findCommand(httpExchange, getCommands);
+            }
+
+            if (method.equals("POST")) {
+                response = this.findCommand(httpExchange, postCommands);
+            }
+
+            final byte[] finalResponseBytes = response.getBytes("UTF-8");
+            httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+            OutputStream os = httpExchange.getResponseBody();
+            os.write(finalResponseBytes);
+            os.close();
+        } else {
+//            log out
         }
 
-        if (method.equals("POST")) {
-            response = this.findCommand(httpExchange, postCommands);
-        }
-
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
     }
 
     private String displayProfile() {
@@ -45,6 +60,7 @@ public class AdminMenuController implements HttpHandler {
 
         // instead of value 'student' login from cookie
         model.with("login", "student");
+        model.with("admin", this.admin);
 
         return template.render(model);
     }
@@ -238,5 +254,4 @@ public class AdminMenuController implements HttpHandler {
         }
         return response;
     }
-
 }
