@@ -54,9 +54,11 @@ public class AdminMenuController implements HttpHandler {
 
             } else {
                 session.removeCookieFromDb(cookie);
-                httpExchange.getResponseHeaders().set("Location", "/");
-                httpExchange.sendResponseHeaders(302,-1);
+                sendRedirectResponse(httpExchange, "/");
             }
+
+        } else {
+            sendRedirectResponse(httpExchange, "/");
         }
     }
 
@@ -259,5 +261,10 @@ public class AdminMenuController implements HttpHandler {
             }
         }
         return response;
+    }
+
+    public void sendRedirectResponse(HttpExchange httpExchange, String location) throws IOException {
+        httpExchange.getResponseHeaders().set("Location", location);
+        httpExchange.sendResponseHeaders(302,-1);
     }
 }
