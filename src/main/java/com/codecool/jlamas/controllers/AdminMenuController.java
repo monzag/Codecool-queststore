@@ -1,8 +1,8 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
-import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.database.*;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -21,7 +21,7 @@ public class AdminMenuController implements HttpHandler {
 
     private Map<String, Callable> getCommands = new HashMap<String, Callable>();
     private Map<String, Callable> postCommands = new HashMap<String, Callable>();
-    private Admin admin;
+    private Codecooler admin;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -32,26 +32,27 @@ public class AdminMenuController implements HttpHandler {
 
         if (cookie != null) {
 
-            this.admin = new UserDAO().getAdmin(new CookieController().getLoginByCookie(httpExchange));
+            this.admin = new SessionDAO().getUserByCookie(httpExchange);
 
+            if (admin != null) {
 
-            if (method.equals("GET")) {
-                response = this.findCommand(httpExchange, getCommands);
+                if (method.equals("GET")) {
+                    response = this.findCommand(httpExchange, getCommands);
+                }
+
+                if (method.equals("POST")) {
+                    response = this.findCommand(httpExchange, postCommands);
+                }
+
+                final byte[] finalResponseBytes = response.getBytes("UTF-8");
+                httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+                OutputStream os = httpExchange.getResponseBody();
+                os.write(finalResponseBytes);
+                os.close();
+            } else {
+                //            log out
             }
-
-            if (method.equals("POST")) {
-                response = this.findCommand(httpExchange, postCommands);
-            }
-
-            final byte[] finalResponseBytes = response.getBytes("UTF-8");
-            httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-            OutputStream os = httpExchange.getResponseBody();
-            os.write(finalResponseBytes);
-            os.close();
-        } else {
-//            log out
         }
-
     }
 
     private String displayProfile() {
