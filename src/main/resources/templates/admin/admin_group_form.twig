@@ -29,7 +29,7 @@
                 <li><a href="/admin/mentors/list">mentors</a></li>
                 <li><a href="/admin/mentors/add">add mentor</a></li>
                 <li><a href="/admin/groups/list">groups</a></li>
-                <li><a href="/admin/gropus/add">add group</a></li>
+                <li><a href="/admin/groups/add">add group</a></li>
                 <li><a href="/admin/cities/list">cities</a></li>
                 <li><a href="/admin/cities/add">add city</a></li>
             </ul>
@@ -47,9 +47,9 @@
     {% else %}
         <h3>Add new group</h3>
     {% endif %}
-    {% if msg.length > 0 %}
+    {% if errmsg.length > 0 %}
         <div class="fail">
-            <h5>{{ msg }}!</h5>
+            <h5>{{ errmsg }}!</h5>
         </div>
     {% endif %}
 

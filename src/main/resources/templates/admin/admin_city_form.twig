@@ -29,7 +29,7 @@
                 <li><a href="/admin/mentors/list">mentors</a></li>
                 <li><a href="/admin/mentors/add">add mentor</a></li>
                 <li><a href="/admin/groups/list">groups</a></li>
-                <li><a href="/admin/gropus/add">add group</a></li>
+                <li><a href="/admin/groups/add">add group</a></li>
                 <li><a href="/admin/cities/list">cities</a></li>
                 <li><a href="/admin/cities/add">add city</a></li>
             </ul>
@@ -59,8 +59,8 @@
             <th>
                 <input type="text" name="name"
                        value="{{ city.getName }}{{ name }}"
-                       title="Name should be between 3 and 17 letters long"
-                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,25}"
+                       title="Name should be between 3 and 25 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ][ a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,25}"
                        required="required">
             </th>
         </tr>
@@ -69,8 +69,8 @@
             <th>
                 <input type="text" name="shortname"
                        value="{{ city.getShortName }}{{ shortname }}"
-                       title="Name should be between 3 and 17 letters long"
-                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,25}"
+                       title="Short ame should be between 3 and 7 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,7}"
                        required="required">
             </th>
         </tr>
