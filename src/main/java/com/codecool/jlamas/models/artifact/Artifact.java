@@ -5,15 +5,17 @@ public class Artifact {
     private String name;
     private Integer price;
     private String description;
+    private String type;
 
     public Artifact() {
 
     }
 
-    public Artifact(String name, Integer price, String description) {
+    public Artifact(String name, Integer price, String description, String type) {
         this.name = name;
         this.price = price;
         this.description = description;
+        this.type = type;
     }
 
     public String getName() {
@@ -28,6 +30,10 @@ public class Artifact {
         return this.description;
     }
 
+    public String getType() {
+        return this.type;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -38,5 +44,9 @@ public class Artifact {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setType(String type) {
+        this.type = type;
     }
 }
