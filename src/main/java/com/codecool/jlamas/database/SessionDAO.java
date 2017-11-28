@@ -1,7 +1,6 @@
 package com.codecool.jlamas.database;
 
 import com.codecool.jlamas.controllers.CookieController;
-import com.codecool.jlamas.models.account.Admin;
 import com.codecool.jlamas.models.account.Codecooler;
 import com.sun.net.httpserver.HttpExchange;
 
