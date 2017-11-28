@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.codecool.jlamas.database.CityDAO;
 import com.codecool.jlamas.database.GroupDAO;
+import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.views.GroupTeamView;
 
@@ -19,10 +20,12 @@ public class GroupController {
 
     private GroupTeamView groupView;
     private GroupDAO groupDAO;
+    private CityDAO cityDAO;
 
     public GroupController() {
         this.groupView = new GroupTeamView();
         this.groupDAO = new GroupDAO();
+        this.cityDAO = new CityDAO();
     }
 
     public Group getGroup(Integer id) {
@@ -30,7 +33,7 @@ public class GroupController {
     }
 
     public ArrayList<Group> getAllGroups() {
-        return groupDAO.selectAll();
+        return groupDAO.getAll();
     }
 
     public void createGroup() {
@@ -39,55 +42,45 @@ public class GroupController {
         groupDAO.insert(group);
     }
 
-    public void createGroupFromMap(Map<String, String> attrs) {
-        // TODO data validation --> groupView.getString("\nType name of new group: ")
-        CityDAO cityDAO = new CityDAO();
+    public void createGroupFromMap(Map<String, String> attrs) throws InvalidGroupDataException {
         Group group = new Group();
-        group.setCity(cityDAO.get(attrs.get("city")));
+        group.setCity(this.cityDAO.get(attrs.get("city")));
         group.setYear(Integer.valueOf(attrs.get("year")));
         group.setNumber(Integer.valueOf(attrs.get("number")));
 
-        groupDAO.insert(group);
+        if (this.isGroupUnique(group)) {
+            groupDAO.insert(group);
+        }
+        else {
+            throw new InvalidGroupDataException();
+        }
     }
 
-    public void editGroupFromMap(Map<String, String> attrs, Integer id) {
-        // TODO data validation --> groupView.getString("\nType name of new group: ")
-        // TODO GroupDAO update method is different to any other similar
+    public void editGroupFromMap(Map<String, String> attrs, Integer id) throws InvalidGroupDataException {
         Group group = this.groupDAO.getGroup(id);
-        groupDAO.update(group);
+        group.setCity(this.cityDAO.get(attrs.get("city")));
+        group.setYear(Integer.valueOf(attrs.get("year")));
+        group.setNumber(Integer.valueOf(attrs.get("number")));
+
+        if (this.isGroupUnique(group)) {
+            groupDAO.update(group);
+        }
+        else {
+            throw new InvalidGroupDataException();
+        }
     }
 
     public void removeGroup(Integer groupID) {
         this.groupDAO.delete(this.groupDAO.getGroup(groupID));
     }
 
-    public void displayGroups() {
-        ArrayList<Group> groups = getAllGroups();
-        groupView.printAll(groups);
-    }
-
-    public Group chooseGroup() {
-        displayGroups();
-        Integer record = groupView.getInt("Choose group: ");
-        Integer index = record - 1;
-        if (index >= getAllGroups().size()) {
-            throw new IndexOutOfBoundsException();
+    public boolean isGroupUnique(Group newGroup) {
+        for (Group group : this.getAllGroups()) {
+            if (group.equals(newGroup)) {
+                return false;
+            }
         }
-
-        return getAllGroups().get(index);
-    }
-
-    public void editGroup() {
-        try {
-            Group group = chooseGroup();
-            String oldName = group.getName();
-            String name = groupView.getString("New name of group: ");
-            group.setName(name);
-            groupDAO.update(group);
-
-        } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
-        }
+        return true;
     }
 
     public ArrayList<Integer> getYears() {
