@@ -36,7 +36,7 @@ public class TeamPurchaseDAO {
         ArrayList<TeamPurchase> pendingPurchases = new ArrayList<>();
 
         for (Integer id : ids) {
-            
+
             String sql = "SELECT artifact_name, student_login, price, is_marked FROM artifact "
                     + "WHERE id = ?";
 
@@ -62,7 +62,7 @@ public class TeamPurchaseDAO {
 
     private ArrayList<Integer> getIdsBy(Student student) {
 
-        String sql = "SELECT id FROM `team_purchase` WHERE student_login = ?"
+        String sql = "SELECT id FROM `team_purchase` WHERE student_login = ?";
         ArrayList<Integer> ids = new ArrayList<>();
 
         try (Connection c = ConnectDB.connect();
