@@ -1,7 +1,5 @@
 package com.codecool.jlamas.database;
 
-import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.models.artifact.TeamPurchase;
 
 import java.sql.*;
@@ -57,7 +55,23 @@ public class TeamPurchaseDAO {
         return pendingPurchases;
     }
 
-    public void ()
+    public void update(TeamPurchase purchase) {
+        String sql = "UPDATE team_purchase SET is_marked = ? WHERE id = ? AND student_login = ?";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setInt(1, purchase.isMarkedAsInteger());
+            pstmt.setInt(2, purchase.getId());
+            pstmt.setString(3, purchase.getStudent().getLogin().getValue());
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    
 
     private boolean intToBoolean(Integer status) {
         if (status.equals(0)) {
