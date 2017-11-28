@@ -60,4 +60,8 @@ public class Group {
         return String.format("%s.%d.%d", this.city.getShortName(), this.year, this.number);
     }
 
+    public boolean equals(Group other) {
+        return this.city.equals(other.getCity()) && this.year.equals(other.getYear()) && this.number.equals(other.getNumber());
+    }
+
 }
