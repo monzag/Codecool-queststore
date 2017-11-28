@@ -34,8 +34,13 @@ public class CookieController {
         return cookie;
     }
 
-    public void logout(HttpCookie cookie) {
+    public void logout(HttpCookie cookie, HttpExchange httpExchange) {
         session.removeCookieFromDb(cookie);
-        removeCookie(cookie);
+        removeCookie(httpExchange);
+    }
+
+    public void removeCookie(HttpExchange httpExchange) {
+        String newCookie = "sessionId='';max-age=0";
+        httpExchange.getResponseHeaders().add("Set-Cookie", newCookie);
     }
 }
