@@ -14,18 +14,20 @@ import java.util.Map;
 
 public class AppController implements HttpHandler {
 
-    LoginDAO loginData;
-    UserDAO userData;
+    private LoginDAO loginData;
+    private UserDAO userData;
+    private CookieController cookieController;
 
     public AppController() {
         this.loginData = new LoginDAO();
         this.userData = new UserDAO();
+        this.cookieController = new CookieController();
     }
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String method = httpExchange.getRequestMethod();
-        HttpCookie cookie = getCookie(httpExchange);
+        HttpCookie cookie = cookieController.getCookie(httpExchange);
 
         if (cookie != null) {
             if (method.equals("GET")) {
@@ -99,7 +101,7 @@ public class AppController implements HttpHandler {
 
         if (userType.equals("admin")) {
 //            Admin admin = this.userData.getAdmin(login);
-            createCookie(httpExchange, login);
+            cookieController.createCookie(httpExchange, login);
             sendRedirectResponse(httpExchange);
 
         } else if (userType.equals("mentor")) {
