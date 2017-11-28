@@ -33,8 +33,9 @@ public class AdminMenuController implements HttpHandler {
 
         if (cookie != null) {
             this.admin = session.getUserByCookie(httpExchange);
+            String userType = new UserDAO().getType(admin.getLogin().getValue());
 
-            if (admin != null) {
+            if (admin != null && userType.equals("admin")) {
 
                 if (method.equals("GET")) {
                     response = this.findCommand(httpExchange, getCommands);
