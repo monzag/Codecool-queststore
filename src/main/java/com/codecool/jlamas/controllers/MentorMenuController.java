@@ -9,6 +9,7 @@ import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.*;
+import java.net.HttpCookie;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,20 +33,31 @@ public class MentorMenuController implements HttpHandler{
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
+        HttpCookie cookie = cookieController.getCookie(httpExchange);
 
-        if (method.equals("GET")) {
-            response = findCommand(httpExchange, getCommands);
+        if (cookie != null) {
+            this.mentor = session.getUserByCookie(httpExchange);
+
+            if (mentor != null) {
+
+                if (method.equals("GET")) {
+                    response = findCommand(httpExchange, getCommands);
+                }
+
+                if (method.equals("POST")) {
+                    response = findCommand(httpExchange, postCommands);
+                }
+
+                sendOKResponse(response, httpExchange);
+
+            } else {
+                session.removeCookieFromDb(cookie);
+                sendRedirectResponse(httpExchange, "/");
+            }
+
+        } else {
+            sendRedirectResponse(httpExchange, "/");
         }
-
-        if (method.equals("POST")) {
-            response = findCommand(httpExchange, postCommands);
-        }
-
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
     }
 
     private String displayProfile() {
@@ -377,5 +389,19 @@ public class MentorMenuController implements HttpHandler{
         artifactController.editArtifact(oldName, name, description, price);
 
         return displayArtifact("Artifact has been edited");
+    }
+
+
+    public void sendRedirectResponse(HttpExchange httpExchange, String location) throws IOException {
+        httpExchange.getResponseHeaders().set("Location", location);
+        httpExchange.sendResponseHeaders(302,-1);
+    }
+
+    public void sendOKResponse(String response, HttpExchange httpExchange) throws IOException{
+        final byte[] finalResponseBytes = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(finalResponseBytes);
+        os.close();
     }
 }
