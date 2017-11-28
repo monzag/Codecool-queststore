@@ -1,4 +1,0 @@
-CREATE TABLE IF NOT EXISTS `team` (
-    `id`	INTEGER PRIMARY KEY UNIQUE NOT NULL,
-    `team_tag`	TEXT 
-);
