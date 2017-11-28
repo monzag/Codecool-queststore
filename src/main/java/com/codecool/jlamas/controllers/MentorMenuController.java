@@ -1,5 +1,7 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.SessionDAO;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -22,6 +24,9 @@ public class MentorMenuController implements HttpHandler{
     private ArrayList<Quest> questsList;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
+    private Codecooler mentor;
+    private SessionDAO session = new SessionDAO();
+    private CookieController cookieController = new CookieController();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
