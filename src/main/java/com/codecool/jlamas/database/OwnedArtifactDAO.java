@@ -43,7 +43,8 @@ public class OwnedArtifactDAO {
             ResultSet rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                Artifact artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
+                Artifact artifact = new Artifact(rs.getString("name"), rs.getInt("price"),
+                        rs.getString("description"), rs.getString("type"));
                 artifactList.add(artifact);
             }
 
