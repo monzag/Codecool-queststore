@@ -61,7 +61,7 @@ class WalletTest {
     @Test
     void getOwnedArtifacts() {
         ArrayList<Artifact> localArtifacts = new ArrayList<>();
-        Artifact artifact = new Artifact("name", 20, "description");
+        Artifact artifact = new Artifact("name", 20, "description", "Single");
         localArtifacts.add(artifact);
         wallet.setOwnedArtifacts(localArtifacts);
 
