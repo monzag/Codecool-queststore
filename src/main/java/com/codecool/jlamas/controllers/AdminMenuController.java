@@ -22,17 +22,19 @@ public class AdminMenuController implements HttpHandler {
     private Map<String, Callable> getCommands = new HashMap<String, Callable>();
     private Map<String, Callable> postCommands = new HashMap<String, Callable>();
     private Codecooler admin;
+    private SessionDAO session = new SessionDAO();
+    private CookieController cookieController = new CookieController();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
 
-        HttpCookie cookie = new CookieController().getCookie(httpExchange);
+        HttpCookie cookie = cookieController.getCookie(httpExchange);
 
         if (cookie != null) {
 
-            this.admin = new SessionDAO().getUserByCookie(httpExchange);
+            this.admin = session.getUserByCookie(httpExchange);
 
             if (admin != null) {
 
@@ -49,8 +51,11 @@ public class AdminMenuController implements HttpHandler {
                 OutputStream os = httpExchange.getResponseBody();
                 os.write(finalResponseBytes);
                 os.close();
+
             } else {
-                //            log out
+                session.removeCookieFromDb(cookie);
+                httpExchange.getResponseHeaders().set("Location", "/");
+                httpExchange.sendResponseHeaders(302,-1);
             }
         }
     }
