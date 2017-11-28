@@ -47,7 +47,7 @@ public class MentorController {
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
-        Group group = groupController.getGroup(attrs.get("class"));
+        Group group = groupController.getGroup(Integer.valueOf(attrs.get("class")));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
         mentor.correctNames();
@@ -68,7 +68,7 @@ public class MentorController {
 
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
-        Group group = new GroupController().getGroup(attrs.get("class"));
+        Group group = new GroupController().getGroup(Integer.valueOf(attrs.get("class")));
         mentor.setGroup(group);
 
         mentor.correctNames();
