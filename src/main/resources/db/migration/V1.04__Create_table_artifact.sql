@@ -2,6 +2,7 @@ CREATE TABLE IF NOT EXISTS `artifact` (
 	`name` TEXT NOT NULL UNIQUE,
 	`price`	INTEGER NOT NULL,
 	`description`	TEXT NOT NULL,
+	`type` TEXT NOT NULL,
 	PRIMARY KEY(`name`)
 );
 
