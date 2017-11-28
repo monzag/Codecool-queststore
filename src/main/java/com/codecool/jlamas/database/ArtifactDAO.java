@@ -53,7 +53,8 @@ public class ArtifactDAO {
     public void update(Artifact artifact, String preUpdateName) {
         String sql = "UPDATE artifact SET name = ? , "
                 + "price = ? , "
-                + "description = ? "
+                + "description = ? , "
+                + "type = ? "
                 + "WHERE name = ?";
 
         try (Connection c = ConnectDB.connect();
@@ -62,7 +63,8 @@ public class ArtifactDAO {
             pstmt.setString(1, artifact.getName());
             pstmt.setInt(2, artifact.getPrice());
             pstmt.setString(3, artifact.getDescription());
-            pstmt.setString(4, preUpdateName);
+            pstmt.setString(4, artifact.getType());
+            pstmt.setString(5, preUpdateName);
             pstmt.executeUpdate();
 
         } catch (ClassNotFoundException|SQLException e) {
