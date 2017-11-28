@@ -43,15 +43,15 @@
     <table class="input-table">
         <tr>
             <th>Quest Name:</th>
-            <th><input type="text" name="questName" value="{{ quest.getName() }}"></th>
+            <th><input type="text" name="questName" value="{{ quest.getName() }}" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}" title="Type only letters Min. three chars!"></th>
         </tr>
         <tr>
             <th>Description:</th>
-            <th><input type="text" name="description" value="{{ quest.getDescription() }}"></th>
+            <th><input type="text" name="description" value="{{ quest.getDescription() }}" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]{3,}" title="Min. three chars!"></th>
         </tr>
         <tr>
             <th>Reward:</th>
-            <th><input type="text" name="reward" value="{{ quest.getReward() }}"></th>
+            <th><input type="text" name="reward" value="{{ quest.getReward() }}" pattern="[1-9]{2,}" title="Type only numbers! Min. two digits!"></th>
         </tr>
     </table>
 
