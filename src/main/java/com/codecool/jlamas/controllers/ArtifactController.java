@@ -37,8 +37,7 @@ public class ArtifactController {
     }
 
     public Artifact chooseArtifact(String artifactName) {
-        Artifact artifact = artifactDao.selectArtifact(artifactName);
-        return artifact;
+        return artifactDao.selectArtifact(artifactName);
     }
 
 //    public boolean useArtifact() throws IndexOutOfBoundsException {
