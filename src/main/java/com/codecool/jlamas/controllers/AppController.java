@@ -17,11 +17,13 @@ public class AppController implements HttpHandler {
     private LoginDAO loginData;
     private UserDAO userData;
     private CookieController cookieController;
+    private SessionDAO session;
 
     public AppController() {
         this.loginData = new LoginDAO();
         this.userData = new UserDAO();
         this.cookieController = new CookieController();
+        this.session = new SessionDAO();
     }
 
     @Override
@@ -31,7 +33,9 @@ public class AppController implements HttpHandler {
 
         if (cookie != null) {
             if (method.equals("GET")) {
-                redirectToUserPage();
+                String login = session.getLoginByCookie(httpExchange);
+                launchUserController(login, httpExchange);
+
             } else {
 //                logout(cookie, httpExchange);
             }
