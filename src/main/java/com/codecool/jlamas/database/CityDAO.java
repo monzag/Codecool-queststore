@@ -34,23 +34,20 @@ public class CityDAO {
         return cities;
     }
 
-    public boolean insert(City city) {
-        String query = String.format("INSERT INTO `city` VALUES (%s, '%s', '%s');",
-                null, city.getName(), city.getShortName());
+    public void insert(City city) throws InvalidCityDataException {
+        String query = String.format("INSERT INTO `city` VALUES (null, '%s', '%s');",
+                city.getName(), city.getShortName());
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
 
             stmt.executeQuery(query);
 
-        } catch (ClassNotFoundException|SQLException e) {
+        } catch(ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
-
-            return false;
         }
-        return true;
-
     }
+
     public void update(City city) throws InvalidCityDataException {
         String query = String.format("UPDATE city SET name = '%s', short = '%s' WHERE id = %s;",
                 city.getName(), city.getShortName(), city.getID());
