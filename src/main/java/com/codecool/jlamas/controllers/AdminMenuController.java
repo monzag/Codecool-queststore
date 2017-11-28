@@ -29,11 +29,9 @@ public class AdminMenuController implements HttpHandler {
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
-
         HttpCookie cookie = cookieController.getCookie(httpExchange);
 
         if (cookie != null) {
-
             this.admin = session.getUserByCookie(httpExchange);
 
             if (admin != null) {
@@ -46,11 +44,7 @@ public class AdminMenuController implements HttpHandler {
                     response = this.findCommand(httpExchange, postCommands);
                 }
 
-                final byte[] finalResponseBytes = response.getBytes("UTF-8");
-                httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-                OutputStream os = httpExchange.getResponseBody();
-                os.write(finalResponseBytes);
-                os.close();
+                sendOKResponse(response, httpExchange);
 
             } else {
                 session.removeCookieFromDb(cookie);
@@ -266,5 +260,13 @@ public class AdminMenuController implements HttpHandler {
     public void sendRedirectResponse(HttpExchange httpExchange, String location) throws IOException {
         httpExchange.getResponseHeaders().set("Location", location);
         httpExchange.sendResponseHeaders(302,-1);
+    }
+
+    public void sendOKResponse(String response, HttpExchange httpExchange) throws IOException{
+        final byte[] finalResponseBytes = response.getBytes("UTF-8");
+        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
+        OutputStream os = httpExchange.getResponseBody();
+        os.write(finalResponseBytes);
+        os.close();
     }
 }
