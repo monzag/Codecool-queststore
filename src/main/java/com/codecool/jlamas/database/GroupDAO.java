@@ -26,7 +26,7 @@ public class GroupDAO {
         }
     }
 
-    public ArrayList<Group> selectAll() {
+    public ArrayList<Group> getAll() {
         ArrayList<Group> groups = new ArrayList<>();
         String query = "SELECT * FROM `group`;";
 
@@ -59,10 +59,11 @@ public class GroupDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();) {
 
-            query = String.format("UPDATE `group` SET city_name = '%s', year = %d, number = %d  WHERE group_id = %d; ",
+            query = String.format("UPDATE `group` SET city_name = '%s', year = %d, number = %d  WHERE id = %d; ",
                     group.getCity().getName(),
                     group.getYear(),
-                    group.getNumber());
+                    group.getNumber(),
+                    group.getID());
 
             stmt.executeUpdate(query);
 
