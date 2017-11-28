@@ -31,8 +31,8 @@ public class ArtifactController {
         this.artifactDao.insert(artifact);
     }
 
-    public void editArtifact(String oldName, String name, String description, Integer price) {
-        Artifact artifact = new Artifact(name, price, description);
+    public void editArtifact(String oldName, String name, String description, Integer price, String type) {
+        Artifact artifact = new Artifact(name, price, description, type);
         artifactDao.update(artifact, oldName);
     }
 
