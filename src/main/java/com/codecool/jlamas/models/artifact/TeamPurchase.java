@@ -2,18 +2,28 @@ package com.codecool.jlamas.models.artifact;
 
 import com.codecool.jlamas.models.account.Student;
 
-public class GroupPurchase {
+public class TeamPurchase {
 
+    private Integer id;
     private Artifact artifact;
     private Student student;
     private Integer price;
     private boolean isMarked;
 
-    public GroupPurchase(Artifact artifact, Student student, Integer price, boolean isMarked) {
+    public TeamPurchase(Integer id, Artifact artifact, Student student, Integer price, boolean isMarked) {
+        this.id = id;
         this.artifact = artifact;
         this.student = student;
         this.price = price;
         this.isMarked = isMarked;
+    }
+
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
     }
 
     public Artifact getArtifact() {
@@ -46,5 +56,17 @@ public class GroupPurchase {
 
     public void setMarked(boolean marked) {
         isMarked = marked;
+    }
+
+    public Integer isMarkedAsInteger() {
+        if (isMarked) {
+            return 1;
+        } else return 0;
+    }
+
+    public void setMarkedFromInteger(Integer status) {
+        if (status == 0) {
+            this.isMarked = false;
+        } else this.isMarked = true;
     }
 }
