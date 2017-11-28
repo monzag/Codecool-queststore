@@ -31,7 +31,7 @@ public class AppController implements HttpHandler {
 
         if (cookie != null) {
             if (method.equals("GET")) {
-                sendRedirectResponse(httpExchange);
+                redirectToUserPage();
             } else {
 //                logout(cookie, httpExchange);
             }
@@ -77,6 +77,7 @@ public class AppController implements HttpHandler {
         String password = inputs.get("password").toString();
 
         if (loginData.matchLogin(login, password)) {
+            cookieController.createCookie(httpExchange, login);
             launchUserController(login, httpExchange);
 
         } else {
@@ -96,25 +97,21 @@ public class AppController implements HttpHandler {
     }
 
     public void launchUserController(String login, HttpExchange httpExchange) throws IOException {
-
+        String location = "/";
         String userType = this.userData.getType(login);
 
         if (userType.equals("admin")) {
-            cookieController.createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange,  "/admin");
+            location = "/admin";
 
         } else if (userType.equals("mentor")) {
-            cookieController.createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange, "/mentor");
+            location = "/mentor";
+
 
         } else if (userType.equals("student")) {
-            cookieController.createCookie(httpExchange, login);
-            sendRedirectResponse(httpExchange, "/student");
-
-        } else {
-            displayLoginFormula(httpExchange);
+            location = "/student";
         }
-    }
 
+        sendRedirectResponse(httpExchange, location);
+    }
 
 }
