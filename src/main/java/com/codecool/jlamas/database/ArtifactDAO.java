@@ -81,12 +81,12 @@ public class ArtifactDAO {
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(sql)) {
 
-            artifact = new Artifact(rs.getString("name"), rs.getInt("price"), rs.getString("description"));
+            artifact = new Artifact(rs.getString("name"), rs.getInt("price"),
+                    rs.getString("description"), rs.getString("type"));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
-
         return artifact;
     }
 
