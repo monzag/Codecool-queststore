@@ -18,7 +18,7 @@ public class SessionDAO {
         this.mentorDAO = new MentorDAO();
         this.studentDAO = new StudentDAO();
     }
-    
+
     public void addCookieToDb(HttpCookie cookie, String login) {
         String query = "INSERT INTO `cookie` VALUES (?, ?);";
 
@@ -72,5 +72,22 @@ public class SessionDAO {
             codecooler = studentDAO.getStudent(login);
         }
         return codecooler;
+    }
+
+    public void removeCookieFromDb(HttpCookie cookie) {
+        String sessionId = cookie.getValue();
+
+        try (Connection c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
+             Statement stmt = c.createStatement()) {
+
+
+            String query = String.format("DELETE FROM `cookies` WHERE sessionId = '%s'; ",
+                    sessionId);
+
+            stmt.executeUpdate(query);
+
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
 }
