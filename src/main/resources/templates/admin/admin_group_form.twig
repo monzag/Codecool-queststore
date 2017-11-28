@@ -35,65 +35,59 @@
             </ul>
         </nav>
     </div>
+
     <footer>
         <small>&copy; pyLamas</small>
     </footer>
 </section>
 
 <form id="2" class="add" method="POST">
-    {% if mentor != null %}
-        <h3>Edit mentor {{ mentor.getName }}</h3>
+    {% if group != null %}
+        <h3>Edit group {{group.getName }}</h3>
     {% else %}
-        <h3>Add new mentor</h3>
+        <h3>Add new group</h3>
     {% endif %}
-    {% if name.length > 0 %}
+    {% if errmsg.length > 0 %}
         <div class="fail">
-            <h5>This email was already used!</h5>
+            <h5>{{ errmsg }}!</h5>
         </div>
     {% endif %}
 
     <table class="input-table">
         <tr>
-            <th>Name:</th>
-            <th>
-                <input type="text" name="name"
-                       value="{{ mentor.getName }}{{ name }}"
-                       title="Name should be between 3 and 17 letters long"
-                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
-                       required="required">
-            </th>
-        </tr>
-        <tr>
-            <th>Surname:</th>
-            <th>
-                <input type="text" name="surname"
-                       value="{{ mentor.getSurname }}{{ surname }}"
-                       title="Name should be between 3 and 17 letters long"
-                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
-                       required="required">
-            </th>
-        </tr>
-        <tr>
-            <th>Email:</th>
-            <th>
-                <input type="email" name="email"
-                       value="{{ mentor.getEmail.getValue }}"
-                       required="required">
-            </th>
-        </tr>
-        <tr>
-            <th>Class:</th>
-            <th>
-                <select name="class">
-                    {% for group in groups %}
-                        <option value="{{ group.getID }}">{{ group.getName }}</option>
+            <td>City:</td>
+            <td>
+                <select id="select-width" name="city">
+                    {% for city in cities %}
+                        <option value="{{ city.getName }}">{{ city.getName }}</option>
                     {% endfor %}
                 </select>
-            </th>
+            </td>
+        <tr>
+            <td>Year:</td>
+            <td>
+                <select id="select-width" name="year">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </td>
         </tr>
-    </table>
-    <button class="submit" type="submit" form="2">submit</button>
-</form>
+        <tr>
+            <td>Group:</td>
+            <td>
+                <select id="select-width" name="number">
+                    {% for number in numbers %}
+                        <option value="{{ number }}">{{ number }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
 
+    </table>
+
+    <button class="submit" type="submit" form="2">submit</button>
+
+</form>
 </body>
 </html>

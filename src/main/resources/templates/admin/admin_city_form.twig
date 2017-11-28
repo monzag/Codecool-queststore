@@ -30,24 +30,52 @@
                 <li><a href="/admin/mentors/add">add mentor</a></li>
                 <li><a href="/admin/groups/list">groups</a></li>
                 <li><a href="/admin/groups/add">add group</a></li>
+                <li><a href="/admin/cities/list">cities</a></li>
+                <li><a href="/admin/cities/add">add city</a></li>
             </ul>
         </nav>
     </div>
+
     <footer>
         <small>&copy; pyLamas</small>
     </footer>
 </section>
 
-<form id="1" class="add" method="POST">
-    <h3>Edit group {{ group.getName }}</h3>
+<form id="2" class="add" method="POST">
+    {% if city != null %}
+        <h3>Edit city {{city.getName }}</h3>
+    {% else %}
+        <h3>Add new city</h3>
+    {% endif %}
+    {% if msg.length > 0 %}
+        <div class="fail">
+            <h5>{{ msg }}!</h5>
+        </div>
+    {% endif %}
 
     <table class="input-table">
         <tr>
             <th>Name:</th>
-            <th><input type="text" name="name" value=""></th>
+            <th>
+                <input type="text" name="name"
+                       value="{{ city.getName }}{{ name }}"
+                       title="Name should be between 3 and 25 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ][ a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,25}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Short Name:</th>
+            <th>
+                <input type="text" name="shortname"
+                       value="{{ city.getShortName }}{{ shortname }}"
+                       title="Short ame should be between 3 and 7 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,7}"
+                       required="required">
+            </th>
         </tr>
     </table>
-    <button class="submit" type="submit" form="1">submit</button>
+    <button class="submit" type="submit" form="2">submit</button>
 </form>
 
 </body>

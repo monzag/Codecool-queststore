@@ -40,7 +40,7 @@ public class StudentController {
             Mail email = new Mail(mail);
             Login login = new Login("testLogin");
             Password password = getPassword();
-            Group group = new GroupController().getGroup(groupName);
+            Group group = new GroupController().getGroup(Integer.valueOf(groupName));
             Wallet wallet = new Wallet(0);
             Student student = new Student(login, password, email, name, surname, group, wallet);
             System.out.println(student);
@@ -53,16 +53,16 @@ public class StudentController {
 //        }
     }
 
-    public Group getGroup() {
-        Group group = new Group();
-        GroupController groupController = new GroupController();
-        try {
-            group = groupController.chooseGroup();
-        } catch (IndexOutOfBoundsException e) {
-            studentView.printIndexError();
-        }
-        return group;
-    }
+//    public Group getGroup() {
+//        Group group = new Group();
+//        GroupController groupController = new GroupController();
+//        try {
+//            group = groupController.chooseGroup();
+//        } catch (IndexOutOfBoundsException e) {
+//            studentView.printIndexError();
+//        }
+//        return group;
+//    }
 
     public Password getPassword() {
         String alphabet= "abcdefghijklmnopqrstuvwxyz0123456789";
