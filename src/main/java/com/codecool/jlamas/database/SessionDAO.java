@@ -9,10 +9,16 @@ import java.sql.*;
 
 public class SessionDAO {
 
-    private UserDAO userDAO = new UserDAO();
-    private MentorDAO mentorDAO = new MentorDAO();
-    private StudentDAO studentDAO = new StudentDAO();
+    private UserDAO userDAO;
+    private MentorDAO mentorDAO;
+    private StudentDAO studentDAO;
 
+    public SessionDAO() {
+        this.userDAO = new UserDAO();
+        this.mentorDAO = new MentorDAO();
+        this.studentDAO = new StudentDAO();
+    }
+    
     public void addCookieToDb(HttpCookie cookie, String login) {
         String query = "INSERT INTO `cookie` VALUES (?, ?);";
 
