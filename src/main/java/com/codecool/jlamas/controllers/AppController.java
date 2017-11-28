@@ -100,20 +100,17 @@ public class AppController implements HttpHandler {
         String userType = this.userData.getType(login);
 
         if (userType.equals("admin")) {
-//            Admin admin = this.userData.getAdmin(login);
             cookieController.createCookie(httpExchange, login);
             sendRedirectResponse(httpExchange);
 
         } else if (userType.equals("mentor")) {
-//            MentorDAO mentorData = new MentorDAO();
-//            Mentor mentor = mentorData.getMentor(login);
-//            MentorMenuController mentorMenu = new MentorMenuController(mentor);
-//            mentorMenu.start();
+            cookieController.createCookie(httpExchange, login);
+            sendRedirectResponse(httpExchange);
+
         } else if (userType.equals("student")) {
-//            StudentDAO studentData = new StudentDAO();
-//            Student student = studentData.getStudent(login);
-//            StudentMenuController studentMenu = new StudentMenuController(student);
-//            studentMenu.start();
+            cookieController.createCookie(httpExchange, login);
+            sendRedirectResponse(httpExchange);
+
         } else {
             displayLoginFormula(httpExchange);
         }
