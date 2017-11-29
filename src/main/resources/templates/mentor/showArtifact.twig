@@ -27,7 +27,6 @@
           <li><a href="/mentor/groups">groups</a></li>
           <li><a href="/mentor/quest/show">quests</a></li>
           <li><a href="/mentor/artifact/show">artifacts</a></li>
-          <li><a href="/mentor/groupartifact/show">group artifacts</a></li>
         </ul>
       </nav>
     </div>
@@ -42,7 +41,7 @@
        <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px;display:inline-block" ><h4>{{ message }}</h4>
     {% endif %}
    </div>
-    <h3>Artifact</h3>
+    <h3>Single artifacts:</h3>
         <table style="width:100%">
       <tr>
         <th>ID</th>
@@ -53,6 +52,7 @@
       <tr>
           {% set i = 0 %}
         {% for artifact in artifacts %}
+          {% if artifact.getType().equals("Single") %}
             {% set i = i + 1 %}
             <tr>
                 <td>{{ i }}</td>
@@ -63,11 +63,37 @@
                 <td><a class="btn" id="remove-btn" href="/mentor/artifact/remove/{{ artifact.getName() }}">Remove</a></td>
 
       </tr>
+            {% endif %}
         {% endfor %}
-      <tr>
-        <th class="btn" id="add-btn"><a href="/mentor/artifact/add">Add new</a></th>
-      </tr>
     </table>
+      <h3>Team artifacts:</h3>
+      <table style="width:100%">
+          <tr>
+              <th>ID</th>
+              <th>Name</th>
+              <th>Description</th>
+              <th>Price</th>
+          </tr>
+          <tr>
+              {% set i = 0 %}
+              {% for artifact in artifacts %}
+              {% if artifact.getType().equals("Team") %}
+              {% set i = i + 1 %}
+          <tr>
+              <td>{{ i }}</td>
+              <td>{{ artifact.getName() }}</td>
+              <td>{{ artifact.getDescription() }}</td>
+              <td>{{ artifact.getPrice }}</td>
+              <td><a class="btn" id="edit-btn" href="/mentor/artifact/edit/{{ artifact.getName() }}">Edit</a></td>
+              <td><a class="btn" id="remove-btn" href="/mentor/artifact/remove/{{ artifact.getName() }}">Remove</a></td>
+
+          </tr>
+          {% endif %}
+          {% endfor %}
+          <tr>
+              <th class="btn" id="add-btn"><a href="/mentor/artifact/add">Add new</a></th>
+          </tr>
+      </table>
   </section>
 </body>
 </html>
