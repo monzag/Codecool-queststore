@@ -74,14 +74,14 @@
         <th>Email:</th>
         <th>
           <input type="email" name="email"
-                 value="{{ student.getEmail.getValue }}"
+                 value="{{ student.getEmail().getValue() }}"
                  required="required">
         </th>
       </tr>
       <tr>
         <th>Class:</th>
         <th>
-          <select name="class">
+          <select name="group">
               {% for group in groups %}
                 <option value="{{ group.getID }}">{{ group.getName }}</option>
               {% endfor %}
