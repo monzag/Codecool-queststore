@@ -1,5 +1,9 @@
 package com.codecool.jlamas.controllers;
 
+import com.codecool.jlamas.database.SessionDAO;
+import com.codecool.jlamas.database.UserDAO;
+import com.codecool.jlamas.handlers.Response;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -7,6 +11,7 @@ import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.*;
+import java.net.HttpCookie;
 import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -22,25 +27,41 @@ public class MentorMenuController implements HttpHandler{
     private ArrayList<Quest> questsList;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
+    private Codecooler mentor;
+    private SessionDAO session = new SessionDAO();
+    private CookieController cookieController = new CookieController();
+    private Response responseCode = new Response();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
+        HttpCookie cookie = cookieController.getCookie(httpExchange);
 
-        if (method.equals("GET")) {
-            response = findCommand(httpExchange, getCommands);
+        if (cookie != null) {
+            this.mentor = session.getUserByCookie(httpExchange);
+            String userType = new UserDAO().getType(mentor.getLogin().getValue());
+
+            if (mentor != null && userType.equals("mentor")) {
+
+                if (method.equals("GET")) {
+                    response = findCommand(httpExchange, getCommands);
+                }
+
+                if (method.equals("POST")) {
+                    response = findCommand(httpExchange, postCommands);
+                }
+
+                responseCode.sendOKResponse(response, httpExchange);
+
+            } else {
+                session.removeCookieFromDb(cookie);
+                responseCode.sendRedirectResponse(httpExchange, "/");
+            }
+
+        } else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
-
-        if (method.equals("POST")) {
-            response = findCommand(httpExchange, postCommands);
-        }
-
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
     }
 
     private String displayProfile() {
@@ -49,6 +70,7 @@ public class MentorMenuController implements HttpHandler{
 
         // profile pic found by login
         model.with("login", "student");
+        model.with("mentor", mentor);
 
         String response = template.render(model);
 
@@ -373,4 +395,5 @@ public class MentorMenuController implements HttpHandler{
 
         return displayArtifact("Artifact has been edited");
     }
+
 }
