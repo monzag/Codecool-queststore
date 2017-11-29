@@ -36,7 +36,7 @@ public class SessionDAO {
     }
 
     public String getLoginByCookie(HttpExchange httpExchange) {
-        String login = "";
+        String login = null;
         HttpCookie cookie = new CookieController().getCookie(httpExchange);
         String query = "SELECT login FROM `cookie` WHERE sessionId = '" + cookie.getValue() + "';";
 
@@ -77,7 +77,7 @@ public class SessionDAO {
     public void removeCookieFromDb(HttpCookie cookie) {
         String sessionId = cookie.getValue();
 
-        try (Connection c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
+        try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
 
 
@@ -86,7 +86,7 @@ public class SessionDAO {
 
             stmt.executeUpdate(query);
 
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
     }
