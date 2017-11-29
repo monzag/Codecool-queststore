@@ -2,6 +2,7 @@ package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
+import com.codecool.jlamas.handlers.Response;
 import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -29,6 +30,7 @@ public class MentorMenuController implements HttpHandler{
     private Codecooler mentor;
     private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
+    private Response responseCode = new Response();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -50,15 +52,15 @@ public class MentorMenuController implements HttpHandler{
                     response = findCommand(httpExchange, postCommands);
                 }
 
-                sendOKResponse(response, httpExchange);
+                responseCode.sendOKResponse(response, httpExchange);
 
             } else {
                 session.removeCookieFromDb(cookie);
-                sendRedirectResponse(httpExchange, "/");
+                responseCode.sendRedirectResponse(httpExchange, "/");
             }
 
         } else {
-            sendRedirectResponse(httpExchange, "/");
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
@@ -394,17 +396,4 @@ public class MentorMenuController implements HttpHandler{
         return displayArtifact("Artifact has been edited");
     }
 
-
-    public void sendRedirectResponse(HttpExchange httpExchange, String location) throws IOException {
-        httpExchange.getResponseHeaders().set("Location", location);
-        httpExchange.sendResponseHeaders(302,-1);
-    }
-
-    public void sendOKResponse(String response, HttpExchange httpExchange) throws IOException{
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
-    }
 }
