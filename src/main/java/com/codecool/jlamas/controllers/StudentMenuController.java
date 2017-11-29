@@ -1,9 +1,11 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.*;
+import com.codecool.jlamas.handlers.AbstractHandler;
 import com.codecool.jlamas.handlers.Response;
 import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.artifact.Artifact;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -17,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class StudentMenuController implements HttpHandler {
+public class StudentMenuController extends AbstractHandler implements HttpHandler {
 
     private WalletController walletController;
     private TeamPurchaseController teamPurchaseController;
@@ -116,20 +118,31 @@ public class StudentMenuController implements HttpHandler {
         return displayBoughtArtifact(message);
     }
 
-    private String chooseStudentsForPurchase(HttpExchange httpExchange) {
+    private String openTeamPurchase(HttpExchange httpExchange) {
+
+        String artifactName = parseUrl(httpExchange, 4);
+        //TODO: IT SHOULD COME FROM INPUT FORM!
+    }
+
+    private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/chooseStudentsForPurchase.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("errmsg", errmsg);
+        model.with("artifact", artifact);
+        model.with("students", new StudentDAO().requestAll());
 
+        return template.render(model);
     }
 
-    private String addTeamPurchase(HttpExchange httpExchange) {
-        String purchaseId = parseUrl(httpExchange, 4);
+    private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
+        String artifactName = parseUrl(httpExchange, 4);
+        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
         String message = "Pending purchase opened";
 
         teamPurchaseController = new TeamPurchaseController();
-        teamPurchaseController.addTeamPurchase();
+        //teamPurchaseController.addTeamPurchase();
 
 
         return displayTeamPurchase(message);
@@ -149,7 +162,7 @@ public class StudentMenuController implements HttpHandler {
         return httpExchange.getRequestURI().getPath().split("/")[index];
     }
 
-    private void addGetCommands(HttpExchange httpExchange) {
+    protected void addGetCommands(HttpExchange httpExchange) {
         getCommands.put("/student", () -> { return displayMovie();} );
         getCommands.put("/student/profile", () -> { return displayProfile();} );
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
@@ -157,23 +170,7 @@ public class StudentMenuController implements HttpHandler {
         getCommands.put("/student/store", () -> {return displayStore();} );
     }
 
-    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
-        String response = null;
-        String path = httpExchange.getRequestURI().getPath();
-        Set<String> keys = mapName.keySet();
+    protected void addPostCommands(HttpExchange httpExchange) {
 
-        addGetCommands(httpExchange);
-
-        for (String key : keys) {
-
-            if (path.matches(key)) {
-                try {
-                    response = (String) mapName.get(key).call();
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return response;
     }
 }
