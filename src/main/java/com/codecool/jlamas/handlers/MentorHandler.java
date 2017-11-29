@@ -254,7 +254,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         }
 
         return displayGroups("Student has been added");
-
     }
 
     private String removeStudent(HttpExchange httpExchange) {
