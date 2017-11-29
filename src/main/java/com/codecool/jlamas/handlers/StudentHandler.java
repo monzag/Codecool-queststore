@@ -21,6 +21,8 @@ import java.util.concurrent.Callable;
 
 public class StudentHandler extends AbstractHandler implements HttpHandler {
 
+    private static final Integer ARTIFACT_INDEX = 4;
+
     private WalletController walletController;
     private TeamPurchaseController teamPurchaseController;
     private Map<String, Callable> getCommands = new HashMap<>();
@@ -117,7 +119,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String buyArtifact(HttpExchange httpExchange) {
-        String artifactName = parseUrl(httpExchange, 4);
+        String artifactName = parseUrl(httpExchange, ARTIFACT_INDEX);
         String message;
 
         if (walletController.buyArtifact(new ArtifactController().chooseArtifact(artifactName))) {
@@ -131,7 +133,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String openTeamPurchase(HttpExchange httpExchange) {
 
-        String artifactName = parseUrl(httpExchange, 4);
+        String artifactName = parseUrl(httpExchange, ARTIFACT_INDEX);
         //TODO: MISSING MESSAGE!
 
         return chooseStudentsForPurchase("", new ArtifactController().chooseArtifact(artifactName));
@@ -151,7 +153,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
 
-        String artifactName = parseUrl(httpExchange, 4);
+        String artifactName = parseUrl(httpExchange, ARTIFACT_INDEX);
         ArrayList<Student> students = inputsToStudents(this.parseUserInputsFromHttp(httpExchange));
         String message = "Pending purchase opened";
 
@@ -162,7 +164,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String acceptTeamPurchase(HttpExchange httpExchange) {
 
-        Integer id = Integer.parseInt(parseUrl(httpExchange, 4));
+        Integer id = Integer.parseInt(parseUrl(httpExchange, ARTIFACT_INDEX));
         String message;
 
         if (new TeamPurchaseController().acceptPurchaseRequest(student, id)) {
@@ -175,7 +177,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String cancelTeamPurchase(HttpExchange httpExchange) {
 
-        Integer id = Integer.parseInt(parseUrl(httpExchange, 4));
+        Integer id = Integer.parseInt(parseUrl(httpExchange, ARTIFACT_INDEX));
         new TeamPurchaseController().cancelTeamPurchase(id);
         String message = "Request canceled for all students";
 
@@ -201,10 +203,5 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         }
         return students;
     }
-
-    private String parseUrl(HttpExchange httpExchange, int index) {
-        return httpExchange.getRequestURI().getPath().split("/")[index];
-    }
-
 
 }
