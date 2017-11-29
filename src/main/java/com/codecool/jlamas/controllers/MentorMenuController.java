@@ -28,7 +28,7 @@ public class MentorMenuController implements HttpHandler{
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
     private Mentor mentor;
-    private SessionDAO<Mentor> session = new SessionDAO();
+    private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
 
@@ -39,28 +39,29 @@ public class MentorMenuController implements HttpHandler{
         HttpCookie cookie = cookieController.getCookie(httpExchange);
 
         if (cookie != null) {
-            this.mentor = session.getUserByCookie(httpExchange);
-            String userType = new UserDAO().getType(mentor.getLogin().getValue());
+            String userType = new UserDAO().getType(session.getUserByCookie(httpExchange).getLogin().getValue());
+            if (userType.equals("mentor")) {
+                this.mentor = (Mentor) session.getUserByCookie(httpExchange);
+                if (mentor != null) {
 
-            if (mentor != null && userType.equals("mentor")) {
+                    if (method.equals("GET")) {
+                        response = findCommand(httpExchange, getCommands);
+                    }
 
-                if (method.equals("GET")) {
-                    response = findCommand(httpExchange, getCommands);
+                    if (method.equals("POST")) {
+                        response = findCommand(httpExchange, postCommands);
+                    }
+
+                    responseCode.sendOKResponse(response, httpExchange);
+
+                } else {
+                    session.removeCookieFromDb(cookie);
+                    responseCode.sendRedirectResponse(httpExchange, "/");
                 }
-
-                if (method.equals("POST")) {
-                    response = findCommand(httpExchange, postCommands);
-                }
-
-                responseCode.sendOKResponse(response, httpExchange);
 
             } else {
-                session.removeCookieFromDb(cookie);
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
-
-        } else {
-            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
