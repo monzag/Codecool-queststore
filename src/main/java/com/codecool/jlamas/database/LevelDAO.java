@@ -1,10 +1,11 @@
 package com.codecool.jlamas.database;
 
 import com.codecool.jlamas.models.level.Level;
+import com.codecool.jlamas.models.quest.Quest;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.SQLException;
+import java.sql.*;
+import java.util.ArrayList;
+import java.util.List;
 
 public class LevelDAO {
 
@@ -24,6 +25,25 @@ public class LevelDAO {
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
-
     }
+
+    public List<Level> selectAll() {
+        List<Level> levelsList = new ArrayList<>();
+        String sql = "SELECT name, score FROM level";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt  = c.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            while (rs.next()) {
+                Level level = new Level(rs.getString("name"), rs.getInt("score"));
+                levelsList.add(level);
+            }
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return levelsList;
+    }
+
 }
