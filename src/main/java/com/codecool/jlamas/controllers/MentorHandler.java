@@ -19,7 +19,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class MentorMenuController implements HttpHandler{
+public class MentorHandler implements HttpHandler{
 
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
