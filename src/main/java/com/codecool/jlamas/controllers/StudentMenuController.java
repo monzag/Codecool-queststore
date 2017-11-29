@@ -20,6 +20,7 @@ import java.util.concurrent.Callable;
 public class StudentMenuController implements HttpHandler {
 
 //    private Student student = new StudentDAO().getStudent("student");
+    private WalletController walletController = new WalletController(student);
     private Map<String, Callable> getCommands = new HashMap<>();
     private Codecooler student;
     private SessionDAO session = new SessionDAO();
@@ -100,7 +101,6 @@ public class StudentMenuController implements HttpHandler {
     }
 
     private String buyArtifact(HttpExchange httpExchange) {
-        WalletController walletController = new WalletController(student);
         String artifactName = parseUrl(httpExchange, 4);
         String message;
 
