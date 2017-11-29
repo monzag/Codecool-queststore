@@ -78,7 +78,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
         getCommands.put("/mentor/groups/addStudent", () -> {return displayStudentForm(null, null);} );
         getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
-        getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
+        getCommands.put("/mentor/groups/edit/.+", () -> {return displayStudentForm(httpExchange, null);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
         getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
@@ -137,30 +137,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String displayAddStudentFormula() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addStudent.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("groups", new GroupController().getAllGroups());
-
-        return template.render(model);
-    }
-
-    private String displayEditFormula(HttpExchange httpExchange) {
-        String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
-
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editStudent.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("student", studentController.getStudent(login));
-
-        return template.render(model);
-    }
-
     public String displayArtifact(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -210,7 +186,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
         return template.render(model);
     }
-
 
     private String displayAddQuest() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/add_quest.twig");
@@ -275,8 +250,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         try {
             studentController.createStudentFromMap(inputs);
         } catch (InvalidUserDataException e) {
-            // TODO information about error
-            return this.displayAddStudentFormula();
+            return this.displayStudentForm(null, inputs);
         }
 
         return displayGroups("Student has been added");
@@ -296,8 +270,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         try {
             studentController.editStudnetFromMap(inputs, this.parseStringFromURL(httpExchange, STUDENT_INDEX));
         } catch (InvalidUserDataException e) {
-            // TODO information about error
-            return this.displayEditFormula(httpExchange);
+            return this.displayStudentForm(httpExchange, inputs);
         }
 
         return displayGroups("Student has been edited");
