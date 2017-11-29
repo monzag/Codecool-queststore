@@ -2,6 +2,7 @@ package com.codecool.jlamas;
 
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.handlers.AdminHandler;
+import com.codecool.jlamas.handlers.MentorHandler;
 import org.flywaydb.core.Flyway;
 import com.sun.net.httpserver.HttpServer;
 import java.net.InetSocketAddress;
@@ -19,7 +20,7 @@ public class Main {
 
         server.createContext("/", new AppController());
         server.createContext("/template", new TemplateController());
-        server.createContext("/mentor", new MentorMenuController());
+        server.createContext("/mentor", new MentorHandler());
         server.createContext("/student", new StudentMenuController());
         server.createContext("/admin", new AdminHandler());
         server.createContext("/static", new Static());

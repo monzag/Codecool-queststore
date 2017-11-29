@@ -1,5 +1,6 @@
-package com.codecool.jlamas.controllers;
+package com.codecool.jlamas.handlers;
 
+import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.handlers.Response;
