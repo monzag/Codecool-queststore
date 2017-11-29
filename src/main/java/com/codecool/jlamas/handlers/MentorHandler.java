@@ -3,6 +3,7 @@ package com.codecool.jlamas.handlers;
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
+import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -134,7 +135,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
         // profile pic found by login
         model.with("login", "student");
-        model.with("student", studentController.chooseStudent(login));
+        model.with("student", studentController.getStudent(login));
 
         return template.render(model);
     }
@@ -250,11 +251,12 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private String addStudent(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String name = inputs.get("name").toString();
-        String surname = inputs.get("surname").toString();
-        String email = inputs.get("email").toString();
-        String groupName = inputs.get("group").toString();
-        studentController.addStudent(name, surname, email, groupName);
+        try {
+            studentController.createStudentFromMap(inputs);
+        } catch (InvalidUserDataException e) {
+            // TODO information about error
+            return this.displayAddStudentFormula();
+        }
 
         return displayGroups("Student has been added");
 
@@ -270,12 +272,12 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private String editStudent(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String name = inputs.get("name").toString();
-        String surname = inputs.get("surname").toString();
-        String email = inputs.get("email").toString();
-        String groupName = inputs.get("group").toString();
-        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        studentController.editStudent(login, name, surname, email, groupName);
+        try {
+            studentController.editStudnetFromMap(inputs, this.parseStringFromURL(httpExchange, STUDENT_INDEX));
+        } catch (InvalidUserDataException e) {
+            // TODO information about error
+            return this.displayEditFormula(httpExchange);
+        }
 
         return displayGroups("Student has been edited");
     }
@@ -316,7 +318,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
 
         String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
-        questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
+        questController.markQuestAsDone(studentController.getStudent(login), questController.chooseQuest(questName));
 
         return displayQuestsToMark("Quest has been marked", httpExchange);
     }
