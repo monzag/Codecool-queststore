@@ -164,7 +164,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String acceptTeamPurchase(HttpExchange httpExchange) {
 
-        Integer id = Integer.parseInt(parseUrl(httpExchange, ARTIFACT_INDEX));
+        Integer id = parseIntFromURL(httpExchange, ARTIFACT_INDEX);
         String message;
 
         if (new TeamPurchaseController().acceptPurchaseRequest(student, id)) {
@@ -177,7 +177,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String cancelTeamPurchase(HttpExchange httpExchange) {
 
-        Integer id = Integer.parseInt(parseUrl(httpExchange, ARTIFACT_INDEX));
+        Integer id = parseIntFromURL(httpExchange, ARTIFACT_INDEX);
         new TeamPurchaseController().cancelTeamPurchase(id);
         String message = "Request canceled for all students";
 
