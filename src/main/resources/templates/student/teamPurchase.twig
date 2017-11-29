@@ -58,7 +58,7 @@
             <td>{{ purchase.getStudent().getName() }}</td>
             <td>{{ purchase.getPrice() }}</td>
             <td>{{ purchase.isMarked() }}</td>
-            {% if student.getLogin().getValue().equals(purchase.getStudent().getLogin().getValue() %}
+            {% if student.getLogin().getValue().equals(purchase.getStudent().getLogin().getValue()) %}
             <td><a method="POST" class="btn" id="edit-btn" href="/student/team_purchases/accept/{{ purchase.getId() }}">Accept</a></td>
             <td><a method="POST" class="btn" id="remove-btn" href="/student/team_purchases/cancel/{{ purchase.getId() }}">Cancel</a></td>
             {% endif %}
