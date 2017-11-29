@@ -65,7 +65,6 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
                     }
                 }
             } else {
-                session.removeCookieFromDb(cookie);
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
         } else {
