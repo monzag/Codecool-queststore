@@ -30,6 +30,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
+
         String response = "";
         String method = httpExchange.getRequestMethod();
         HttpCookie cookie = cookieController.getCookie(httpExchange);
@@ -45,7 +46,6 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
                     if (method.equals("GET")) {
                         response = findCommand(httpExchange, getCommands);
                     }
-
                     responseCode.sendOKResponse(response, httpExchange);
 
                 } else {
@@ -60,22 +60,24 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected void addGetCommands(HttpExchange httpExchange) {
+
         getCommands.put("/student", () -> { return displayProfile();} );
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
         getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
         getCommands.put("/student/store", () -> { return displayStore();} );
         getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
-        getCommands.put("/student/team_purchases/open/.+", () -> { return openTeamPurchase(httpExchange);} );
-
+        getCommands.put("/student/team_purchases/open/.+", () -> { return displayNewTeamPurchaseForm(httpExchange);} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
-        postCommands.put("/student/team_purchases/add/.+", () -> { return addTeamPurchase(httpExchange);} );
+        //postCommands.put("/student/team_purchases/open/.+", () -> { return })
+        postCommands.put("/student/team_purchases/open/.+", () -> { return addTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
     }
 
     private String displayProfile() {
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -83,6 +85,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayWallet() {
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -93,6 +96,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayStore() {
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -104,6 +108,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayBoughtArtifact(String message) {
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -115,6 +120,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String buyArtifact(HttpExchange httpExchange) {
+
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
         String message;
 
@@ -127,12 +133,11 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         return displayBoughtArtifact(message);
     }
 
-    private String openTeamPurchase(HttpExchange httpExchange) {
+    private String displayNewTeamPurchaseForm(HttpExchange httpExchange) {
 
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
-        //TODO: MISSING MESSAGE!
 
-        return chooseStudentsForPurchase("", new ArtifactController().chooseArtifact(artifactName));
+        return chooseStudentsForPurchase(null, new ArtifactController().chooseArtifact(artifactName));
     }
 
     private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
@@ -181,6 +186,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayTeamPurchase(String message) {
+
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/teamPurchase.twig");
         JtwigModel model = JtwigModel.newModel();
 
