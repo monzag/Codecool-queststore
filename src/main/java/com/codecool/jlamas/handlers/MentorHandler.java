@@ -20,7 +20,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class MentorHandler implements HttpHandler{
+public class MentorHandler extends AbstractHandler implements HttpHandler{
 
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
@@ -106,12 +106,8 @@ public class MentorHandler implements HttpHandler{
     }
 
     private String addStudent(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        System.out.println(formData);
-        Map inputs = parseFormData(formData);
         String name = inputs.get("name").toString();
         String surname = inputs.get("surname").toString();
         String email = inputs.get("email").toString();
@@ -120,17 +116,6 @@ public class MentorHandler implements HttpHandler{
 
         return displayGroups("Student has been added");
 
-    }
-
-    private static Map<String, String> parseFormData(String formData) throws UnsupportedEncodingException {
-        Map<String, String> map = new HashMap<>();
-        String[] pairs = formData.split("&");
-        for(String pair : pairs){
-            String[] keyValue = pair.split("=");
-            String value = new URLDecoder().decode(keyValue[1], "UTF-8");
-            map.put(keyValue[0], value);
-        }
-        return map;
     }
 
     private String removeStudent(HttpExchange httpExchange) {
@@ -158,12 +143,8 @@ public class MentorHandler implements HttpHandler{
     }
 
     private String editStudent(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        System.out.println(formData);
-        Map inputs = parseFormData(formData);
         String name = inputs.get("name").toString();
         String surname = inputs.get("surname").toString();
         String email = inputs.get("email").toString();
@@ -214,12 +195,7 @@ public class MentorHandler implements HttpHandler{
     }
 
     private String addQuest(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
-
-        Map inputs = parseFormData(formData);
-        System.out.println("2");
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         String questName = (String) inputs.get("questName");
         String description = (String) inputs.get("description");
@@ -232,7 +208,6 @@ public class MentorHandler implements HttpHandler{
         return displayQuests();
 
     }
-
 
     private String removeQuest(HttpExchange httpExchange) {
         String questName = parseUrl(httpExchange, 4);
@@ -255,11 +230,7 @@ public class MentorHandler implements HttpHandler{
     }
 
     private String editQuest(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
-
-        Map inputs = parseFormData(formData);
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         String name = inputs.get("questName").toString();
         String description = inputs.get("description").toString();
@@ -273,7 +244,7 @@ public class MentorHandler implements HttpHandler{
         return displayQuests();
     }
 
-    private void addGetCommands(HttpExchange httpExchange) {
+    protected void addGetCommands(HttpExchange httpExchange) {
         getCommands.put("/mentor/quest/show", () -> { return displayQuests();} );
         getCommands.put("/mentor/quest/add", () -> {return displayAddQuest();} );
         getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
@@ -291,37 +262,13 @@ public class MentorHandler implements HttpHandler{
         getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
     }
 
-    private void addPostCommands(HttpExchange httpExchange) {
+    protected void addPostCommands(HttpExchange httpExchange) {
         postCommands.put("/mentor/quest/add", () -> { return addQuest(httpExchange);}  );
         postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
         postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
         postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
         postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
         postCommands.put("/mentor/artifact/edit/.+", () -> { return editArtifact(httpExchange);} );
-    }
-
-    private String findCommand(HttpExchange httpExchange, Map<String, Callable> mapName) {
-        String response = null;
-        String path = httpExchange.getRequestURI().getPath();
-        Set<String> keys = mapName.keySet();
-
-        addGetCommands(httpExchange);
-        addPostCommands(httpExchange);
-
-        for (String key : keys) {
-
-            if (path.matches(key)) {
-
-                try {
-                    response = (String) mapName.get(key).call();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-
-        return response;
     }
 
     public String displayArtifact(String message) {
@@ -348,12 +295,8 @@ public class MentorHandler implements HttpHandler{
     }
 
     public String addArtifact(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        System.out.println(formData);
-        Map inputs = parseFormData(formData);
         String name = inputs.get("artifactName").toString();
         String description = inputs.get("description").toString();
         Integer price = Integer.valueOf(inputs.get("price").toString());
@@ -382,11 +325,8 @@ public class MentorHandler implements HttpHandler{
     }
 
     public String editArtifact(HttpExchange httpExchange) throws IOException {
-        InputStreamReader isr = new InputStreamReader(httpExchange.getRequestBody(), "utf-8");
-        BufferedReader br = new BufferedReader(isr);
-        String formData = br.readLine();
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        Map inputs = parseFormData(formData);
         String name = inputs.get("artifactName").toString();
         String description = inputs.get("description").toString();
         Integer price = Integer.valueOf(inputs.get("price").toString());
