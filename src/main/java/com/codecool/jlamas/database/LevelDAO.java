@@ -46,4 +46,20 @@ public class LevelDAO {
         return levelsList;
     }
 
+    public void deleteLevel(Level level) {
+        String query;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            query = String.format("DELETE FROM `level` WHERE name = '%s'; ",
+                    level.getName());
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 }
