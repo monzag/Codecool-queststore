@@ -69,7 +69,7 @@ public class StudentController {
         }
 
         student.setName(attrs.get("name"));
-        student.setSurname(attrs.get("name"));
+        student.setSurname(attrs.get("surname"));
         student.setGroup(this.getGroup(attrs.get("group")));
 
         student.correctNames();
