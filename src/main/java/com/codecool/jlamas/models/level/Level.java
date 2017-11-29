@@ -1,30 +1,30 @@
 package com.codecool.jlamas.models.level;
 
 public class Level {
-    private String levelName;
-    private Integer levelScore;
+    private String name;
+    private Integer score;
 
     public Level() {
     }
 
-    public Level(String levelName, Integer levelScore) {
-        this.levelName = levelName;
-        this.levelScore = levelScore;
+    public Level(String name, Integer score) {
+        this.name = name;
+        this.score = score;
     }
 
-    public String getLevelName() {
-        return levelName;
+    public String getName() {
+        return name;
     }
 
-    public void setLevelName(String levelName) {
-        this.levelName = levelName;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Integer getLevelScore() {
-        return levelScore;
+    public Integer getScore() {
+        return score;
     }
 
-    public void setLevelScore(Integer levelScore) {
-        this.levelScore = levelScore;
+    public void setScore(Integer score) {
+        this.score = score;
     }
 }
