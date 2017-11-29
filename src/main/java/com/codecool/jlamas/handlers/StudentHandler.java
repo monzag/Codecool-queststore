@@ -21,7 +21,6 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     private static final Integer ARTIFACT_INDEX = 4;
 
     private WalletController walletController;
-    private TeamPurchaseController teamPurchaseController;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
     private Student student;
