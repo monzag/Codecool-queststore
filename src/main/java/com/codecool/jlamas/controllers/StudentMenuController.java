@@ -19,12 +19,10 @@ import java.util.concurrent.Callable;
 
 public class StudentMenuController implements HttpHandler {
 
-//    private Student student = new StudentDAO().getStudent("student");
-
     private WalletController walletController;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Student student;
-    private SessionDAO<Student> session = new SessionDAO();
+    private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
 
@@ -35,25 +33,27 @@ public class StudentMenuController implements HttpHandler {
         HttpCookie cookie = cookieController.getCookie(httpExchange);
 
         if (cookie != null) {
-            this.student = session.getUserByCookie(httpExchange);
-            walletController = new WalletController(student);
-            String userType = new UserDAO().getType(student.getLogin().getValue());
+            String userType = new UserDAO().getType(session.getUserByCookie(httpExchange).getLogin().getValue());
+            if (userType.equals("student")) {
+                this.student = (Student) session.getUserByCookie(httpExchange);
+                walletController = new WalletController(student);
 
-            if (student != null && userType.equals("student")) {
+                if (student != null) {
 
-                if (method.equals("GET")) {
-                    response = findCommand(httpExchange, getCommands);
+                    if (method.equals("GET")) {
+                        response = findCommand(httpExchange, getCommands);
+                    }
+
+                    responseCode.sendOKResponse(response, httpExchange);
+
+                } else {
+                    session.removeCookieFromDb(cookie);
+                    responseCode.sendRedirectResponse(httpExchange, "/");
                 }
 
-                responseCode.sendOKResponse(response, httpExchange);
-
             } else {
-                session.removeCookieFromDb(cookie);
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
-
-        } else {
-            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
