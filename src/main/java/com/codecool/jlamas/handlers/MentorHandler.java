@@ -23,6 +23,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer STUDENT_INDEX = 4;
     private static final Integer QUEST_INDEX = 6;
 
+    private static final String STUDENT_FORM = "templates/mentor/addStudent.twig";
+
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
     private ArtifactController artifactController = new ArtifactController();
@@ -73,7 +75,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
         getCommands.put("/mentor", () -> {return displayProfile();} );
         getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
-        getCommands.put("/mentor/groups/addStudent", () -> {return displayAddStudentFormula();} );
+        getCommands.put("/mentor/groups/addStudent", () -> {return displayStudentForm(null, null);} );
         getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
         getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
@@ -112,6 +114,24 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
         model.with("message", message);
         model.with("students", studentController.getStudents());
+
+        return template.render(model);
+    }
+
+    private String displayStudentForm(HttpExchange httpExchange, Map<String, String> inputs) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(STUDENT_FORM);
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("login", "student");
+
+        if (inputs == null && httpExchange != null) {
+            model.with("student", studentController.getStudent(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
+        }
+        else if (inputs != null) {
+            model.with("name", inputs.get("name"));
+            model.with("surname", inputs.get("surname"));
+        }
+        model.with("groups", new GroupController().getAllGroups());
 
         return template.render(model);
     }
