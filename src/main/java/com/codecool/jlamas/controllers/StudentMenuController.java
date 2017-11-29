@@ -14,6 +14,7 @@ import org.jtwig.JtwigTemplate;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.net.HttpCookie;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -24,6 +25,7 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
     private WalletController walletController;
     private TeamPurchaseController teamPurchaseController;
     private Map<String, Callable> getCommands = new HashMap<>();
+    private Map<String, Callable> postCommands = new HashMap<>();
     private Student student;
     private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
@@ -88,6 +90,7 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("message", null);
         model.with("student", student);
         model.with("artifacts", new ArtifactDAO().requestAll());
 
@@ -95,7 +98,7 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
     }
 
     private String displayBoughtArtifact(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/buyArtifact.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("message", message);
@@ -139,13 +142,12 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
     }
 
     private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
+
         String artifactName = parseUrl(httpExchange, 4);
-        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        ArrayList<Student> students = inputsToStudents(this.parseUserInputsFromHttp(httpExchange));
         String message = "Pending purchase opened";
 
-        teamPurchaseController = new TeamPurchaseController();
-        //teamPurchaseController.addTeamPurchase();
-
+        new TeamPurchaseController().addTeamPurchase(students, new ArtifactDAO().selectArtifact(artifactName));
 
         return displayTeamPurchase(message);
     }
@@ -162,6 +164,14 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         return displayTeamPurchase(message);
     }
 
+    private String cancelTeamPurchase(HttpExchange httpExchange, Integer id) {
+
+        new TeamPurchaseController().cancelTeamPurchase(id);
+        String message = "Request canceled for all students";
+
+        return displayTeamPurchase(message);
+    }
+
     private String displayTeamPurchase(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/teamPurchase.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -170,6 +180,16 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         model.with("student", student);
 
         return template.render(model);
+    }
+
+    private ArrayList<Student> inputsToStudents(Map<String, String> inputs) {
+
+        StudentDAO studentDAO = new StudentDAO();
+        ArrayList<Student> students = new ArrayList<>();
+        for (String value : inputs.values()) {
+            students.add(studentDAO.getStudent(value));
+        }
+        return students;
     }
 
     private String parseUrl(HttpExchange httpExchange, int index) {
@@ -182,9 +202,11 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
         getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
         getCommands.put("/student/store", () -> {return displayStore();} );
+        getCommands.put("/student/team_purchases/add/.+", () -> {return openTeamPurchase(httpExchange);} );
+
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
-
+        postCommands.put("/student/")
     }
 }
