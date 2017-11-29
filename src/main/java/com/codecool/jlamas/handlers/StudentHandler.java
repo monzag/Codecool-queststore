@@ -1,9 +1,6 @@
 package com.codecool.jlamas.handlers;
 
-import com.codecool.jlamas.controllers.ArtifactController;
-import com.codecool.jlamas.controllers.CookieController;
-import com.codecool.jlamas.controllers.TeamPurchaseController;
-import com.codecool.jlamas.controllers.WalletController;
+import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
@@ -154,7 +151,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
 
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
-        ArrayList<Student> students = inputsToStudents(this.parseUserInputsFromHttp(httpExchange));
+        ArrayList<Student> students = new StudentController().createStudentsFromInputs(this.parseUserInputsFromHttp(httpExchange));
         String message = "Pending purchase opened";
 
         new TeamPurchaseController().addTeamPurchase(students, new ArtifactDAO().selectArtifact(artifactName));
@@ -192,16 +189,6 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         model.with("student", student);
 
         return template.render(model);
-    }
-
-    private ArrayList<Student> inputsToStudents(Map<String, String> inputs) {
-
-        StudentDAO studentDAO = new StudentDAO();
-        ArrayList<Student> students = new ArrayList<>();
-        for (String value : inputs.values()) {
-            students.add(studentDAO.getStudent(value));
-        }
-        return students;
     }
 
 }
