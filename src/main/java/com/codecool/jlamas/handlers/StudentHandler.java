@@ -70,7 +70,6 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
-        //postCommands.put("/student/team_purchases/open/.+", () -> { return })
         postCommands.put("/student/team_purchases/open/.+", () -> { return addTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
