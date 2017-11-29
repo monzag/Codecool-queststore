@@ -62,4 +62,21 @@ public class LevelDAO {
         }
     }
 
+    public void updateLevel(Level level, String preUpdateName) {
+        String sql = "UPDATE level SET name = ? , "
+                + "score = ? "
+                + "WHERE name = ?";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
+
+            pstmt.setString(1, level.getName());
+            pstmt.setInt(2, level.getScore());
+            pstmt.setString(3, preUpdateName);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
