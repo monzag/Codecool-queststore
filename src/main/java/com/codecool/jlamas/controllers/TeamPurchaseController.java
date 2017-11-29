@@ -16,29 +16,35 @@ public class TeamPurchaseController {
 
     }
 
-    private void addTeamPurchase(ArrayList<Student> students, Artifact artifact) {
+    public boolean addTeamPurchase(ArrayList<Student> students, Artifact artifact) {
 
         Integer price = Math.round(Integer.divideUnsigned(artifact.getPrice(), students.size()));
         Integer id = ThreadLocalRandom.current().nextInt(1, 999999);
         for (Student student : students) {
             teamPurchaseDAO.insert(new TeamPurchase(id, artifact, student, price, false));
+            return true;
         }
+        return false;
     }
 
-    private void acceptPurchaseRequest(Student student, Integer id) {
+    public boolean acceptPurchaseRequest(Student student, Integer id) {
         ArrayList<TeamPurchase> purchases = teamPurchaseDAO.requestAllBy(student);
         for (TeamPurchase purchase : purchases) {
             if (purchase.getId().equals(id)) {
                 purchase.setMarked(true);
                 teamPurchaseDAO.update(purchase);
+                return true;
             }
         }
+        return false;
     }
 
-    private void cancelTeamPurchase(Integer id) {
+    public boolean cancelTeamPurchase(Integer id) {
         ArrayList<TeamPurchase> purchases = teamPurchaseDAO.requestAllBy(id);
         for (TeamPurchase purchase : purchases) {
             teamPurchaseDAO.delete(purchase);
+            return true;
         }
+        return false;
     }
 }
