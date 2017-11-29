@@ -50,22 +50,26 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
                 if (admin != null) {
                     if (method.equals("GET")) {
-                        response = this.findCommand(httpExchange, getCommands);
+                        if (httpExchange.getRequestURI().getPath().toString().equals("/admin/logout")) {
+                            this.logout(httpExchange);
+
+                        } else {
+                            response = this.findCommand(httpExchange, getCommands);
+                            responseCode.sendOKResponse(response, httpExchange);
+                        }
                     }
 
                     if (method.equals("POST")) {
                         response = this.findCommand(httpExchange, postCommands);
+                        responseCode.sendOKResponse(response, httpExchange);
                     }
-
-                    responseCode.sendOKResponse(response, httpExchange);
-
-                } else {
-                    session.removeCookieFromDb(cookie);
-                    responseCode.sendRedirectResponse(httpExchange, "/");
                 }
             } else {
+                session.removeCookieFromDb(cookie);
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
+        } else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
@@ -92,7 +96,13 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/cities/list/edit/[0-9]+", () -> { return this.editCity(httpExchange);} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
+    }
 
+    public void logout(HttpExchange httpExchange) throws IOException {
+        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
+        cookieController.removeCookie(httpExchange);
+
+        responseCode.sendRedirectResponse(httpExchange, "/");
     }
 
     private String displayProfile() {
@@ -293,5 +303,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         return this.displayGroups();
     }
+
+
 
 }
