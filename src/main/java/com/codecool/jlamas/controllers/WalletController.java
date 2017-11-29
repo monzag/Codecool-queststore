@@ -37,6 +37,8 @@ public class WalletController {
         return false;
     }
 
+
+
     public void addTeamPurchase(TeamPurchase purchase) {
         this.student.getWallet().getPendingPurchases().add(purchase);
         teamPurchaseDAO.insert(purchase);
