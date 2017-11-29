@@ -8,6 +8,9 @@ import java.util.ArrayList;
 
 public class TeamPurchaseDAO {
 
+    ArtifactDAO artifactDAO = new ArtifactDAO();
+    StudentDAO studentDAO = new StudentDAO();
+
     public TeamPurchaseDAO() {}
 
     public void insert(TeamPurchase purchase) {
@@ -29,33 +32,37 @@ public class TeamPurchaseDAO {
 
     public ArrayList<TeamPurchase> requestAllBy(Student student) {
 
-        ArtifactDAO artifactDAO = new ArtifactDAO();
-        StudentDAO studentDAO = new StudentDAO();
-
         ArrayList<Integer> ids = getIdsBy(student);
         ArrayList<TeamPurchase> pendingPurchases = new ArrayList<>();
 
         for (Integer id : ids) {
+            pendingPurchases.addAll(requestAllBy(id));
+        }
+        return pendingPurchases;
+    }
 
-            String sql = "SELECT artifact_name, student_login, price, is_marked FROM artifact "
-                    + "WHERE id = ?";
+    public ArrayList<TeamPurchase> requestAllBy(Integer id) {
 
-            try (Connection c = ConnectDB.connect();
-                 PreparedStatement pstmt = c.prepareStatement(sql);) {
+        ArrayList<TeamPurchase> pendingPurchases = new ArrayList<>();
 
-                pstmt.setInt(1, id);
-                ResultSet rs = pstmt.executeQuery();
+        String sql = "SELECT artifact_name, student_login, price, is_marked FROM artifact "
+                + "WHERE id = ?";
 
-                while (rs.next()) {
-                    TeamPurchase purchase = new TeamPurchase(id, artifactDAO.selectArtifact(rs.getString("artifact_name")),
-                            studentDAO.getStudent(rs.getString("student_login")), rs.getInt("price"),
-                            intToBoolean(rs.getInt("is_marked")));
-                    pendingPurchases.add(purchase);
-                }
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(sql);) {
 
-            } catch (ClassNotFoundException|SQLException e) {
-                System.out.println(e.getMessage());
+            pstmt.setInt(1, id);
+            ResultSet rs = pstmt.executeQuery();
+
+            while (rs.next()) {
+                TeamPurchase purchase = new TeamPurchase(id, artifactDAO.selectArtifact(rs.getString("artifact_name")),
+                        studentDAO.getStudent(rs.getString("student_login")), rs.getInt("price"),
+                        intToBoolean(rs.getInt("is_marked")));
+                pendingPurchases.add(purchase);
             }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
         }
         return pendingPurchases;
     }
