@@ -81,7 +81,7 @@ public class SessionDAO {
              Statement stmt = c.createStatement()) {
 
 
-            String query = String.format("DELETE FROM `cookies` WHERE sessionId = '%s'; ",
+            String query = String.format("DELETE FROM `cookie` WHERE sessionId = '%s'; ",
                     sessionId);
 
             stmt.executeUpdate(query);
