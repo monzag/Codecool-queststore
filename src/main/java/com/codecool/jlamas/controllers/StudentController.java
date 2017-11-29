@@ -58,7 +58,7 @@ public class StudentController {
         this.studentDao.insert(student);
     }
 
-    private ArrayList<Student> createStudentsFromInputs(Map<String, String> inputs) {
+    public ArrayList<Student> createStudentsFromInputs(Map<String, String> inputs) {
 
         ArrayList<Student> students = new ArrayList<>();
         for (String value : inputs.values()) {
