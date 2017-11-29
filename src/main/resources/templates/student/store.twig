@@ -41,12 +41,32 @@
     <h3>Artifact store</h3>
     <h5>Your balance: {{ student.getWallet().getBalance() }}</h5>
     <table style="width:100%">
+        <h5>Single artifacts</h5>
         <tr>
             <th>Name</th>
             <th>Description</th>
             <th>Price</th>
         </tr>
         {% for artifact in artifacts %}
+        {% if artifact.getType().equals("Single") %}
+        <tr>
+            <td>{{ artifact.getName() }}</td>
+            <td>{{ artifact.getDescription() }}</td>
+            <td>{{ artifact.getPrice() }}</td>
+            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <table style="width:100%">
+        <h5>Team artifacts</h5>
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        {% for artifact in artifacts %}
+        {% if artifact.getType().equals("Team") %}
         <tr>
             <td>{{ artifact.getName() }}</td>
             <td>{{ artifact.getDescription() }}</td>
