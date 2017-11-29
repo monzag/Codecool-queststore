@@ -30,7 +30,7 @@ public class TeamPurchaseController {
     public boolean acceptPurchaseRequest(Student student, Integer id) {
         ArrayList<TeamPurchase> purchases = teamPurchaseDAO.requestAllBy(student);
         for (TeamPurchase purchase : purchases) {
-            if (purchase.getId().equals(id)) {
+            if (purchase.getId().equals(id) && student.getWallet().has(purchase.getPrice())) {
                 purchase.setMarked(true);
                 teamPurchaseDAO.update(purchase);
                 return true;
@@ -39,12 +39,10 @@ public class TeamPurchaseController {
         return false;
     }
 
-    public boolean cancelTeamPurchase(Integer id) {
+    public void cancelTeamPurchase(Integer id) {
         ArrayList<TeamPurchase> purchases = teamPurchaseDAO.requestAllBy(id);
         for (TeamPurchase purchase : purchases) {
             teamPurchaseDAO.delete(purchase);
-            return true;
         }
-        return false;
     }
 }
