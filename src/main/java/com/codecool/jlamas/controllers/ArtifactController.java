@@ -1,6 +1,9 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.ArtifactDAO;
+import com.codecool.jlamas.database.OwnedArtifactDAO;
+import com.codecool.jlamas.database.StudentDAO;
+import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.codecool.jlamas.views.ArtifactView;
 
@@ -14,6 +17,8 @@ public class ArtifactController {
 
     private ArtifactDAO artifacts = new ArtifactDAO();
     private ArtifactView artifactView = new ArtifactView();
+    private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
+    private StudentDAO studentDAO = new StudentDAO();
 
     public ArtifactController() {
     }
@@ -69,6 +74,18 @@ public class ArtifactController {
             throw new IndexOutOfBoundsException();
         }
         return allArtifacts.get(index);
+    }
+
+    public boolean useArtifact() throws IndexOutOfBoundsException {
+        StudentController students = new StudentController();
+        try {
+            Student student = students.chooseStudent();
+            Artifact artifact = chooseArtifact();
+            ownedArtifactDAO.delete(artifact, student);
+        } catch (IndexOutOfBoundsException e) {
+            artifactView.printErrorMessage();
+        }
+
     }
 }
 
