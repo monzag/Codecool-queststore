@@ -1,11 +1,15 @@
 package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.CityController;
+import com.codecool.jlamas.controllers.CookieController;
 import com.codecool.jlamas.controllers.GroupController;
 import com.codecool.jlamas.controllers.MentorController;
+import com.codecool.jlamas.database.SessionDAO;
+import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -13,6 +17,7 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -27,26 +32,40 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private Map<String, Callable> getCommands = new HashMap<String, Callable>();
     private Map<String, Callable> postCommands = new HashMap<String, Callable>();
+    private Codecooler admin;
+    private SessionDAO session = new SessionDAO();
+    private CookieController cookieController = new CookieController();
+    private Response responseCode = new Response();
 
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
+        HttpCookie cookie = cookieController.getCookie(httpExchange);
 
-        if (method.equals("GET")) {
-            response = this.findCommand(httpExchange, getCommands);
+        if (cookie != null) {
+            this.admin = session.getUserByCookie(httpExchange);
+            String userType = new UserDAO().getType(admin.getLogin().getValue());
+
+            if (admin != null && userType.equals("admin")) {
+                if (method.equals("GET")) {
+                    response = this.findCommand(httpExchange, getCommands);
+                }
+
+                if (method.equals("POST")) {
+                    response = this.findCommand(httpExchange, postCommands);
+                }
+
+                responseCode.sendOKResponse(response, httpExchange);
+
+            } else {
+                session.removeCookieFromDb(cookie);
+                responseCode.sendRedirectResponse(httpExchange, "/");
+            }
+        } else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
-
-        if (method.equals("POST")) {
-            response = this.findCommand(httpExchange, postCommands);
-        }
-
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
     }
 
     protected void addGetCommands (HttpExchange httpExchange) {
@@ -80,6 +99,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
+        model.with("admin", this.admin);
 
         return template.render(model);
     }

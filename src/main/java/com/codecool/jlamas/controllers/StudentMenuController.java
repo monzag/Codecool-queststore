@@ -1,8 +1,8 @@
 package com.codecool.jlamas.controllers;
 
-import com.codecool.jlamas.database.ArtifactDAO;
-import com.codecool.jlamas.database.OwnedArtifactDAO;
-import com.codecool.jlamas.database.StudentDAO;
+import com.codecool.jlamas.database.*;
+import com.codecool.jlamas.handlers.Response;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.account.Student;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -11,6 +11,7 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.net.HttpCookie;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
@@ -18,24 +19,41 @@ import java.util.concurrent.Callable;
 
 public class StudentMenuController implements HttpHandler {
 
-    private Student student = new StudentDAO().getStudent("student");
+//    private Student student = new StudentDAO().getStudent("student");
+
     private WalletController walletController = new WalletController(student);
     private Map<String, Callable> getCommands = new HashMap<>();
+    private Codecooler student;
+    private SessionDAO session = new SessionDAO();
+    private CookieController cookieController = new CookieController();
+    private Response responseCode = new Response();
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
         String response = "";
         String method = httpExchange.getRequestMethod();
+        HttpCookie cookie = cookieController.getCookie(httpExchange);
 
-        if (method.equals("GET")) {
-            response = findCommand(httpExchange, getCommands);
+        if (cookie != null) {
+            this.student = session.getUserByCookie(httpExchange);
+            String userType = new UserDAO().getType(student.getLogin().getValue());
+
+            if (student != null && userType.equals("student")) {
+
+                if (method.equals("GET")) {
+                    response = findCommand(httpExchange, getCommands);
+                }
+
+                responseCode.sendOKResponse(response, httpExchange);
+
+            } else {
+                session.removeCookieFromDb(cookie);
+                responseCode.sendRedirectResponse(httpExchange, "/");
+            }
+
+        } else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
-
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
     }
 
     private String displayMovie() {
