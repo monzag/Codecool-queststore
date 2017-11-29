@@ -21,10 +21,10 @@ public class StudentMenuController implements HttpHandler {
 
 //    private Student student = new StudentDAO().getStudent("student");
 
-    private WalletController walletController = new WalletController(student);
+    private WalletController walletController;
     private Map<String, Callable> getCommands = new HashMap<>();
-    private Codecooler student;
-    private SessionDAO session = new SessionDAO();
+    private Student student;
+    private SessionDAO<Student> session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
 
@@ -36,6 +36,7 @@ public class StudentMenuController implements HttpHandler {
 
         if (cookie != null) {
             this.student = session.getUserByCookie(httpExchange);
+            walletController = new WalletController(student);
             String userType = new UserDAO().getType(student.getLogin().getValue());
 
             if (student != null && userType.equals("student")) {
