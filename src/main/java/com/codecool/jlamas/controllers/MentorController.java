@@ -2,7 +2,6 @@ package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
 import java.util.Map;
-import java.util.Random;
 
 import com.codecool.jlamas.database.MentorDAO;
 import com.codecool.jlamas.exceptions.EmailAlreadyUsedException;
@@ -36,6 +35,10 @@ public class MentorController {
         mentorDao.delete(this.getMentor(login));
     }
 
+    public Group getGroup(String id) {
+        return this.groupController.getGroup(Integer.valueOf(id));
+    }
+
     public void createMentorFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         if (!Mail.isValid(attrs.get("email"))) {
@@ -47,7 +50,7 @@ public class MentorController {
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
-        Group group = groupController.getGroup(Integer.valueOf(attrs.get("class")));
+        Group group = this.getGroup(attrs.get("class"));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
         mentor.correctNames();
@@ -68,8 +71,7 @@ public class MentorController {
 
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
-        Group group = new GroupController().getGroup(Integer.valueOf(attrs.get("class")));
-        mentor.setGroup(group);
+        mentor.setGroup(this.getGroup(attrs.get("class")));
 
         mentor.correctNames();
         mentorDao.update(mentor);
