@@ -5,10 +5,10 @@
   <title>questore</title>
   <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
   <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-  <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 <body>
+
   <header class="primary-header">
     <img src="/static/assets/pics/web/logo.jpg">
     <nav class="primary-nav">
@@ -19,6 +19,7 @@
       </ul>
     </nav>
   </header>
+
   <section class="menu-bar">
     <div class="frame">
       <img src="/static/assets/pics/profiles/{{ login }}.jpg">
@@ -36,45 +37,61 @@
       <small>&copy; pyLamas</small>
     </footer>
   </section>
-  <form method="POST" class="add">
-    <!-- <h3>Add new mentor</h3> -->
-    <h3>Add new student</h3>
+
+  <form id="2" class="add" method="POST">
+      {% if student != null %}
+        <h3>Edit student {{ student.getName }}</h3>
+      {% else %}
+        <h3>Add new student</h3>
+      {% endif %}
+      {% if name.length > 0 %}
+        <div class="fail">
+          <h5>This email was already used!</h5>
+        </div>
+      {% endif %}
 
     <table class="input-table">
       <tr>
         <th>Name:</th>
-        <th><input type="text" name="name" value="" required></th>
+        <th>
+          <input type="text" name="name"
+                 value="{{ student.getName }}{{ name }}"
+                 title="Name should be between 3 and 17 letters long"
+                 pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                 required="required">
+        </th>
       </tr>
       <tr>
         <th>Surname:</th>
-        <th><input type="text" name="surname" value="" required></th>
+        <th>
+          <input type="text" name="surname"
+                 value="{{ student.getSurname }}{{ surname }}"
+                 title="Name should be between 3 and 17 letters long"
+                 pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                 required="required">
+        </th>
       </tr>
       <tr>
         <th>Email:</th>
-        <th><input type="email" name="email" value="" required></th>
+        <th>
+          <input type="email" name="email"
+                 value="{{ student.getEmail().getValue() }}"
+                 required="required">
+        </th>
       </tr>
       <tr>
-        <th>Group:</th>
+        <th>Class:</th>
         <th>
-		<select name="group">
-                    {% for group in groups %}
-                    <option value="{{ group.getName() }}">{{ group.getName }}</option>
-                    {% endfor %}
-                </select>
-	</th>
+          <select name="group">
+              {% for group in groups %}
+                <option value="{{ group.getID }}">{{ group.getName }}</option>
+              {% endfor %}
+          </select>
+        </th>
       </tr>
-      <!-- optional only in student creation -->
-      <!--tr>
-        <th>Team:</th>
-        <th><input type="text" name="class" value=""></th>
-      </tr> -->
     </table>
-
-      <button class="submit" type="submit">submit</button>
+    <button class="submit" type="submit" form="2">submit</button>
   </form>
 
-  <script>
-    w3.includeHTML();
-  </script>
 </body>
 </html>
