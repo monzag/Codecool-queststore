@@ -43,25 +43,26 @@ public class MentorMenuController implements HttpHandler{
             if (userType.equals("mentor")) {
                 this.mentor = (Mentor) session.getUserByCookie(httpExchange);
                 if (mentor != null) {
-
                     if (method.equals("GET")) {
-                        response = findCommand(httpExchange, getCommands);
+                        if (httpExchange.getRequestURI().getPath().toString().equals("/mentor/logout")) {
+                            this.logout(httpExchange);
+                            
+                        } else {
+                            response = findCommand(httpExchange, getCommands);
+                            responseCode.sendOKResponse(response, httpExchange);
+                        }
                     }
-
                     if (method.equals("POST")) {
                         response = findCommand(httpExchange, postCommands);
+                        responseCode.sendOKResponse(response, httpExchange);
                     }
-
-                    responseCode.sendOKResponse(response, httpExchange);
-
-                } else {
-                    session.removeCookieFromDb(cookie);
-                    responseCode.sendRedirectResponse(httpExchange, "/");
                 }
-
             } else {
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
+        }
+        else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
