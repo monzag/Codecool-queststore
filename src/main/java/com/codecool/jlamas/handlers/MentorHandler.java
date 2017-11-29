@@ -3,7 +3,6 @@ package com.codecool.jlamas.handlers;
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
-import com.codecool.jlamas.handlers.Response;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -13,14 +12,15 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.*;
 import java.net.HttpCookie;
-import java.net.URLDecoder;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class MentorHandler extends AbstractHandler implements HttpHandler{
+public class MentorHandler extends AbstractHandler implements HttpHandler {
+
+    private static final Integer STUDENT_INDEX = 4;
+    private static final Integer QUEST_INDEX = 6;
 
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
@@ -119,18 +119,14 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
     }
 
     private String removeStudent(HttpExchange httpExchange) {
-        String login = parseUrl(httpExchange, 4);
+        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         studentController.removeStudent(login);
 
         return displayGroups("Student has been removed");
     }
 
-    private String parseUrl(HttpExchange httpExchange, int index) {
-        return httpExchange.getRequestURI().getPath().split("/")[index];
-    }
-
     private String displayEditFormula(HttpExchange httpExchange) {
-        String login = parseUrl(httpExchange, 4);
+        String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
 
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editStudent.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -149,7 +145,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
         String surname = inputs.get("surname").toString();
         String email = inputs.get("email").toString();
         String groupName = inputs.get("group").toString();
-        String login = parseUrl(httpExchange, 4);
+        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         studentController.editStudent(login, name, surname, email, groupName);
 
         return displayGroups("Student has been edited");
@@ -158,7 +154,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/markQuest.twig");
         JtwigModel model = JtwigModel.newModel();
-        String login = parseUrl(httpExchange, 4);
+        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
@@ -171,9 +167,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
     }
 
     private String markQuest(HttpExchange httpExchange) {
-        String login = parseUrl(httpExchange, 4);
+        String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
 
-        String questName = parseUrl(httpExchange, 6);
+        String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
         questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
 
         return displayQuestsToMark("Quest has been marked", httpExchange);
@@ -210,7 +206,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
     }
 
     private String removeQuest(HttpExchange httpExchange) {
-        String questName = parseUrl(httpExchange, 4);
+        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         Quest quest = questController.chooseQuest(questName);
 
         questController.deleteQuest(quest);
@@ -219,7 +215,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
     }
 
     private String displayEditQuestForm(HttpExchange httpExchange) {
-        String questName = parseUrl(httpExchange, 4);
+        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         Quest quest = questController.chooseQuest(questName);
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -235,7 +231,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
         String name = inputs.get("questName").toString();
         String description = inputs.get("description").toString();
         Integer reward = Integer.valueOf(inputs.get("reward").toString());
-        String oldName = parseUrl(httpExchange, 4);
+        String oldName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
 
         Quest quest = new Quest(name, description, reward);
 
@@ -308,14 +304,14 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
     }
 
     public String removeArtifact(HttpExchange httpExchange) {
-        String name = parseUrl(httpExchange, 4);
+        String name = parseStringFromURL(httpExchange, STUDENT_INDEX);
         artifactController.removeArtifact(name);
 
         return displayArtifact("Artifact has been removed");
     }
 
     public String displayEditArtifactFormula(HttpExchange httpExchange) {
-        String artifactName = parseUrl(httpExchange, 4);
+        String artifactName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editArtifact.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -330,7 +326,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler{
         String name = inputs.get("artifactName").toString();
         String description = inputs.get("description").toString();
         Integer price = Integer.valueOf(inputs.get("price").toString());
-        String oldName = parseUrl(httpExchange, 4);
+        String oldName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
 
         artifactController.editArtifact(oldName, name, description, price);
 
