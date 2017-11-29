@@ -20,6 +20,7 @@ import java.util.concurrent.Callable;
 public class StudentMenuController implements HttpHandler {
 
     private WalletController walletController;
+    private TeamPurchaseController teamPurchaseController;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Student student;
     private SessionDAO session = new SessionDAO();
@@ -113,6 +114,25 @@ public class StudentMenuController implements HttpHandler {
         }
 
         return displayBoughtArtifact(message);
+    }
+
+    private String chooseStudentsForPurchase(HttpExchange httpExchange) {
+
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/chooseStudentsForPurchase.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+
+    }
+
+    private String addTeamPurchase(HttpExchange httpExchange) {
+        String purchaseId = parseUrl(httpExchange, 4);
+        String message = "Pending purchase opened";
+
+        teamPurchaseController = new TeamPurchaseController();
+        teamPurchaseController.addTeamPurchase();
+
+
+        return displayTeamPurchase(message);
     }
 
     private String displayTeamPurchase(String errmsg) {
