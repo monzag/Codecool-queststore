@@ -101,8 +101,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("login", "student");
         model.with("admin", this.admin);
+        model.with("login", this.admin.getLogin().getValue());
 
         return template.render(model);
     }
