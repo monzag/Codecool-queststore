@@ -73,9 +73,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
         model.with("mentor", mentor);
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
     private String displayGroups(String message) {
@@ -87,9 +85,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("message", message);
         model.with("students", studentController.getStudents());
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
     private String displayAddStudentFormula() {
@@ -100,9 +96,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
         model.with("groups", new GroupController().getAllGroups());
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
     private String addStudent(HttpExchange httpExchange) throws IOException {
@@ -161,9 +155,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("studentLogin", login);
         model.with("questsList", questController.showAllQuests());
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
     private String markQuest(HttpExchange httpExchange) {
@@ -276,18 +268,14 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("message", message);
         model.with("artifacts", artifactController.displayArtifacts());
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
     public String displayAddArtifact() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addArtifact.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        String response = template.render(model);
-
-        return response;
+        return template.render(model);
     }
 
     public String addArtifact(HttpExchange httpExchange) throws IOException {
