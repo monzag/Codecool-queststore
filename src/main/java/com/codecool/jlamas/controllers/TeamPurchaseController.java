@@ -1,0 +1,44 @@
+package com.codecool.jlamas.controllers;
+
+import com.codecool.jlamas.database.TeamPurchaseDAO;
+import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.artifact.Artifact;
+import com.codecool.jlamas.models.artifact.TeamPurchase;
+
+import java.util.ArrayList;
+import java.util.concurrent.ThreadLocalRandom;
+
+public class TeamPurchaseController {
+
+    TeamPurchaseDAO teamPurchaseDAO = new TeamPurchaseDAO();
+
+    public TeamPurchaseController() {
+
+    }
+
+    private void addTeamPurchase(ArrayList<Student> students, Artifact artifact) {
+
+        Integer price = Math.round(Integer.divideUnsigned(artifact.getPrice(), students.size()));
+        Integer id = ThreadLocalRandom.current().nextInt(1, 999999);
+        for (Student student : students) {
+            teamPurchaseDAO.insert(new TeamPurchase(id, artifact, student, price, false));
+        }
+    }
+
+    private void acceptPurchaseRequest(Student student, Integer id) {
+        ArrayList<TeamPurchase> purchases = teamPurchaseDAO.requestAllBy(student);
+        for (TeamPurchase purchase : purchases) {
+            if (purchase.getId().equals(id)) {
+                purchase.setMarked(true);
+                teamPurchaseDAO.update(purchase);
+            }
+        }
+    }
+
+    private void cancelTeamPurchase(Integer id) {
+        ArrayList<TeamPurchase> purchases = teamPurchaseDAO.requestAllBy(id);
+        for (TeamPurchase purchase : purchases) {
+            teamPurchaseDAO.delete(purchase);
+        }
+    }
+}
