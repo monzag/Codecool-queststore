@@ -1,15 +1,13 @@
 package com.codecool.jlamas.database;
 
 import com.codecool.jlamas.controllers.CookieController;
-import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.models.account.Mentor;
-import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.net.HttpCookie;
 import java.sql.*;
 
-public class SessionDAO<T> {
+public class SessionDAO {
 
     private UserDAO userDAO;
     private MentorDAO mentorDAO;
@@ -58,24 +56,22 @@ public class SessionDAO<T> {
         return login;
     }
 
-    public T getUserByCookie(HttpExchange httpExchange) {
+    public Codecooler getUserByCookie(HttpExchange httpExchange) {
+        Codecooler codecooler = null;
         String login = getLoginByCookie(httpExchange);
         String type = userDAO.getType(login);
 
         if (type.equals("admin")) {
-            Admin admin = userDAO.getAdmin(login);
-            return (T) admin;
+            codecooler = userDAO.getAdmin(login);
         }
         if (type.equals("mentor")) {
-            Mentor mentor = mentorDAO.getMentor(login);
-            return (T) mentor;
+            codecooler = mentorDAO.getMentor(login);
         }
 
         if (type.equals("student")) {
-            Student student = studentDAO.getStudent(login);
-            return (T) student;
+            codecooler = studentDAO.getStudent(login);
         }
-        return null;
+        return codecooler;
     }
 
     public void removeCookieFromDb(HttpCookie cookie) {
