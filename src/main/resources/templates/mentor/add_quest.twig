@@ -42,15 +42,15 @@
     <table class="input-table">
         <tr>
             <th>Quest Name:</th>
-            <th><input type="text" name="questName" value=""></th>
+            <th><input type="text" name="questName" value="" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}" title="Type only letters Min. three chars!"></th>
         </tr>
         <tr>
             <th>Description:</th>
-            <th><input type="text" name="description" value=""></th>
+            <th><input type="text" name="description" value="" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]{3,}" title="Min. three chars!"></th>
         </tr>
         <tr>
             <th>Reward:</th>
-            <th><input type="text" name="reward" value=""></th>
+            <th><input type="text" name="reward" value="" pattern="[1-9]{2,}" title="Type only numbers! Min. two digits!"></th>
         </tr>
     </table>
 

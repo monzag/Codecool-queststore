@@ -1,4 +1,8 @@
 CREATE TABLE IF NOT EXISTS `group` (
-  `group_tag`	TEXT PRIMARY KEY UNIQUE NOT NULL
+  `id` INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT UNIQUE,
+  `city_name` TEXT,
+  `year` INTEGER,
+  `number` INTEGER,
+  FOREIGN KEY (`city_name`) REFERENCES `city`(`name`) ON DELETE SET NULL
 );
-INSERT INTO `group` VALUES ('2017.1');
+INSERT INTO `group` VALUES (null, 'Kraków', 2017, 1);
