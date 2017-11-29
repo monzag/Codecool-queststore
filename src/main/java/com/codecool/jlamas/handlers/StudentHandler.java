@@ -5,9 +5,6 @@ import com.codecool.jlamas.controllers.CookieController;
 import com.codecool.jlamas.controllers.TeamPurchaseController;
 import com.codecool.jlamas.controllers.WalletController;
 import com.codecool.jlamas.database.*;
-import com.codecool.jlamas.handlers.AbstractHandler;
-import com.codecool.jlamas.handlers.Response;
-import com.codecool.jlamas.models.account.Codecooler;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.sun.net.httpserver.HttpExchange;
@@ -16,15 +13,13 @@ import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpCookie;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.Callable;
 
-public class StudentMenuController extends AbstractHandler implements HttpHandler {
+public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private WalletController walletController;
     private TeamPurchaseController teamPurchaseController;
@@ -66,15 +61,24 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         }
     }
 
-    private String displayMovie() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
-        JtwigModel model = JtwigModel.newModel();
+    protected void addGetCommands(HttpExchange httpExchange) {
+        getCommands.put("/student", () -> { return displayProfile();} );
+        getCommands.put("/student/wallet", () -> { return displayWallet();} );
+        getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
+        getCommands.put("/student/store", () -> { return displayStore();} );
+        getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
+        getCommands.put("/student/team_purchases/open/.+", () -> { return openTeamPurchase(httpExchange);} );
 
-        return template.render(model);
+    }
+
+    protected void addPostCommands(HttpExchange httpExchange) {
+        postCommands.put("/student/team_purchases/add/.+", () -> { return addTeamPurchase(httpExchange);} );
+        postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
+        postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
     }
 
     private String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/profile.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model);
@@ -202,20 +206,5 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         return httpExchange.getRequestURI().getPath().split("/")[index];
     }
 
-    protected void addGetCommands(HttpExchange httpExchange) {
-        getCommands.put("/student", () -> { return displayMovie();} );
-        getCommands.put("/student/profile", () -> { return displayProfile();} );
-        getCommands.put("/student/wallet", () -> { return displayWallet();} );
-        getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
-        getCommands.put("/student/store", () -> { return displayStore();} );
-        getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
-        getCommands.put("/student/team_purchases/open/.+", () -> { return openTeamPurchase(httpExchange);} );
 
-    }
-
-    protected void addPostCommands(HttpExchange httpExchange) {
-        postCommands.put("/student/team_purchases/add/.+", () -> { return addTeamPurchase(httpExchange);} );
-        postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
-        postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
-    }
 }
