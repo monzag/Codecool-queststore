@@ -121,7 +121,9 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
     private String openTeamPurchase(HttpExchange httpExchange) {
 
         String artifactName = parseUrl(httpExchange, 4);
-        //TODO: IT SHOULD COME FROM INPUT FORM!
+        //TODO: MISSING MESSAGE!
+
+        return chooseStudentsForPurchase("", new ArtifactController().chooseArtifact(artifactName));
     }
 
     private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
@@ -148,11 +150,23 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         return displayTeamPurchase(message);
     }
 
-    private String displayTeamPurchase(String errmsg) {
+    private String acceptTeamPurchase(HttpExchange httpExchange, Integer id) {
+
+        String message;
+
+        if (new TeamPurchaseController().acceptPurchaseRequest(student, id)) {
+            message = "Request accepted";
+        } else {
+            message = "Not enough money!";
+        }
+        return displayTeamPurchase(message);
+    }
+
+    private String displayTeamPurchase(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/teamPurchase.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("message", errmsg);
+        model.with("message", message);
         model.with("student", student);
 
         return template.render(model);
