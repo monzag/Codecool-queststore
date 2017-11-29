@@ -152,8 +152,9 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         return displayTeamPurchase(message);
     }
 
-    private String acceptTeamPurchase(HttpExchange httpExchange, Integer id) {
+    private String acceptTeamPurchase(HttpExchange httpExchange) {
 
+        Integer id = Integer.parseInt(parseUrl(httpExchange, 4));
         String message;
 
         if (new TeamPurchaseController().acceptPurchaseRequest(student, id)) {
@@ -164,8 +165,9 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         return displayTeamPurchase(message);
     }
 
-    private String cancelTeamPurchase(HttpExchange httpExchange, Integer id) {
+    private String cancelTeamPurchase(HttpExchange httpExchange) {
 
+        Integer id = Integer.parseInt(parseUrl(httpExchange, 4));
         new TeamPurchaseController().cancelTeamPurchase(id);
         String message = "Request canceled for all students";
 
@@ -201,12 +203,14 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         getCommands.put("/student/profile", () -> { return displayProfile();} );
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
         getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
-        getCommands.put("/student/store", () -> {return displayStore();} );
-        getCommands.put("/student/team_purchases/add/.+", () -> {return openTeamPurchase(httpExchange);} );
+        getCommands.put("/student/store", () -> { return displayStore();} );
+        getCommands.put("/student/team_purchases/open/.+", () -> { return openTeamPurchase(httpExchange);} );
 
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
-        postCommands.put("/student/")
+        postCommands.put("/student/team_purchases/add/.+", () -> { return addTeamPurchase(httpExchange);} );
+        postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
+        postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
     }
 }
