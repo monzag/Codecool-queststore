@@ -113,6 +113,16 @@ public class StudentMenuController implements HttpHandler {
         return displayBoughtArtifact(message);
     }
 
+    private String displayTeamPurchase(String errmsg) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/teamPurchase.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("message", errmsg);
+        model.with("student", student);
+
+        return template.render(model);
+    }
+
     private String parseUrl(HttpExchange httpExchange, int index) {
         return httpExchange.getRequestURI().getPath().split("/")[index];
     }
