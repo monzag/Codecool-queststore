@@ -32,7 +32,7 @@ public class Wallet {
         this.balance += amount;
     }
 
-    private boolean has(Integer amount) {
+    public boolean has(Integer amount) {
         return this.balance >= amount;
     }
 
