@@ -37,7 +37,7 @@
         <small>&copy; pyLamas</small>
     </footer>
 </section>
-<form method="POST" class="users-table">
+<form class="add" method="POST">
     {% if errmsg.length > 0 %}
     <div class="fail">
         <h5>{{ errmsg }}!</h5>
@@ -45,43 +45,49 @@
     {% endif %}
     <h3>Choose students to buy {{ artifact.getName() }}</h3>
 
-    <table style="width:100%">
+    <table class="input-table">
         <tr>
-            <th>Student</th>
-            <th>Price per student</th>
-        </tr>
-        <tr>
-            <td>
+            <th>Student #1:</th>
+            <th>
                 <select name="student">
                     {% for student in students %}
-                    <option value="{{ student.getLogin() as student1 }}">{{ student.getName() }}{{ student.getSurname() }}</option>
+                    <option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
                     {% endfor %}
                 </select>
-            </td>
-            <td>{{ artifact.getPrice() // 3 }}</td>
+            </th>
         </tr>
         <tr>
-            <td>
+            <th>Student #2:</th>
+            <th>
                 <select name="student">
                     {% for student in students %}
-                    <option value="{{ student.getLogin() as student2 }}">{{ student.getName() }}{{ student.getSurname() }}</option>
+                    <option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
                     {% endfor %}
                 </select>
-            </td>
-            <td>{{ artifact.getPrice() // 3 }}</td>
+            </th>
         </tr>
         <tr>
-            <td>
+            <th>Student #3:</th>
+            <th>
                 <select name="student">
                     {% for student in students %}
-                    <option value="{{ student.getLogin() as student3 }}">{{ student.getName() }}{{ student.getSurname() }}</option>
+                    <option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
                     {% endfor %}
                 </select>
-            </td>
-            <td>{{ artifact.getPrice() // 3 }}</td>
+            </th>
         </tr>
         <tr>
-            <th class="btn" id="add-btn"><a href="/student/team_purchase/add/{{ artifact.getName() }}/{{ url_encode(%student1%+' '+%student2%+' '+%student3%) }}">Finish</a></th>
+            <th>Student #4:</th>
+            <th>
+                <select name="student">
+                    {% for student in students %}
+                    <option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+        <tr>
+            <th class="btn" id="add-btn"><a href="/student/team_purchase/add/{{ artifact.getName() }}">Finish</a></th>
             <th class="btn" id="remove-btn"><a href="/student/store">Cancel</a></th>
         </tr>
     </table>
