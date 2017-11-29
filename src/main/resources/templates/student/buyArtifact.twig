@@ -52,12 +52,30 @@
             <th>Price</th>
         </tr>
         {% for artifact in artifacts %}
+        {% if artifact.getType().equals("Single") %}
         <tr>
             <td>{{ artifact.getName() }}</td>
             <td>{{ artifact.getDescription() }}</td>
             <td>{{ artifact.getPrice() }}</td>
-            <td>guwno</td>
-            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</td>
+            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</a></td>
+        </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <h5>Team artifacts</h5>
+    <table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        {% for artifact in artifacts %}
+        {% if artifact.getType().equals("Team") %}
+        <tr>
+            <td>{{ artifact.getName() }}</td>
+            <td>{{ artifact.getDescription() }}</td>
+            <td>{{ artifact.getPrice() }}</td>
+            <td><a class="btn" id="edit-btn" href="/student/team_purchases/add/{{ artifact.getName() }}">Buy</a></td>
         </tr>
         {% endfor %}
     </table>
