@@ -119,7 +119,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String buyArtifact(HttpExchange httpExchange) {
-        String artifactName = parseUrl(httpExchange, ARTIFACT_INDEX);
+        String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
         String message;
 
         if (walletController.buyArtifact(new ArtifactController().chooseArtifact(artifactName))) {
@@ -133,7 +133,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String openTeamPurchase(HttpExchange httpExchange) {
 
-        String artifactName = parseUrl(httpExchange, ARTIFACT_INDEX);
+        String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
         //TODO: MISSING MESSAGE!
 
         return chooseStudentsForPurchase("", new ArtifactController().chooseArtifact(artifactName));
@@ -153,7 +153,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
 
-        String artifactName = parseUrl(httpExchange, ARTIFACT_INDEX);
+        String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
         ArrayList<Student> students = inputsToStudents(this.parseUserInputsFromHttp(httpExchange));
         String message = "Pending purchase opened";
 
