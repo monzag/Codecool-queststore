@@ -37,8 +37,32 @@
         <small>&copy; pyLamas</small>
     </footer>
 </section>
-<video width="800" height="600" controls border>
-    <source src="/static/assets/video/getRich.mp4" type="video/mp4">
-</video>
+<section class="profile">
+    <table>
+        <tr>
+            <th></th>
+            <th>STUDENT</th>
+        </tr>
+        <tr>
+            <td>NAME</td>
+            <td>{{ student.getName() }}</td>
+        </tr>
+        <tr>
+            <td>SURNAME</td>
+            <td>{{ student.getSurname() }}</td>
+        </tr>
+        <tr>
+            <td>E-MAIL</td>
+            <td>{{ student.getEmail().getValue() }}</td>
+        </tr>
+        <tr>
+            <td>GROUP</td>
+            <td>{{ student.getGroup().getName() }}</td>
+        </tr>
+    </table>
+    <div class=change-password>
+        <a class="btn" id="password">Change password</a>
+    </div>
+</section>
 </body>
 </html>

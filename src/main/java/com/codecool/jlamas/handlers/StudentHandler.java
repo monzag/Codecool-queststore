@@ -1,5 +1,9 @@
-package com.codecool.jlamas.controllers;
+package com.codecool.jlamas.handlers;
 
+import com.codecool.jlamas.controllers.ArtifactController;
+import com.codecool.jlamas.controllers.CookieController;
+import com.codecool.jlamas.controllers.TeamPurchaseController;
+import com.codecool.jlamas.controllers.WalletController;
 import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.handlers.AbstractHandler;
 import com.codecool.jlamas.handlers.Response;
@@ -204,7 +208,7 @@ public class StudentMenuController extends AbstractHandler implements HttpHandle
         getCommands.put("/student/wallet", () -> { return displayWallet();} );
         getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
         getCommands.put("/student/store", () -> { return displayStore();} );
-        getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase();} );
+        getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
         getCommands.put("/student/team_purchases/open/.+", () -> { return openTeamPurchase(httpExchange);} );
 
     }
