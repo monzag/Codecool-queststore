@@ -9,14 +9,13 @@ import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
-import com.codecool.jlamas.models.account.Codecooler;
+import com.codecool.jlamas.models.account.Admin;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
 import org.jtwig.JtwigTemplate;
 
 import java.io.IOException;
-import java.io.OutputStream;
 import java.net.HttpCookie;
 import java.util.HashMap;
 import java.util.Map;
@@ -32,8 +31,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private Map<String, Callable> getCommands = new HashMap<String, Callable>();
     private Map<String, Callable> postCommands = new HashMap<String, Callable>();
-    private Codecooler admin;
-    private SessionDAO session = new SessionDAO();
+    private Admin admin;
+    private SessionDAO<Admin> session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
 
