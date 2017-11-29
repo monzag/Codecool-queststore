@@ -65,6 +65,33 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         }
     }
 
+    protected void addGetCommands(HttpExchange httpExchange) {
+        getCommands.put("/mentor/quest/show", () -> { return displayQuests();} );
+        getCommands.put("/mentor/quest/add", () -> {return displayAddQuest();} );
+        getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
+        getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
+        getCommands.put("/mentor", () -> {return displayProfile();} );
+        getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
+        getCommands.put("/mentor/groups/addStudent", () -> {return displayAddStudentFormula();} );
+        getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
+        getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
+        getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
+        getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
+        getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
+        getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
+        getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
+        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
+    }
+
+    protected void addPostCommands(HttpExchange httpExchange) {
+        postCommands.put("/mentor/quest/add", () -> { return addQuest(httpExchange);}  );
+        postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
+        postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
+        postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
+        postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
+        postCommands.put("/mentor/artifact/edit/.+", () -> { return editArtifact(httpExchange);} );
+    }
+
     private String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
         JtwigModel model = JtwigModel.newModel();
@@ -99,26 +126,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String addStudent(HttpExchange httpExchange) throws IOException {
-        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
-
-        String name = inputs.get("name").toString();
-        String surname = inputs.get("surname").toString();
-        String email = inputs.get("email").toString();
-        String groupName = inputs.get("group").toString();
-        studentController.addStudent(name, surname, email, groupName);
-
-        return displayGroups("Student has been added");
-
-    }
-
-    private String removeStudent(HttpExchange httpExchange) {
-        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        studentController.removeStudent(login);
-
-        return displayGroups("Student has been removed");
-    }
-
     private String displayEditFormula(HttpExchange httpExchange) {
         String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
 
@@ -132,17 +139,41 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String editStudent(HttpExchange httpExchange) throws IOException {
-        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+    public String displayArtifact(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
 
-        String name = inputs.get("name").toString();
-        String surname = inputs.get("surname").toString();
-        String email = inputs.get("email").toString();
-        String groupName = inputs.get("group").toString();
-        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        studentController.editStudent(login, name, surname, email, groupName);
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("message", message);
+        model.with("artifacts", artifactController.displayArtifacts());
 
-        return displayGroups("Student has been edited");
+        return template.render(model);
+    }
+
+    public String displayAddArtifact() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        return template.render(model);
+    }
+
+    public String displayEditArtifactFormula(HttpExchange httpExchange) {
+        String artifactName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editArtifact.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("artifact", artifactController.chooseArtifact(artifactName));
+
+        return template.render(model);
+    }
+
+    private String displayQuests() {
+        questsList = questController.showAllQuests();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_quests.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        return template.render(model.with("questsList", questsList));
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
@@ -158,14 +189,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String markQuest(HttpExchange httpExchange) {
-        String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
-
-        String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
-        questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
-
-        return displayQuestsToMark("Quest has been marked", httpExchange);
-    }
 
     private String displayAddQuest() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/add_quest.twig");
@@ -174,12 +197,15 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String displayQuests() {
-        questsList = questController.showAllQuests();
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_quests.twig");
+    private String displayEditQuestForm(HttpExchange httpExchange) {
+        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        Quest quest = questController.chooseQuest(questName);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        return template.render(model.with("questsList", questsList));
+        model.with("quest", quest);
+
+        return template.render(model);
     }
 
     private String addQuest(HttpExchange httpExchange) throws IOException {
@@ -206,17 +232,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return displayQuests();
     }
 
-    private String displayEditQuestForm(HttpExchange httpExchange) {
-        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        Quest quest = questController.chooseQuest(questName);
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("quest", quest);
-
-        return template.render(model);
-    }
-
     private String editQuest(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
@@ -232,50 +247,37 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return displayQuests();
     }
 
-    protected void addGetCommands(HttpExchange httpExchange) {
-        getCommands.put("/mentor/quest/show", () -> { return displayQuests();} );
-        getCommands.put("/mentor/quest/add", () -> {return displayAddQuest();} );
-        getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
-        getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
-        getCommands.put("/mentor", () -> {return displayProfile();} );
-        getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
-        getCommands.put("/mentor/groups/addStudent", () -> {return displayAddStudentFormula();} );
-        getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
-        getCommands.put("/mentor/groups/edit/.+", () -> {return displayEditFormula(httpExchange);} );
-        getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
-        getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
-        getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
-        getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
-        getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
-        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
+    private String addStudent(HttpExchange httpExchange) throws IOException {
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+
+        String name = inputs.get("name").toString();
+        String surname = inputs.get("surname").toString();
+        String email = inputs.get("email").toString();
+        String groupName = inputs.get("group").toString();
+        studentController.addStudent(name, surname, email, groupName);
+
+        return displayGroups("Student has been added");
+
     }
 
-    protected void addPostCommands(HttpExchange httpExchange) {
-        postCommands.put("/mentor/quest/add", () -> { return addQuest(httpExchange);}  );
-        postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
-        postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
-        postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
-        postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
-        postCommands.put("/mentor/artifact/edit/.+", () -> { return editArtifact(httpExchange);} );
+    private String removeStudent(HttpExchange httpExchange) {
+        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        studentController.removeStudent(login);
+
+        return displayGroups("Student has been removed");
     }
 
-    public String displayArtifact(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
-        JtwigModel model = JtwigModel.newModel();
+    private String editStudent(HttpExchange httpExchange) throws IOException {
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        // profile pic found by login
-        model.with("login", "student");
-        model.with("message", message);
-        model.with("artifacts", artifactController.displayArtifacts());
+        String name = inputs.get("name").toString();
+        String surname = inputs.get("surname").toString();
+        String email = inputs.get("email").toString();
+        String groupName = inputs.get("group").toString();
+        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        studentController.editStudent(login, name, surname, email, groupName);
 
-        return template.render(model);
-    }
-
-    public String displayAddArtifact() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addArtifact.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        return template.render(model);
+        return displayGroups("Student has been edited");
     }
 
     public String addArtifact(HttpExchange httpExchange) throws IOException {
@@ -288,7 +290,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
 
         return displayArtifact("Artifact has been added");
-
     }
 
     public String removeArtifact(HttpExchange httpExchange) {
@@ -296,16 +297,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         artifactController.removeArtifact(name);
 
         return displayArtifact("Artifact has been removed");
-    }
-
-    public String displayEditArtifactFormula(HttpExchange httpExchange) {
-        String artifactName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editArtifact.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("artifact", artifactController.chooseArtifact(artifactName));
-
-        return template.render(model);
     }
 
     public String editArtifact(HttpExchange httpExchange) throws IOException {
@@ -319,6 +310,15 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         artifactController.editArtifact(oldName, name, description, price);
 
         return displayArtifact("Artifact has been edited");
+    }
+
+    private String markQuest(HttpExchange httpExchange) {
+        String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
+
+        String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
+        questController.markQuestAsDone(studentController.chooseStudent(login), questController.chooseQuest(questName));
+
+        return displayQuestsToMark("Quest has been marked", httpExchange);
     }
 
 }
