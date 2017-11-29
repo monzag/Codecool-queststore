@@ -3,6 +3,7 @@ package com.codecool.jlamas.database;
 import java.sql.*;
 import java.util.ArrayList;
 
+import com.codecool.jlamas.models.accountdata.City;
 import com.codecool.jlamas.models.accountdata.Group;
 
 public class GroupDAO {
@@ -11,30 +12,39 @@ public class GroupDAO {
 
     }
 
-    public void insertGroup(Group group) {
-        String query = "INSERT INTO `group` VALUES (?);";
-
+    public void insert(Group group) {
         try (Connection c = ConnectDB.connect();
-            PreparedStatement pstmt = c.prepareStatement(query);) {
+             Statement stmt = c.createStatement()) {
 
-            pstmt.setString(1, group.getName());
-            pstmt.executeUpdate();
+            String query = String.format("INSERT INTO `group` VALUES (null, '%s', %d, %d);",
+                    group.getCity().getName(), group.getYear(), group.getNumber());
 
-        } catch (ClassNotFoundException|SQLException e) {
+            stmt.executeQuery(query);
+
+        } catch(ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
     }
 
-    public ArrayList<Group> selectAll() {
+    public ArrayList<Group> getAll() {
         ArrayList<Group> groups = new ArrayList<>();
-        String query = "SELECT group_tag FROM `group`;";
+        String query = "SELECT * FROM `group`;";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query)){
 
+            CityDAO cityDAO = new CityDAO();
+
             while (rs.next()) {
-                Group group = new Group(rs.getString("group_tag"));
+                Group group = new Group();
+                City city = cityDAO.get(rs.getString("city_name"));
+
+                group.setID(rs.getInt("id"));
+                group.setCity(city);
+                group.setYear(rs.getInt("year"));
+                group.setNumber(rs.getInt("number"));
+
                 groups.add(group);
             }
         } catch (ClassNotFoundException|SQLException e) {
@@ -44,16 +54,54 @@ public class GroupDAO {
         return groups;
     }
 
-    public void update(Group group, String preUpdateName) {
-        String query = "UPDATE `group` SET group_tag = ? WHERE group_tag = ?";
+    public void update(Group group) {
+        String query = "";
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();) {
+
+            query = String.format("UPDATE `group` SET city_name = '%s', year = %d, number = %d  WHERE id = %d; ",
+                    group.getCity().getName(),
+                    group.getYear(),
+                    group.getNumber(),
+                    group.getID());
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
+
+    public Group getGroup(Integer id) {
+        String query = String.format("SELECT * FROM `group` WHERE id = %d;", id);
+
+        Group group = null;
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(query)){
+
+             CityDAO cityDAO = new CityDAO();
+             City city = cityDAO.get(rs.getString("city_name"));
+
+             group = new Group();
+             group.setID(rs.getInt("id"));
+             group.setCity(city);
+             group.setYear(rs.getInt("year"));
+             group.setNumber(rs.getInt("number"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return group;
+    }
+
+    public void delete(Group group) {
+        String query = "DELETE FROM `group` WHERE id = " + group.getID() + ";";
 
         try (Connection c = ConnectDB.connect();
-                PreparedStatement pstmt = c.prepareStatement(query);) {
-
-            pstmt.setString(1, group.getName());
-            pstmt.setString(2, preUpdateName);
-            pstmt.executeUpdate();
-
+             Statement stmt = c.createStatement();) {
+             stmt.executeUpdate(query);
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }

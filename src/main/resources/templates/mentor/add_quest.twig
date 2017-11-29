@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>questore</title>
+    <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+    <script src="https://www.w3schools.com/lib/w3.js"></script>
+</head>
+
+<body>
+<header class="primary-header">
+    <img src="/static/assets/pics/web/logo.jpg">
+    <nav class="primary-nav">
+        <ul>
+            <li><a href="">about</a></li><!--
+     --><li><a href="">contact</a></li><!--
+     --><li><a class="logout-btn" href="">logout</a></li>
+        </ul>
+    </nav>
+</header>
+<section class="menu-bar">
+    <div class="frame">
+        <img src="/static/assets/pics/profiles/student.jpg">
+        <nav>
+            <ul class="menu-nav">
+                <li><a href="/mentor">profile</a></li>
+                <li><a href="/mentor/groups">groups</a></li>
+                <li><a href="/mentor/quest/show">quests</a></li>
+                <li><a href="/mentor/artifact/show">artifacts</a></li>
+            </ul>
+        </nav>
+    </div>
+    <footer>
+        <small>&copy; pyLamas</small>
+    </footer>
+</section>
+<form method="POST" class="add">
+    <!-- <h3>Add new mentor</h3> -->
+    <h3>Add new quest</h3>
+
+    <table class="input-table">
+        <tr>
+            <th>Quest Name:</th>
+            <th><input type="text" name="questName" value="" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}" title="Type only letters Min. three chars!"></th>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <th><input type="text" name="description" value="" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]{3,}" title="Min. three chars!"></th>
+        </tr>
+        <tr>
+            <th>Reward:</th>
+            <th><input type="text" name="reward" value="" pattern="[1-9]{2,}" title="Type only numbers! Min. two digits!"></th>
+        </tr>
+    </table>
+
+    <button class="submit" type="submit">submit</button>
+</form>
+
+<script>
+    w3.includeHTML();
+</script>
+</body>
+</html>

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>questore</title>
+    <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="primary-header">
+    <img src="/static/assets/pics/web/logo.jpg">
+    <nav class="primary-nav">
+        <ul>
+            <li><a href="https://codecool.pl/" target="_blank">about</a></li>
+            <li><a href="">contact</a></li>
+            <li><a class="logout-btn" href="">logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="menu-bar">
+    <div class="frame">
+        <img src="/static/assets/pics/profiles/admin.jpg">
+        <nav>
+            <ul class="menu-nav">
+                <li><a href="/admin">profile</a></li>
+                <li><a href="/admin/mentors/list">mentors</a></li>
+                <li><a href="/admin/mentors/add">add mentor</a></li>
+                <li><a href="/admin/groups/list">groups</a></li>
+                <li><a href="/admin/groups/add">add group</a></li>
+                <li><a href="/admin/cities/list">cities</a></li>
+                <li><a href="/admin/cities/add">add city</a></li>
+            </ul>
+        </nav>
+    </div>
+    <footer>
+        <small>&copy; pyLamas</small>
+    </footer>
+</section>
+
+<form id="2" class="add" method="POST">
+    {% if mentor != null %}
+        <h3>Edit mentor {{ mentor.getName }}</h3>
+    {% else %}
+        <h3>Add new mentor</h3>
+    {% endif %}
+    {% if name.length > 0 %}
+        <div class="fail">
+            <h5>This email was already used!</h5>
+        </div>
+    {% endif %}
+
+    <table class="input-table">
+        <tr>
+            <th>Name:</th>
+            <th>
+                <input type="text" name="name"
+                       value="{{ mentor.getName }}{{ name }}"
+                       title="Name should be between 3 and 17 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Surname:</th>
+            <th>
+                <input type="text" name="surname"
+                       value="{{ mentor.getSurname }}{{ surname }}"
+                       title="Name should be between 3 and 17 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <th>
+                <input type="email" name="email"
+                       value="{{ mentor.getEmail.getValue }}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Class:</th>
+            <th>
+                <select name="class">
+                    {% for group in groups %}
+                        <option value="{{ group.getID }}">{{ group.getName }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+    </table>
+    <button class="submit" type="submit" form="2">submit</button>
+</form>
+
+</body>
+</html>

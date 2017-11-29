@@ -15,7 +15,7 @@ public class MentorDAO {
 
     public ArrayList<Mentor> requestAll() {
         String query = String.format("%s %s %s %s %s %s %s"
-            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group_tag"
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group_id"
             , "FROM user"
             ,     "INNER JOIN login"
             ,             "ON login.login = user.login"
@@ -58,9 +58,9 @@ public class MentorDAO {
                     mentor.getLogin().getValue(),
                     mentor.getPassword().getValue());
 
-            query += String.format("INSERT INTO `mentor` VALUES('%s', '%s'); ",
+            query += String.format("INSERT INTO `mentor` VALUES('%s', %d); ",
                     mentor.getLogin().getValue(),
-                    mentor.getGroup().getName());
+                    mentor.getGroup().getID());
 
             stmt.executeUpdate(query);
 
@@ -75,7 +75,6 @@ public class MentorDAO {
 
     public boolean update(Mentor mentor) {
         // true if was successful
-
         String query;
 
         try (Connection c = ConnectDB.connect();
@@ -93,40 +92,15 @@ public class MentorDAO {
                     mentor.getPassword().getValue(),
                     mentor.getLogin().getValue());
 
-            query += String.format("UPDATE `mentor` SET login = '%s', group_tag = '%s' WHERE login = '%s'; ",
+            query += String.format("UPDATE `mentor` SET login = '%s', group_id = %d WHERE login = '%s'; ",
                     mentor.getLogin().getValue(),
-                    mentor.getGroup().getName(),
+                    mentor.getGroup().getID(),
                     mentor.getLogin().getValue());
             stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
 
-            return false;
-        }
-        return true;
-
-    }
-
-    public boolean delete(Mentor mentor) {
-        String query;
-
-        try (Connection c = ConnectDB.connect();
-             Statement stmt = c.createStatement();) {
-
-            query = String.format("DELETE FROM `user` WHERE login = '%s'; ",
-                    mentor.getLogin().getValue());
-
-            query += String.format("DELETE FROM `login` WHERE login = '%s'; ",
-                    mentor.getLogin().getValue());
-
-            query += String.format("DELETE FROM `mentor` WHERE login = '%s'; ",
-                    mentor.getLogin().getValue());
-
-            stmt.executeUpdate(query);
-
-        } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
             return false;
         }
         return true;
@@ -164,7 +138,7 @@ public class MentorDAO {
 
         Mentor mentor = null;
         String query = String.format("%s %s %s %s %s %s WHERE user.type = 'mentor' AND login.login = '%s';"
-            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group_tag"
+            , "SELECT user.login, user.email, user.name, user.surname, login.password, mentor.group_id"
             , "FROM user"
             ,     "INNER JOIN login"
             ,             "ON login.login = user.login"
@@ -186,6 +160,7 @@ public class MentorDAO {
     }
 
     public Mentor getMentorFromResultSet(ResultSet rs) throws SQLException{
+        GroupDAO groupDAO = new GroupDAO();
 
         Mentor mentor = new Mentor();
 
@@ -194,9 +169,8 @@ public class MentorDAO {
         mentor.setLogin(new Login(rs.getString("login")));
         mentor.setPassword(new Password(rs.getString("password")));
         mentor.setEmail(new Mail(rs.getString("email")));
-        mentor.setGroup(new Group(rs.getString("group_tag")));
+        mentor.setGroup(groupDAO.getGroup(rs.getInt("group_id")));
 
         return mentor;
-
     }
 }

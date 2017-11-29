@@ -1,0 +1,461 @@
+/* http://meyerweb.com/eric/tools/css/reset/
+   v2.0 | 20110126
+   License: none (public domain)
+*/
+html, body, div, span, applet, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+a, abbr, acronym, address, big, cite, code,
+del, dfn, em, img, ins, kbd, q, s, samp,
+small, strike, strong, sub, sup, tt, var,
+b, u, i, center,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, embed,
+figure, figcaption, footer, header, hgroup,
+menu, nav, output, ruby, section, summary,
+time, mark, audio, video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section {
+    display: block;
+}
+body {
+    line-height: 1;
+}
+ol, ul {
+    list-style: none;
+}
+blockquote, q {
+    quotes: none;
+}
+blockquote:before, blockquote:after,
+q:before, q:after {
+    content: '';
+    content: none;
+}
+table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+/* GRID */
+body {
+    background-color: gray;
+    background-image: url("../pics/web/bcg.png");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    background-position: right;
+    background-size: cover;
+    font: 300 16px/22px 'Muli', sans-serif;;
+}
+
+/* PRIMARY HEADER */
+.primary-header {
+    width: 100%;
+    min-width: 700px;
+    height: 40px;
+    background-color:white;
+    padding-top: 10px;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    padding-right: 40px;
+    position: fixed;
+    border-bottom: 1px solid #2a2929;
+}
+.primary-header img {
+    height: 40px;
+    width: 230px;
+    padding: 0px;
+    margin: 0px;
+    border: none;
+}
+.primary-nav {
+    float: right;
+    margin-right: 20px;
+    text-transform: uppercase;
+}
+.primary-nav li {
+    float: left;
+    margin: 12px;
+    font-size: 16px;
+    line-height: 16px;
+}
+/* primary header links */
+.primary-nav a {
+    text-decoration: none;
+    color: #2a2929;
+}
+.primary-nav a:hover {
+    font-weight: 600;
+    color: #a9b2b9;
+}
+.primary-nav .logout-btn {
+    font-weight: 600;
+    color: red;
+}
+.primary-nav .logout-btn {
+    font-weight: 600;
+    color: red;
+}
+.primary-nav .logout-btn:hover {
+    font-weight: 900;
+    color: orange;
+}
+
+/* MENU BAR */
+.menu-bar {
+    height: 100%;
+    width: 250px;
+    position: fixed;
+    background-color: #2a2929;
+    z-index: -1;
+    display: flex;
+    flex-direction: column;
+    /*justify-content: center;*/
+    align-items: center;
+}
+.frame {
+    width: 210px;
+    min-width: 210px;
+    height: auto;
+    margin-top: 140px;
+    border: 2px solid gray;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+/* menu bar profile picture */
+.menu-bar img {
+    height: 140px;
+    margin-top: 35px;
+    margin-bottom: 70px;
+    border: 2px solid gray;
+    border-radius: 50%;
+}
+/* menu bar buttons */
+.menu-bar a {
+    width: 170px;
+    height: 16px;
+    padding: 4px;
+    border: 2px solid gray;
+    border-radius: 3px;
+    margin-bottom: 12px;
+    text-decoration: none;
+    color: gray;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-bar a:hover {
+    text-decoration: none;
+    color: #2a2929;
+    font-weight: 900;
+    background-color: gray;
+}
+
+/* FOOTER */
+footer {
+    position: absolute;
+    bottom: 10px;
+    color: gray;
+    width: 170px;
+    text-align: center;
+    border-top: 2px solid gray;
+}
+
+/* Profile view */
+.profile {
+    float: left;
+    margin-left: 300px;
+    margin-top: 150px;
+    opacity: 0.8;
+}
+
+.profile table {
+    margin: 20px;
+    padding: 20px;
+    /*background-color: rgba(0, 0, 0, 0.6)*/
+    /*opacity: .5;*/
+}
+
+.profile table th {
+    float: left;
+    margin: 20px 20px 20px 0px;
+    font-size: 30px;
+    font-family: Muli, sans-serif;
+    font-weight: bold;
+}
+
+.profile table td {
+    padding: 10px;
+    font-size: 20px;
+    padding-left: 20px;
+}
+
+.change-password {
+    display: flex;
+    justify-content: center;
+    margin-top: 40px;
+}
+
+/* ADD STUDENT */
+.add {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 800px;
+    transform: translate(-50%, -50%);
+    background-color: #D3D3D3;
+    opacity: 0.7;
+    border: 3px solid gray;
+    border-radius: 3px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+/* ADD NEW FORM */
+.add h3 {
+    background-color: #2a2929;
+    border-bottom: 3px solid gray;
+    padding: 10px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 600;
+}
+.add div.fail h5 {
+    background-color: red;
+    width: 40%;
+    height: 2em;
+    left: 20%;
+    margin-bottom: 20px;
+    border-radius: 3px;
+    font-weight: 600;
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.add div.fail {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.input-table {
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    text-align: left;
+    display: flex;
+    justify-content: center;
+}
+.input-table tr th, td {
+    padding-bottom: 25px;
+    color: #2a2929;
+    font-weight: 600;
+}
+.input-table tr th:last-child {
+    padding-left: 25px;
+}
+input {
+    height: 20px;
+    border: 1.5px solid gray;
+    border-radius: 3px;
+}
+.input-table tr th select {
+    height: 32px;
+    margin: 0px;
+    padding: 0px;
+    border: 1.5px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    width: 85%;
+}
+.input-table tr td select {
+    height: 32px;
+    margin: 0px;
+    padding: 0px;
+    border: 1.5px solid gray;
+    border-radius: 5px;
+    background-color: white;
+    width: 85%;
+}
+#select-width {
+    width:150px;
+}
+.input-table tr th select:hover {
+    border: 2px solid #254375;
+}
+
+
+/* NEW ADD FORM BUTTON */
+.submit {
+    margin: 0 40% 40px 40%;
+    height: 27px;
+    border: 1.5px solid #2a2929;
+    border-radius: 5px;
+    background-color: #254375;
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1.5px;
+}
+.submit:hover {
+    background-color: red;
+    font-weight: 900;
+}
+.add a {
+    text-decoration: none;
+    color: white;
+}
+
+/* MENTORS LIST */
+
+.users-table {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 60%;
+    margin-bottom: 25px;
+    padding-bottom: 15px;
+    transform: translate(-50%, -50%);
+    background-color: #D3D3D3;
+    opacity: 0.7;
+    border: 3px solid gray;
+    border-radius: 3px;
+    font-weight: 600;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+.users-table h3 {
+    background-color: #2a2929;
+    border-bottom: 3px solid gray;
+    padding: 10px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: center;
+    color: white;
+    font-size: 22px;
+    line-height: 22px;
+    font-weight: 600;
+}
+
+.users-table tr {
+
+}
+
+.users-table th {
+    opacity: .5;
+}
+
+.users-table th a {
+    text-decoration: none;
+    color: white;
+}
+
+.users-table #add-btn {
+    opacity: 1;
+    float: right;
+    height: 25px;
+    margin-right: 70px;
+}
+
+.btn {
+    border: 1.5px solid #2a2929;
+    border-radius: 5px;
+    margin-top: 12px;
+    width: 90px;
+    background-color: #254375 ;
+    color: white;
+    text-decoration: none;
+    font: 300 18px/18px 'Muli', sans-serif;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#add-btn:hover {
+    opacity: .8;
+}
+
+.btn:hover {
+    opacity: .8;
+}
+
+#remove-btn {
+    margin-right:10px;
+    float: right;
+    height: 25px;
+}
+
+#edit-btn {
+    margin-right: 20px;
+    float: right;
+    height: 25px;
+}
+
+#password {
+    height: 25px;
+    width: 200px;
+}
+
+.content {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.contact {
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+}
+
+#send {
+    height: 30px;
+    margin-left: 30%;
+}
+
+textarea {
+    height: 200px;
+    width: 200px;
+}
+
+input, textarea {
+    font-size: 13pt;
+    border: 1px solid #787878;
+    border-radius: 5px;
+    background-color: #fff;
+    padding: 5px;
+    width: 80%;
+}
+
+h4 {
+    color: darkgreen;
+    padding: 10px;
+    display: inline-block;
+    width: 50%;
+}

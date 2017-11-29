@@ -1,0 +1,5 @@
+CREATE TABLE IF NOT EXISTS `cookie` (
+  `sessionID`	TEXT PRIMARY KEY UNIQUE NOT NULL,
+  `login`	TEXT,
+   FOREIGN KEY (`login`) REFERENCES `login`(`login`) ON DELETE SET NULL
+);

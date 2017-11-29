@@ -12,7 +12,7 @@ public class OwnedArtifactDAO {
 
     }
 
-    public void insert(Student student, Artifact artifact) {
+    public boolean insert(Student student, Artifact artifact) {
         String sql = "INSERT INTO owned_artifact(artifact_name, owner_name) VALUES (?, ?);";
 
         try (Connection c = ConnectDB.connect();
@@ -22,9 +22,12 @@ public class OwnedArtifactDAO {
             pstmt.setString(2, student.getLogin().getValue());
             pstmt.executeUpdate();
 
+            return true;
+
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
+        return false;
     }
 
     public ArrayList<Artifact> requestAllBy(Student student) {
@@ -53,12 +56,13 @@ public class OwnedArtifactDAO {
 
     public boolean delete(Artifact artifact, Student student) {
 
-        String query = String.format("DELETE FROM `owned_artifact` WHERE artifact_name = '%s' AND owner_name = '%s';",
-                artifact.getName(), student.getLogin());
+        String query = "DELETE FROM owned_artifact WHERE artifact_name = ? AND owner_name = ?";
 
         try (Connection c = ConnectDB.connect();
-             Statement stmt = c.createStatement()) {
-            stmt.executeQuery(query);
+             PreparedStatement pstmt = c.prepareStatement(query)) {
+            pstmt.setString(1, artifact.getName());
+            pstmt.setString(2, student.getLogin().getValue());
+            pstmt.executeUpdate();
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
             return false;

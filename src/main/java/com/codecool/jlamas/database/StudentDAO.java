@@ -20,7 +20,7 @@ public class StudentDAO {
     public ArrayList<Student> requestAll() {
         Student student = null;
         String query = String.format("%s %s %s %s %s %s %s %s"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_id,"
                 ,         "student.team_tag, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
@@ -93,9 +93,9 @@ public class StudentDAO {
                     student.getLogin().getValue(),
                     student.getPassword().getValue());
 
-            query += String.format("INSERT INTO `student` VALUES('%s', '%s', '%s', '%s'); ",
+            query += String.format("INSERT INTO `student` VALUES('%s', %d, '%s', '%s'); ",
                     student.getLogin().getValue(),
-                    student.getGroup().getName(),
+                    student.getGroup().getID(),
                     UNSIGNED_TEAM,
                     BALANCE);
 
@@ -128,10 +128,10 @@ public class StudentDAO {
                     student.getPassword().getValue(),
                     student.getLogin().getValue());
 
-            query += String.format("UPDATE `student` SET login = '%s', group_tag = '%s', team_tag = '%s', " +
+            query += String.format("UPDATE `student` SET login = '%s', group_id = %d, team_tag = '%s', " +
                                    "balance = '%s' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
-                    student.getGroup().getName(),
+                    student.getGroup().getID(),
                     student.getTeamId(),
                     student.getWallet().getBalance(),
                     student.getLogin().getValue());
@@ -148,7 +148,7 @@ public class StudentDAO {
         Student student = null;
 
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_id,"
                 , "student.team_tag, student.balance"
                 , "FROM user"
                 , "INNER JOIN login"
@@ -160,7 +160,7 @@ public class StudentDAO {
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement();
              ResultSet rs = stmt.executeQuery(query);) {
-             getStudentFromResultSet(rs);
+             student = getStudentFromResultSet(rs);
 
         } catch (ClassNotFoundException | SQLException e) {
             System.out.println(e.getMessage());
@@ -172,18 +172,20 @@ public class StudentDAO {
 
         Student student = new Student();
         DoneQuestDAO doneQuests = new DoneQuestDAO();
+        OwnedArtifactDAO ownedArtifacts = new OwnedArtifactDAO();
+        GroupDAO groupDAO = new GroupDAO();
 
         student.setName(rs.getString("name"));
         student.setSurname(rs.getString("surname"));
         student.setLogin(new Login(rs.getString("login")));
         student.setPassword(new Password(rs.getString("password")));
         student.setEmail(new Mail(rs.getString("email")));
-        student.setGroup(new Group(rs.getString("group_tag")));
+        student.setGroup(groupDAO.getGroup(rs.getInt("group_id")));
         student.setTeamId(rs.getInt("team_tag"));
         student.setWallet(new Wallet(rs.getInt("balance")));
         student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
+        student.getWallet().setOwnedArtifacts(ownedArtifacts.requestAllBy(student));
 
         return student;
-
     }
 }
