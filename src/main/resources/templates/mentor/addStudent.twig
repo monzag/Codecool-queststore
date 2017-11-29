@@ -57,10 +57,10 @@
         <th>
 		<select name="group">
                     {% for group in groups %}
-                    <option value="{{ group.getName() }}">{{ group.getName }}</option>
+                    <option value="{{ group.getID }}">{{ group.getName }}</option>
                     {% endfor %}
                 </select>
-	</th>
+	    </th>
       </tr>
       <!-- optional only in student creation -->
       <!--tr>

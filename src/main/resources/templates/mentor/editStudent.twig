@@ -52,7 +52,13 @@
       </tr>
       <tr>
         <th>Group:</th>
-        <th><input type="text" name="group" value="{{ student.getGroup.getName() }}"></th>
+        <th>
+          <select name="group">
+              {% for group in groups %}
+                <option value="{{ group.getID }}">{{ group.getName }}</option>
+              {% endfor %}
+          </select>
+        </th>
       </tr>
       <!-- optional only in student creation -->
       <!--tr>
