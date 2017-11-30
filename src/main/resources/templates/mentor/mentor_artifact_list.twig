@@ -67,29 +67,20 @@
             {% endif %}
         {% endfor %}
     </table>
-      <h3>Team artifacts:</h3>
+      <h3>Teams:</h3>
       <table style="width:100%">
           <tr>
               <th>ID</th>
               <th>Name</th>
-              <th>Description</th>
-              <th>Price</th>
           </tr>
           <tr>
-              {% set i = 0 %}
-              {% for artifact in artifacts %}
-              {% if artifact.getType.equals("Team") %}
-              {% set i = i + 1 %}
+              {% for team in teams %}
           <tr>
-              <td>{{ i }}</td>
-              <td>{{ artifact.getName }}</td>
-              <td>{{ artifact.getDescription }}</td>
-              <td>{{ artifact.getPrice }}</td>
-              <td><a class="btn" id="edit-btn" href="/mentor/artifact/edit/{{ artifact.getName }}">Edit</a></td>
-              <td><a class="btn" id="remove-btn" href="/mentor/artifact/remove/{{ artifact.getName }}">Remove</a></td>
-
+              <td>{{ team.getId }}</td>
+              <td>{{ team.getName }}</td>
+              <td><a class="btn" id="edit-btn" href="/mentor/teams/edit/{{ artifact.getName }}">Edit</a></td>
+              <td><a class="btn" id="remove-btn" href="/mentor/teams/remove/{{ team.getName }}">Remove</a></td>
           </tr>
-          {% endif %}
           {% endfor %}
           <tr>
               <th class="btn" id="add-btn"><a href="/mentor/teams/add">Add new</a></th>
