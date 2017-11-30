@@ -299,7 +299,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayEditPassword() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_change_password.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
