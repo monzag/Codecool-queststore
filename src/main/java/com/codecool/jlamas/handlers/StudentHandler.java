@@ -201,7 +201,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayEditPassword() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student_change_password.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
@@ -214,7 +214,8 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         UserController userController = new UserController();
 
         try {
-            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, 4));
+            int loginIndex = 4;
+            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, loginIndex));
 
         } catch (NotMatchingPasswordException e) {
             return this.displayEditPassword();
