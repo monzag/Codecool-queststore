@@ -1,9 +1,7 @@
 package com.codecool.jlamas.handlers;
 
-import com.codecool.jlamas.controllers.CityController;
-import com.codecool.jlamas.controllers.CookieController;
-import com.codecool.jlamas.controllers.GroupController;
-import com.codecool.jlamas.controllers.MentorController;
+import com.codecool.jlamas.controllers.*;
+import com.codecool.jlamas.database.LevelDAO;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
@@ -37,7 +35,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
-
+    private LevelController levelController;
 
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
@@ -296,6 +294,25 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         ctrl.remove(this.parseStringFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayGroups();
+    }
+
+    private String displayLevels() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
+        JtwigModel model = JtwigModel.newModel();
+
+        // instead of value 'student' login from cookie
+        model.with("login", "student");
+        model.with("levels", new LevelController().showAllLevels());
+
+        return template.render(model);
+    }
+
+    private String addLevel(HttpExchange httpExchange) throws IOException {
+        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        levelController = new LevelController();
+        levelController.createLevel(inputs);
+
+        return displayLevels();
     }
 
 
