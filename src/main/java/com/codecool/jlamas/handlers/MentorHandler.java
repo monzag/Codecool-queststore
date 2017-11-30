@@ -24,10 +24,15 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer ARTIFACT_INDEX = 4;
     private static final Integer QUEST_INDEX = 6;
 
+    private static final String PROFILE = "templates/mentor/mentor_profile.twig";
     private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
     private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
-    private static final String PROFILE = "templates/mentor/mentor_profile.twig";
-    private static final String GROUPS_LIST = "templates/mentor/mentor_group_list.twig";
+    private static final String ARTIFACT_LIST = "templates/mentor/mentor_artifact_list.twig";
+    private static final String GROUP_LIST = "templates/mentor/mentor_group_list.twig";
+    private static final String QUEST_LIST = "templates/mentor/mentor_quest_list.twig";
+    private static final String QUEST_MARK = "templates/mentor/mentor_quest_mark.twig";
+    private static final String QUEST_ADD = "templates/mentor/mentor_quest_add.twig";
+    private static final String QUEST_EDIT = "templates/mentor/mentor_quest_edit.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -114,7 +119,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUPS_LIST);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUP_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -160,7 +165,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String displayArtifact(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -172,14 +177,14 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayQuests() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_quests.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model.with("questsList", questController.showAllQuests()));
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/markQuest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_MARK);
         JtwigModel model = JtwigModel.newModel();
         String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         // profile pic found by login
@@ -192,19 +197,17 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayAddQuest() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/add_quest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_ADD);
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model);
     }
 
     private String displayEditQuestForm(HttpExchange httpExchange) {
-        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        Quest quest = questController.chooseQuest(questName);
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_EDIT);
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("quest", quest);
+        model.with("quest", questController.chooseQuest(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
 
         return template.render(model);
     }
