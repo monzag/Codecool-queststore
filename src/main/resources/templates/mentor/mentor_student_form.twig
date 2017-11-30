@@ -88,6 +88,16 @@
           </select>
         </th>
       </tr>
+      <tr>
+        <th>Team:</th>
+        <th>
+          <select name="team">
+            {% for team in teams %}
+            <option value="{{ team.getID }}">{{ team.getName }}</option>
+            {% endfor %}
+          </select>
+        </th>
+      </tr>
     </table>
     <button class="submit" type="submit" form="2">submit</button>
   </form>
