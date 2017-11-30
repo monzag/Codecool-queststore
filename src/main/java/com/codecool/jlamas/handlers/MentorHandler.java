@@ -147,7 +147,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
-        model.with("artifacts", artifactController.displayArtifacts());
+        model.with("artifacts", artifactController.getAll());
 
         return template.render(model);
     }
@@ -309,7 +309,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     public String removeArtifact(HttpExchange httpExchange) {
         String name = parseStringFromURL(httpExchange, STUDENT_INDEX);
-        artifactController.removeArtifact(name);
+        artifactController.remove(name);
 
         return displayArtifact("Artifact has been removed");
     }
