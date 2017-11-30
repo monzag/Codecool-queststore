@@ -171,11 +171,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String displayArtifact(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_LIST);
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(ARTIFACT_LIST);
         model.with("message", message);
         model.with("artifacts", artifactController.getAll());
 
