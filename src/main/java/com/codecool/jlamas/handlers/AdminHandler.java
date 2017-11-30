@@ -97,13 +97,6 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
     }
 
-    public void logout(HttpExchange httpExchange) throws IOException {
-        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
-        cookieController.removeCookie(httpExchange);
-
-        responseCode.sendRedirectResponse(httpExchange, "/");
-    }
-
     private String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
