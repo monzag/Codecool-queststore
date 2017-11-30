@@ -6,7 +6,7 @@ import com.codecool.jlamas.models.accountdata.Team;
 import java.util.ArrayList;
 import java.util.Map;
 
-public class TeamController extends Controller<Team> {
+public class TeamController implements Controller<Team> {
 
     private TeamDAO teamDao;
 
