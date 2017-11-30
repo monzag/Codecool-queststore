@@ -24,16 +24,17 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer ARTIFACT_INDEX = 4;
     private static final Integer QUEST_INDEX = 6;
 
-    private static final String PROFILE = "templates/mentor/mentor_profile.twig";
-    private static final String CHANGE_PASSWORD = "templates/mentor/mentor_change_password.twig";
-    private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
-    private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
-    private static final String ARTIFACT_LIST = "templates/mentor/mentor_artifact_list.twig";
-    private static final String GROUP_LIST = "templates/mentor/mentor_group_list.twig";
-    private static final String QUEST_LIST = "templates/mentor/mentor_quest_list.twig";
-    private static final String QUEST_MARK = "templates/mentor/mentor_quest_mark.twig";
-    private static final String QUEST_ADD = "templates/mentor/mentor_quest_add.twig";
-    private static final String QUEST_EDIT = "templates/mentor/mentor_quest_edit.twig";
+    private static final String MAIN = "templates/main.twig";
+    private static final String PROFILE = "classpath:/templates/mentor/mentor_profile.twig";
+    private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
+    private static final String STUDENT_FORM = "classpath:/templates/mentor/mentor_student_form.twig";
+    private static final String ARTIFACT_FORM = "classpath:/templates/mentor/mentor_artifact_form.twig";
+    private static final String ARTIFACT_LIST = "classpath:/templates/mentor/mentor_artifact_list.twig";
+    private static final String GROUP_LIST = "classpath:/templates/mentor/mentor_group_list.twig";
+    private static final String QUEST_LIST = "classpath:/templates/mentor/mentor_quest_list.twig";
+    private static final String QUEST_MARK = "classpath:/templates/mentor/mentor_quest_mark.twig";
+    private static final String QUEST_ADD = "classpath:/templates/mentor/mentor_quest_add.twig";
+    private static final String QUEST_EDIT = "classpath:/templates/mentor/mentor_quest_edit.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
