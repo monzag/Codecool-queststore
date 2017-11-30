@@ -1,36 +1,23 @@
 package com.codecool.jlamas.models.account;
 
-import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.models.accountdata.Login;
-import com.codecool.jlamas.models.accountdata.Mail;
-import com.codecool.jlamas.models.accountdata.Password;
-import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.accountdata.*;
 
 
 public class Student extends Codecooler {
 
     private Group group;
-    private Integer teamId;
+    private Team team;
     private Wallet wallet;
 
     public Student(){
 
     }
 
-    public Student(Login login, Password password, Mail email, String name, String surname, Group group, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Group group, Team team, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.group = group;
-        this.teamId = null;
-        this.wallet = wallet;
-
-    }
-
-    public Student(Login login, Password password, Mail email, String name, String surname, Group group, Integer teamId, Wallet wallet) {
-
-        super(login, password, email, name, surname);
-        this.group = group;
-        this.teamId = teamId;
+        this.team = team;
         this.wallet = wallet;
 
     }
