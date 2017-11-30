@@ -1,6 +1,7 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.*;
+import com.codecool.jlamas.handlers.Response;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -18,12 +19,14 @@ public class AppController implements HttpHandler {
     private UserDAO userData;
     private CookieController cookieController;
     private SessionDAO session;
+    private Response responseCode;
 
     public AppController() {
         this.loginData = new LoginDAO();
         this.userData = new UserDAO();
         this.cookieController = new CookieController();
         this.session = new SessionDAO();
+        this.responseCode = new Response();
     }
 
     @Override
@@ -34,13 +37,14 @@ public class AppController implements HttpHandler {
         if (cookie != null) {
             if (method.equals("GET")) {
                 String login = session.getLoginByCookie(httpExchange);
-                launchUserController(login, httpExchange);
-
-            } else {
-//                logout(cookie, httpExchange);
+                if (login == null) {
+                    logout(httpExchange);
+                } else {
+                    launchUserController(login, httpExchange);
+                }
             }
-
         } else {
+
             if (method.equals("GET")) {
                 displayLoginFormula(httpExchange);
             } else {
@@ -49,25 +53,12 @@ public class AppController implements HttpHandler {
         }
     }
 
-    public void sendOKResponse(String response, HttpExchange httpExchange) throws IOException{
-        final byte[] finalResponseBytes = response.getBytes("UTF-8");
-        httpExchange.sendResponseHeaders(200, finalResponseBytes.length);
-        OutputStream os = httpExchange.getResponseBody();
-        os.write(finalResponseBytes);
-        os.close();
-    }
-
-    public void sendRedirectResponse(HttpExchange httpExchange, String location) throws IOException {
-        httpExchange.getResponseHeaders().set("Location", location);
-        httpExchange.sendResponseHeaders(302,-1);
-    }
-
     public void displayLoginFormula(HttpExchange httpExchange) throws IOException {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/login.twig");
         JtwigModel model = JtwigModel.newModel();
 
         String response = template.render(model);
-        sendOKResponse(response, httpExchange);
+        responseCode.sendOKResponse(response, httpExchange);
     }
 
     public void login(HttpExchange httpExchange) throws IOException {
@@ -115,7 +106,13 @@ public class AppController implements HttpHandler {
             location = "/student";
         }
 
-        sendRedirectResponse(httpExchange, location);
+        responseCode.sendRedirectResponse(httpExchange, location);
     }
 
+    public void logout(HttpExchange httpExchange) throws IOException {
+        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
+        cookieController.removeCookie(httpExchange);
+
+        responseCode.sendRedirectResponse(httpExchange, "/");
+    }
 }
