@@ -4,7 +4,6 @@ import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
-import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -24,6 +23,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer QUEST_INDEX = 6;
 
     private static final String STUDENT_FORM = "templates/mentor/addStudent.twig";
+    private static final String CHANGE_PASSWORD = "templates/mentor/change_password.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -87,7 +87,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
         getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
         getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
-        getCommands.put("/mentor/password/edit/.+", () -> {return this.displayEditPassword();} );
+        getCommands.put("/mentor/password/edit/.+", () -> {return this.displayEditPassword("");} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
@@ -105,7 +105,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
-        model.with("login", "student");
+        model.with("login", mentor.getLogin().getValue());
         model.with("mentor", mentor);
 
         return template.render(model);
@@ -321,11 +321,12 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return displayQuestsToMark("Quest has been marked", httpExchange);
     }
 
-    protected String displayEditPassword() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_change_password.twig");
+    protected String displayEditPassword(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
+        model.with("msg", message);
 
         return template.render(model);
     }
