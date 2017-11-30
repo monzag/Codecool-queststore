@@ -4,24 +4,23 @@ import java.util.ArrayList;
 import java.util.Map;
 
 import com.codecool.jlamas.database.StudentDAO;
+import com.codecool.jlamas.database.TeamDAO;
 import com.codecool.jlamas.exceptions.EmailAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.models.accountdata.Login;
-import com.codecool.jlamas.models.accountdata.Mail;
-import com.codecool.jlamas.models.accountdata.Password;
-import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.accountdata.*;
 
 
 public class StudentController implements Controller<Student> {
 
     private StudentDAO studentDao;
     private GroupController groupController;
+    private TeamDAO teamDao;
 
     public StudentController() {
         this.studentDao = new StudentDAO();
         this.groupController = new GroupController();
+        this.teamDao = new TeamDAO();
     }
 
     public ArrayList<Student> getAll() {
@@ -48,9 +47,10 @@ public class StudentController implements Controller<Student> {
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
         Group group = this.groupController.get(attrs.get("group"));
+        Team team = this.teamDao.get(attrs.get("team"));
         Wallet wallet = new Wallet(0);
 
-        Student student = new Student(login, password, email, name, surname, group, wallet);
+        Student student = new Student(login, password, email, name, surname, group, team, wallet);
         student.correctNames();
 
         this.studentDao.insert(student);
