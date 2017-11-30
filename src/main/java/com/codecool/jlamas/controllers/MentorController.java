@@ -35,10 +35,6 @@ public class MentorController implements Controller<Mentor> {
         mentorDao.delete(this.get(login));
     }
 
-    public Group getGroup(String id) {
-        return this.groupController.getGroup(Integer.valueOf(id));
-    }
-
     public void createFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         if (!Mail.isValid(attrs.get("email"))) {
@@ -50,7 +46,7 @@ public class MentorController implements Controller<Mentor> {
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
-        Group group = this.getGroup(attrs.get("class"));
+        Group group = this.groupController.get(attrs.get("class"));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
         mentor.correctNames();
@@ -71,7 +67,7 @@ public class MentorController implements Controller<Mentor> {
 
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
-        mentor.setGroup(this.getGroup(attrs.get("class")));
+        mentor.setGroup(this.groupController.get(attrs.get("class")));
 
         mentor.correctNames();
         mentorDao.update(mentor);

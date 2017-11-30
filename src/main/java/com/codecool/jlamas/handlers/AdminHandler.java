@@ -123,7 +123,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         // instead of value 'student' login from cookie
         model.with("login", "student");
-        model.with("groups", new GroupController().getAllGroups());
+        model.with("groups", new GroupController().getAll());
 
         return template.render(model);
     }
@@ -154,7 +154,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
             model.with("name", inputs.get("name"));
             model.with("surname", inputs.get("surname"));
         }
-        model.with("groups", new GroupController().getAllGroups());
+        model.with("groups", new GroupController().getAll());
 
         return template.render(model);
     }
@@ -189,7 +189,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (httpExchange != null) {
-            model.with("group", new GroupController().getGroup(this.parseIntFromURL(httpExchange, OBJ_INDEX)));
+            model.with("group", new GroupController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         model.with("errmsg", errmsg);
         model.with("cities", cityController.getAll());
@@ -270,7 +270,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         GroupController ctrl = new GroupController();
         try {
-            ctrl.createGroupFromMap(inputs);
+            ctrl.createFromMap(inputs);
         } catch(InvalidGroupDataException e) {
             return this.displayGroupForm(null, e.getMessage());
         }
@@ -282,7 +282,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         GroupController ctrl = new GroupController();
         try {
-            ctrl.editGroupFromMap(inputs, this.parseIntFromURL(httpExchange, OBJ_INDEX));
+            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch(InvalidGroupDataException e) {
             return this.displayGroupForm(httpExchange, e.getMessage());
         }
@@ -291,7 +291,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private String removeGroup(HttpExchange httpExchange) {
         GroupController ctrl = new GroupController();
-        ctrl.removeGroup(this.parseIntFromURL(httpExchange, OBJ_INDEX));
+        ctrl.remove(this.parseStringFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayGroups();
     }

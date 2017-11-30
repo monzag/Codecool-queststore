@@ -13,7 +13,7 @@ public interface Controller<T> {
 
     void remove(String login);
 
-    void createFromMap(Map<String, String> attrs) throws InvalidUserDataException;
+    void createFromMap(Map<String, String> attrs) throws Exception;
 
-    void editFromMap(Map<String, String> attrs, String login) throws InvalidUserDataException;
+    void editFromMap(Map<String, String> attrs, String login) throws Exception;
 }

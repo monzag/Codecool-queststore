@@ -36,10 +36,6 @@ public class StudentController implements Controller<Student> {
         studentDao.delete(this.get(login));
     }
 
-    public Group getGroup(String id) {
-        return this.groupController.getGroup(Integer.valueOf(id));
-    }
-
     public void createFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         if (!Mail.isValid(attrs.get("email"))) {
@@ -51,7 +47,7 @@ public class StudentController implements Controller<Student> {
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
-        Group group = this.getGroup(attrs.get("group"));
+        Group group = this.groupController.get(attrs.get("group"));
         Wallet wallet = new Wallet(0);
 
         Student student = new Student(login, password, email, name, surname, group, wallet);
@@ -81,7 +77,7 @@ public class StudentController implements Controller<Student> {
 
         student.setName(attrs.get("name"));
         student.setSurname(attrs.get("surname"));
-        student.setGroup(this.getGroup(attrs.get("group")));
+        student.setGroup(this.groupController.get(attrs.get("group")));
 
         student.correctNames();
         this.studentDao.update(student);
