@@ -30,7 +30,9 @@ public class LevelController {
         levelDAO.insertLevel(level);
     }
 
-    public void deleteLevel(Level level) {
+    public void deleteLevel(String levelName) {
+        levelDAO = new LevelDAO();
+        Level level = chooseLevel(levelName);
         levelDAO.deleteLevel(level);
     }
 
