@@ -125,11 +125,11 @@ public class StudentDAO {
                     student.getPassword().getValue(),
                     student.getLogin().getValue());
 
-            query += String.format("UPDATE `student` SET login = '%s', group_id = %d, team_tag = '%s', " +
+            query += String.format("UPDATE `student` SET login = '%s', group_id = %d, team = '%s', " +
                                    "balance = '%s' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
                     student.getGroup().getID(),
-                    student.getTeamId(),
+                    student.getTeam().getName(),
                     student.getWallet().getBalance(),
                     student.getLogin().getValue());
             stmt.executeUpdate(query);
@@ -146,7 +146,7 @@ public class StudentDAO {
 
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_id,"
-                , "student.team_tag, student.balance"
+                , "student.team, student.balance"
                 , "FROM user"
                 , "INNER JOIN login"
                 , "ON login.login = user.login"
@@ -172,6 +172,7 @@ public class StudentDAO {
         OwnedArtifactDAO ownedArtifacts = new OwnedArtifactDAO();
         TeamPurchaseDAO teamPurchases = new TeamPurchaseDAO();
         GroupDAO groupDAO = new GroupDAO();
+        TeamDAO teamDAO = new TeamDAO();
 
         student.setName(rs.getString("name"));
         student.setSurname(rs.getString("surname"));
@@ -179,7 +180,7 @@ public class StudentDAO {
         student.setPassword(new Password(rs.getString("password")));
         student.setEmail(new Mail(rs.getString("email")));
         student.setGroup(groupDAO.getGroup(rs.getInt("group_id")));
-        student.setTeamId(rs.getInt("team_tag"));
+        student.setTeam(teamDAO.get(rs.getInt("team")));
         student.setWallet(new Wallet(rs.getInt("balance")));
         student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
         student.getWallet().setOwnedArtifacts(ownedArtifacts.requestAllBy(student));
