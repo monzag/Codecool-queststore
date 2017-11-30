@@ -64,5 +64,3 @@ public class TeamPurchase {
         } else return 0;
     }
 }
-
-//TODO: purchase logic, purchase handler, student handler, student twigs cleanup
