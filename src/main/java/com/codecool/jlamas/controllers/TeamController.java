@@ -26,7 +26,7 @@ public class TeamController implements Controller<Team> {
         teamDao.delete(Integer.valueOf(id));
     };
 
-    public void createFromMap(Map<String, String> attrs) throws Exception {
+    public void createFromMap(Map<String, String> attrs) {
         String name = attrs.get("name");
 
         if (isNewTeamDataUnique(name)) {
@@ -35,9 +35,12 @@ public class TeamController implements Controller<Team> {
         }
     };
 
-    public void editFromMap(Map<String, String> attrs, String login) throws Exception{
+    public void editFromMap(Map<String, String> attrs, String id) throws Exception{
+        Team team = teamDao.get(Integer.valueOf(id));
 
-    };
+        team.setName(attrs.get("name"));
+        this.teamDao.update(team);
+    }
 
     private boolean isNewTeamDataUnique(String name) {
         ArrayList<Team> teams = this.teamDao.getAll();
