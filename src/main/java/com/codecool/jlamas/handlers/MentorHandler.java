@@ -187,11 +187,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_MARK);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(QUEST_MARK);
         String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        // profile pic found by login
-        model.with("login", "student");
         model.with("message", message);
         model.with("studentLogin", login);
         model.with("questsList", questController.showAllQuests());
