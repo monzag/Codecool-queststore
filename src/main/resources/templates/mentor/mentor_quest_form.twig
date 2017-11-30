@@ -34,28 +34,27 @@
         <small>&copy; pyLamas</small>
     </footer>
 </section>
-
-<form id="2" class="add" method="POST">
-    {% if artifact != null %}
-        <h3>Edit artifact {{ artifact.getName }}</h3>
+<form method="POST" class="add">
+    {% if quest != null %}
+        <h3>Edit quest {{ quest.getName }}</h3>
     {% else %}
-        <h3>Add new artifact</h3>
+        <h3>Add new quest</h3>
     {% endif %}
 
-    {% if artifactName.length > 0 %}
+    {% if questName.length > 0 %}
         <div class="fail">
-            <h5>Artifact with this name already exist!</h5>
+            <h5>Quest with this name already exist!</h5>
         </div>
     {% endif %}
 
     <table class="input-table">
         <tr>
-            <th>Artifact Name:</th>
+            <th>Quest Name:</th>
             <th>
-                <input type="text" name="artifactName"
-                       value="{{ artifact.getName }}{{ artifactName }}"
+                <input type="text" name="questName"
                        title="Name should be between 3 and 17 letters long"
-                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]{3,17}"
+                       value="{{ quest.getName }}{{ questName }}"
+                       pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,17}"
                        required="required">
             </th>
         </tr>
@@ -63,34 +62,25 @@
             <th>Description:</th>
             <th>
                 <input type="text" name="description"
-                       value="{{ artifact.getDescription }}{{ description }}"
-                       title="Only letters and spaces, at last 3"
-                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]{3,}"
+                       title="Description should be at last 3 letters long"
+                       value="{{ quest.getDescription }}{{ description }}"
+                       pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]{3,150}"
                        required="required">
             </th>
-
         </tr>
         <tr>
-            <th>Price:</th>
+            <th>Reward:</th>
             <th>
-                <input type="text" name="price"
-                       value="{{ artifact.getPrice }}{{ price }}"
+                <input type="text" name="reward"
+                       value="{{ quest.getReward }}{{ reward }}"
                        title="Only numbers, and don't be to harsh 1000000 is to much"
                        pattern="[1-9][0-9]{1,5}"
                        required="required">
             </th>
         </tr>
-        <tr>
-            <th>Type:</th>
-            <th>
-                <select name="type">
-                    <option value="Single">Single</option>
-                    <option value="Team">Team</option>
-                </select>
-            </th>
-        </tr>
     </table>
-    <button class="submit" type="submit" form="2">submit</button>
+
+    <button class="submit" type="submit">submit</button>
 </form>
 
 </body>
