@@ -111,6 +111,16 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/mentor/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
+    protected JtwigModel getContent(String content_path) {
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("nav_path", "classpath:/templates/mentor/nav_menu.twig");
+        model.with("content_path", content_path);
+        model.with("login", mentor.getLogin().getValue());
+
+        return model;
+    }
+
     protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
