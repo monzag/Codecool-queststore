@@ -1,7 +1,9 @@
 package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.CookieController;
+import com.codecool.jlamas.controllers.UserController;
 import com.codecool.jlamas.database.SessionDAO;
+import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -81,4 +83,23 @@ public abstract class AbstractHandler implements HttpHandler {
         cookieController.removeCookie(httpExchange);
         responseCode.sendRedirectResponse(httpExchange, "/");
     }
+
+    protected String editPassword(HttpExchange httpExchange) throws IOException {
+        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        UserController userController = new UserController();
+
+        try {
+            int loginIndex = 4;
+            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, loginIndex));
+
+        } catch (NotMatchingPasswordException e) {
+            return this.displayEditPassword();
+        }
+
+        return this.displayProfile();
+    }
+
+    protected abstract String displayEditPassword ();
+
+    protected abstract String displayProfile();
 }
