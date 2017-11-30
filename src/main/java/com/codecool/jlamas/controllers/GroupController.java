@@ -8,7 +8,7 @@ import com.codecool.jlamas.database.CityDAO;
 import com.codecool.jlamas.database.GroupDAO;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.views.GroupTeamView;
+
 
 public class GroupController {
 
@@ -18,12 +18,10 @@ public class GroupController {
     private static final int PAST_YEARS = 1;
     private static final int NEXT_YEARS = 4;
 
-    private GroupTeamView groupView;
     private GroupDAO groupDAO;
     private CityDAO cityDAO;
 
     public GroupController() {
-        this.groupView = new GroupTeamView();
         this.groupDAO = new GroupDAO();
         this.cityDAO = new CityDAO();
     }
@@ -34,12 +32,6 @@ public class GroupController {
 
     public ArrayList<Group> getAllGroups() {
         return groupDAO.getAll();
-    }
-
-    public void createGroup() {
-        String name = groupView.getString("\nType name of new group: ");
-        Group group = new Group(name);
-        groupDAO.insert(group);
     }
 
     public void createGroupFromMap(Map<String, String> attrs) throws InvalidGroupDataException {

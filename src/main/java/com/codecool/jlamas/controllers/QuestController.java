@@ -5,19 +5,17 @@ import com.codecool.jlamas.database.StudentDAO;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.quest.Quest;
 import com.codecool.jlamas.database.QuestDAO;
-import com.codecool.jlamas.views.QuestView;
+
 
 import java.util.ArrayList;
 
 public class QuestController {
     private QuestDAO questDAO;
-    private QuestView view;
     private DoneQuestDAO doneQuestDAO;
     private StudentDAO studentDAO;
 
     public QuestController() {
         this.questDAO = new QuestDAO();
-        this.view = new QuestView();
         this.doneQuestDAO = new DoneQuestDAO();
         this.studentDAO = new StudentDAO();
     }
