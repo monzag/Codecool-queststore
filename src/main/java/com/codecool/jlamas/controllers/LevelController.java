@@ -32,6 +32,7 @@ public class LevelController {
     }
 
     public Level chooseLevel(String levelName) {
-
+        Level level = levelDAO.selectLevel(levelName);
+        return level;
     }
 }
