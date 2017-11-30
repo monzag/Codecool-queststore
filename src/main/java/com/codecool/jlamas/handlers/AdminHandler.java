@@ -25,6 +25,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private static final String MENTOR_FORM = "templates/admin/admin_mentor_form.twig";
     private static final String CITY_FORM = "templates/admin/admin_city_form.twig";
     private static final String GROUP_FORM = "templates/admin/admin_group_form.twig";
+    private static final String CHANGE_PASSWORD = "templates/admin/change_password.twig";
 
     private static final Integer OBJ_INDEX = 5;
 
@@ -298,7 +299,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/change_password.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
