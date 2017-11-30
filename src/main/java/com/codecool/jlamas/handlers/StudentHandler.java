@@ -2,6 +2,7 @@ package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.*;
+import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.sun.net.httpserver.HttpExchange;
@@ -51,6 +52,9 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
                             response = findCommand(httpExchange, getCommands);
                             responseCode.sendOKResponse(response, httpExchange);
                         }
+                    } if (method.equals("POST")) {
+                        response = findCommand(httpExchange, postCommands);
+                        responseCode.sendOKResponse(response, httpExchange);
                     }
                 }
             } else {
@@ -69,18 +73,23 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/student/store", () -> { return displayStore();} );
         getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
         getCommands.put("/student/team_purchases/open/.+", () -> { return displayNewTeamPurchaseForm(httpExchange);} );
+        getCommands.put("/student/password/edit/.+", () -> {return displayEditPassword();} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
         postCommands.put("/student/team_purchases/open/.+", () -> { return addTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
+        postCommands.put("/student/password/edit/.+", () -> { return editPassword(httpExchange); });
     }
 
-    private String displayProfile() {
-
+    protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
         JtwigModel model = JtwigModel.newModel();
+
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("student", student);
 
         return template.render(model);
     }
@@ -193,6 +202,15 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
         model.with("message", message);
         model.with("student", student);
+
+        return template.render(model);
+    }
+
+    protected String displayEditPassword() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/change_password.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("login", "student");
 
         return template.render(model);
     }
