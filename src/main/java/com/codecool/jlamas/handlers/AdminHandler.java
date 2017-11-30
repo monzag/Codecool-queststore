@@ -6,7 +6,6 @@ import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
-import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Admin;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -26,6 +25,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private static final String MENTOR_FORM = "templates/admin/admin_mentor_form.twig";
     private static final String CITY_FORM = "templates/admin/admin_city_form.twig";
     private static final String GROUP_FORM = "templates/admin/admin_group_form.twig";
+    private static final String CHANGE_PASSWORD = "templates/admin/change_password.twig";
 
     private static final Integer OBJ_INDEX = 5;
 
@@ -86,7 +86,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         this.getCommands.put("/admin/groups/list", () -> {return this.displayGroups();} );
         this.getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
         this.getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayGroupForm(null, null); } );
-        this.getCommands.put("/admin/password/edit/.+", () -> {return this.displayEditPassword();} );
+        this.getCommands.put("/admin/password/edit/.+", () -> {return this.displayEditPassword("");} );
     }
 
     protected void addPostCommands (HttpExchange httpExchange) {
@@ -103,8 +103,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("login", admin.getLogin().getValue());
         model.with("admin", this.admin);
-        model.with("login", this.admin.getLogin().getValue());
 
         return template.render(model);
     }
@@ -298,11 +298,12 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         return this.displayGroups();
     }
 
-    protected String displayEditPassword() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/change_password.twig");
+    protected String displayEditPassword(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
+        model.with("msg", message);
 
         return template.render(model);
     }
