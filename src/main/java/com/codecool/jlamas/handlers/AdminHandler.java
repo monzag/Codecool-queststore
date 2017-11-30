@@ -20,6 +20,7 @@ import java.util.concurrent.Callable;
 
 public class AdminHandler extends AbstractHandler implements HttpHandler {
 
+    private static final String MAIN = "templates/main.twig";
     private static final String PROFILE = "templates/admin/admin.twig";
     private static final String LIST = "templates/admin/admin_list.twig";
     private static final String MENTOR_FORM = "templates/admin/admin_mentor_form.twig";
@@ -100,9 +101,11 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("nav_path", "classpath:/templates/admin/nav_menu.twig");
+        model.with("content_path", "classpath:/templates/admin/admin.twig");
         model.with("login", admin.getLogin().getValue());
         model.with("admin", this.admin);
 
@@ -110,10 +113,12 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayMentors() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("login", "student");
+        model.with("nav_path", "classpath:/templates/admin/nav_menu.twig");
+        model.with("content_path", "classpath:/templates/admin/admin_list.twig");
+        model.with("login", admin.getLogin().getValue());
         model.with("mentors", new MentorController().getAll());
 
         return template.render(model);
@@ -299,10 +304,12 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/main.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("login", "student");
+        model.with("nav_path", "classpath:/templates/admin/nav_menu.twig");
+        model.with("content_path", "classpath:/templates/change_password.twig");
+        model.with("login", admin.getLogin().getValue());
         model.with("msg", message);
 
         return template.render(model);
