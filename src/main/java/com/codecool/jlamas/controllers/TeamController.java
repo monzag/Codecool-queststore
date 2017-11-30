@@ -27,10 +27,26 @@ public class TeamController extends Controller<Team> {
     };
 
     public void createFromMap(Map<String, String> attrs) throws Exception {
+        String name = attrs.get("name");
 
+        if (isNewTeamDataUnique(name)) {
+            Team team = new Team(null, name);
+            this.teamDao.insert(team);
+        }
     };
 
     public void editFromMap(Map<String, String> attrs, String login) throws Exception{
 
     };
+
+    private boolean isNewTeamDataUnique(String name) {
+        ArrayList<Team> teams = this.teamDao.getAll();
+
+        for (Team team : teams) {
+            if (team.getName().equals(name)) {
+                return false;
+            }
+        }
+        return true;
+    }
 }
