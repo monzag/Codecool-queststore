@@ -11,35 +11,31 @@ import com.codecool.jlamas.models.accountdata.Group;
 import com.codecool.jlamas.models.accountdata.Login;
 import com.codecool.jlamas.models.accountdata.Mail;
 import com.codecool.jlamas.models.accountdata.Password;
-import com.codecool.jlamas.views.MentorView;
 
-public class MentorController {
 
-    private MentorView mentorView = new MentorView();
-    private MentorDAO mentorDao = new MentorDAO();
+public class MentorController implements Controller<Mentor> {
+
+    private MentorDAO mentorDao;
     private GroupController groupController = new GroupController();
 
     public MentorController() {
-        
+        this.mentorDao = new MentorDAO();
+        this.groupController = new GroupController();
     }
 
-    public Mentor getMentor(String login) {
+    public Mentor get(String login) {
         return this.mentorDao.getMentor(login);
     }
 
-    public ArrayList<Mentor> getAllMentors() {
+    public ArrayList<Mentor> getAll() {
         return mentorDao.requestAll();
     }
 
-    public void removeMentor(String login) {
-        mentorDao.delete(this.getMentor(login));
+    public void remove(String login) {
+        mentorDao.delete(this.get(login));
     }
 
-    public Group getGroup(String id) {
-        return this.groupController.getGroup(Integer.valueOf(id));
-    }
-
-    public void createMentorFromMap(Map<String, String> attrs) throws InvalidUserDataException {
+    public void createFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
@@ -50,7 +46,7 @@ public class MentorController {
         String surname = attrs.get("surname");
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
-        Group group = this.getGroup(attrs.get("class"));
+        Group group = this.groupController.get(attrs.get("class"));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
         mentor.correctNames();
@@ -58,9 +54,9 @@ public class MentorController {
         mentorDao.insert(mentor);
     }
 
-    public void editMentorFromMap(Map<String, String> attrs, String login) throws EmailAlreadyUsedException {
+    public void editFromMap(Map<String, String> attrs, String login) throws EmailAlreadyUsedException {
 
-        Mentor mentor = this.getMentor(login);
+        Mentor mentor = this.get(login);
 
         if (!mentor.hasEmail(attrs.get("email"))) {
             if (!Mail.isValid(attrs.get("email"))) {
@@ -71,7 +67,7 @@ public class MentorController {
 
         mentor.setName(attrs.get("name"));
         mentor.setSurname(attrs.get("surname"));
-        mentor.setGroup(this.getGroup(attrs.get("class")));
+        mentor.setGroup(this.groupController.get(attrs.get("class")));
 
         mentor.correctNames();
         mentorDao.update(mentor);
