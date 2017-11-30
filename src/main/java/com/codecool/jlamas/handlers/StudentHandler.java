@@ -24,6 +24,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
     private Student student;
+    private ArtifactDAO artifactDAO = new ArtifactDAO();
     private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
@@ -31,7 +32,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        String response = "";
+        String response;
         String method = httpExchange.getRequestMethod();
         HttpCookie cookie = cookieController.getCookie(httpExchange);
 
@@ -133,7 +134,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
         String message;
 
-        if (walletController.buyArtifact(new ArtifactController().chooseArtifact(artifactName))) {
+        if (walletController.buyArtifact(artifactDAO.selectArtifact(artifactName))) {
             message = "Artifact bought";
         } else {
             message = "Artifact can't be bought";
@@ -146,7 +147,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
 
-        return chooseStudentsForPurchase(null, new ArtifactController().chooseArtifact(artifactName));
+        return chooseStudentsForPurchase(null, artifactDAO.selectArtifact(artifactName));
     }
 
     private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
