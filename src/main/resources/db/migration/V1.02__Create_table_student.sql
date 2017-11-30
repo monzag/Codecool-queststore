@@ -1,7 +1,6 @@
 CREATE TABLE IF NOT EXISTS `team` (
-	`id` INTEGER AUTOINCREMENT UNIQUE NOT NULL,
-	`name` TEXT,
-	PRIMARY KEY (`id`)
+	`id` INTEGER PRIMARY KEY AUTOINCREMENT,
+	`name` TEXT
 );
 
 INSERT INTO `team` VALUES (null, 'Zgrywusy');
@@ -16,5 +15,5 @@ CREATE TABLE IF NOT EXISTS `student` (
 	FOREIGN KEY (`team`) REFERENCES `team`(`id`) ON DELETE SET NULL
 );
 
-INSERT INTO `student` VALUES ('student', 1, 1,'0');
+INSERT INTO `student` VALUES ('student', 1, 1, '0');
 
