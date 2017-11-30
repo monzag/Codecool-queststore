@@ -114,7 +114,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
-        model.with("students", studentController.getStudents());
+        model.with("students", studentController.getAll());
 
         return template.render(model);
     }
@@ -126,7 +126,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (inputs == null && httpExchange != null) {
-            model.with("student", studentController.getStudent(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
+            model.with("student", studentController.get(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -248,7 +248,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         try {
-            studentController.createStudentFromMap(inputs);
+            studentController.createFromMap(inputs);
         } catch (InvalidUserDataException e) {
             return this.displayStudentForm(null, inputs);
         }
@@ -258,7 +258,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private String removeStudent(HttpExchange httpExchange) {
         String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        studentController.removeStudent(login);
+        studentController.remove(login);
 
         return displayGroups("Student has been removed");
     }
@@ -267,7 +267,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         try {
-            studentController.editStudnetFromMap(inputs, this.parseStringFromURL(httpExchange, STUDENT_INDEX));
+            studentController.editFromMap(inputs, this.parseStringFromURL(httpExchange, STUDENT_INDEX));
         } catch (InvalidUserDataException e) {
             return this.displayStudentForm(httpExchange, inputs);
         }
@@ -313,7 +313,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
 
         String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
-        questController.markQuestAsDone(studentController.getStudent(login), questController.chooseQuest(questName));
+        questController.markQuestAsDone(studentController.get(login), questController.chooseQuest(questName));
 
         return displayQuestsToMark("Quest has been marked", httpExchange);
     }
