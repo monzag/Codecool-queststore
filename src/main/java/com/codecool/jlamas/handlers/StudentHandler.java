@@ -52,6 +52,9 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
                             response = findCommand(httpExchange, getCommands);
                             responseCode.sendOKResponse(response, httpExchange);
                         }
+                    } if (method.equals("POST")) {
+                        response = findCommand(httpExchange, postCommands);
+                        responseCode.sendOKResponse(response, httpExchange);
                     }
                 }
             } else {
@@ -87,7 +90,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         // profile pic found by login
         model.with("login", "student");
         model.with("student", student);
-        
+
         return template.render(model);
     }
 
