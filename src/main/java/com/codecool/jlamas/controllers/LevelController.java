@@ -10,11 +10,10 @@ public class LevelController {
     private LevelDAO levelDAO;
 
     public LevelController() {
+        this.levelDAO = new LevelDAO();
     }
 
-    public LevelController(LevelDAO levelDAO) {
-        this.levelDAO = levelDAO;
-    }
+
 
     public void editLevel(Map<String, String> inputs, String oldName) {
         String name = inputs.get("name").toString();
@@ -35,6 +34,7 @@ public class LevelController {
     }
 
     public List<Level> showAllLevels() {
+
         return levelDAO.selectAll();
     }
 
