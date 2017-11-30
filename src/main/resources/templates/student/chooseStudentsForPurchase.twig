@@ -51,7 +51,7 @@
             <th>
                 <select name="student">
                     {% for student in students %}
-                    <option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
+                    <option value="{{ student.getLogin().getValue() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
                     {% endfor %}
                 </select>
             </th>
