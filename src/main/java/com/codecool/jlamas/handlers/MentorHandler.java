@@ -3,6 +3,7 @@ package com.codecool.jlamas.handlers;
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
+import com.codecool.jlamas.exceptions.ArtifactNameAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
@@ -21,6 +22,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private static final Integer STUDENT_INDEX = 4;
     private static final Integer QUEST_INDEX = 6;
+    private static final Integer ARTIFACT_INDEX = 3;
 
     private static final String STUDENT_FORM = "templates/mentor/addStudent.twig";
 
@@ -278,14 +280,31 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     public String addArtifact(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String name = inputs.get("artifactName").toString();
-        String description = inputs.get("description").toString();
-        Integer price = Integer.valueOf(inputs.get("price").toString());
-        String type = inputs.get("type").toString();
-        artifactController.createArtifact(name, description, price, type);
-
+        ArtifactController ctrl = new  ArtifactController();
+        try {
+            ctrl.createFromMap(inputs);
+        } catch (ArtifactNameAlreadyUsedException e) {
+            //TODO
+            System.out.println("ERROR handling bad artifacts not implemented");
+            return "";
+        }
 
         return displayArtifact("Artifact has been added");
+    }
+
+    public String editArtifact(HttpExchange httpExchange) throws IOException {
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+
+        ArtifactController ctrl = new ArtifactController();
+        try {
+            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, ARTIFACT_INDEX));
+        } catch (ArtifactNameAlreadyUsedException e) {
+            //TODO
+            System.out.println("ERROR handling bad artifacts not implemented");
+            return "";
+        }
+
+        return displayArtifact("Artifact has been edited");
     }
 
     public String removeArtifact(HttpExchange httpExchange) {
@@ -293,20 +312,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         artifactController.removeArtifact(name);
 
         return displayArtifact("Artifact has been removed");
-    }
-
-    public String editArtifact(HttpExchange httpExchange) throws IOException {
-        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
-
-        String name = inputs.get("artifactName").toString();
-        String description = inputs.get("description").toString();
-        Integer price = Integer.valueOf(inputs.get("price").toString());
-        String type = inputs.get("type").toString();
-        String oldName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-
-        artifactController.editArtifact(oldName, name, description, price, type);
-
-        return displayArtifact("Artifact has been edited");
     }
 
     private String markQuest(HttpExchange httpExchange) {
