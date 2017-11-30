@@ -5,6 +5,7 @@ import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.ArtifactNameAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.exceptions.QuestNameAlreadyUsedException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -32,8 +33,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final String GROUP_LIST = "templates/mentor/mentor_group_list.twig";
     private static final String QUEST_LIST = "templates/mentor/mentor_quest_list.twig";
     private static final String QUEST_MARK = "templates/mentor/mentor_quest_mark.twig";
-    private static final String QUEST_ADD = "templates/mentor/mentor_quest_add.twig";
-    private static final String QUEST_EDIT = "templates/mentor/mentor_quest_edit.twig";
+    private static final String QUEST_FORM = "templates/mentor/mentor_quest_form.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -83,9 +83,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     protected void addGetCommands(HttpExchange httpExchange) {
         getCommands.put("/mentor/quest/show", () -> { return displayQuests();} );
-        getCommands.put("/mentor/quest/add", () -> {return displayAddQuest();} );
+        getCommands.put("/mentor/quest/add", () -> {return displayQuestForm(null, null);} );
         getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
-        getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
+        getCommands.put("/mentor/quest/edit/.+", () -> {return displayQuestForm(httpExchange, null);} );
         getCommands.put("/mentor", () -> {return displayProfile();} );
         getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
         getCommands.put("/mentor/groups/addStudent", () -> {return displayStudentForm(null, null);} );
@@ -167,6 +167,22 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
+    public String displayQuestForm(HttpExchange httpExchange, Map<String, String> inputs) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_FORM);
+        JtwigModel model = JtwigModel.newModel();
+
+        if (inputs == null && httpExchange != null) {
+            model.with("quest", questController.get(this.parseStringFromURL(httpExchange, QUEST_INDEX)));
+        }
+        else if (inputs != null) {
+            model.with("questName", inputs.get("questName"));
+            model.with("description", inputs.get("description"));
+            model.with("reward", inputs.get("reward"));
+        }
+
+        return template.render(model);
+    }
+
     public String displayArtifact(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_LIST);
         JtwigModel model = JtwigModel.newModel();
@@ -199,35 +215,16 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String displayAddQuest() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_ADD);
-        JtwigModel model = JtwigModel.newModel();
-
-        return template.render(model);
-    }
-
-    private String displayEditQuestForm(HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_EDIT);
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("quest", questController.get(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
-
-        return template.render(model);
-    }
-
     private String addQuest(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String questName = (String) inputs.get("questName");
-        String description = (String) inputs.get("description");
-        Integer reward = Integer.valueOf(inputs.get("reward").toString());
+        try {
+            questController.createFromMap(inputs);
+        } catch (QuestNameAlreadyUsedException e) {
+            return this.displayQuestForm(null, inputs);
+        }
 
-        Quest quest = new Quest(questName, description, reward);
-
-        questController.createQuest(quest);
-
-        return displayQuests();
-
+        return displayGroups("Student has been added");
     }
 
     private String removeQuest(HttpExchange httpExchange) {
@@ -239,15 +236,11 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private String editQuest(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String name = inputs.get("questName").toString();
-        String description = inputs.get("description").toString();
-        Integer reward = Integer.valueOf(inputs.get("reward").toString());
-        String oldName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
-
-        Quest quest = new Quest(name, description, reward);
-
-        questController.editQuest(oldName, quest);
-
+        try {
+            questController.editFromMap(inputs, this.parseStringFromURL(httpExchange, QUEST_INDEX));
+        } catch (QuestNameAlreadyUsedException e) {
+            return this.displayQuestForm(httpExchange, inputs);
+        }
         return displayQuests();
     }
 
