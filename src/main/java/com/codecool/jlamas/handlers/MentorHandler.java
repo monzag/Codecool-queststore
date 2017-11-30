@@ -4,7 +4,6 @@ import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
-import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
@@ -24,6 +23,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer QUEST_INDEX = 6;
 
     private static final String STUDENT_FORM = "templates/mentor/addStudent.twig";
+    private static final String CHANGE_PASSWORD = "templates/mentor/change_password.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -322,7 +322,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_change_password.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
