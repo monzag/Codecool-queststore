@@ -49,13 +49,12 @@ public class StudentMenuController implements HttpHandler {
                             responseCode.sendOKResponse(response, httpExchange);
                         }
                     }
-                } else {
-                    responseCode.sendRedirectResponse(httpExchange, "/");
                 }
-
             } else {
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
+        } else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
