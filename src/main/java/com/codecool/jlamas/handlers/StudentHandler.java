@@ -2,6 +2,7 @@ package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.*;
+import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.sun.net.httpserver.HttpExchange;
@@ -69,12 +70,14 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/student/store", () -> { return displayStore();} );
         getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
         getCommands.put("/student/team_purchases/open/.+", () -> { return displayNewTeamPurchaseForm(httpExchange);} );
+        getCommands.put("/student/password/edit/.+", () -> {return this.displayEditPassword();} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
         postCommands.put("/student/team_purchases/open/.+", () -> { return addTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
+        postCommands.put("/student/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
     private String displayProfile() {
@@ -195,5 +198,28 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         model.with("student", student);
 
         return template.render(model);
+    }
+
+    private String displayEditPassword() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student_change_password.twig");
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("login", "student");
+
+        return template.render(model);
+    }
+
+    private String editPassword(HttpExchange httpExchange) throws IOException {
+        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        UserController userController = new UserController();
+
+        try {
+            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, 4));
+
+        } catch (NotMatchingPasswordException e) {
+            return this.displayEditPassword();
+        }
+
+        return this.displayProfile();
     }
 }
