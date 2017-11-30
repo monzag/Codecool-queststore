@@ -138,7 +138,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (inputs == null && httpExchange != null) {
-            model.with("student", studentController.get(this.parseStringFromURL(httpExchange, )));
+            model.with("student", studentController.get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -203,7 +203,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_MARK);
         JtwigModel model = JtwigModel.newModel();
-        String login = this.parseStringFromURL(httpExchange, );
+        String login = this.parseStringFromURL(httpExchange, OBJ_INDEX);
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
@@ -256,7 +256,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String removeStudent(HttpExchange httpExchange) {
-        String login = this.parseStringFromURL(httpExchange, );
+        String login = this.parseStringFromURL(httpExchange, OBJ_INDEX);
         studentController.remove(login);
 
         return displayGroups("Student has been removed");
@@ -266,7 +266,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         try {
-            studentController.editFromMap(inputs, this.parseStringFromURL(httpExchange, ));
+            studentController.editFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch (InvalidUserDataException e) {
             return this.displayStudentForm(httpExchange, inputs);
         }
@@ -308,7 +308,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String markQuest(HttpExchange httpExchange) {
-        String login = parseStringFromURL(httpExchange, );
+        String login = parseStringFromURL(httpExchange, OBJ_INDEX);
         String questName = this.parseStringFromURL(httpExchange, OBJ_INDEX);
 
         questController.markQuestAsDone(studentController.get(login), questController.get(questName));
