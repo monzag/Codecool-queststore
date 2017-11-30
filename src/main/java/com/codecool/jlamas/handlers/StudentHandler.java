@@ -44,18 +44,20 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
                 if (student != null) {
 
                     if (method.equals("GET")) {
-                        response = findCommand(httpExchange, getCommands);
+                        if (httpExchange.getRequestURI().getPath().toString().equals("/student/logout")) {
+                            this.logout(httpExchange);
+
+                        } else {
+                            response = findCommand(httpExchange, getCommands);
+                            responseCode.sendOKResponse(response, httpExchange);
+                        }
                     }
-                    responseCode.sendOKResponse(response, httpExchange);
-
-                } else {
-                    session.removeCookieFromDb(cookie);
-                    responseCode.sendRedirectResponse(httpExchange, "/");
                 }
-
             } else {
                 responseCode.sendRedirectResponse(httpExchange, "/");
             }
+        } else {
+            responseCode.sendRedirectResponse(httpExchange, "/");
         }
     }
 
@@ -194,5 +196,4 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
         return template.render(model);
     }
-
 }

@@ -1,5 +1,7 @@
 package com.codecool.jlamas.handlers;
 
+import com.codecool.jlamas.controllers.CookieController;
+import com.codecool.jlamas.database.SessionDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 
@@ -68,5 +70,15 @@ public abstract class AbstractHandler implements HttpHandler {
 
     protected Integer parseIntFromURL(HttpExchange httpExchange, Integer index) {
         return Integer.valueOf(this.parseStringFromURL(httpExchange, index));
+    }
+
+    protected void logout(HttpExchange httpExchange) throws IOException {
+        SessionDAO session = new SessionDAO();
+        CookieController cookieController = new CookieController();
+        Response responseCode = new Response();
+
+        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
+        cookieController.removeCookie(httpExchange);
+        responseCode.sendRedirectResponse(httpExchange, "/");
     }
 }
