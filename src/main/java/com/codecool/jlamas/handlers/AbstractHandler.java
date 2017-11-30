@@ -93,13 +93,13 @@ public abstract class AbstractHandler implements HttpHandler {
             userController.editPassword(inputs, this.parseStringFromURL(httpExchange, loginIndex));
 
         } catch (NotMatchingPasswordException e) {
-            return this.displayEditPassword();
+            return this.displayEditPassword(e.getMessage());
         }
 
         return this.displayProfile();
     }
 
-    protected abstract String displayEditPassword ();
+    protected abstract String displayEditPassword (String msg);
 
     protected abstract String displayProfile();
 }
