@@ -59,5 +59,19 @@ public class TeamDAO {
         }
     }
 
+    public void update(Team team) {
+        String query = "UPDATE team SET name = ?";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(query)) {
+
+            pstmt.setString(1, team.getName());
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }
