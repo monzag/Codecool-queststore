@@ -3,8 +3,6 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
-import com.codecool.jlamas.models.artifact.TeamPurchase;
-import com.codecool.jlamas.models.quest.Quest;
 
 public class WalletController {
 
