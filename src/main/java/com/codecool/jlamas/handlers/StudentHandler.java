@@ -73,7 +73,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/student/store", () -> { return displayStore();} );
         getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
         getCommands.put("/student/team_purchases/open/.+", () -> { return displayNewTeamPurchaseForm(httpExchange);} );
-        getCommands.put("/student/password/edit/.+", () -> {return displayEditPassword();} );
+        getCommands.put("/student/password/edit/.+", () -> {return displayEditPassword("");} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
@@ -206,11 +206,12 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    protected String displayEditPassword() {
+    protected String displayEditPassword(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
+        model.with("msg", message);
 
         return template.render(model);
     }
