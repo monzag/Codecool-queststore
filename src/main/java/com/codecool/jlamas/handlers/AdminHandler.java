@@ -1,9 +1,6 @@
 package com.codecool.jlamas.handlers;
 
-import com.codecool.jlamas.controllers.CityController;
-import com.codecool.jlamas.controllers.CookieController;
-import com.codecool.jlamas.controllers.GroupController;
-import com.codecool.jlamas.controllers.MentorController;
+import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
@@ -98,6 +95,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/cities/list/edit/[0-9]+", () -> { return this.editCity(httpExchange);} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
+        postCommands.put("admin/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
     private String displayProfile() {
@@ -307,5 +305,18 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         return template.render(model);
     }
-    
+
+    private String editPassword(HttpExchange httpExchange) throws IOException {
+        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        UserController userController = new UserController();
+
+        try {
+            userController.editPassword();
+
+        } catch (InvalidUserDataException e) {
+            return this.displayEditPassword();
+        }
+
+        return this.displayProfile();
+    }
 }
