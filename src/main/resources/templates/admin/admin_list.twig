@@ -114,7 +114,7 @@
                 <td>{{ level.getName }}</td>
                 <td>{{ level.getScore }}</td>
                 <td><a class="btn" id="edit-btn" href="/admin/levels/edit/{{ level.getName() }}">Edit</a></td>
-                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/remove/{{ level.getName() }}">Remove</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/levels/remove/{{ level.getName() }}">Remove</a></td>
             </tr>
         {%  endfor %}
         {% endif %}
