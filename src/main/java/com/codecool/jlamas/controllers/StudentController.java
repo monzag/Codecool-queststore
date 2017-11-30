@@ -14,31 +14,33 @@ import com.codecool.jlamas.models.accountdata.Password;
 import com.codecool.jlamas.models.accountdata.Wallet;
 
 
-public class StudentController {
+public class StudentController implements Controller<Student> {
 
     private StudentDAO studentDao;
+    private GroupController groupController;
 
     public StudentController() {
         this.studentDao = new StudentDAO();
+        this.groupController = new GroupController();
     }
 
-    public ArrayList<Student> getStudents() {
+    public ArrayList<Student> getAll() {
         return studentDao.requestAll();
     }
 
-    public Student getStudent(String login) {
+    public Student get(String login) {
         return this.studentDao.getStudent(login);
     }
 
-    public void removeStudent(String login) {
-        studentDao.delete(this.getStudent(login));
+    public void remove(String login) {
+        studentDao.delete(this.get(login));
     }
 
     public Group getGroup(String id) {
-        return new GroupController().getGroup(Integer.valueOf(id));
+        return this.groupController.getGroup(Integer.valueOf(id));
     }
 
-    public void createStudentFromMap(Map<String, String> attrs) throws InvalidUserDataException {
+    public void createFromMap(Map<String, String> attrs) throws InvalidUserDataException {
 
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
@@ -67,8 +69,8 @@ public class StudentController {
         return students;
     }
 
-    public void editStudnetFromMap(Map<String, String> attrs, String login) throws InvalidUserDataException {
-        Student student = this.getStudent(login);
+    public void editFromMap(Map<String, String> attrs, String login) throws InvalidUserDataException {
+        Student student = this.get(login);
 
         if (!student.hasEmail(attrs.get("email"))) {
             if (!Mail.isValid(attrs.get("email"))) {
