@@ -99,7 +99,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
-    private String displayProfile() {
+    protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
@@ -298,7 +298,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         return this.displayGroups();
     }
 
-    private String displayEditPassword() {
+    protected String displayEditPassword() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -307,17 +307,4 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String editPassword(HttpExchange httpExchange) throws IOException {
-        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
-        UserController userController = new UserController();
-
-        try {
-            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, 4));
-
-        } catch (NotMatchingPasswordException e) {
-            return this.displayEditPassword();
-        }
-
-        return this.displayProfile();
-    }
 }
