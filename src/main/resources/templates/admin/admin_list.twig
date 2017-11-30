@@ -99,8 +99,26 @@
                 <td><a class="btn" id="edit-btn" href="/admin/mentors/list/remove/{{ mentor.getLogin.getValue }}">Remove</a></td>
             </tr>
         {%  endfor %}
+    </table>
     {% endif %}
-
+    {% if levels is defined %}
+    <h3>Mentors</h3>    <table class="mentors-table" style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+        {%  for level in levels %}
+            <tr>
+                <td>1.</td>
+                <td>{{ level.getName }}</td>
+                <td>{{ level.getScore }}</td>
+                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/edit/{{ level.getName() }}">Edit</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/remove/{{ level.getName() }}">Remove</a></td>
+            </tr>
+        {%  endfor %}
+        {% endif %}
+    </table>
 </section>
 </body>
 </html>
