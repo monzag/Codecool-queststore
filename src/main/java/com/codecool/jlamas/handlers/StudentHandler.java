@@ -70,21 +70,24 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/student/store", () -> { return displayStore();} );
         getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
         getCommands.put("/student/team_purchases/open/.+", () -> { return displayNewTeamPurchaseForm(httpExchange);} );
-        getCommands.put("/student/password/edit/.+", () -> {return this.displayEditPassword();} );
+        getCommands.put("/student/password/edit/.+", () -> {return displayEditPassword();} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
         postCommands.put("/student/team_purchases/open/.+", () -> { return addTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
-        postCommands.put("/student/password/edit/.+", () -> { return this.editPassword(httpExchange); });
+        postCommands.put("/student/password/edit/.+", () -> { return editPassword(httpExchange); });
     }
 
-    private String displayProfile() {
-
+    protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
         JtwigModel model = JtwigModel.newModel();
 
+        // profile pic found by login
+        model.with("login", "student");
+        model.with("student", student);
+        
         return template.render(model);
     }
 
@@ -200,27 +203,12 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
-    private String displayEditPassword() {
+    protected String displayEditPassword() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
 
         return template.render(model);
-    }
-
-    private String editPassword(HttpExchange httpExchange) throws IOException {
-        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
-        UserController userController = new UserController();
-
-        try {
-            int loginIndex = 4;
-            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, loginIndex));
-
-        } catch (NotMatchingPasswordException e) {
-            return this.displayEditPassword();
-        }
-
-        return this.displayProfile();
     }
 }
