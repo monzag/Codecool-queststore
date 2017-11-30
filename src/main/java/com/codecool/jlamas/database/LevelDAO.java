@@ -28,7 +28,7 @@ public class LevelDAO {
 
     public List<Level> selectAll() {
         List<Level> levelsList = new ArrayList<>();
-        String sql = "SELECT name, score FROM level";
+        String sql = "SELECT * FROM `level`";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt  = c.createStatement();
@@ -39,7 +39,7 @@ public class LevelDAO {
                 levelsList.add(level);
             }
         } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
+            System.out.println("dupa");
         }
 
         return levelsList;
