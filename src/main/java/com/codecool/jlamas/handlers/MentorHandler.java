@@ -130,11 +130,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUP_LIST);
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(GROUP_LIST);
         model.with("message", message);
         model.with("students", studentController.getAll());
 
