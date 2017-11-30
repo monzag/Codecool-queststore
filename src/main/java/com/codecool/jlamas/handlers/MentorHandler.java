@@ -100,7 +100,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/mentor/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
-    private String displayProfile() {
+    protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
         JtwigModel model = JtwigModel.newModel();
 
@@ -321,28 +321,13 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return displayQuestsToMark("Quest has been marked", httpExchange);
     }
 
-    private String displayEditPassword() {
+    protected String displayEditPassword() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
 
         return template.render(model);
-    }
-
-    private String editPassword(HttpExchange httpExchange) throws IOException {
-        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
-        UserController userController = new UserController();
-
-        try {
-            int loginIndex = 4;
-            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, loginIndex));
-
-        } catch (NotMatchingPasswordException e) {
-            return this.displayEditPassword();
-        }
-
-        return this.displayProfile();
     }
 
 }
