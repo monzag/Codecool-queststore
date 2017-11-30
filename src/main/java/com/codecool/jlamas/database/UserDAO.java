@@ -72,4 +72,22 @@ public class UserDAO {
         }
         return null;
     }
+
+    public Password getPassword(String userLogin) {
+        String query = "SELECT * FROM login WHERE login = '" + userLogin + "';";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+            if (rs.next()) {
+                Password password = new Password(rs.getString("password"));
+                return password;
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
 }
