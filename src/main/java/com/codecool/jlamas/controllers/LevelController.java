@@ -4,6 +4,7 @@ import com.codecool.jlamas.database.LevelDAO;
 import com.codecool.jlamas.models.level.Level;
 
 import java.util.List;
+import java.util.Map;
 
 public class LevelController {
     private LevelDAO levelDAO;
@@ -19,7 +20,10 @@ public class LevelController {
         levelDAO.updateLevel(level, oldName);
     }
 
-    public void createLevel(Level level) {
+    public void createLevel(Map<String, String> inputs) {
+        String name = inputs.get("name");
+        Integer score = Integer.valueOf(inputs.get("score"));
+        Level level = new Level(name, score);
         levelDAO.insertLevel(level);
     }
 
