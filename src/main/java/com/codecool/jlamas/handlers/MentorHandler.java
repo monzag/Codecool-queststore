@@ -2,6 +2,7 @@ package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
+import com.codecool.jlamas.database.TeamDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.ArtifactNameAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
@@ -23,12 +24,15 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer STUDENT_INDEX = 4;
     private static final Integer ARTIFACT_INDEX = 4;
     private static final Integer QUEST_INDEX = 6;
+    private static final Integer TEAM_INDEX = 4;
 
     private static final String PROFILE = "templates/mentor/mentor_profile.twig";
     private static final String CHANGE_PASSWORD = "templates/mentor/mentor_change_password.twig";
     private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
     private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
     private static final String ARTIFACT_LIST = "templates/mentor/mentor_artifact_list.twig";
+    private static final String TEAM_FORM = "templates/mentor/mentor_team_form.twig";
+    private static final String TEAM_LIST = "templates/mentor/mentor_team_list.twig";
     private static final String GROUP_LIST = "templates/mentor/mentor_group_list.twig";
     private static final String QUEST_LIST = "templates/mentor/mentor_quest_list.twig";
     private static final String QUEST_MARK = "templates/mentor/mentor_quest_mark.twig";
@@ -41,6 +45,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
     private ArtifactController artifactController = new ArtifactController();
+    private TeamController teamController = new TeamController();
+    private TeamDAO teamDao = new TeamDAO();
 
     private Mentor mentor;
     private SessionDAO session = new SessionDAO();
@@ -87,6 +93,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/quest/remove/.+", () -> { return removeQuest(httpExchange);} );
         getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
         getCommands.put("/mentor", () -> {return displayProfile();} );
+        getCommands.put("/mentor/teams", () -> {return displayTeams("");} );
         getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
         getCommands.put("/mentor/groups/addStudent", () -> {return displayStudentForm(null, null);} );
         getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
@@ -117,6 +124,16 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         // profile pic found by login
         model.with("login", mentor.getLogin().getValue());
         model.with("mentor", mentor);
+
+        return template.render(model);
+    }
+
+    private String displayTeams(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(TEAM_LIST);
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("message", message);
+        model.with("teams", teamDao.getAll());
 
         return template.render(model);
     }
@@ -165,6 +182,21 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         }
 
         return template.render(model);
+    }
+
+    public String displayTeamForm(HttpExchange httpExchange, Map<String, String> inputs) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(TEAM_FORM);
+        JtwigModel model = JtwigModel.newModel();
+
+        if (inputs == null && httpExchange != null) {
+            model.with("team", teamController.get(this.parseStringFromURL(httpExchange, TEAM_INDEX)));
+        }
+        else if (inputs != null) {
+            model.with("name", inputs.get("name"));
+        }
+
+        return template.render(model);
+
     }
 
     public String displayArtifact(String message) {
