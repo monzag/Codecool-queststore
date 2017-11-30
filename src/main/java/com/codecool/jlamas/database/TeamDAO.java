@@ -73,5 +73,17 @@ public class TeamDAO {
         }
     }
 
+    public void delete(Integer id) {
+        String query = "DELETE FROM team WHERE id = ?";
 
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(query)) {
+
+            pstmt.setInt(1, id);
+            pstmt.executeUpdate();
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
