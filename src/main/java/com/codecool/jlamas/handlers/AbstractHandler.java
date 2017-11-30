@@ -64,12 +64,12 @@ public abstract class AbstractHandler implements HttpHandler {
         return map;
     }
 
-    protected String parseStringFromURL(HttpExchange httpExchange) {
-        return httpExchange.getRequestURI().getPath().split("/")[5];
+    protected String parseStringFromURL(HttpExchange httpExchange, Integer index) {
+        return httpExchange.getRequestURI().getPath().split("/")[index];
     }
 
-    protected Integer parseIntFromURL(HttpExchange httpExchange) {
-        return Integer.valueOf(this.parseStringFromURL(httpExchange));
+    protected Integer parseIntFromURL(HttpExchange httpExchange, Integer index) {
+        return Integer.valueOf(this.parseStringFromURL(httpExchange, index));
     }
 
     protected void logout(HttpExchange httpExchange) throws IOException {

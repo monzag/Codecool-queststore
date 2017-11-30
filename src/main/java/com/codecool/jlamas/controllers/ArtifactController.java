@@ -26,19 +26,18 @@ public class ArtifactController {
     }
 
 
-    public void createArtifact(String name, String description, Integer price) {
-        Artifact artifact = new Artifact(name, price, description);
+    public void createArtifact(String name, String description, Integer price, String type) {
+        Artifact artifact = new Artifact(name, price, description, type);
         this.artifactDao.insert(artifact);
     }
 
-    public void editArtifact(String oldName, String name, String description, Integer price) {
-        Artifact artifact = new Artifact(name, price, description);
+    public void editArtifact(String oldName, String name, String description, Integer price, String type) {
+        Artifact artifact = new Artifact(name, price, description, type);
         artifactDao.update(artifact, oldName);
     }
 
     public Artifact chooseArtifact(String artifactName) {
-        Artifact artifact = artifactDao.selectArtifact(artifactName);
-        return artifact;
+        return artifactDao.selectArtifact(artifactName);
     }
 
 //    public boolean useArtifact() throws IndexOutOfBoundsException {

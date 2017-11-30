@@ -29,6 +29,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private static final String CITY_FORM = "templates/admin/admin_city_form.twig";
     private static final String GROUP_FORM = "templates/admin/admin_group_form.twig";
 
+    private static final Integer OBJ_INDEX = 5;
+
     private Map<String, Callable> getCommands = new HashMap<String, Callable>();
     private Map<String, Callable> postCommands = new HashMap<String, Callable>();
     private Admin admin;
@@ -101,8 +103,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("login", "student");
         model.with("admin", this.admin);
+        model.with("login", this.admin.getLogin().getValue());
 
         return template.render(model);
     }
@@ -148,7 +150,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (inputs == null && httpExchange != null) {
-            model.with("mentor", new MentorController().getMentor(this.parseStringFromURL(httpExchange)));
+            model.with("mentor", new MentorController().getMentor(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -167,7 +169,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (httpExchange != null && httpExchange != null) {
-            model.with("city", new CityController().getCity(this.parseIntFromURL(httpExchange)));
+            model.with("city", new CityController().getCity(this.parseIntFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -189,7 +191,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (httpExchange != null) {
-            model.with("group", new GroupController().getGroup(this.parseIntFromURL(httpExchange)));
+            model.with("group", new GroupController().getGroup(this.parseIntFromURL(httpExchange, OBJ_INDEX)));
         }
         model.with("errmsg", errmsg);
         model.with("cities", cityController.getAll());
@@ -217,7 +219,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         MentorController ctrl = new MentorController();
         try {
-            ctrl.editMentorFromMap(inputs, this.parseStringFromURL(httpExchange));
+            ctrl.editMentorFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch (InvalidUserDataException e) {
             return this.displayMentorForm(httpExchange, inputs);
         }
@@ -227,7 +229,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private String removeMentor(HttpExchange httpExchange) throws IOException {
         MentorController mentorController = new MentorController();
-        mentorController.removeMentor(this.parseStringFromURL(httpExchange));
+        mentorController.removeMentor(this.parseStringFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayMentors();
     }
@@ -250,7 +252,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         CityController ctrl = new CityController();
         try {
-            ctrl.editCityFromMap(this.parseIntFromURL(httpExchange), inputs);
+            ctrl.editCityFromMap(this.parseIntFromURL(httpExchange, OBJ_INDEX), inputs);
         } catch (InvalidCityDataException e) {
             return this.displayCityForm(null, inputs, e.getMessage());
         }
@@ -260,7 +262,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private String removeCity(HttpExchange httpExchange) throws IOException {
         CityController cityController = new CityController();
-        cityController.removeCity(this.parseIntFromURL(httpExchange));
+        cityController.removeCity(this.parseIntFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayCities();
     }
@@ -282,7 +284,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         GroupController ctrl = new GroupController();
         try {
-            ctrl.editGroupFromMap(inputs, this.parseIntFromURL(httpExchange));
+            ctrl.editGroupFromMap(inputs, this.parseIntFromURL(httpExchange, OBJ_INDEX));
         } catch(InvalidGroupDataException e) {
             return this.displayGroupForm(httpExchange, e.getMessage());
         }
@@ -291,7 +293,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private String removeGroup(HttpExchange httpExchange) {
         GroupController ctrl = new GroupController();
-        ctrl.removeGroup(this.parseIntFromURL(httpExchange));
+        ctrl.removeGroup(this.parseIntFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayGroups();
     }
