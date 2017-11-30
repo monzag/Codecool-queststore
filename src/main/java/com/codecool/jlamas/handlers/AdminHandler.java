@@ -311,7 +311,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         UserController userController = new UserController();
 
         try {
-            userController.editPassword();
+            userController.editPassword(inputs);
 
         } catch (InvalidUserDataException e) {
             return this.displayEditPassword();
