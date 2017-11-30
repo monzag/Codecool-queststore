@@ -14,15 +14,16 @@ public class TeamPurchaseDAO {
     public TeamPurchaseDAO() {}
 
     public void insert(TeamPurchase purchase) {
-        String sql = "INSERT INTO team_purchase VALUES(?, ?, ?, ?)";
+        String sql = "INSERT INTO team_purchase VALUES(?, ?, ?, ?, ?)";
 
         try (Connection c = ConnectDB.connect();
              PreparedStatement pstmt = c.prepareStatement(sql);) {
 
-            pstmt.setString(1, purchase.getArtifact().getName());
-            pstmt.setString(2, purchase.getStudent().getLogin().getValue());
-            pstmt.setInt(3, purchase.getPrice());
-            pstmt.setInt(4, purchase.isMarkedAsInteger());
+            pstmt.setInt(1, purchase.getId());
+            pstmt.setString(2, purchase.getArtifact().getName());
+            pstmt.setString(3, purchase.getStudent().getLogin().getValue());
+            pstmt.setInt(4, purchase.getPrice());
+            pstmt.setInt(5, purchase.isMarkedAsInteger());
             pstmt.executeUpdate();
 
         } catch (ClassNotFoundException|SQLException e) {
