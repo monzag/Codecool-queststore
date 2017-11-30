@@ -139,10 +139,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayStudentForm(HttpExchange httpExchange, Map<String, String> inputs) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(STUDENT_FORM);
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(STUDENT_FORM);
 
         if (inputs == null && httpExchange != null) {
             model.with("student", studentController.get(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
