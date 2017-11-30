@@ -87,7 +87,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
-        model.with("login", "student");
+        model.with("login", student.getLogin().getValue());
         model.with("student", student);
 
         return template.render(model);
