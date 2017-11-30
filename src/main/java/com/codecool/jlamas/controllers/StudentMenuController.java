@@ -41,13 +41,15 @@ public class StudentMenuController implements HttpHandler {
                 if (student != null) {
 
                     if (method.equals("GET")) {
-                        response = findCommand(httpExchange, getCommands);
+                        if (httpExchange.getRequestURI().getPath().toString().equals("/student/logout")) {
+                            this.logout(httpExchange);
+
+                        } else {
+                            response = findCommand(httpExchange, getCommands);
+                            responseCode.sendOKResponse(response, httpExchange);
+                        }
                     }
-
-                    responseCode.sendOKResponse(response, httpExchange);
-
                 } else {
-                    session.removeCookieFromDb(cookie);
                     responseCode.sendRedirectResponse(httpExchange, "/");
                 }
 
@@ -145,5 +147,16 @@ public class StudentMenuController implements HttpHandler {
             }
         }
         return response;
+    }
+
+    // Remove when MentorMenuController change to MentorHandler (logout is in AbstractHandler)
+    protected void logout(HttpExchange httpExchange) throws IOException {
+        SessionDAO session = new SessionDAO();
+        CookieController cookieController = new CookieController();
+        Response responseCode = new Response();
+
+        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
+        cookieController.removeCookie(httpExchange);
+        responseCode.sendRedirectResponse(httpExchange, "/");
     }
 }
