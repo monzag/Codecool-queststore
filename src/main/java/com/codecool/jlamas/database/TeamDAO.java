@@ -28,5 +28,36 @@ public class TeamDAO {
         return null;
     }
 
+    public Team get(String name) {
+
+        String query = String.format("SELECT * FROM team WHERE name = %s", id);
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+            Team team = new Team(id, rs.getString("name"));
+            return team;
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public void insert(Team team) {
+        String query = "INSERT INTO team VALUES (NULL, ?)";
+
+        try (Connection c = ConnectDB.connect();
+             PreparedStatement pstmt = c.prepareStatement(query)) {
+
+            pstmt.setString(1, team.getName());
+            pstmt.executeUpdate();
+
+        } catch(ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
 }
