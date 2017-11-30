@@ -25,7 +25,7 @@ public class UserDAO {
             }
 
         } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -50,7 +50,7 @@ public class UserDAO {
             }
 
         } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -68,7 +68,7 @@ public class UserDAO {
             }
 
         } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
@@ -86,12 +86,12 @@ public class UserDAO {
             }
 
         } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
+            e.printStackTrace();
         }
         return null;
     }
 
-    public boolean changePassword(Password newPassword, String login) {
+    public void changePassword(Password newPassword, String login) {
         String query = "";
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
@@ -103,9 +103,7 @@ public class UserDAO {
             stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {
-            System.out.println(e.getMessage());
-            return false;
+            e.printStackTrace();
         }
-        return true;
     }
 }
