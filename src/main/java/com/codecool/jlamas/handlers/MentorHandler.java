@@ -155,8 +155,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String displayArtifactForm(HttpExchange httpExchange, Map<String, String> inputs) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_FORM);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(ARTIFACT_FORM);
 
         if (inputs == null && httpExchange != null) {
             model.with("artifact", artifactController.get(this.parseStringFromURL(httpExchange, ARTIFACT_INDEX)));
@@ -326,10 +326,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(CHANGE_PASSWORD);
         model.with("msg", message);
 
         return template.render(model);
