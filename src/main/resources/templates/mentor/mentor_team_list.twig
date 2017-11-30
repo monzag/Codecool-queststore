@@ -55,12 +55,12 @@
         <tr>
             <td>{{ team.getId }}</td>
             <td>{{ team.getName }}</td>
-            <td><a class="btn" id="edit-btn" href="/mentor/team/edit/{{ team.getId }}">Edit</a></td>
-            <td><a class="btn" id="remove-btn" href="/mentor/team/remove/{{ team.getId }}">Remove</a></td>
+            <td><a class="btn" id="edit-btn" href="/mentor/teams/edit/{{ team.getId }}">Edit</a></td>
+            <td><a class="btn" id="remove-btn" href="/mentor/teams/remove/{{ team.getId }}">Remove</a></td>
         </tr>
         {% endfor %}
         <tr>
-            <th class="btn" id="add-btn"><a href="/mentor/artifact/add">Add new</a></th>
+            <th class="btn" id="add-btn"><a href="/mentor/teams/add">Add new</a></th>
         </tr>
     </table>
 </section>
