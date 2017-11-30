@@ -80,6 +80,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         this.getCommands.put("/admin/levels/list", () -> {return this.displayLevels();} );
         this.getCommands.put("/admin/levels/add", () -> {return this.displayAddLevel();} );
         this.getCommands.put("/admin/levels/edit/.+", () -> {return this.displayEditLevel(httpExchange);} );
+        this.getCommands.put("/admin/levels/remove/.+", () -> {return this.deleteLevel(httpExchange);} );
         this.getCommands.put("/admin/mentors/add", () -> {return this.displayMentorForm(null, null); } );
         this.getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayMentorForm(httpExchange, null); } );
         this.getCommands.put("/admin/mentors/list/remove/.+", () -> { return this.removeMentor(httpExchange);} );
@@ -99,7 +100,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/cities/add", () -> { return this.addCity(httpExchange);} );
         postCommands.put("/admin/cities/list/edit/[0-9]+", () -> { return this.editCity(httpExchange);} );
         postCommands.put("/admin/levels/add", () -> { return this.addLevel(httpExchange);} );
-//        postCommands.put("/admin/levels/edit/.+", () -> {return this.displayEditLevel();} );
+        postCommands.put("/admin/levels/edit/.+", () -> {return this.editLevel(httpExchange);} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
     }
@@ -344,6 +345,13 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
         levelController = new LevelController();
         levelController.editLevel(inputs, this.parseStringFromURL(httpExchange, 4));
+
+        return displayLevels();
+    }
+
+    private String deleteLevel(HttpExchange httpExchange) {
+        levelController = new LevelController();
+        levelController.deleteLevel(this.parseStringFromURL(httpExchange, 4));
 
         return displayLevels();
     }
