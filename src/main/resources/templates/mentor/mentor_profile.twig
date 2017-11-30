@@ -52,15 +52,15 @@
           </tr>
            <tr>
               <td>E-MAIL</td>
-              <td>aga@gmail.com</td>
+              <td>{{ mentor.getEmail().getValue() }}</td>
           </tr>
           <tr>
               <td>GROUP</td>
-              <td>2017.1.KRK  A</td>
+              <td>{{ mentor.getGroup().getName() }}</td>
           </tr>
       </table>
       <div class=change-password>
-         <a class="btn" id="password">Change password</a>
+         <a class="btn" id="password" href="/mentor/password/edit/{{mentor.getLogin().getValue()}}">Change password</a>
       </div>
   </section>
 </body>
