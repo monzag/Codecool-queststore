@@ -25,6 +25,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final Integer QUEST_INDEX = 6;
 
     private static final String PROFILE = "templates/mentor/mentor_profile.twig";
+    private static final String CHANGE_PASSWORD = "templates/mentor/mentor_change_password.twig";
     private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
     private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
     private static final String ARTIFACT_LIST = "templates/mentor/mentor_artifact_list.twig";
@@ -96,6 +97,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/artifact/add", () -> { return displayArtifactForm(null, null);} );
         getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
         getCommands.put("/mentor/artifact/edit/.+", () -> { return displayArtifactForm(httpExchange, null);} );
+        getCommands.put("/mentor/password/edit/.+", () -> {return this.displayEditPassword("");} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
@@ -105,14 +107,15 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
         postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
         postCommands.put("/mentor/artifact/edit/.+", () -> { return editArtifact(httpExchange);} );
+        postCommands.put("/mentor/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
-    private String displayProfile() {
+    protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
-        model.with("login", "student");
+        model.with("login", mentor.getLogin().getValue());
         model.with("mentor", mentor);
 
         return template.render(model);
@@ -322,6 +325,16 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         questController.markQuestAsDone(studentController.get(login), questController.chooseQuest(questName));
 
         return displayQuestsToMark("Quest has been marked", httpExchange);
+    }
+
+    protected String displayEditPassword(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
+        JtwigModel model = JtwigModel.newModel();
+
+        model.with("login", "student");
+        model.with("msg", message);
+
+        return template.render(model);
     }
 
 }
