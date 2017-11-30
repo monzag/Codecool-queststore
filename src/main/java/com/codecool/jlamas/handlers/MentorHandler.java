@@ -87,7 +87,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
         getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
         getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
-        getCommands.put("/mentor/password/edit/.+", () -> {return this.displayEditPassword();} );
+        getCommands.put("/mentor/password/edit/.+", () -> {return this.displayEditPassword("");} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
@@ -321,11 +321,12 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return displayQuestsToMark("Quest has been marked", httpExchange);
     }
 
-    protected String displayEditPassword() {
+    protected String displayEditPassword(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_change_password.twig");
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
+        model.with("msg", message);
 
         return template.render(model);
     }
