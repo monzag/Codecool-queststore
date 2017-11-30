@@ -6,6 +6,7 @@ import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
+import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Admin;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -95,7 +96,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/cities/list/edit/[0-9]+", () -> { return this.editCity(httpExchange);} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
-        postCommands.put("admin/password/edit/.+", () -> { return this.editPassword(httpExchange); });
+        postCommands.put("/admin/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
     private String displayProfile() {
@@ -311,9 +312,9 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         UserController userController = new UserController();
 
         try {
-            userController.editPassword(inputs);
+            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, 4));
 
-        } catch (InvalidUserDataException e) {
+        } catch (NotMatchingPasswordException e) {
             return this.displayEditPassword();
         }
 
