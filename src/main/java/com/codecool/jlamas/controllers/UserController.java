@@ -1,7 +1,6 @@
 package com.codecool.jlamas.controllers;
 
 import com.codecool.jlamas.database.UserDAO;
-import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.accountdata.Password;
 
