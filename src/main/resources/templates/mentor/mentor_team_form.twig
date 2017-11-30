@@ -37,11 +37,18 @@
 </section>
 
 <form id="2" class="add" method="POST">
-    {% if message.length > 0 %}
+    {% if team != null %}
+    <h3>Edit team {{ team.getName }}</h3>
+    {% else %}
+    <h3>Add new team</h3>
+    {% endif %}
+
+    {% if name.length > 0 %}
     <div class="fail">
-        <h5>{{ message }}!</h5>
+        <h5>Team with this name already exists!</h5>
     </div>
     {% endif %}
+
     <table class="input-table">
         <tr>
             <th>Team Name:</th>
