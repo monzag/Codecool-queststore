@@ -183,7 +183,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_LIST);
         JtwigModel model = JtwigModel.newModel();
 
-        return template.render(model.with("questsList", questController.showAllQuests()));
+        return template.render(model.with("questsList", questController.getAll()));
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
@@ -194,7 +194,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
         model.with("message", message);
         model.with("studentLogin", login);
-        model.with("questsList", questController.showAllQuests());
+        model.with("questsList", questController.getAll());
 
         return template.render(model);
     }
@@ -210,7 +210,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_EDIT);
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("quest", questController.chooseQuest(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
+        model.with("quest", questController.get(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
 
         return template.render(model);
     }
@@ -231,10 +231,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String removeQuest(HttpExchange httpExchange) {
-        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        Quest quest = questController.chooseQuest(questName);
-
-        questController.deleteQuest(quest);
+        questController.remove(this.parseStringFromURL(httpExchange, QUEST_INDEX));
 
         return displayQuests();
     }
@@ -320,9 +317,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private String markQuest(HttpExchange httpExchange) {
         String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
-
         String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
-        questController.markQuestAsDone(studentController.get(login), questController.chooseQuest(questName));
+
+        questController.markQuestAsDone(studentController.get(login), questController.get(questName));
 
         return displayQuestsToMark("Quest has been marked", httpExchange);
     }
