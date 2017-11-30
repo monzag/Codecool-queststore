@@ -112,7 +112,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         model.with("login", "student");
-        model.with("mentors", new MentorController().getAllMentors());
+        model.with("mentors", new MentorController().getAll());
 
         return template.render(model);
     }
@@ -148,7 +148,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (inputs == null && httpExchange != null) {
-            model.with("mentor", new MentorController().getMentor(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
+            model.with("mentor", new MentorController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -204,7 +204,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         MentorController ctrl = new MentorController();
         try {
-            ctrl.createMentorFromMap(inputs);
+            ctrl.createFromMap(inputs);
         } catch (InvalidUserDataException e) {
             return this.displayMentorForm(null, inputs);
         }
@@ -217,7 +217,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         MentorController ctrl = new MentorController();
         try {
-            ctrl.editMentorFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
+            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch (InvalidUserDataException e) {
             return this.displayMentorForm(httpExchange, inputs);
         }
@@ -227,7 +227,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private String removeMentor(HttpExchange httpExchange) throws IOException {
         MentorController mentorController = new MentorController();
-        mentorController.removeMentor(this.parseStringFromURL(httpExchange, OBJ_INDEX));
+        mentorController.remove(this.parseStringFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayMentors();
     }
