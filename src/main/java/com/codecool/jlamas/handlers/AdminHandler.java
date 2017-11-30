@@ -1,7 +1,6 @@
 package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.*;
-import com.codecool.jlamas.database.LevelDAO;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
@@ -314,7 +313,4 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         return displayLevels();
     }
-
-
-
 }
