@@ -7,6 +7,7 @@ import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Admin;
+import com.codecool.jlamas.models.level.Level;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -78,6 +79,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         this.getCommands.put("/admin/mentors/list", () -> {return this.displayMentors();} );
         this.getCommands.put("/admin/levels/list", () -> {return this.displayLevels();} );
         this.getCommands.put("/admin/levels/add", () -> {return this.displayAddLevel();} );
+        this.getCommands.put("/admin/levels/edit/.+", () -> {return this.displayEditLevel(httpExchange);} );
         this.getCommands.put("/admin/mentors/add", () -> {return this.displayMentorForm(null, null); } );
         this.getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayMentorForm(httpExchange, null); } );
         this.getCommands.put("/admin/mentors/list/remove/.+", () -> { return this.removeMentor(httpExchange);} );
@@ -97,6 +99,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/cities/add", () -> { return this.addCity(httpExchange);} );
         postCommands.put("/admin/cities/list/edit/[0-9]+", () -> { return this.editCity(httpExchange);} );
         postCommands.put("/admin/levels/add", () -> { return this.addLevel(httpExchange);} );
+//        postCommands.put("/admin/levels/edit/.+", () -> {return this.displayEditLevel();} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
     }
@@ -317,6 +320,18 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
+    private String displayEditLevel(HttpExchange httpExchange) {
+        String levelName = this.parseStringFromURL(httpExchange, 4);
+        levelController = new LevelController();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(LEVEL_EDIT);
+        JtwigModel model = JtwigModel.newModel();
+        Level level = levelController.chooseLevel(levelName);
+        model.with("level", level);
+
+        return template.render(model);
+    }
+
+
     private String addLevel(HttpExchange httpExchange) throws IOException {
         Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
         levelController = new LevelController();
@@ -328,7 +343,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private String editLevel(HttpExchange httpExchange) throws IOException {
         Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
         levelController = new LevelController();
-        levelController.editLevel(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
+        levelController.editLevel(inputs, this.parseStringFromURL(httpExchange, 4));
 
         return displayLevels();
     }
