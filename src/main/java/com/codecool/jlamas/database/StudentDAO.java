@@ -21,7 +21,7 @@ public class StudentDAO {
         Student student = null;
         String query = String.format("%s %s %s %s %s %s %s %s"
                 , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_id,"
-                ,         "student.team_tag, student.balance"
+                ,         "student.team, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
                 ,             "ON login.login = user.login"
@@ -75,9 +75,6 @@ public class StudentDAO {
 
     public boolean insert(Student student) {
 
-        final Integer UNSIGNED_TEAM = 0;
-        final Integer BALANCE = 0;
-
         String query;
 
         try (Connection c = ConnectDB.connect();
@@ -96,8 +93,8 @@ public class StudentDAO {
             query += String.format("INSERT INTO `student` VALUES('%s', %d, '%s', '%s'); ",
                     student.getLogin().getValue(),
                     student.getGroup().getID(),
-                    UNSIGNED_TEAM,
-                    BALANCE);
+                    student.getTeam().getName(),
+                    student.getWallet().getBalance());
 
             stmt.executeUpdate(query);
 
