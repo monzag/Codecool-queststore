@@ -16,12 +16,15 @@ public class LevelController {
         this.levelDAO = levelDAO;
     }
 
-    public void editLevel(String oldName, Level level) {
+    public void editLevel(Map<String, String> inputs, String oldName) {
+        String name = inputs.get("name").toString();
+        Integer score = Integer.valueOf(inputs.get("score").toString());
+        Level level = new Level(name, score);
         levelDAO.updateLevel(level, oldName);
     }
 
     public void createLevel(Map<String, String> inputs) {
-        String name = inputs.get("name");
+        String name = inputs.get("name").toString();
         Integer score = Integer.valueOf(inputs.get("score"));
         Level level = new Level(name, score);
         levelDAO.insertLevel(level);
