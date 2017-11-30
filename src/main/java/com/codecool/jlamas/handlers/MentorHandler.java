@@ -21,9 +21,7 @@ import java.util.concurrent.Callable;
 
 public class MentorHandler extends AbstractHandler implements HttpHandler {
 
-    private static final Integer STUDENT_INDEX = 4;
-    private static final Integer ARTIFACT_INDEX = 4;
-    private static final Integer QUEST_INDEX = 6;
+    private static final Integer OBJ_INDEX = 4;
 
     private static final String PROFILE = "templates/mentor/mentor_profile.twig";
     private static final String CHANGE_PASSWORD = "templates/mentor/mentor_change_password.twig";
@@ -140,7 +138,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (inputs == null && httpExchange != null) {
-            model.with("student", studentController.get(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
+            model.with("student", studentController.get(this.parseStringFromURL(httpExchange, )));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -156,7 +154,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         if (inputs == null && httpExchange != null) {
-            model.with("artifact", artifactController.get(this.parseStringFromURL(httpExchange, ARTIFACT_INDEX)));
+            model.with("artifact", artifactController.get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("artifactName", inputs.get("artifactName"));
@@ -172,7 +170,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         if (inputs == null && httpExchange != null) {
-            model.with("quest", questController.get(this.parseStringFromURL(httpExchange, QUEST_INDEX)));
+            model.with("quest", questController.get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("questName", inputs.get("questName"));
@@ -205,7 +203,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_MARK);
         JtwigModel model = JtwigModel.newModel();
-        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        String login = this.parseStringFromURL(httpExchange, );
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
@@ -224,12 +222,6 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
             return this.displayQuestForm(null, inputs);
         }
 
-        return displayGroups("Student has been added");
-    }
-
-    private String removeQuest(HttpExchange httpExchange) {
-        questController.remove(this.parseStringFromURL(httpExchange, QUEST_INDEX));
-
         return displayQuests();
     }
 
@@ -237,10 +229,17 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         try {
-            questController.editFromMap(inputs, this.parseStringFromURL(httpExchange, QUEST_INDEX));
+            questController.editFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch (QuestNameAlreadyUsedException e) {
             return this.displayQuestForm(httpExchange, inputs);
         }
+
+        return displayQuests();
+    }
+
+    private String removeQuest(HttpExchange httpExchange) {
+        questController.remove(this.parseStringFromURL(httpExchange, OBJ_INDEX));
+
         return displayQuests();
     }
 
@@ -257,7 +256,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String removeStudent(HttpExchange httpExchange) {
-        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        String login = this.parseStringFromURL(httpExchange, );
         studentController.remove(login);
 
         return displayGroups("Student has been removed");
@@ -267,7 +266,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
         try {
-            studentController.editFromMap(inputs, this.parseStringFromURL(httpExchange, STUDENT_INDEX));
+            studentController.editFromMap(inputs, this.parseStringFromURL(httpExchange, ));
         } catch (InvalidUserDataException e) {
             return this.displayStudentForm(httpExchange, inputs);
         }
@@ -293,7 +292,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
         ArtifactController ctrl = new ArtifactController();
         try {
-            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, ARTIFACT_INDEX));
+            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch (ArtifactNameAlreadyUsedException e) {
             return this.displayArtifactForm(httpExchange, inputs);
         }
@@ -302,15 +301,15 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String removeArtifact(HttpExchange httpExchange) {
-        String name = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
+        String name = parseStringFromURL(httpExchange, OBJ_INDEX);
         artifactController.remove(name);
 
         return displayArtifact("Artifact has been removed");
     }
 
     private String markQuest(HttpExchange httpExchange) {
-        String login = parseStringFromURL(httpExchange, STUDENT_INDEX);
-        String questName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
+        String login = parseStringFromURL(httpExchange, );
+        String questName = this.parseStringFromURL(httpExchange, OBJ_INDEX);
 
         questController.markQuestAsDone(studentController.get(login), questController.get(questName));
 
