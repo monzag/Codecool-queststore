@@ -6,7 +6,6 @@ import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.InvalidCityDataException;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
-import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Admin;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
