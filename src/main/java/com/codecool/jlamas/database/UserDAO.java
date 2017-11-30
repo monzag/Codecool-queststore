@@ -90,4 +90,20 @@ public class UserDAO {
         }
         return null;
     }
+
+    public void changePassword(Password newPassword, String login) {
+        String query = "";
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            query = String.format("UPDATE `login` SET password = '%s' WHERE login = %s;",
+                    newPassword.getValue(),
+                    login);
+
+            stmt.executeUpdate(query);
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
 }
