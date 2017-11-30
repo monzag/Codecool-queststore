@@ -2,7 +2,6 @@ package com.codecool.jlamas.handlers;
 
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.*;
-import com.codecool.jlamas.exceptions.NotMatchingPasswordException;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 import com.sun.net.httpserver.HttpExchange;
