@@ -35,7 +35,7 @@ public class TeamController implements Controller<Team> {
         }
     };
 
-    public void editFromMap(Map<String, String> attrs, String id) throws Exception{
+    public void editFromMap(Map<String, String> attrs, String id){
         Team team = teamDao.get(Integer.valueOf(id));
 
         team.setName(attrs.get("name"));
