@@ -19,14 +19,13 @@ public class Student extends Codecooler {
         this.group = group;
         this.team = team;
         this.wallet = wallet;
-
     }
 
     public Group getGroup() {
         return this.group;
     }
-    public Integer getTeamId() {
-        return this.teamId;
+    public Team getTeam() {
+        return this.team;
     }
 
     public Wallet getWallet() {
@@ -36,8 +35,8 @@ public class Student extends Codecooler {
     public void setGroup(Group group) {
         this.group = group;
     }
-    public void setTeamId(Integer teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public void setWallet(Wallet wallet) {
