@@ -2,13 +2,32 @@ package com.codecool.jlamas.database;
 
 import com.codecool.jlamas.models.accountdata.Team;
 
-import javax.xml.transform.Result;
 import java.sql.*;
+import java.util.ArrayList;
 
 public class TeamDAO {
 
     public TeamDAO() {
 
+    }
+
+    public ArrayList<Team> getAll() {
+
+        ArrayList<Team> teams = new ArrayList<>();
+        String query = "SELECT * FROM team";
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+            while (rs.next()) {
+                teams.add(new Team(rs.getInt("id"), rs.getString("name")));
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return teams;
     }
 
     public Team get(Integer id) {
@@ -19,8 +38,7 @@ public class TeamDAO {
              Statement stmt = c.createStatement()) {
 
             ResultSet rs = stmt.executeQuery(query);
-            Team team = new Team(id, rs.getString("name"));
-            return team;
+            return new Team(id, rs.getString("name"));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
@@ -36,8 +54,7 @@ public class TeamDAO {
              Statement stmt = c.createStatement()) {
 
             ResultSet rs = stmt.executeQuery(query);
-            Team team = new Team(rs.getInt("id"), name);
-            return team;
+            return new Team(rs.getInt("id"), name);
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
