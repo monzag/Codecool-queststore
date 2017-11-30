@@ -180,8 +180,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayQuests() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_LIST);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(QUEST_LIST);
 
         return template.render(model.with("questsList", questController.showAllQuests()));
     }
