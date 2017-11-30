@@ -11,14 +11,6 @@ public class Group {
 
     }
 
-    @Deprecated
-    public Group(String name) {
-        this.id = 1;
-        this.city = new City(1,"Kraków", "krk");
-        this.year = 2017;
-        this.number = 1;
-    }
-
     public Group(City city, Integer year, Integer number) {
         this.city = city;
         this.year = year;

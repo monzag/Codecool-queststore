@@ -173,6 +173,7 @@ public class StudentDAO {
         Student student = new Student();
         DoneQuestDAO doneQuests = new DoneQuestDAO();
         OwnedArtifactDAO ownedArtifacts = new OwnedArtifactDAO();
+        TeamPurchaseDAO teamPurchases = new TeamPurchaseDAO();
         GroupDAO groupDAO = new GroupDAO();
 
         student.setName(rs.getString("name"));
@@ -185,6 +186,7 @@ public class StudentDAO {
         student.setWallet(new Wallet(rs.getInt("balance")));
         student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
         student.getWallet().setOwnedArtifacts(ownedArtifacts.requestAllBy(student));
+        student.getWallet().setPendingPurchases(teamPurchases.requestAllBy(student));
 
         return student;
     }

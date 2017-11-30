@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.Map;
 
 
-public class CityController {
+public class CityController implements Controller<City> {
 
     private CityDAO dao;
 
@@ -22,19 +22,29 @@ public class CityController {
         return this.dao.requestAll();
     }
 
-    public City getCity(Integer id) {
-        return this.dao.get(id);
+    public City get(String id) {
+        return this.dao.get(Integer.valueOf(id));
     }
 
-    public void removeCity(Integer id) {
-        this.dao.delete(id);
+    public void remove(String id) {
+        this.dao.delete(Integer.valueOf(id));
     }
 
-    public void editCityFromMap(Integer id, Map<String, String> inputs) throws InvalidCityDataException {
+    public void createFromMap(Map<String, String> inputs) throws InvalidCityDataException {
         String name = City.capitalizeName(inputs.get("name"));
         String shortName = inputs.get("shortname");
 
-        City city = this.dao.get(id);
+        if (isNewCityDataUnique(name, shortName)) {
+            City city = new City(null, name, shortName);
+            this.dao.insert(city);
+        }
+    }
+
+    public void editFromMap(Map<String, String> inputs, String id) throws InvalidCityDataException {
+        String name = City.capitalizeName(inputs.get("name"));
+        String shortName = inputs.get("shortname");
+
+        City city = this.get(id);
         if (!city.hasName(name)) {
             if (!this.isCityNameUnique(name)) {
                 throw new InvalidCityNameException();
@@ -50,16 +60,6 @@ public class CityController {
         city.setShortName(shortName);
         this.dao.update(city);
 
-    }
-
-    public void createCityFromMap(Map<String, String> inputs) throws InvalidCityDataException {
-        String name = City.capitalizeName(inputs.get("name"));
-        String shortName = inputs.get("shortname");
-
-        if (isNewCityDataUnique(name, shortName)) {
-            City city = new City(null, name, shortName);
-            this.dao.insert(city);
-        }
     }
 
     private boolean isNewCityDataUnique(String name, String shortName) throws InvalidCityDataException {

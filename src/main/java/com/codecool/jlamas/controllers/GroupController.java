@@ -8,9 +8,9 @@ import com.codecool.jlamas.database.CityDAO;
 import com.codecool.jlamas.database.GroupDAO;
 import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.views.GroupTeamView;
 
-public class GroupController {
+
+public class GroupController implements Controller<Group> {
 
     // decide on maximum amount of groups on one year
     private static final int MAX_GROUPS = 4;
@@ -18,31 +18,27 @@ public class GroupController {
     private static final int PAST_YEARS = 1;
     private static final int NEXT_YEARS = 4;
 
-    private GroupTeamView groupView;
     private GroupDAO groupDAO;
     private CityDAO cityDAO;
 
     public GroupController() {
-        this.groupView = new GroupTeamView();
         this.groupDAO = new GroupDAO();
         this.cityDAO = new CityDAO();
     }
 
-    public Group getGroup(Integer id) {
-        return this.groupDAO.getGroup(id);
+    public Group get(String id) {
+        return this.groupDAO.getGroup(Integer.valueOf(id));
     }
 
-    public ArrayList<Group> getAllGroups() {
+    public ArrayList<Group> getAll() {
         return groupDAO.getAll();
     }
 
-    public void createGroup() {
-        String name = groupView.getString("\nType name of new group: ");
-        Group group = new Group(name);
-        groupDAO.insert(group);
+    public void remove(String id) {
+        this.groupDAO.delete(this.get(id));
     }
 
-    public void createGroupFromMap(Map<String, String> attrs) throws InvalidGroupDataException {
+    public void createFromMap(Map<String, String> attrs) throws InvalidGroupDataException {
         Group group = new Group();
         group.setCity(this.cityDAO.get(attrs.get("city")));
         group.setYear(Integer.valueOf(attrs.get("year")));
@@ -56,8 +52,8 @@ public class GroupController {
         }
     }
 
-    public void editGroupFromMap(Map<String, String> attrs, Integer id) throws InvalidGroupDataException {
-        Group group = this.groupDAO.getGroup(id);
+    public void editFromMap(Map<String, String> attrs, String id) throws InvalidGroupDataException {
+        Group group = this.groupDAO.getGroup(Integer.valueOf(id));
         group.setCity(this.cityDAO.get(attrs.get("city")));
         group.setYear(Integer.valueOf(attrs.get("year")));
         group.setNumber(Integer.valueOf(attrs.get("number")));
@@ -70,12 +66,8 @@ public class GroupController {
         }
     }
 
-    public void removeGroup(Integer groupID) {
-        this.groupDAO.delete(this.groupDAO.getGroup(groupID));
-    }
-
     public boolean isGroupUnique(Group newGroup) {
-        for (Group group : this.getAllGroups()) {
+        for (Group group : this.getAll()) {
             if (group.equals(newGroup)) {
                 return false;
             }

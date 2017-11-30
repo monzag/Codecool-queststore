@@ -2,6 +2,7 @@ package com.codecool.jlamas.models.accountdata;
 
 
 import com.codecool.jlamas.models.artifact.Artifact;
+import com.codecool.jlamas.models.artifact.TeamPurchase;
 import com.codecool.jlamas.models.quest.Quest;
 
 import java.util.ArrayList;
@@ -11,6 +12,7 @@ public class Wallet {
     private Integer balance;
     private ArrayList<Quest> doneQuests;
     private ArrayList<Artifact> ownedArtifacts;
+    private ArrayList<TeamPurchase> pendingPurchases;
 
     public Wallet() {
         this.balance = 0;
@@ -30,7 +32,7 @@ public class Wallet {
         this.balance += amount;
     }
 
-    private boolean has(Integer amount) {
+    public boolean has(Integer amount) {
         return this.balance >= amount;
     }
 
@@ -58,6 +60,14 @@ public class Wallet {
 
     public void setOwnedArtifacts(ArrayList<Artifact> ownedArtifacts) {
         this.ownedArtifacts = ownedArtifacts;
+    }
+
+    public ArrayList<TeamPurchase> getPendingPurchases() {
+        return this.pendingPurchases;
+    }
+
+    public void setPendingPurchases(ArrayList<TeamPurchase> pendingPurchases) {
+        this.pendingPurchases = pendingPurchases;
     }
 
 }

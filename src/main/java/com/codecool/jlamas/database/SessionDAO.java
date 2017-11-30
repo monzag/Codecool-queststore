@@ -1,15 +1,13 @@
 package com.codecool.jlamas.database;
 
 import com.codecool.jlamas.controllers.CookieController;
-import com.codecool.jlamas.models.account.Admin;
-import com.codecool.jlamas.models.account.Mentor;
-import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.models.account.Codecooler;
 import com.sun.net.httpserver.HttpExchange;
 
 import java.net.HttpCookie;
 import java.sql.*;
 
-public class SessionDAO<T> {
+public class SessionDAO {
 
     private UserDAO userDAO;
     private MentorDAO mentorDAO;
@@ -38,7 +36,7 @@ public class SessionDAO<T> {
     }
 
     public String getLoginByCookie(HttpExchange httpExchange) {
-        String login = "";
+        String login = null;
         HttpCookie cookie = new CookieController().getCookie(httpExchange);
         String query = "SELECT login FROM `cookie` WHERE sessionId = '" + cookie.getValue() + "';";
 
@@ -58,39 +56,37 @@ public class SessionDAO<T> {
         return login;
     }
 
-    public T getUserByCookie(HttpExchange httpExchange) {
+    public Codecooler getUserByCookie(HttpExchange httpExchange) {
+        Codecooler codecooler = null;
         String login = getLoginByCookie(httpExchange);
         String type = userDAO.getType(login);
 
         if (type.equals("admin")) {
-            Admin admin = userDAO.getAdmin(login);
-            return (T) admin;
+            codecooler = userDAO.getAdmin(login);
         }
         if (type.equals("mentor")) {
-            Mentor mentor = mentorDAO.getMentor(login);
-            return (T) mentor;
+            codecooler = mentorDAO.getMentor(login);
         }
 
         if (type.equals("student")) {
-            Student student = studentDAO.getStudent(login);
-            return (T) student;
+            codecooler = studentDAO.getStudent(login);
         }
-        return null;
+        return codecooler;
     }
 
     public void removeCookieFromDb(HttpCookie cookie) {
         String sessionId = cookie.getValue();
 
-        try (Connection c = DriverManager.getConnection("jdbc:sqlite:src/main/resources/database.db");
+        try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
 
 
-            String query = String.format("DELETE FROM `cookies` WHERE sessionId = '%s'; ",
+            String query = String.format("DELETE FROM `cookie` WHERE sessionId = '%s'; ",
                     sessionId);
 
             stmt.executeUpdate(query);
 
-        } catch (SQLException e) {
+        } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
     }

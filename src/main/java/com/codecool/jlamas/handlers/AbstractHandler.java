@@ -1,8 +1,9 @@
 package com.codecool.jlamas.handlers;
 
+import com.codecool.jlamas.controllers.CookieController;
+import com.codecool.jlamas.database.SessionDAO;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -63,11 +64,21 @@ public abstract class AbstractHandler implements HttpHandler {
         return map;
     }
 
-    protected String parseStringFromURL(HttpExchange httpExchange) {
-        return httpExchange.getRequestURI().getPath().split("/")[5];
+    protected String parseStringFromURL(HttpExchange httpExchange, Integer index) {
+        return httpExchange.getRequestURI().getPath().split("/")[index];
     }
 
-    protected Integer parseIntFromURL(HttpExchange httpExchange) {
-        return Integer.valueOf(this.parseStringFromURL(httpExchange));
+    protected Integer parseIntFromURL(HttpExchange httpExchange, Integer index) {
+        return Integer.valueOf(this.parseStringFromURL(httpExchange, index));
+    }
+
+    protected void logout(HttpExchange httpExchange) throws IOException {
+        SessionDAO session = new SessionDAO();
+        CookieController cookieController = new CookieController();
+        Response responseCode = new Response();
+
+        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
+        cookieController.removeCookie(httpExchange);
+        responseCode.sendRedirectResponse(httpExchange, "/");
     }
 }
