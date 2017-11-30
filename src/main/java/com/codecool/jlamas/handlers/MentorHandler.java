@@ -7,6 +7,7 @@ import com.codecool.jlamas.database.UserDAO;
 import com.codecool.jlamas.exceptions.ArtifactNameAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
+import com.codecool.jlamas.models.accountdata.Team;
 import com.codecool.jlamas.models.quest.Quest;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -94,6 +95,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/quest/edit/.+", () -> {return displayEditQuestForm(httpExchange);} );
         getCommands.put("/mentor", () -> {return displayProfile();} );
         getCommands.put("/mentor/teams", () -> {return displayTeams("");} );
+        getCommands.put("/mentor/teams/add", () -> {return displayTeamForm(null, null);} );
+        getCommands.put("/mentor/teams/remove/.+", () -> {return removeTeam(httpExchange);} );
+        getCommands.put("/mentor/teams/edit/.+", () -> {return displayTeamForm(httpExchange, null);} );
         getCommands.put("/mentor/groups", () -> {return displayGroups("");} );
         getCommands.put("/mentor/groups/addStudent", () -> {return displayStudentForm(null, null);} );
         getCommands.put("/mentor/groups/remove/.+", () -> {return removeStudent(httpExchange);} );
@@ -110,6 +114,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     protected void addPostCommands(HttpExchange httpExchange) {
         postCommands.put("/mentor/quest/add", () -> { return addQuest(httpExchange);}  );
         postCommands.put("/mentor/quest/edit/.+", () -> { return editQuest(httpExchange);}  );
+        postCommands.put("/mentor/teams/add", () -> { return addTeam(httpExchange);} );
+        postCommands.put("/mentor/teams/edit/.+", () -> { return editTeam(httpExchange);} );
         postCommands.put("/mentor/groups/addStudent", () -> { return addStudent(httpExchange);}  );
         postCommands.put("/mentor/groups/edit/.+", () -> { return editStudent(httpExchange);}  );
         postCommands.put("/mentor/artifact/add", () -> { return addArtifact(httpExchange);} );
@@ -188,6 +194,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(TEAM_FORM);
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("message", "");
+
         if (inputs == null && httpExchange != null) {
             model.with("team", teamController.get(this.parseStringFromURL(httpExchange, TEAM_INDEX)));
         }
@@ -196,7 +204,29 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         }
 
         return template.render(model);
+    }
 
+    public String addTeam(HttpExchange httpExchange) throws IOException {
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        teamController.createFromMap(inputs);
+
+        return displayTeams("Team has been added");
+    }
+
+    public String editTeam(HttpExchange httpExchange) throws IOException {
+
+
+        Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        teamController.editFromMap(inputs, this.parseStringFromURL(httpExchange, TEAM_INDEX));
+
+        return displayTeams("Team has been edited");
+    }
+
+    public String removeTeam(HttpExchange httpExchange) {
+        String name = this.parseStringFromURL(httpExchange, TEAM_INDEX);
+        teamController.remove(name);
+
+        return displayTeams("Team has been removed");
     }
 
     public String displayArtifact(String message) {
