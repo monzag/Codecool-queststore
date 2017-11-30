@@ -25,6 +25,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private static final String MENTOR_FORM = "templates/admin/admin_mentor_form.twig";
     private static final String CITY_FORM = "templates/admin/admin_city_form.twig";
     private static final String GROUP_FORM = "templates/admin/admin_group_form.twig";
+    private static final String LEVEL_ADD = "templates/admin/admin_level_add.twig";
+    private static final String LEVEL_EDIT = "templates/admin/admin_level_edit.twig";
 
     private static final Integer OBJ_INDEX = 5;
 
@@ -74,6 +76,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     protected void addGetCommands (HttpExchange httpExchange) {
         this.getCommands.put("/admin", () -> {return this.displayProfile();} );
         this.getCommands.put("/admin/mentors/list", () -> {return this.displayMentors();} );
+        this.getCommands.put("/admin/levels/list", () -> {return this.displayLevels();} );
+        this.getCommands.put("/admin/levels/add", () -> {return this.displayAddLevel();} );
         this.getCommands.put("/admin/mentors/add", () -> {return this.displayMentorForm(null, null); } );
         this.getCommands.put("/admin/mentors/list/edit/.+", () -> {return this.displayMentorForm(httpExchange, null); } );
         this.getCommands.put("/admin/mentors/list/remove/.+", () -> { return this.removeMentor(httpExchange);} );
@@ -92,6 +96,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/mentors/list/edit/.+", () -> { return this.editMentor(httpExchange);} );
         postCommands.put("/admin/cities/add", () -> { return this.addCity(httpExchange);} );
         postCommands.put("/admin/cities/list/edit/[0-9]+", () -> { return this.editCity(httpExchange);} );
+        postCommands.put("/admin/levels/add", () -> { return this.addLevel(httpExchange);} );
         postCommands.put("/admin/groups/add", () -> { return this.addGroup(httpExchange);} );
         postCommands.put("/admin/groups/list/edit/[0-9]+", () -> { return this.editGroup(httpExchange);} );
     }
@@ -302,6 +307,12 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         // instead of value 'student' login from cookie
         model.with("login", "student");
         model.with("levels", new LevelController().showAllLevels());
+        return template.render(model);
+    }
+
+    private String displayAddLevel() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(LEVEL_ADD);
+        JtwigModel model = JtwigModel.newModel();
 
         return template.render(model);
     }
