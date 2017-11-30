@@ -28,6 +28,7 @@
                 <li><a href="/student">profile</a></li>
                 <li><a href="/student/wallet">wallet</a></li>
                 <li><a href="/student/store">store</a></li>
+                <li><a href="/student/team_purchases">team purchases</a></li>
             </ul>
         </nav>
     </div>
@@ -37,8 +38,14 @@
     </footer>
 </section>
 <section class="users-table">
+    <div>
+        {% if (message.length > 0) %}
+        <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px;display:inline-block" ><h4>{{ message }}</h4>
+        {% endif %}
+    </div>
     <h3>Artifact store</h3>
-    <h5>Your balance: {{ student.getWallet().getBalance() }}</h5>
+    <h5>Your balance: {{ student.getWallet().getBalance() }}</h5><br>
+    <h5>Single artifacts</h5>
     <table style="width:100%">
         <tr>
             <th>Name</th>
@@ -46,12 +53,32 @@
             <th>Price</th>
         </tr>
         {% for artifact in artifacts %}
+        {% if artifact.getType().equals("Single") %}
         <tr>
             <td>{{ artifact.getName() }}</td>
             <td>{{ artifact.getDescription() }}</td>
             <td>{{ artifact.getPrice() }}</td>
-            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</td>
+            <td><a class="btn" id="edit-btn" href="/student/store/buy/{{ artifact.getName() }}">Buy</a></td>
         </tr>
+        {% endif %}
+        {% endfor %}
+    </table>
+    <h5>Team artifacts</h5>
+    <table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        {% for artifact in artifacts %}
+        {% if artifact.getType().equals("Team") %}
+        <tr>
+            <td>{{ artifact.getName() }}</td>
+            <td>{{ artifact.getDescription() }}</td>
+            <td>{{ artifact.getPrice() }}</td>
+            <td><a class="btn" id="edit-btn" href="/student/team_purchases/open/{{ artifact.getName() }}">Buy</a></td>
+        </tr>
+        {% endif %}
         {% endfor %}
     </table>
 </section>

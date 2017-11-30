@@ -35,32 +35,33 @@
     </footer>
   </section>
   <form method="POST" class="add">
-    <h3>Edit artifact</h3>
+    <h3>Edit student</h3>
 
     <table class="input-table">
       <tr>
         <th>Name:</th>
-        <th><input type="text" name="artifactName" value="{{ artifact.getName() }}"></th>
+        <th><input type="text" name="name" value="{{ student.getName() }}"></th>
       </tr>
       <tr>
-        <th>Description:</th>
-        <th><input type="text" name="description" value="{{ artifact.getDescription() }}"></th>
+        <th>Surname:</th>
+        <th><input type="text" name="surname" value="{{ student.getSurname() }}"></th>
       </tr>
       <tr>
-        <th>Price:</th>
-        <th><input type="text" name="price" value="{{ artifact.getPrice() }}"></th>
+        <th>Email:</th>
+        <th><input type="email" name="email" value="{{ student.getEmail() }}"></th>
       </tr>
       <tr>
-        <th>Type:</th>
-        <th>
-          <select name="type">
-            <option value="Single">Single</option>
-            <option value="Team">Team</option>
-          </select>
-        </th>
+        <th>Group:</th>
+        <th><input type="text" name="group" value="{{ student.getGroup.getName() }}"></th>
       </tr>
+      <!-- optional only in student creation -->
+      <!--tr>
+        <th>Team:</th>
+        <th><input type="text" name="class" value=""></th>
+      </tr> -->
     </table>
-   <button class="submit" type="submit">submit</button>
+
+      <button class="submit" type="submit">submit</button>
   </form>
 </body>
 </html>

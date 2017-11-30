@@ -15,7 +15,7 @@ class ArtifactTest {
 
     @BeforeEach
     void setUp() {
-        this.artifact = new Artifact("artifact", 100, "artifact description");
+        this.artifact = new Artifact("artifact", 100, "artifact description", "Single");
     }
 
     @Test

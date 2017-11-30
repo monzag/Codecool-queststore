@@ -58,6 +58,15 @@ public class StudentController {
         this.studentDao.insert(student);
     }
 
+    public ArrayList<Student> createStudentsFromInputs(Map<String, String> inputs) {
+
+        ArrayList<Student> students = new ArrayList<>();
+        for (String value : inputs.values()) {
+            students.add(this.studentDao.getStudent(value));
+        }
+        return students;
+    }
+
     public void editStudnetFromMap(Map<String, String> attrs, String login) throws InvalidUserDataException {
         Student student = this.getStudent(login);
 

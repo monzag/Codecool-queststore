@@ -40,15 +40,24 @@
     <table class="input-table">
         <tr>
             <th>Artifact Name:</th>
-            <th><input type="text" name="artifactName" value=""></th>
+            <th><input type="text" name="artifactName" value="" required></th>
         </tr>
         <tr>
             <th>Description:</th>
-            <th><input type="text" name="description" value=""></th>
+            <th><input type="text" name="description" value="" required></th>
         </tr>
         <tr>
             <th>Price:</th>
-            <th><input type="text" name="price" value=""></th>
+            <th><input type="text" name="price" value="" required></th>
+        </tr>
+        <tr>
+            <th>Type:</th>
+            <th>
+                <select name="type">
+                    <option value="Single">Single</option>
+                    <option value="Team">Team</option>
+                </select>
+            </th>
         </tr>
     </table>
 
