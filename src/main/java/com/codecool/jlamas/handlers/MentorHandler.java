@@ -335,7 +335,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         UserController userController = new UserController();
 
         try {
-            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, 4));
+            int loginIndex = 4;
+            userController.editPassword(inputs, this.parseStringFromURL(httpExchange, loginIndex));
 
         } catch (NotMatchingPasswordException e) {
             return this.displayEditPassword();
