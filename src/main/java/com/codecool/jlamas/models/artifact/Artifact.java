@@ -49,4 +49,8 @@ public class Artifact {
     public void setType(String type) {
         this.type = type;
     }
+
+    public boolean hasName(String name) {
+        return this.name.equals(name);
+    }
 }
