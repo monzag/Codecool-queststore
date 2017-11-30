@@ -205,8 +205,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayEditQuestForm(HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_EDIT);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(QUEST_EDIT);
 
         model.with("quest", questController.chooseQuest(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
 
