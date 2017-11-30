@@ -13,7 +13,6 @@ import org.jtwig.JtwigTemplate;
 
 import java.io.*;
 import java.net.HttpCookie;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.Callable;
@@ -25,12 +24,13 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private static final String STUDENT_FORM = "templates/mentor/addStudent.twig";
 
+    private Map<String, Callable> getCommands = new HashMap<>();
+    private Map<String, Callable> postCommands = new HashMap<>();
+
     private StudentController studentController = new StudentController();
     private QuestController questController = new QuestController();
     private ArtifactController artifactController = new ArtifactController();
-    private ArrayList<Quest> questsList;
-    private Map<String, Callable> getCommands = new HashMap<>();
-    private Map<String, Callable> postCommands = new HashMap<>();
+
     private Mentor mentor;
     private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
@@ -167,11 +167,10 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayQuests() {
-        questsList = questController.showAllQuests();
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_quests.twig");
         JtwigModel model = JtwigModel.newModel();
 
-        return template.render(model.with("questsList", questsList));
+        return template.render(model.with("questsList", questController.showAllQuests()));
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
