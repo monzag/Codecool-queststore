@@ -125,11 +125,13 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroups() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = JtwigModel.newModel();
 
         // instead of value 'student' login from cookie
-        model.with("login", "student");
+        model.with("nav_path", "classpath:/templates/admin/nav_menu.twig");
+        model.with("content_path", "classpath:/templates/admin/admin_list.twig");
+        model.with("login", admin.getLogin().getValue());
         model.with("groups", new GroupController().getAll());
 
         return template.render(model);
