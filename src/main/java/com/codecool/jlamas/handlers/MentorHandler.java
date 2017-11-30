@@ -3,6 +3,7 @@ package com.codecool.jlamas.handlers;
 import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.SessionDAO;
 import com.codecool.jlamas.database.UserDAO;
+import com.codecool.jlamas.exceptions.ArtifactNameAlreadyUsedException;
 import com.codecool.jlamas.exceptions.InvalidUserDataException;
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.quest.Quest;
@@ -20,10 +21,19 @@ import java.util.concurrent.Callable;
 public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private static final Integer STUDENT_INDEX = 4;
+    private static final Integer ARTIFACT_INDEX = 4;
     private static final Integer QUEST_INDEX = 6;
 
-    private static final String STUDENT_FORM = "templates/mentor/addStudent.twig";
-    private static final String CHANGE_PASSWORD = "templates/mentor/change_password.twig";
+    private static final String PROFILE = "templates/mentor/mentor_profile.twig";
+    private static final String CHANGE_PASSWORD = "templates/mentor/mentor_change_password.twig";
+    private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
+    private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
+    private static final String ARTIFACT_LIST = "templates/mentor/mentor_artifact_list.twig";
+    private static final String GROUP_LIST = "templates/mentor/mentor_group_list.twig";
+    private static final String QUEST_LIST = "templates/mentor/mentor_quest_list.twig";
+    private static final String QUEST_MARK = "templates/mentor/mentor_quest_mark.twig";
+    private static final String QUEST_ADD = "templates/mentor/mentor_quest_add.twig";
+    private static final String QUEST_EDIT = "templates/mentor/mentor_quest_edit.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -84,9 +94,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+", () -> {return displayQuestsToMark("", httpExchange);} );
         getCommands.put("/mentor/groups/quest/[A-Za-z0-9.]+/mark/.+", () -> {return markQuest(httpExchange);} );
         getCommands.put("/mentor/artifact/show", () -> { return displayArtifact("");} );
-        getCommands.put("/mentor/artifact/add", () -> { return displayAddArtifact();} );
+        getCommands.put("/mentor/artifact/add", () -> { return displayArtifactForm(null, null);} );
         getCommands.put("/mentor/artifact/remove/.+", () -> { return removeArtifact(httpExchange);} );
-        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayEditArtifactFormula(httpExchange);} );
+        getCommands.put("/mentor/artifact/edit/.+", () -> { return displayArtifactForm(httpExchange, null);} );
         getCommands.put("/mentor/password/edit/.+", () -> {return this.displayEditPassword("");} );
     }
 
@@ -101,7 +111,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -112,7 +122,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showGroups.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUP_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -141,44 +151,43 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         return template.render(model);
     }
 
+    public String displayArtifactForm(HttpExchange httpExchange, Map<String, String> inputs) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_FORM);
+        JtwigModel model = JtwigModel.newModel();
+
+        if (inputs == null && httpExchange != null) {
+            model.with("artifact", artifactController.get(this.parseStringFromURL(httpExchange, ARTIFACT_INDEX)));
+        }
+        else if (inputs != null) {
+            model.with("artifactName", inputs.get("artifactName"));
+            model.with("description", inputs.get("description"));
+            model.with("price", inputs.get("price"));
+        }
+
+        return template.render(model);
+    }
+
     public String displayArtifact(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showArtifact.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
         model.with("login", "student");
         model.with("message", message);
-        model.with("artifacts", artifactController.displayArtifacts());
-
-        return template.render(model);
-    }
-
-    public String displayAddArtifact() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/addArtifact.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        return template.render(model);
-    }
-
-    public String displayEditArtifactFormula(HttpExchange httpExchange) {
-        String artifactName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/editArtifact.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("artifact", artifactController.chooseArtifact(artifactName));
+        model.with("artifacts", artifactController.getAll());
 
         return template.render(model);
     }
 
     private String displayQuests() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentor_quests.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model.with("questsList", questController.showAllQuests()));
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/markQuest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_MARK);
         JtwigModel model = JtwigModel.newModel();
         String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
         // profile pic found by login
@@ -191,19 +200,17 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayAddQuest() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/add_quest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_ADD);
         JtwigModel model = JtwigModel.newModel();
 
         return template.render(model);
     }
 
     private String displayEditQuestForm(HttpExchange httpExchange) {
-        String questName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-        Quest quest = questController.chooseQuest(questName);
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/edit_quest.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_EDIT);
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("quest", quest);
+        model.with("quest", questController.chooseQuest(this.parseStringFromURL(httpExchange, STUDENT_INDEX)));
 
         return template.render(model);
     }
@@ -238,7 +245,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         String name = inputs.get("questName").toString();
         String description = inputs.get("description").toString();
         Integer reward = Integer.valueOf(inputs.get("reward").toString());
-        String oldName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        String oldName = this.parseStringFromURL(httpExchange, QUEST_INDEX);
 
         Quest quest = new Quest(name, description, reward);
 
@@ -281,35 +288,34 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     public String addArtifact(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String name = inputs.get("artifactName").toString();
-        String description = inputs.get("description").toString();
-        Integer price = Integer.valueOf(inputs.get("price").toString());
-        String type = inputs.get("type").toString();
-        artifactController.createArtifact(name, description, price, type);
-
+        ArtifactController ctrl = new  ArtifactController();
+        try {
+            ctrl.createFromMap(inputs);
+        } catch (ArtifactNameAlreadyUsedException e) {
+            return this.displayArtifactForm(null, inputs);
+        }
 
         return displayArtifact("Artifact has been added");
-    }
-
-    public String removeArtifact(HttpExchange httpExchange) {
-        String name = parseStringFromURL(httpExchange, STUDENT_INDEX);
-        artifactController.removeArtifact(name);
-
-        return displayArtifact("Artifact has been removed");
     }
 
     public String editArtifact(HttpExchange httpExchange) throws IOException {
         Map <String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
 
-        String name = inputs.get("artifactName").toString();
-        String description = inputs.get("description").toString();
-        Integer price = Integer.valueOf(inputs.get("price").toString());
-        String type = inputs.get("type").toString();
-        String oldName = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
-
-        artifactController.editArtifact(oldName, name, description, price, type);
+        ArtifactController ctrl = new ArtifactController();
+        try {
+            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, ARTIFACT_INDEX));
+        } catch (ArtifactNameAlreadyUsedException e) {
+            return this.displayArtifactForm(httpExchange, inputs);
+        }
 
         return displayArtifact("Artifact has been edited");
+    }
+
+    public String removeArtifact(HttpExchange httpExchange) {
+        String name = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
+        artifactController.remove(name);
+
+        return displayArtifact("Artifact has been removed");
     }
 
     private String markQuest(HttpExchange httpExchange) {

@@ -25,7 +25,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private static final String MENTOR_FORM = "templates/admin/admin_mentor_form.twig";
     private static final String CITY_FORM = "templates/admin/admin_city_form.twig";
     private static final String GROUP_FORM = "templates/admin/admin_group_form.twig";
-    private static final String CHANGE_PASSWORD = "templates/admin/change_password.twig";
+    private static final String CHANGE_PASSWORD = "templates/admin/admin_change_password.twig";
 
     private static final Integer OBJ_INDEX = 5;
 
