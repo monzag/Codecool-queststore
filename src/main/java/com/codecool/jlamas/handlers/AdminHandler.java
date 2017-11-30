@@ -167,7 +167,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         model.with("login", "student");
 
         if (httpExchange != null && httpExchange != null) {
-            model.with("city", new CityController().getCity(this.parseIntFromURL(httpExchange, OBJ_INDEX)));
+            model.with("city", new CityController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
             model.with("name", inputs.get("name"));
@@ -237,7 +237,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         CityController ctrl = new CityController();
         try {
-            ctrl.createCityFromMap(inputs);
+            ctrl.createFromMap(inputs);
         } catch (InvalidCityDataException e) {
             return this.displayCityForm(null, inputs, e.getMessage());
         }
@@ -250,7 +250,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         CityController ctrl = new CityController();
         try {
-            ctrl.editCityFromMap(this.parseIntFromURL(httpExchange, OBJ_INDEX), inputs);
+            ctrl.editFromMap(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
         } catch (InvalidCityDataException e) {
             return this.displayCityForm(null, inputs, e.getMessage());
         }
@@ -260,7 +260,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
     private String removeCity(HttpExchange httpExchange) throws IOException {
         CityController cityController = new CityController();
-        cityController.removeCity(this.parseIntFromURL(httpExchange, OBJ_INDEX));
+        cityController.remove(this.parseStringFromURL(httpExchange, OBJ_INDEX));
 
         return this.displayCities();
     }
