@@ -88,6 +88,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         this.getCommands.put("/admin/groups/list", () -> {return this.displayGroups();} );
         this.getCommands.put("/admin/groups/list/remove/.+", () -> {return this.removeGroup(httpExchange);} );
         this.getCommands.put("/admin/groups/list/edit/.+", () -> {return this.displayGroupForm(null, null); } );
+        this.getCommands.put("/admin/password/edit/.+", () -> {return this.displayEditPassword();} );
     }
 
     protected void addPostCommands (HttpExchange httpExchange) {
@@ -298,6 +299,13 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         return this.displayGroups();
     }
 
+    private String displayEditPassword() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/admin/admin_change_password.twig");
+        JtwigModel model = JtwigModel.newModel();
 
+        model.with("login", "student");
 
+        return template.render(model);
+    }
+    
 }
