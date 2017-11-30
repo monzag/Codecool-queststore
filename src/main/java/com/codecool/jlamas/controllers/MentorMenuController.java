@@ -46,7 +46,7 @@ public class MentorMenuController implements HttpHandler{
                     if (method.equals("GET")) {
                         if (httpExchange.getRequestURI().getPath().toString().equals("/mentor/logout")) {
                             this.logout(httpExchange);
-                            
+
                         } else {
                             response = findCommand(httpExchange, getCommands);
                             responseCode.sendOKResponse(response, httpExchange);
@@ -396,6 +396,17 @@ public class MentorMenuController implements HttpHandler{
         artifactController.editArtifact(oldName, name, description, price);
 
         return displayArtifact("Artifact has been edited");
+    }
+
+    // Remove when MentorMenuController change to MentorHandler (logout is in AbstractHandler)
+    protected void logout(HttpExchange httpExchange) throws IOException {
+        SessionDAO session = new SessionDAO();
+        CookieController cookieController = new CookieController();
+        Response responseCode = new Response();
+
+        session.removeCookieFromDb(cookieController.getCookie(httpExchange));
+        cookieController.removeCookie(httpExchange);
+        responseCode.sendRedirectResponse(httpExchange, "/");
     }
 
 }
