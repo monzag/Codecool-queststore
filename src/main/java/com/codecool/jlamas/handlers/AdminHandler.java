@@ -313,4 +313,12 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
         return displayLevels();
     }
+
+    private String editLevel(HttpExchange httpExchange) throws IOException {
+        Map<String, String> inputs = this.parseUserInputsFromHttp(httpExchange);
+        levelController = new LevelController();
+        levelController.editLevel(inputs, this.parseStringFromURL(httpExchange, OBJ_INDEX));
+
+        return displayLevels();
+    }
 }
