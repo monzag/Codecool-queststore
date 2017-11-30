@@ -26,6 +26,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
     private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
+    private static final String PROFILE = "templates/mentor/mentor_profile.twig";
+    private static final String GROUPS_LIST = "templates/mentor/mentor_group_list.twig";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -101,7 +103,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/mentorProfile.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login
@@ -112,7 +114,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/mentor/showGroups.twig");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUPS_LIST);
         JtwigModel model = JtwigModel.newModel();
 
         // profile pic found by login

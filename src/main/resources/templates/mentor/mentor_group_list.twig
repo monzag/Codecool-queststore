@@ -51,12 +51,12 @@
       </tr>
 	{% for student in students %}
 		<tr>
-			<td> 1. </td>
-			<td>{{ student.getName() }}</td>
-			<td>{{ student.getSurname() }}</td>
-			<td><a class="btn" id="edit-btn" href="/mentor/groups/edit/{{ student.getLogin.getValue() }}">Edit</td>
-        		<td><a class="btn" id="remove-btn" href="/mentor/groups/remove/{{ student.getLogin.getValue() }}">Remove</td>
-			<td><a class="btn" id="remove-btn" href="/mentor/groups/quest/{{ student.getLogin.getValue() }}">Quest</td>
+          <td> 1. </td>
+          <td>{{ student.getName() }}</td>
+          <td>{{ student.getSurname() }}</td>
+          <td><a class="btn" id="edit-btn" href="/mentor/groups/edit/{{ student.getLogin.getValue() }}">Edit</a></td>
+          <td><a class="btn" id="remove-btn" href="/mentor/groups/remove/{{ student.getLogin.getValue() }}">Remove</a></td>
+          <td><a class="btn" id="remove-btn" href="/mentor/groups/quest/{{ student.getLogin.getValue() }}">Quest</a></td>
 		</tr>
 	{% endfor %}
         
