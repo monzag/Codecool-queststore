@@ -122,11 +122,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", mentor.getLogin().getValue());
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(PROFILE);
         model.with("mentor", mentor);
 
         return template.render(model);
