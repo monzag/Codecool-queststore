@@ -21,7 +21,6 @@ public class UserController {
         if (password.getValue().equals(oldPassword)) {
             String newPassword = inputs.get("new_password");
             userDAO.changePassword(new Password(newPassword), login);
-
         } else {
             throw new NotMatchingPasswordException();
         }
