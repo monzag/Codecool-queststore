@@ -37,14 +37,9 @@
 </section>
 
 <form id="2" class="add" method="POST">
-    {% if team != null %}
-    <h3>Edit team {{team.getName }}</h3>
-    {% else %}
-    <h3>Add new team</h3>
-    {% endif %}
-    {% if msg.length > 0 %}
+    {% if message.length > 0 %}
     <div class="fail">
-        <h5>{{ msg }}!</h5>
+        <h5>{{ message }}!</h5>
     </div>
     {% endif %}
     <table class="input-table">
