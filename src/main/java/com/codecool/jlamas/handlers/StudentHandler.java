@@ -143,25 +143,6 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         return displayBoughtArtifact(message);
     }
 
-    private String displayNewTeamPurchaseForm(HttpExchange httpExchange) {
-
-        String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
-
-        return chooseStudentsForPurchase(null, artifactDAO.selectArtifact(artifactName));
-    }
-
-    private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
-
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/chooseStudentsForPurchase.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("errmsg", errmsg);
-        model.with("artifact", artifact);
-        model.with("students", new StudentDAO().requestAll());
-
-        return template.render(model);
-    }
-
     private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
 
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
