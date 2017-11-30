@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>questore</title>
+    <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
+</head>
+
+<body>
+
+<header class="primary-header">
+    <img src="/static/assets/pics/web/logo.jpg">
+    <nav class="primary-nav">
+        <ul>
+            <li><a href="https://codecool.pl/" target="_blank">about</a></li>
+            <li><a href="">contact</a></li>
+            <li><a class="logout-btn" href="">logout</a></li>
+        </ul>
+    </nav>
+</header>
+
+<section class="menu-bar">
+    <div class="frame">
+        <img src="/static/assets/pics/profiles/admin.jpg">
+        <nav>
+            <ul class="menu-nav">
+                <li><a href="/admin">profile</a></li>
+                <li><a href="/admin/mentors/list">mentors</a></li>
+                <li><a href="/admin/mentors/add">add mentor</a></li>
+                <li><a href="/admin/groups/list">groups</a></li>
+                <li><a href="/admin/groups/add">add group</a></li>
+                <li><a href="/admin/cities/list">cities</a></li>
+                <li><a href="/admin/cities/add">add city</a></li>
+            </ul>
+        </nav>
+    </div>
+
+    <footer>
+        <small>&copy; pyLamas</small>
+    </footer>
+</section>
+
+<form method="POST" class="add">
+    <!-- <h3>Add new mentor</h3> -->
+    <h3>Add new level</h3>
+
+    <table class="input-table">
+        <tr>
+            <th>Level Name:</th>
+            <th><input type="text" name="name" value="" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}" title="Type only letters Min. three chars!" required></th>
+        </tr>
+        <tr>
+            <th>Score:</th>
+            <th><input type="text" name="score" value="" pattern="[0-9]{2,}" title="Min. two numbers!" required></th>
+        </tr>
+    </table>
+
+    <button class="submit" type="submit">submit</button>
+</form>
+
+</body>
+</html>
