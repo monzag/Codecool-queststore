@@ -74,7 +74,7 @@ public class UserDAO {
     }
 
     public Password getPassword(String userLogin) {
-        String query = "SELECT * FROM login WHERE login = '" + userLogin + "';";
+        String query = "SELECT * FROM `login` WHERE login = '" + userLogin + "';";
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
@@ -91,12 +91,12 @@ public class UserDAO {
         return null;
     }
 
-    public void changePassword(Password newPassword, String login) {
+    public boolean changePassword(Password newPassword, String login) {
         String query = "";
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
-
-            query = String.format("UPDATE `login` SET password = '%s' WHERE login = %s;",
+            query = String.format("UPDATE `login` SET login = '%s', password = '%s' WHERE login = '%s'; ",
+                    login,
                     newPassword.getValue(),
                     login);
 
@@ -104,6 +104,8 @@ public class UserDAO {
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
+            return false;
         }
+        return true;
     }
 }
