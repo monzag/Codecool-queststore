@@ -370,7 +370,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private String markQuest(HttpExchange httpExchange) {
         String login = parseStringFromURL(httpExchange, OBJ_INDEX);
-        String questName = this.parseStringFromURL(httpExchange, OBJ_INDEX);
+        String questName = this.parseStringFromURL(httpExchange, 6);
 
         questController.markQuestAsDone(studentController.get(login), questController.get(questName));
 
