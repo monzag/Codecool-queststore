@@ -23,7 +23,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private static final Integer OBJ_INDEX = 4;
 
-    private static final String MAIN = "classpath:/templates/main.twig";
+    private static final String MAIN = "templates/main.twig";
     private static final String NAV_MENU = "classpath:/templates/mentor/nav_menu.twig";
     private static final String PROFILE = "classpath:/templates/mentor/mentor_profile.twig";
     private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
