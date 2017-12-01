@@ -47,7 +47,8 @@ public class MentorController implements Controller<Mentor> {
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
         SendMail sendMail = new SendMail();
-        sendMail.sendMail(email.getValue(), password.getValue());
+        String message = login.getValue() + " " + password.getValue();
+        sendMail.sendMail(email.getValue(), message);
         Group group = this.groupController.get(attrs.get("class"));
 
         Mentor mentor = new Mentor(login, password, email, name, surname, group);
