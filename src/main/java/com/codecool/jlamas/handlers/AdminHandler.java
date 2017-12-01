@@ -21,7 +21,7 @@ import java.util.concurrent.Callable;
 
 public class AdminHandler extends AbstractHandler implements HttpHandler {
 
-    private static final String MAIN = "classpath:/templates/main.twig";
+    private static final String MAIN = "templates/main.twig";
     private static final String NAV_MENU = "classpath:/templates/admin/nav_menu.twig";
     private static final String PROFILE = "classpath:/templates/admin/admin.twig";
     private static final String LIST = "classpath:/templates/admin/admin_list.twig";
@@ -31,6 +31,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private static final String LEVEL_ADD = "classpath:/templates/admin/admin_level_add.twig";
     private static final String LEVEL_EDIT = "classpath:/templates/admin/admin_level_edit.twig";
     private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
+    private static final String LOGOUT = "/admin/logout";
 
     private static final Integer OBJ_INDEX = 5;
 
@@ -55,7 +56,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
                 if (admin != null) {
                     if (method.equals("GET")) {
-                        if (httpExchange.getRequestURI().getPath().toString().equals("/admin/logout")) {
+                        if (httpExchange.getRequestURI().getPath().toString().equals(LOGOUT)) {
                             this.logout(httpExchange);
 
                         } else {
@@ -114,6 +115,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         model.with("nav_path", NAV_MENU);
+        model.with("logout_path", LOGOUT);
         model.with("content_path", content_path);
         model.with("login", admin.getLogin().getValue());
 
