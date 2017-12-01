@@ -5,11 +5,7 @@ import java.util.ArrayList;
 
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.models.accountdata.Login;
-import com.codecool.jlamas.models.accountdata.Mail;
-import com.codecool.jlamas.models.accountdata.Password;
-import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.accountdata.*;
 
 public class StudentDAO {
 
@@ -163,6 +159,26 @@ public class StudentDAO {
             System.out.println(e.getMessage());
         }
         return student;
+    }
+
+    public ArrayList<Student> getStudentsFromTeam(Team team) {
+
+        ArrayList<Student> students = new ArrayList<>();
+        String query = String.format("SELECT * FROM student WHERE team = %s", team.getId());
+
+        try (Connection c = ConnectDB.connect();
+            Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                students.add(getStudentFromResultSet(rs));
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return students;
     }
 
     public Student getStudentFromResultSet(ResultSet rs) throws SQLException{
