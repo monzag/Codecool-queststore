@@ -18,6 +18,15 @@ import java.util.concurrent.Callable;
 
 public class StudentHandler extends AbstractHandler implements HttpHandler {
 
+    private static final String MAIN = "classpath:/templates/main.twig";
+    private static final String NAV_MENU = "classpath:/templates/student/nav_menu.twig";
+    private static final String PROFILE = "classpath:/templates/student/student.twig";
+    private static final String WALLET = "classpath:/templates/student/wallet.twig";
+    private static final String STORE = "classpath:/templates/student/store.twig";
+    private static final String CHOOSE_STUDENT = "classpath:/templates/student/chooseStudentsForPurchase.twig";
+    private static final String TEAM = "classpath:/templates/student/teamPurchase.twig";
+    private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
+
     private static final Integer ARTIFACT_INDEX = 4;
 
     private WalletController walletController;
@@ -82,12 +91,19 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/student/password/edit/.+", () -> { return editPassword(httpExchange); });
     }
 
-    protected String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
+    protected JtwigModel getContent(String content_path) {
         JtwigModel model = JtwigModel.newModel();
 
-        // profile pic found by login
+        model.with("nav_path", NAV_MENU);
+        model.with("content_path", content_path);
         model.with("login", student.getLogin().getValue());
+
+        return model;
+    }
+
+    protected String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(PROFILE);
         model.with("student", student);
 
         return template.render(model);
@@ -95,9 +111,8 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String displayWallet() {
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/wallet.twig");
-        JtwigModel model = JtwigModel.newModel();
-
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(WALLET);
         model.with("student", student);
         model.with("artifacts", new OwnedArtifactDAO().requestAllBy(student));
 
@@ -105,9 +120,8 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayStore() {
-
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(STORE);
 
         model.with("message", null);
         model.with("student", student);
@@ -118,8 +132,8 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String displayBoughtArtifact(String message) {
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/store.twig");
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(STORE);
 
         model.with("message", message);
         model.with("student", student);
@@ -151,8 +165,8 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/chooseStudentsForPurchase.twig");
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(CHOOSE_STUDENT);
 
         model.with("errmsg", errmsg);
         model.with("artifact", artifact);
@@ -196,8 +210,8 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private String displayTeamPurchase(String message) {
 
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/teamPurchase.twig");
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(TEAM);
 
         model.with("message", message);
         model.with("student", student);
@@ -206,10 +220,9 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/change_password.twig");
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(CHANGE_PASSWORD);
 
-        model.with("login", "student");
         model.with("msg", message);
 
         return template.render(model);
