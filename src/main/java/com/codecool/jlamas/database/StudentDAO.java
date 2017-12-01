@@ -86,10 +86,10 @@ public class StudentDAO {
                     student.getLogin().getValue(),
                     student.getPassword().getValue());
 
-            query += String.format("INSERT INTO `student` VALUES('%s', %d, '%s', '%s'); ",
+            query += String.format("INSERT INTO `student` VALUES('%s', %d, '%d', '%d'); ",
                     student.getLogin().getValue(),
                     student.getGroup().getID(),
-                    student.getTeam().getName(),
+                    student.getTeam().getId(),
                     student.getWallet().getBalance());
 
             stmt.executeUpdate(query);
