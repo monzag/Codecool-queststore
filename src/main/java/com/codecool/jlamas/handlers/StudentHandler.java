@@ -4,6 +4,7 @@ import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
+import com.codecool.jlamas.models.level.Level;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -21,6 +22,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     private static final Integer ARTIFACT_INDEX = 4;
 
     private WalletController walletController;
+    private LevelDAO levelDAO;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
     private Student student;
@@ -85,10 +87,16 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/student.twig");
         JtwigModel model = JtwigModel.newModel();
+        walletController = new WalletController(student);
+        levelDAO = new LevelDAO();
+        Integer totalEarnings = walletController.getDoneQuestsValue();
+        Level level = levelDAO.getStudentLevel(totalEarnings);
+
 
         // profile pic found by login
         model.with("login", student.getLogin().getValue());
         model.with("student", student);
+        model.with("level", level);
 
         return template.render(model);
     }
