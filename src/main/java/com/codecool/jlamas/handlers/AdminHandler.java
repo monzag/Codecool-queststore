@@ -319,8 +319,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayAddLevel() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LEVEL_ADD);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(LEVEL_ADD);
 
         return template.render(model);
     }
@@ -328,8 +328,9 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private String displayEditLevel(HttpExchange httpExchange) {
         String levelName = this.parseStringFromURL(httpExchange, 4);
         levelController = new LevelController();
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LEVEL_EDIT);
-        JtwigModel model = JtwigModel.newModel();
+
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(LEVEL_EDIT);
         Level level = levelController.chooseLevel(levelName);
         model.with("level", level);
 
