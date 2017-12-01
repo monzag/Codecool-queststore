@@ -96,4 +96,22 @@ public class LevelDAO {
 
         return level;
     }
+
+    public Level getStudentLevel(Integer totalEarnings) {
+        String sql = String.format("SELECT * FROM `level` WHERE score >= '%s' LIMIT 1; ",
+                totalEarnings);
+        Level level = null;
+
+        try (Connection c = ConnectDB.connect();
+             Statement stmt = c.createStatement();
+             ResultSet rs = stmt.executeQuery(sql)) {
+
+            level = new Level(rs.getString("name"), rs.getInt("score"));
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+        return level;
+    }
 }
