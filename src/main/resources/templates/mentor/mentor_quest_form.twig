@@ -1,0 +1,48 @@
+<form method="POST" class="add">
+    {% if quest != null %}
+        <h3>Edit quest {{ quest.getName }}</h3>
+    {% else %}
+        <h3>Add new quest</h3>
+    {% endif %}
+
+    {% if questName.length > 0 %}
+        <div class="fail">
+            <h5>Quest with this name already exist!</h5>
+        </div>
+    {% endif %}
+
+    <table class="input-table">
+        <tr>
+            <th>Quest Name:</th>
+            <th>
+                <input type="text" name="questName"
+                       title="Name should be between 3 and 17 letters long"
+                       value="{{ quest.getName }}{{ questName }}"
+                       pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,17}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Description:</th>
+            <th>
+                <input type="text" name="description"
+                       title="Description should be at last 3 letters long"
+                       value="{{ quest.getDescription }}{{ description }}"
+                       pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]{3,150}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Reward:</th>
+            <th>
+                <input type="text" name="reward"
+                       value="{{ quest.getReward }}{{ reward }}"
+                       title="Only numbers, and don't be to harsh 1000000 is to much"
+                       pattern="[1-9][0-9]{1,5}"
+                       required="required">
+            </th>
+        </tr>
+    </table>
+
+    <button class="submit" type="submit">submit</button>
+</form>

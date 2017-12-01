@@ -39,14 +39,7 @@ public class Quest {
         this.reward = reward;
     }
 
-    public String toString() {
-        String asString;
-
-        asString = this.name + "  |  " + this.description + "  |  " + this.reward;
-
-        asString += "\n================================\n";
-
-        return asString;
+    public boolean hasName(String name) {
+        return this.name.equals(name);
     }
-
 }

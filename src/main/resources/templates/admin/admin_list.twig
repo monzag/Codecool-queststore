@@ -1,0 +1,81 @@
+<section class="users-table">
+
+    {% if groups is defined %}
+        <h3>Groups</h3>
+        <table class="mentors-table" style="width:100%">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+            </tr>
+            {%  for group in groups %}
+                <tr>
+                    <td>1.</td>
+                    <td>{{ group.getName }}</td>
+                    <td><a class="btn" id="edit-btn" href="/admin/groups/list/edit/{{ group.getID }}">Edit</a></td>
+                    <td><a class="btn" id="edit-btn" href="/admin/groups/list/remove/{{ group.getID }}">Remove</a></td>
+                </tr>
+            {%  endfor %}
+        </table>
+    {%  endif %}
+
+    {% if cities is defined %}
+        <h3>Cities</h3>
+        <table class="mentors-table" style="width:100%">
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Short name</th>
+            </tr>
+            {%  for city in cities %}
+                <tr>
+                    <td>{{ city.getID }}.</td>
+                    <td>{{ city.getName }}</td>
+                    <td>{{ city.getShortName }}</td>
+                    <td><a class="btn" id="edit-btn" href="/admin/cities/list/edit/{{ city.getID }}{{ mentor.getLogin.getValue }}">Edit</a></td>
+                    <td><a class="btn" id="edit-btn" href="/admin/cities/list/remove/{{  city.getID }}{{ mentor.getLogin.getValue }}">Remove</a></td>
+                </tr>
+            {%  endfor %}
+        </table>
+    {% endif %}
+
+    {% if mentors is defined %}
+    <h3>Mentors</h3>    <table class="mentors-table" style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Surname</th>
+            <th>Class</th>
+            <th>E-mail</th>
+        </tr>
+        {%  for mentor in mentors %}
+            <tr>
+                <td>1.</td>
+                <td>{{ mentor.getName }}</td>
+                <td>{{ mentor.getSurname }}</td>
+                <td>{{ mentor.getGroup.getName }}</td>
+                <td>{{ mentor.getEmail.getValue }}</td>
+                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/edit/{{ mentor.getLogin.getValue }}">Edit</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/mentors/list/remove/{{ mentor.getLogin.getValue }}">Remove</a></td>
+            </tr>
+        {%  endfor %}
+    </table>
+    {% endif %}
+    {% if levels is defined %}
+    <h3>Levels</h3>    <table class="mentors-table" style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Score</th>
+        </tr>
+        {%  for level in levels %}
+            <tr>
+                <td>1.</td>
+                <td>{{ level.getName }}</td>
+                <td>{{ level.getScore }}</td>
+                <td><a class="btn" id="edit-btn" href="/admin/levels/edit/{{ level.getName() }}">Edit</a></td>
+                <td><a class="btn" id="edit-btn" href="/admin/levels/remove/{{ level.getName() }}">Remove</a></td>
+            </tr>
+        {%  endfor %}
+        {% endif %}
+    </table>
+</section>

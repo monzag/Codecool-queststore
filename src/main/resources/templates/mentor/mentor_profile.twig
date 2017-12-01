@@ -1,0 +1,28 @@
+<section class="profile">
+      <table>
+          <tr>
+              <th></th>
+              <th>MENTOR</th>
+          </tr>
+          <tr>
+              <td>NAME</td>
+              <td>{{ mentor.getName() }}</td>
+          </tr>
+           <tr>
+              <td>SURNAME</td>
+              <td>{{ mentor.getSurname() }}</td>
+          </tr>
+           <tr>
+              <td>E-MAIL</td>
+              <td>{{ mentor.getEmail().getValue() }}</td>
+          </tr>
+          <tr>
+              <td>GROUP</td>
+              <td>{{ mentor.getGroup().getName() }}</td>
+          </tr>
+      </table>
+      <div class=change-password>
+         <a class="btn" id="password" href="/mentor/password/edit/{{mentor.getLogin().getValue()}}">Change password</a>
+      </div>
+</section>
+

@@ -1,0 +1,17 @@
+<form method="POST" class="add">
+    <!-- <h3>Add new mentor</h3> -->
+    <h3>Add new level</h3>
+
+    <table class="input-table">
+        <tr>
+            <th>Level Name:</th>
+            <th><input type="text" name="name" value="" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}" title="Type only letters Min. three chars!" required></th>
+        </tr>
+        <tr>
+            <th>Score:</th>
+            <th><input type="text" name="score" value="" pattern="[0-9]{2,}" title="Min. two numbers!" required></th>
+        </tr>
+    </table>
+
+    <button class="submit" type="submit">submit</button>
+</form>

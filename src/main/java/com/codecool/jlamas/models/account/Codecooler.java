@@ -59,13 +59,16 @@ public class Codecooler {
         this.surname = surname;
     }
 
-    public String toString() {
-        String asString;
+    public boolean hasEmail(String checked) {
+        return this.email.getValue().equals(checked);
+    }
+    public void correctNames() {
+        this.name = this.capitalize(this.name);
+        this.surname = this.capitalize(this.surname);
+    }
 
-        asString = "\n" + this.name + " " + this.surname;
-        asString += "\n================================\n";
-
-        return asString;
+    private static String capitalize(String name) {
+        return name.substring(0,1).toUpperCase() + name.substring(1).toLowerCase();
     }
 
 

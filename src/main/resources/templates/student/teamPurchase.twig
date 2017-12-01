@@ -1,0 +1,30 @@
+<section class="users-table">
+    <h3>Team purchase requests</h3>
+    <h5>Your balance: {{ student.getWallet().getBalance() }}</h5>
+    {% if message.length > 0 %}
+    <div class="fail">
+        <h5>{{ message }}!</h5>
+    </div>
+    {% endif %}
+    <table style="width:100%">
+        <tr>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+            <th>Status</th>
+        </tr>
+        {% for purchase in student.getWallet().getPendingPurchases() %}
+        <tr>
+            <td>{{ purchase.getArtifact().getName() }}</td>
+            <td>{{ purchase.getStudent().getName() }}</td>
+            <td>{{ purchase.getPrice() }}</td>
+            <td>{{ purchase.isMarked() }}</td>
+            {% if student.getLogin().getValue().equals(purchase.getStudent().getLogin().getValue()) %}
+            <td><a method="POST" class="btn" id="edit-btn" href="/student/team_purchases/accept/{{ purchase.getId() }}">Accept</a></td>
+            <td><a method="POST" class="btn" id="remove-btn" href="/student/team_purchases/cancel/{{ purchase.getId() }}">Cancel</a></td>
+            {% endif %}
+        </tr>
+        {% endfor %}
+    </table>
+
+</section>

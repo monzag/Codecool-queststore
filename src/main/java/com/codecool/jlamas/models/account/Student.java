@@ -1,45 +1,31 @@
 package com.codecool.jlamas.models.account;
 
-import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.models.accountdata.Login;
-import com.codecool.jlamas.models.accountdata.Mail;
-import com.codecool.jlamas.models.accountdata.Password;
-import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.accountdata.*;
 
 
 public class Student extends Codecooler {
 
     private Group group;
-    private Integer teamId;
+    private Team team;
     private Wallet wallet;
 
     public Student(){
 
     }
 
-    public Student(Login login, Password password, Mail email, String name, String surname, Group group, Wallet wallet) {
+    public Student(Login login, Password password, Mail email, String name, String surname, Group group, Team team, Wallet wallet) {
 
         super(login, password, email, name, surname);
         this.group = group;
-        this.teamId = null;
+        this.team = team;
         this.wallet = wallet;
-
-    }
-
-    public Student(Login login, Password password, Mail email, String name, String surname, Group group, Integer teamId, Wallet wallet) {
-
-        super(login, password, email, name, surname);
-        this.group = group;
-        this.teamId = teamId;
-        this.wallet = wallet;
-
     }
 
     public Group getGroup() {
         return this.group;
     }
-    public Integer getTeamId() {
-        return this.teamId;
+    public Team getTeam() {
+        return this.team;
     }
 
     public Wallet getWallet() {
@@ -49,8 +35,8 @@ public class Student extends Codecooler {
     public void setGroup(Group group) {
         this.group = group;
     }
-    public void setTeamId(Integer teamId) {
-        this.teamId = teamId;
+    public void setTeam(Team team) {
+        this.team = team;
     }
 
     public void setWallet(Wallet wallet) {

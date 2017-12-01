@@ -1,0 +1,35 @@
+<section class="profile">
+    <table>
+        <tr>
+            <th></th>
+            <th>STUDENT</th>
+        </tr>
+        <tr>
+            <td>NAME</td>
+            <td>{{ student.getName() }}</td>
+        </tr>
+        <tr>
+            <td>SURNAME</td>
+            <td>{{ student.getSurname() }}</td>
+        </tr>
+        <tr>
+            <td>LEVEL</td>
+            <td>{{ level.getName }}</td>
+        </tr>
+        <tr>
+            <td>E-MAIL</td>
+            <td>{{ student.getEmail().getValue() }}</td>
+        </tr>
+        <tr>
+            <td>GROUP</td>
+            <td>{{ student.getGroup().getName() }}</td>
+        </tr>
+        <tr>
+            <td>TEAM</td>
+            <td>{{ student.getTeam().getName() }}</td>
+        </tr>
+    </table>
+    <div class=change-password>
+        <a class="btn" id="password" href="/student/password/edit/{{student.getLogin().getValue()}}">Change password</a>
+    </div>
+</section>

@@ -3,77 +3,89 @@ package com.codecool.jlamas.controllers;
 import com.codecool.jlamas.database.ArtifactDAO;
 import com.codecool.jlamas.database.OwnedArtifactDAO;
 import com.codecool.jlamas.database.StudentDAO;
-import com.codecool.jlamas.models.account.Student;
+import com.codecool.jlamas.exceptions.ArtifactNameAlreadyUsedException;
 import com.codecool.jlamas.models.artifact.Artifact;
-import com.codecool.jlamas.views.ArtifactView;
 
 import java.util.ArrayList;
+import java.util.Map;
 
-public class ArtifactController {
+public class ArtifactController implements Controller<Artifact> {
 
-    private static final String EDIT_NAME = "1";
-    private static final String EDIT_PRICE = "2";
-    private static final String EDIT_DESCRIPTION = "3";
-
-    private ArtifactDAO artifacts = new ArtifactDAO();
-    private ArtifactView artifactView = new ArtifactView();
-    private OwnedArtifactDAO ownedArtifactDAO = new OwnedArtifactDAO();
-    private StudentDAO studentDAO = new StudentDAO();
+    private ArtifactDAO artifactDao;
+    private OwnedArtifactDAO ownedArtifactDAO;
+    private StudentDAO studentDAO;
 
     public ArtifactController() {
+        this.artifactDao = new ArtifactDAO();
+        this.ownedArtifactDAO = new OwnedArtifactDAO();
+        this.studentDAO = new StudentDAO();
     }
 
-    public void displayArtifacts() {
-        artifactView.printArtifacts(artifacts.requestAll());
+    public Artifact get(String name) {
+        return this.artifactDao.selectArtifact(name);
     }
 
-    public void createArtifact() {
-        String name = artifactView.getString("Type artifact name");
-        Integer price = artifactView.getInt("Type price value");
-        String description = artifactView.getString("Type artifact description");
-        Artifact artifact = new Artifact(name, price, description);
-
-        this.artifacts.insert(artifact);
+    public ArrayList<Artifact> getAll() {
+        return artifactDao.requestAll();
     }
 
-    public void editArtifact() {
-        try {
-            Artifact artifact = chooseArtifact(artifacts.requestAll());
-            String oldName = artifact.getName();
-            artifactView.displayAttribute();
-            String option = artifactView.getString("Your choice: ");
+    public void remove(String name) {
+        artifactDao.deleteArtifact(artifactDao.selectArtifact(name));
+    }
 
-            switch (option) {
-                case EDIT_NAME:
-                    String name = artifactView.getString("New name: ");
-                    artifact.setName(name);
-                    break;
-                case EDIT_PRICE:
-                    Integer price = artifactView.getInt("New price: ");
-                    artifact.setPrice(price);
-                    break;
-                case EDIT_DESCRIPTION:
-                    String description = artifactView.getString("New description: ");
-                    artifact.setDescription(description);
-                    break;
-                default:
-                    artifactView.printErrorMessage();
-                    break;
+    public void createFromMap(Map<String, String> inputs) throws ArtifactNameAlreadyUsedException {
+        String name = inputs.get("artifactName");
+        if (!this.isArtifactNameUnique(name)) {
+            throw new ArtifactNameAlreadyUsedException();
+        }
+        String description = inputs.get("description");
+        Integer price = Integer.valueOf(inputs.get("price"));
+        String type = inputs.get("type");
+
+        this.artifactDao.insert(new Artifact(name, price, description, type));
+    }
+
+    public void editFromMap(Map<String, String> inputs, String name) throws ArtifactNameAlreadyUsedException {
+        Artifact artifact = this.get(name);
+
+        String newName = inputs.get("artifactName");
+        if (!artifact.hasName(newName)) {
+            if (!this.isArtifactNameUnique(newName)) {
+                throw new ArtifactNameAlreadyUsedException();
             }
-            artifacts.update(artifact, oldName);
-        } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
         }
+        artifact.setName(newName);
+        artifact.setDescription(inputs.get("description"));
+        artifact.setPrice(Integer.valueOf(inputs.get("price")));
+        artifact.setType(inputs.get("type"));
+
+        this.artifactDao.update(artifact, name);
     }
 
-    public Artifact chooseArtifact(ArrayList<Artifact> artifacts) throws IndexOutOfBoundsException {
-        artifactView.printArtifacts(artifacts);
-        Integer record = artifactView.getMenuOption();
-        Integer index = record - 1;
-        if (index >= artifacts.size()) {
-            throw new IndexOutOfBoundsException();
+    public boolean isArtifactNameUnique(String name) {
+        for (Artifact artifact : this.getAll()) {
+            if (artifact.getName().equals(name)) {
+                return false;
+            }
         }
-        return artifacts.get(index);
+        return true;
+    }
+
+    @Deprecated
+    public void createArtifact(String name, String description, Integer price, String type) {
+        Artifact artifact = new Artifact(name, price, description, type);
+        this.artifactDao.insert(artifact);
+    }
+
+    @Deprecated
+    public void editArtifact(String oldName, String name, String description, Integer price, String type) {
+        Artifact artifact = new Artifact(name, price, description, type);
+        artifactDao.update(artifact, oldName);
+    }
+
+    @Deprecated
+    public Artifact chooseArtifact(String artifactName) {
+        return artifactDao.selectArtifact(artifactName);
     }
 
 //    public boolean useArtifact() throws IndexOutOfBoundsException {

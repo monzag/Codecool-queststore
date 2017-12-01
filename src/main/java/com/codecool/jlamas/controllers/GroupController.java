@@ -1,79 +1,97 @@
 package com.codecool.jlamas.controllers;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Map;
 
+import com.codecool.jlamas.database.CityDAO;
 import com.codecool.jlamas.database.GroupDAO;
+import com.codecool.jlamas.exceptions.InvalidGroupDataException;
 import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.views.GroupTeamView;
 
-public class GroupController {
 
-    private GroupTeamView groupView;
+public class GroupController implements Controller<Group> {
+
+    // decide on maximum amount of groups on one year
+    private static final int MAX_GROUPS = 4;
+    // decide which years beside current will be displayed
+    private static final int PAST_YEARS = 1;
+    private static final int NEXT_YEARS = 4;
+
     private GroupDAO groupDAO;
+    private CityDAO cityDAO;
 
     public GroupController() {
-        this.groupView = new GroupTeamView();
         this.groupDAO = new GroupDAO();
+        this.cityDAO = new CityDAO();
     }
 
-    public Group getGroup(String groupTag) {
-        return this.groupDAO.getGroup(groupTag);
+    public Group get(String id) {
+        return this.groupDAO.getGroup(Integer.valueOf(id));
     }
 
-    public ArrayList<Group> getAllGroups() {
-        return groupDAO.selectAll();
+    public ArrayList<Group> getAll() {
+        return groupDAO.getAll();
     }
 
-    public void createGroup() {
-        String name = groupView.getString("\nType name of new group: ");
-        Group group = new Group(name);
-        groupDAO.insertGroup(group);
+    public void remove(String id) {
+        this.groupDAO.delete(this.get(id));
     }
 
-    public void createGroupFromMap(Map<String, String> attrs) {
-        // TODO data validation --> groupView.getString("\nType name of new group: ")
-        Group group = new Group(attrs.get("name"));
-        groupDAO.insertGroup(group);
+    public void createFromMap(Map<String, String> attrs) throws InvalidGroupDataException {
+        Group group = new Group();
+        group.setCity(this.cityDAO.get(attrs.get("city")));
+        group.setYear(Integer.valueOf(attrs.get("year")));
+        group.setNumber(Integer.valueOf(attrs.get("number")));
+
+        if (this.isGroupUnique(group)) {
+            groupDAO.insert(group);
+        }
+        else {
+            throw new InvalidGroupDataException();
+        }
     }
 
-    public void editGroupFromMap(Map<String, String> attrs, String groupTag) {
-        // TODO data validation --> groupView.getString("\nType name of new group: ")
-        // TODO GroupDAO update method is different to any other similar
-        Group group = this.groupDAO.getGroup(groupTag);
-        groupDAO.update(group, attrs.get("name"));
+    public void editFromMap(Map<String, String> attrs, String id) throws InvalidGroupDataException {
+        Group group = this.groupDAO.getGroup(Integer.valueOf(id));
+        group.setCity(this.cityDAO.get(attrs.get("city")));
+        group.setYear(Integer.valueOf(attrs.get("year")));
+        group.setNumber(Integer.valueOf(attrs.get("number")));
+
+        if (this.isGroupUnique(group)) {
+            groupDAO.update(group);
+        }
+        else {
+            throw new InvalidGroupDataException();
+        }
     }
 
-    public void removeGroup(String groupTag) {
-        this.groupDAO.delete(this.groupDAO.getGroup(groupTag));
+    public boolean isGroupUnique(Group newGroup) {
+        for (Group group : this.getAll()) {
+            if (group.equals(newGroup)) {
+                return false;
+            }
+        }
+        return true;
     }
 
-    public void displayGroups() {
-        ArrayList<Group> groups = getAllGroups();
-        groupView.printAll(groups);
+    public ArrayList<Integer> getYears() {
+        ArrayList<Integer> years = new ArrayList<Integer>();
+
+        Integer year = Calendar.getInstance().get(Calendar.YEAR);
+        for (int i = year-PAST_YEARS; i < year+NEXT_YEARS; i++) {
+            years.add(i);
+        }
+        return years;
     }
 
-    public Group chooseGroup() {
-        displayGroups();
-        Integer record = groupView.getInt("Choose group: ");
-        Integer index = record - 1;
-        if (index >= getAllGroups().size()) {
-            throw new IndexOutOfBoundsException();
+    public ArrayList<Integer> getAvailableGroupNumbers() {
+        ArrayList<Integer> groupNumbers = new ArrayList<Integer>();
+
+        for (int i = 1; i < MAX_GROUPS+1 ; i++) {
+            groupNumbers.add(i);
         }
 
-        return getAllGroups().get(index);
-    }
-
-    public void editGroup() {
-        try {
-            Group group = chooseGroup();
-            String oldName = group.getName();
-            String name = groupView.getString("New name of group: ");
-            group.setName(name);
-            groupDAO.update(group, oldName);
-
-        } catch (IndexOutOfBoundsException e) {
-            e.getMessage();
-        }
+        return groupNumbers;
     }
 }

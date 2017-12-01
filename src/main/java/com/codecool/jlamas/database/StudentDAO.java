@@ -5,11 +5,7 @@ import java.util.ArrayList;
 
 import com.codecool.jlamas.models.account.Mentor;
 import com.codecool.jlamas.models.account.Student;
-import com.codecool.jlamas.models.accountdata.Group;
-import com.codecool.jlamas.models.accountdata.Login;
-import com.codecool.jlamas.models.accountdata.Mail;
-import com.codecool.jlamas.models.accountdata.Password;
-import com.codecool.jlamas.models.accountdata.Wallet;
+import com.codecool.jlamas.models.accountdata.*;
 
 public class StudentDAO {
 
@@ -20,8 +16,8 @@ public class StudentDAO {
     public ArrayList<Student> requestAll() {
         Student student = null;
         String query = String.format("%s %s %s %s %s %s %s %s"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
-                ,         "student.team_tag, student.balance"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_id,"
+                ,         "student.team, student.balance"
                 , "FROM user"
                 ,     "INNER JOIN login"
                 ,             "ON login.login = user.login"
@@ -75,9 +71,6 @@ public class StudentDAO {
 
     public boolean insert(Student student) {
 
-        final Integer UNSIGNED_TEAM = 0;
-        final Integer BALANCE = 0;
-
         String query;
 
         try (Connection c = ConnectDB.connect();
@@ -93,11 +86,12 @@ public class StudentDAO {
                     student.getLogin().getValue(),
                     student.getPassword().getValue());
 
-            query += String.format("INSERT INTO `student` VALUES('%s', '%s', '%s', '%s'); ",
+            query += String.format("INSERT INTO `student` VALUES('%s', %d, '%d', '%d'); ",
                     student.getLogin().getValue(),
-                    student.getGroup().getName(),
-                    UNSIGNED_TEAM,
-                    BALANCE);
+                    student.getGroup().getID(),
+                    student.getTeam().getId(),
+                    student.getWallet().getBalance());
+
 
             stmt.executeUpdate(query);
 
@@ -128,11 +122,11 @@ public class StudentDAO {
                     student.getPassword().getValue(),
                     student.getLogin().getValue());
 
-            query += String.format("UPDATE `student` SET login = '%s', group_tag = '%s', team_tag = '%s', " +
+            query += String.format("UPDATE `student` SET login = '%s', group_id = %d, team = '%s', " +
                                    "balance = '%s' WHERE login = '%s'; ",
                     student.getLogin().getValue(),
-                    student.getGroup().getName(),
-                    student.getTeamId(),
+                    student.getGroup().getID(),
+                    student.getTeam().getName(),
                     student.getWallet().getBalance(),
                     student.getLogin().getValue());
             stmt.executeUpdate(query);
@@ -148,8 +142,8 @@ public class StudentDAO {
         Student student = null;
 
         String query = String.format("%s %s %s %s %s %s %s WHERE user.type = 'student' AND login.login = '%s';"
-                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_tag,"
-                , "student.team_tag, student.balance"
+                , "SELECT user.login, user.email, user.name, user.surname, login.password, student.group_id,"
+                , "student.team, student.balance"
                 , "FROM user"
                 , "INNER JOIN login"
                 , "ON login.login = user.login"
@@ -168,24 +162,47 @@ public class StudentDAO {
         return student;
     }
 
+    public ArrayList<Student> getStudentsFromTeam(Team team) {
+
+        ArrayList<Student> students = new ArrayList<>();
+        String query = String.format("SELECT * FROM student WHERE team = %s", team.getId());
+
+        try (Connection c = ConnectDB.connect();
+            Statement stmt = c.createStatement()) {
+
+            ResultSet rs = stmt.executeQuery(query);
+
+            while (rs.next()) {
+                students.add(getStudentFromResultSet(rs));
+            }
+
+        } catch (ClassNotFoundException|SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return students;
+    }
+
     public Student getStudentFromResultSet(ResultSet rs) throws SQLException{
 
         Student student = new Student();
         DoneQuestDAO doneQuests = new DoneQuestDAO();
         OwnedArtifactDAO ownedArtifacts = new OwnedArtifactDAO();
+        TeamPurchaseDAO teamPurchases = new TeamPurchaseDAO();
+        GroupDAO groupDAO = new GroupDAO();
+        TeamDAO teamDAO = new TeamDAO();
 
         student.setName(rs.getString("name"));
         student.setSurname(rs.getString("surname"));
         student.setLogin(new Login(rs.getString("login")));
         student.setPassword(new Password(rs.getString("password")));
         student.setEmail(new Mail(rs.getString("email")));
-        student.setGroup(new Group(rs.getString("group_tag")));
-        student.setTeamId(rs.getInt("team_tag"));
+        student.setGroup(groupDAO.getGroup(rs.getInt("group_id")));
+        student.setTeam(teamDAO.get(rs.getInt("team")));
         student.setWallet(new Wallet(rs.getInt("balance")));
         student.getWallet().setDoneQuests(doneQuests.requestAllBy(student));
         student.getWallet().setOwnedArtifacts(ownedArtifacts.requestAllBy(student));
+        student.getWallet().setPendingPurchases(teamPurchases.requestAllBy(student));
 
         return student;
-
     }
 }

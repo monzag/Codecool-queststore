@@ -1,0 +1,54 @@
+<form id="2" class="add" method="POST">
+    {% if mentor != null %}
+        <h3>Edit mentor {{ mentor.getName }}</h3>
+    {% else %}
+        <h3>Add new mentor</h3>
+    {% endif %}
+    {% if name.length > 0 %}
+        <div class="fail">
+            <h5>This email was already used!</h5>
+        </div>
+    {% endif %}
+
+    <table class="input-table">
+        <tr>
+            <th>Name:</th>
+            <th>
+                <input type="text" name="name"
+                       value="{{ mentor.getName }}{{ name }}"
+                       title="Name should be between 3 and 17 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Surname:</th>
+            <th>
+                <input type="text" name="surname"
+                       value="{{ mentor.getSurname }}{{ surname }}"
+                       title="Name should be between 3 and 17 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Email:</th>
+            <th>
+                <input type="email" name="email"
+                       value="{{ mentor.getEmail.getValue }}"
+                       required="required">
+            </th>
+        </tr>
+        <tr>
+            <th>Class:</th>
+            <th>
+                <select name="class">
+                    {% for group in groups %}
+                        <option value="{{ group.getID }}">{{ group.getName }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+    </table>
+    <button class="submit" type="submit" form="2">submit</button>
+</form>

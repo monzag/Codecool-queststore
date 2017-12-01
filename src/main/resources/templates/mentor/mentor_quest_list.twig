@@ -1,0 +1,28 @@
+<section class="users-table">
+    <h3>Quest</h3>
+    <table style="width:100%">
+      <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Reward</th>
+      </tr>
+      <tr>
+          {% set i = 0 %}
+        {% for quest in questsList %}
+            {% set i = i + 1 %}
+            <tr>
+                <td>{{ i }}</td>
+                <td>{{ quest.getName() }}</td>
+                <td>{{ quest.getDescription() }}</td>
+                <td>{{ quest.getReward() }}</td>
+                <td><a class="btn" id="edit-btn" href="/mentor/quest/edit/{{ quest.getName() }}">Edit</a></td>
+                <td><a class="btn" id="remove-btn" href="/mentor/quest/remove/{{ quest.getName() }}">Remove</a></td>
+
+      </tr>
+        {% endfor %}
+      <tr>
+        <th class="btn" id="add-btn"><a href="/mentor/quest/add">Add new</a></th>
+      </tr>
+    </table>
+</section>

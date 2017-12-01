@@ -1,0 +1,48 @@
+<form id="2" class="add" method="POST">
+    {% if group != null %}
+        <h3>Edit group {{group.getName }}</h3>
+    {% else %}
+        <h3>Add new group</h3>
+    {% endif %}
+    {% if errmsg.length > 0 %}
+        <div class="fail">
+            <h5>{{ errmsg }}!</h5>
+        </div>
+    {% endif %}
+
+    <table class="input-table">
+        <tr>
+            <td>City:</td>
+            <td>
+                <select id="select-width" name="city">
+                    {% for city in cities %}
+                        <option value="{{ city.getName }}">{{ city.getName }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        <tr>
+            <td>Year:</td>
+            <td>
+                <select id="select-width" name="year">
+                    {% for year in years %}
+                        <option value="{{ year }}">{{ year }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+        <tr>
+            <td>Group:</td>
+            <td>
+                <select id="select-width" name="number">
+                    {% for number in numbers %}
+                        <option value="{{ number }}">{{ number }}</option>
+                    {% endfor %}
+                </select>
+            </td>
+        </tr>
+
+    </table>
+
+    <button class="submit" type="submit" form="2">submit</button>
+
+</form>

@@ -1,0 +1,65 @@
+<form id="2" class="add" method="POST">
+      {% if student != null %}
+        <h3>Edit student {{ student.getName }}</h3>
+      {% else %}
+        <h3>Add new student</h3>
+      {% endif %}
+      {% if name.length > 0 %}
+        <div class="fail">
+          <h5>This email was already used!</h5>
+        </div>
+      {% endif %}
+
+    <table class="input-table">
+      <tr>
+        <th>Name:</th>
+        <th>
+          <input type="text" name="name"
+                 value="{{ student.getName }}{{ name }}"
+                 title="Name should be between 3 and 17 letters long"
+                 pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                 required="required">
+        </th>
+      </tr>
+      <tr>
+        <th>Surname:</th>
+        <th>
+          <input type="text" name="surname"
+                 value="{{ student.getSurname }}{{ surname }}"
+                 title="Name should be between 3 and 17 letters long"
+                 pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{3,17}"
+                 required="required">
+        </th>
+      </tr>
+      <tr>
+        <th>Email:</th>
+        <th>
+          <input type="email" name="email"
+                 value="{{ student.getEmail().getValue() }}"
+                 required="required">
+        </th>
+      </tr>
+      <tr>
+        <th>Class:</th>
+        <th>
+          <select name="group">
+              {% for group in groups %}
+                <option value="{{ group.getID }}">{{ group.getName }}</option>
+              {% endfor %}
+          </select>
+        </th>
+      </tr>
+      <tr>
+        <th>Team:</th>
+        <th>
+          <select name="team">
+            {% for team in teams %}
+            <option value="{{ team.getId }}">{{ team.getName }}</option>
+            {% endfor %}
+          </select>
+        </th>
+      </tr>
+    </table>
+    <button class="submit" type="submit" form="2">submit</button>
+</form>
+
