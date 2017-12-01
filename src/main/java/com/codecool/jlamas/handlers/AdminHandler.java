@@ -187,7 +187,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = getContent(CITY_FORM);
 
-        if (httpExchange != null && httpExchange != null) {
+        if (inputs == null && httpExchange != null) {
             model.with("city", new CityController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
         }
         else if (inputs != null) {
