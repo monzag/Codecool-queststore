@@ -5,7 +5,6 @@
     <title>questore</title>
     <link href="/static/assets/css/main.css" rel="stylesheet" type="text/css">
     <link href="https://fonts.googleapis.com/css?family=Muli" rel="stylesheet">
-    <script src="https://www.w3schools.com/lib/w3.js"></script>
 </head>
 
 <body>
@@ -36,30 +35,37 @@
         <small>&copy; pyLamas</small>
     </footer>
 </section>
-<form method="POST" class="add">
-    <!-- <h3>Add new mentor</h3> -->
-    <h3>Add new quest</h3>
+
+<form id="2" class="add" method="POST">
+    {% if team != null %}
+    <h3>Edit team {{ team.getName }}</h3>
+    {% else %}
+    <h3>Add new team</h3>
+    {% endif %}
+
+    {% if name.length > 0 %}
+    <div class="fail">
+        <h5>Team with this name already exists!</h5>
+    </div>
+    {% endif %}
 
     <table class="input-table">
         <tr>
-            <th>Quest Name:</th>
-            <th><input type="text" name="questName" value="{{ quest.getName() }}" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ]{3,}" title="Type only letters Min. three chars!"></th>
+            <th>Team Name:</th>
         </tr>
         <tr>
-            <th>Description:</th>
-            <th><input type="text" name="description" value="{{ quest.getDescription() }}" pattern="[A-Za-z żźćńółęąśŻŹĆĄŚĘŁÓŃ0-9]{3,}" title="Min. three chars!"></th>
-        </tr>
-        <tr>
-            <th>Reward:</th>
-            <th><input type="text" name="reward" value="{{ quest.getReward() }}" pattern="[1-9]{2,}" title="Type only numbers! Min. two digits!"></th>
+            <th>Name:</th>
+            <th>
+                <input type="text" name="name"
+                       value="{{ team.getName }}{{ name }}"
+                       title="Name should be between 3 and 25 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ][ a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,25}"
+                       required="required">
+            </th>
         </tr>
     </table>
-
-    <button class="submit" type="submit">submit</button>
+    <button class="submit" type="submit" form="2">submit</button>
 </form>
 
-<script>
-    w3.includeHTML();
-</script>
 </body>
 </html>

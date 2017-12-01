@@ -25,6 +25,7 @@
             <ul class="menu-nav">
                 <li><a href="/mentor">profile</a></li>
                 <li><a href="/mentor/groups">groups</a></li>
+                <li><a href="/mentor/teams">teams</a></li>
                 <li><a href="/mentor/quest/show">quests</a></li>
                 <li><a href="/mentor/artifact/show">artifacts</a></li>
             </ul>
@@ -44,7 +45,7 @@
 
     {% if artifactName.length > 0 %}
         <div class="fail">
-            <h5>Artifact with this name already exists!</h5>
+            <h5>Artifact with this name already exist!</h5>
         </div>
     {% endif %}
 
@@ -75,7 +76,7 @@
             <th>
                 <input type="text" name="price"
                        value="{{ artifact.getPrice }}{{ price }}"
-                       title="Only numbers, and don't be to harsh 1000000 is to mutch"
+                       title="Only numbers, and don't be to harsh 1000000 is to much"
                        pattern="[1-9][0-9]{1,5}"
                        required="required">
             </th>
