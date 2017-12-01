@@ -32,18 +32,19 @@ public class TeamDAO {
 
     public Team get(Integer id) {
 
+        Team team = null;
         String query = String.format("SELECT * FROM team WHERE id = %d", id);
 
         try (Connection c = ConnectDB.connect();
              Statement stmt = c.createStatement()) {
 
             ResultSet rs = stmt.executeQuery(query);
-            return new Team(id, rs.getString("name"));
+            team = new Team(id, rs.getString("name"));
 
         } catch (ClassNotFoundException|SQLException e) {
             System.out.println(e.getMessage());
         }
-        return null;
+        return team;
     }
 
     public Team get(String name) {
