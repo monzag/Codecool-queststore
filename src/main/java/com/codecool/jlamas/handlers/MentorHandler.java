@@ -167,6 +167,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
             model.with("surname", inputs.get("surname"));
         }
         model.with("groups", new GroupController().getAll());
+        model.with("teams", new TeamController().getAll());
 
         return template.render(model);
     }
