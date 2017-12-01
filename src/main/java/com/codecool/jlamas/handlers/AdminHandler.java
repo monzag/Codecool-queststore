@@ -21,14 +21,17 @@ import java.util.concurrent.Callable;
 
 public class AdminHandler extends AbstractHandler implements HttpHandler {
 
-    private static final String PROFILE = "templates/admin/admin.twig";
-    private static final String LIST = "templates/admin/admin_list.twig";
-    private static final String MENTOR_FORM = "templates/admin/admin_mentor_form.twig";
-    private static final String CITY_FORM = "templates/admin/admin_city_form.twig";
-    private static final String GROUP_FORM = "templates/admin/admin_group_form.twig";
-    private static final String LEVEL_ADD = "templates/admin/admin_level_add.twig";
-    private static final String LEVEL_EDIT = "templates/admin/admin_level_edit.twig";
-    private static final String CHANGE_PASSWORD = "templates/admin/admin_change_password.twig";
+    private static final String MAIN = "templates/main.twig";
+    private static final String NAV_MENU = "classpath:/templates/admin/nav_menu.twig";
+    private static final String PROFILE = "classpath:/templates/admin/admin.twig";
+    private static final String LIST = "classpath:/templates/admin/admin_list.twig";
+    private static final String MENTOR_FORM = "classpath:/templates/admin/admin_mentor_form.twig";
+    private static final String CITY_FORM = "classpath:/templates/admin/admin_city_form.twig";
+    private static final String GROUP_FORM = "classpath:/templates/admin/admin_group_form.twig";
+    private static final String LEVEL_ADD = "classpath:/templates/admin/admin_level_add.twig";
+    private static final String LEVEL_EDIT = "classpath:/templates/admin/admin_level_edit.twig";
+    private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
+    private static final String LOGOUT = "/admin/logout";
 
     private static final Integer OBJ_INDEX = 5;
 
@@ -53,7 +56,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
 
                 if (admin != null) {
                     if (method.equals("GET")) {
-                        if (httpExchange.getRequestURI().getPath().toString().equals("/admin/logout")) {
+                        if (httpExchange.getRequestURI().getPath().toString().equals(LOGOUT)) {
                             this.logout(httpExchange);
 
                         } else {
@@ -108,55 +111,65 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/admin/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
-    protected String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
+    protected JtwigModel getContent(String content_path) {
         JtwigModel model = JtwigModel.newModel();
 
+        model.with("nav_path", NAV_MENU);
+        model.with("logout_path", LOGOUT);
+        model.with("content_path", content_path);
         model.with("login", admin.getLogin().getValue());
+
+        return model;
+    }
+    protected String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+
+        JtwigModel model = getContent(PROFILE);
         model.with("admin", this.admin);
 
         return template.render(model);
     }
 
     private String displayMentors() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
 
-        model.with("login", "student");
+        JtwigModel model = getContent(LIST);
         model.with("mentors", new MentorController().getAll());
 
         return template.render(model);
     }
 
     private String displayGroups() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
 
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
+        JtwigModel model = getContent(LIST);
         model.with("groups", new GroupController().getAll());
 
         return template.render(model);
     }
 
     private String displayCities() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
 
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
+        JtwigModel model = getContent(LIST);
         model.with("cities", new CityController().getAll());
+
+        return template.render(model);
+    }
+
+    protected String displayEditPassword(String message) {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+
+        JtwigModel model = getContent(CHANGE_PASSWORD);
+        model.with("msg", message);
 
         return template.render(model);
     }
 
     private String displayMentorForm(HttpExchange httpExchange, Map<String, String> inputs) {
         // where inputs is a html parsed inputs passed in retake if there was an exception catch (while adding to db)
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(MENTOR_FORM);
-        JtwigModel model = JtwigModel.newModel();
-
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(MENTOR_FORM);
 
         if (inputs == null && httpExchange != null) {
             model.with("mentor", new MentorController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
@@ -171,11 +184,8 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayCityForm(HttpExchange httpExchange, Map<String, String> inputs, String errmsg) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(CITY_FORM);
-        JtwigModel model = JtwigModel.newModel();
-
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(CITY_FORM);
 
         if (httpExchange != null && httpExchange != null) {
             model.with("city", new CityController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
@@ -190,14 +200,11 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroupForm(HttpExchange httpExchange, String errmsg) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUP_FORM);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(GROUP_FORM);
 
         CityController cityController = new CityController();
         GroupController groupController = new GroupController();
-
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
 
         if (httpExchange != null) {
             model.with("group", new GroupController().get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
@@ -308,18 +315,15 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayLevels() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LIST);
-        JtwigModel model = JtwigModel.newModel();
-
-        // instead of value 'student' login from cookie
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(LIST);
         model.with("levels", new LevelController().showAllLevels());
         return template.render(model);
     }
 
     private String displayAddLevel() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LEVEL_ADD);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(LEVEL_ADD);
 
         return template.render(model);
     }
@@ -327,8 +331,9 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     private String displayEditLevel(HttpExchange httpExchange) {
         String levelName = this.parseStringFromURL(httpExchange, 4);
         levelController = new LevelController();
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(LEVEL_EDIT);
-        JtwigModel model = JtwigModel.newModel();
+
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(LEVEL_EDIT);
         Level level = levelController.chooseLevel(levelName);
         model.with("level", level);
 
@@ -350,16 +355,6 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         levelController.editLevel(inputs, this.parseStringFromURL(httpExchange, 4));
         
         return displayLevels();
-    }
-
-    protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("login", "student");
-        model.with("msg", message);
-
-        return template.render(model);
     }
 
     private String deleteLevel(HttpExchange httpExchange) {

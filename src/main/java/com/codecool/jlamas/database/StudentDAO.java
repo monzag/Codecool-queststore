@@ -92,6 +92,7 @@ public class StudentDAO {
                     student.getTeam().getId(),
                     student.getWallet().getBalance());
 
+
             stmt.executeUpdate(query);
 
         } catch (ClassNotFoundException|SQLException e) {

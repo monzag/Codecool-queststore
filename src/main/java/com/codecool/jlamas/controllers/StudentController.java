@@ -36,7 +36,7 @@ public class StudentController implements Controller<Student> {
     }
 
     public void createFromMap(Map<String, String> attrs) throws InvalidUserDataException {
-        
+
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
         }
@@ -47,7 +47,7 @@ public class StudentController implements Controller<Student> {
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
         Group group = this.groupController.get(attrs.get("group"));
-        Team team = this.teamDao.get(attrs.get("team"));
+        Team team = this.teamDao.get(Integer.parseInt(attrs.get("team")));
         Wallet wallet = new Wallet(0);
 
         Student student = new Student(login, password, email, name, surname, group, team, wallet);
