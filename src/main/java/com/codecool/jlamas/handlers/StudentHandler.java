@@ -26,6 +26,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     private static final String CHOOSE_STUDENT = "classpath:/templates/student/chooseStudentsForPurchase.twig";
     private static final String TEAM = "classpath:/templates/student/teamPurchase.twig";
     private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
+    private static final String LOGOUT = "/student/logout";
 
     private static final Integer ARTIFACT_INDEX = 4;
 
@@ -53,7 +54,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
                 if (student != null) {
 
                     if (method.equals("GET")) {
-                        if (httpExchange.getRequestURI().getPath().toString().equals("/student/logout")) {
+                        if (httpExchange.getRequestURI().getPath().toString().equals(LOGOUT)) {
                             this.logout(httpExchange);
 
                         } else {
@@ -95,6 +96,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         model.with("nav_path", NAV_MENU);
+        model.with("logout_path", LOGOUT);
         model.with("content_path", content_path);
         model.with("login", student.getLogin().getValue());
 
