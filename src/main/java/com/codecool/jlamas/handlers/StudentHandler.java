@@ -19,11 +19,13 @@ import java.util.concurrent.Callable;
 public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     private static final Integer ARTIFACT_INDEX = 4;
+    private static final Integer TEAM_INDEX = 5;
 
     private WalletController walletController;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
     private Student student;
+    private ArtifactDAO artifactDAO = new ArtifactDAO();
     private SessionDAO session = new SessionDAO();
     private CookieController cookieController = new CookieController();
     private Response responseCode = new Response();
@@ -31,7 +33,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     @Override
     public void handle(HttpExchange httpExchange) throws IOException {
 
-        String response = "";
+        String response;
         String method = httpExchange.getRequestMethod();
         HttpCookie cookie = cookieController.getCookie(httpExchange);
 
@@ -71,12 +73,11 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         getCommands.put("/student/store/buy/.+", () -> { return buyArtifact(httpExchange);}  );
         getCommands.put("/student/store", () -> { return displayStore();} );
         getCommands.put("/student/team_purchases", () -> { return displayTeamPurchase("");} );
-        getCommands.put("/student/team_purchases/open/.+", () -> { return displayNewTeamPurchaseForm(httpExchange);} );
+        getCommands.put("/student/team_purchases/add/[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ ]/.+", () -> { return addTeamPurchase(httpExchange);} );
         getCommands.put("/student/password/edit/.+", () -> {return displayEditPassword("");} );
     }
 
     protected void addPostCommands(HttpExchange httpExchange) {
-        postCommands.put("/student/team_purchases/open/.+", () -> { return addTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/accept/.+", () -> { return acceptTeamPurchase(httpExchange);} );
         postCommands.put("/student/team_purchases/cancel/.+", () -> { return cancelTeamPurchase(httpExchange);} );
         postCommands.put("/student/password/edit/.+", () -> { return editPassword(httpExchange); });
@@ -133,7 +134,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
         String message;
 
-        if (walletController.buyArtifact(new ArtifactController().chooseArtifact(artifactName))) {
+        if (walletController.buyArtifact(artifactDAO.selectArtifact(artifactName))) {
             message = "Artifact bought";
         } else {
             message = "Artifact can't be bought";
@@ -142,29 +143,11 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         return displayBoughtArtifact(message);
     }
 
-    private String displayNewTeamPurchaseForm(HttpExchange httpExchange) {
-
-        String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
-
-        return chooseStudentsForPurchase(null, new ArtifactController().chooseArtifact(artifactName));
-    }
-
-    private String chooseStudentsForPurchase(String errmsg, Artifact artifact) {
-
-        JtwigTemplate template = JtwigTemplate.classpathTemplate("templates/student/chooseStudentsForPurchase.twig");
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("errmsg", errmsg);
-        model.with("artifact", artifact);
-        model.with("students", new StudentDAO().requestAll());
-
-        return template.render(model);
-    }
-
     private String addTeamPurchase(HttpExchange httpExchange) throws IOException {
 
         String artifactName = parseStringFromURL(httpExchange, ARTIFACT_INDEX);
-        ArrayList<Student> students = new StudentController().createStudentsFromInputs(this.parseUserInputsFromHttp(httpExchange));
+        String team = parseStringFromURL(httpExchange, TEAM_INDEX);
+        ArrayList<Student> students = new StudentDAO().getStudentsFromTeam(new TeamDAO().get(team));
         String message = "Pending purchase opened";
 
         new TeamPurchaseController().addTeamPurchase(students, new ArtifactDAO().selectArtifact(artifactName));

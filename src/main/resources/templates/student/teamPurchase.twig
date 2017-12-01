@@ -40,9 +40,9 @@
 <section class="users-table">
     <h3>Team purchase requests</h3>
     <h5>Your balance: {{ student.getWallet().getBalance() }}</h5>
-    {% if errmsg.length > 0 %}
+    {% if message.length > 0 %}
     <div class="fail">
-        <h5>{{ errmsg }}!</h5>
+        <h5>{{ message }}!</h5>
     </div>
     {% endif %}
     <table style="width:100%">

@@ -19,9 +19,11 @@ public class TeamPurchaseController {
     public boolean addTeamPurchase(ArrayList<Student> students, Artifact artifact) {
 
         Integer price = Math.round(Integer.divideUnsigned(artifact.getPrice(), students.size()));
-        Integer id = ThreadLocalRandom.current().nextInt(1, 999999);
+        Integer id = ThreadLocalRandom.current().nextInt(1, 999999);;
         for (Student student : students) {
-            teamPurchaseDAO.insert(new TeamPurchase(id, artifact, student, price, false));
+            TeamPurchase purchase = new TeamPurchase(id, artifact, student, price, false);
+            student.getWallet().getPendingPurchases().add(purchase);
+            teamPurchaseDAO.insert(purchase);
             return true;
         }
         return false;
