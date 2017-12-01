@@ -36,7 +36,7 @@ public class StudentController implements Controller<Student> {
     }
 
     public void createFromMap(Map<String, String> attrs) throws InvalidUserDataException {
-        
+
         if (!Mail.isValid(attrs.get("email"))) {
             throw new EmailAlreadyUsedException();
         }
