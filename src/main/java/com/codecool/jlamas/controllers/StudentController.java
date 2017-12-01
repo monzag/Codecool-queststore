@@ -47,7 +47,8 @@ public class StudentController implements Controller<Student> {
         Login login = Login.generate(name, surname);
         Password password = Password.generate();
         SendMail sendMail = new SendMail();
-        sendMail.sendMail(email.getValue(), password.getValue());
+        String message = login.getValue() + " " + password.getValue();
+        sendMail.sendMail(email.getValue(), message);
         Group group = this.groupController.get(attrs.get("group"));
         Team team = this.teamDao.get(Integer.parseInt(attrs.get("team")));
         Wallet wallet = new Wallet(0);
