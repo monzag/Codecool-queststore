@@ -15,7 +15,7 @@ public class Main {
         flyway.setDataSource("jdbc:sqlite:./target/database", "jlamas", null);
         flyway.migrate();
 
-        HttpServer server = HttpServer.create(new InetSocketAddress(8101), 0);
+        HttpServer server = HttpServer.create(new InetSocketAddress(8100), 0);
 
         server.createContext("/", new AppController());
         server.createContext("/mentor", new MentorHandler());
