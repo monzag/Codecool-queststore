@@ -21,7 +21,8 @@ import java.util.concurrent.Callable;
 
 public class AdminHandler extends AbstractHandler implements HttpHandler {
 
-    private static final String MAIN = "templates/main.twig";
+    private static final String MAIN = "classpath:/templates/main.twig";
+    private static final String NAV_MENU = "classpath:/templates/admin/nav_menu.twig";
     private static final String PROFILE = "classpath:/templates/admin/admin.twig";
     private static final String LIST = "classpath:/templates/admin/admin_list.twig";
     private static final String MENTOR_FORM = "classpath:/templates/admin/admin_mentor_form.twig";
@@ -112,7 +113,7 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
     protected JtwigModel getContent(String content_path) {
         JtwigModel model = JtwigModel.newModel();
 
-        model.with("nav_path", "classpath:/templates/admin/nav_menu.twig");
+        model.with("nav_path", NAV_MENU);
         model.with("content_path", content_path);
         model.with("login", admin.getLogin().getValue());
 
