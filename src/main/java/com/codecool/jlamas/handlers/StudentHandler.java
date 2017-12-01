@@ -18,7 +18,7 @@ import java.util.concurrent.Callable;
 
 public class StudentHandler extends AbstractHandler implements HttpHandler {
 
-    private static final String MAIN = "classpath:/templates/main.twig";
+    private static final String MAIN = "templates/main.twig";
     private static final String NAV_MENU = "classpath:/templates/student/nav_menu.twig";
     private static final String PROFILE = "classpath:/templates/student/student.twig";
     private static final String WALLET = "classpath:/templates/student/wallet.twig";
