@@ -25,17 +25,20 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     private static final Integer OBJ_INDEX = 4;
 
-    private static final String PROFILE = "templates/mentor/mentor_profile.twig";
-    private static final String CHANGE_PASSWORD = "templates/mentor/mentor_change_password.twig";
-    private static final String STUDENT_FORM = "templates/mentor/mentor_student_form.twig";
-    private static final String ARTIFACT_FORM = "templates/mentor/mentor_artifact_form.twig";
-    private static final String ARTIFACT_LIST = "templates/mentor/mentor_artifact_list.twig";
+    private static final String MAIN = "templates/main.twig";
+    private static final String NAV_MENU = "classpath:/templates/mentor/nav_menu.twig";
+    private static final String PROFILE = "classpath:/templates/mentor/mentor_profile.twig";
+    private static final String CHANGE_PASSWORD = "classpath:/templates/change_password.twig";
+    private static final String STUDENT_FORM = "classpath:/templates/mentor/mentor_student_form.twig";
+    private static final String ARTIFACT_FORM = "classpath:/templates/mentor/mentor_artifact_form.twig";
+    private static final String ARTIFACT_LIST = "classpath:/templates/mentor/mentor_artifact_list.twig";
+    private static final String GROUP_LIST = "classpath:/templates/mentor/mentor_group_list.twig";
+    private static final String QUEST_LIST = "classpath:/templates/mentor/mentor_quest_list.twig";
+    private static final String QUEST_MARK = "classpath:/templates/mentor/mentor_quest_mark.twig";
+    private static final String QUEST_FORM = "classpath:/templates/mentor/mentor_quest_form.twig";
     private static final String TEAM_FORM = "templates/mentor/mentor_team_form.twig";
     private static final String TEAM_LIST = "templates/mentor/mentor_team_list.twig";
-    private static final String GROUP_LIST = "templates/mentor/mentor_group_list.twig";
-    private static final String QUEST_LIST = "templates/mentor/mentor_quest_list.twig";
-    private static final String QUEST_MARK = "templates/mentor/mentor_quest_mark.twig";
-    private static final String QUEST_FORM = "templates/mentor/mentor_quest_form.twig";
+    private static final String LOGOUT = "/mentor/logout";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -63,7 +66,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
                 this.mentor = (Mentor) session.getUserByCookie(httpExchange);
                 if (mentor != null) {
                     if (method.equals("GET")) {
-                        if (httpExchange.getRequestURI().getPath().toString().equals("/mentor/logout")) {
+                        if (httpExchange.getRequestURI().getPath().toString().equals(LOGOUT)) {
                             this.logout(httpExchange);
 
                         } else {
@@ -120,12 +123,20 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         postCommands.put("/mentor/password/edit/.+", () -> { return this.editPassword(httpExchange); });
     }
 
-    protected String displayProfile() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(PROFILE);
+    protected JtwigModel getContent(String content_path) {
         JtwigModel model = JtwigModel.newModel();
 
-        // profile pic found by login
+        model.with("nav_path", NAV_MENU);
+        model.with("logout_path", LOGOUT);
+        model.with("content_path", content_path);
         model.with("login", mentor.getLogin().getValue());
+
+        return model;
+    }
+
+    protected String displayProfile() {
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(PROFILE);
         model.with("mentor", mentor);
 
         return template.render(model);
@@ -142,11 +153,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayGroups(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(GROUP_LIST);
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(GROUP_LIST);
         model.with("message", message);
         model.with("students", studentController.getAll());
 
@@ -154,10 +162,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayStudentForm(HttpExchange httpExchange, Map<String, String> inputs) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(STUDENT_FORM);
-        JtwigModel model = JtwigModel.newModel();
-
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(STUDENT_FORM);
 
         if (inputs == null && httpExchange != null) {
             model.with("student", studentController.get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
@@ -173,8 +179,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String displayArtifactForm(HttpExchange httpExchange, Map<String, String> inputs) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_FORM);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(ARTIFACT_FORM);
 
         if (inputs == null && httpExchange != null) {
             model.with("artifact", artifactController.get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
@@ -204,8 +210,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String displayQuestForm(HttpExchange httpExchange, Map<String, String> inputs) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_FORM);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(QUEST_FORM);
 
         if (inputs == null && httpExchange != null) {
             model.with("quest", questController.get(this.parseStringFromURL(httpExchange, OBJ_INDEX)));
@@ -242,11 +248,8 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     public String displayArtifact(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(ARTIFACT_LIST);
-        JtwigModel model = JtwigModel.newModel();
-
-        // profile pic found by login
-        model.with("login", "student");
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(ARTIFACT_LIST);
         model.with("message", message);
         model.with("artifacts", artifactController.getAll());
 
@@ -254,18 +257,16 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     private String displayQuests() {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_LIST);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(QUEST_LIST);
 
         return template.render(model.with("questsList", questController.getAll()));
     }
 
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(QUEST_MARK);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+        JtwigModel model = getContent(QUEST_MARK);
         String login = this.parseStringFromURL(httpExchange, OBJ_INDEX);
-        // profile pic found by login
-        model.with("login", "student");
         model.with("message", message);
         model.with("studentLogin", login);
         model.with("questsList", questController.getAll());
@@ -377,10 +378,9 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     }
 
     protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(CHANGE_PASSWORD);
-        JtwigModel model = JtwigModel.newModel();
+        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
 
-        model.with("login", "student");
+        JtwigModel model = getContent(CHANGE_PASSWORD);
         model.with("msg", message);
 
         return template.render(model);

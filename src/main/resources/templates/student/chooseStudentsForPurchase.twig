@@ -1,0 +1,55 @@
+<form class="add" method="POST">
+    {% if errmsg.length > 0 %}
+    <div class="fail">
+        <h5>{{ errmsg }}!</h5>
+    </div>
+    {% endif %}
+    <h3>Choose students to buy {{ artifact.getName() }}</h3>
+
+    <table class="input-table">
+        <tr>
+            <th>Student #1:</th>
+            <th>
+                <select name="student">
+                    {% for student in students %}
+                    <option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>
+                    {% endfor %}
+                </select>
+            </th>
+        </tr>
+        <!--<tr>-->
+            <!--<th>Student #2:</th>-->
+            <!--<th>-->
+                <!--<select name="student">-->
+                    <!--{% for student in students %}-->
+                    <!--<option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>-->
+                    <!--{% endfor %}-->
+                <!--</select>-->
+            <!--</th>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<th>Student #3:</th>-->
+            <!--<th>-->
+                <!--<select name="student">-->
+                    <!--{% for student in students %}-->
+                    <!--<option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>-->
+                    <!--{% endfor %}-->
+                <!--</select>-->
+            <!--</th>-->
+        <!--</tr>-->
+        <!--<tr>-->
+            <!--<th>Student #4:</th>-->
+            <!--<th>-->
+                <!--<select name="student">-->
+                    <!--{% for student in students %}-->
+                    <!--<option value="{{ student.getLogin() }}">{{ student.getName() }}{{ student.getSurname() }}</option>-->
+                    <!--{% endfor %}-->
+                <!--</select>-->
+            <!--</th>-->
+        <!--</tr>-->
+        <tr>
+            <th><button class="submit" type="submit">Finish</button></th>
+            <th class="btn" id="remove-btn"><a method="GET" href="/student/store">Cancel</a></th>
+        </tr>
+    </table>
+</form>
