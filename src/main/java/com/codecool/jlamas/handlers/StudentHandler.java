@@ -114,6 +114,10 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     protected String displayProfile() {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = getContent(PROFILE);
+
+        levelDAO = new LevelDAO();
+        Integer totalEarnings = walletController.getDoneQuestsValue();
+        Level level = levelDAO.getStudentLevel(totalEarnings);
         model.with("student", student);
         model.with("level", level);
 
