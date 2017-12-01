@@ -34,6 +34,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private static final String QUEST_LIST = "classpath:/templates/mentor/mentor_quest_list.twig";
     private static final String QUEST_MARK = "classpath:/templates/mentor/mentor_quest_mark.twig";
     private static final String QUEST_FORM = "classpath:/templates/mentor/mentor_quest_form.twig";
+    private static final String LOGOUT = "/mentor/logout";
 
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
@@ -59,7 +60,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
                 this.mentor = (Mentor) session.getUserByCookie(httpExchange);
                 if (mentor != null) {
                     if (method.equals("GET")) {
-                        if (httpExchange.getRequestURI().getPath().toString().equals("/mentor/logout")) {
+                        if (httpExchange.getRequestURI().getPath().toString().equals(LOGOUT)) {
                             this.logout(httpExchange);
 
                         } else {
@@ -114,6 +115,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
         JtwigModel model = JtwigModel.newModel();
 
         model.with("nav_path", NAV_MENU);
+        model.with("logout_path", LOGOUT);
         model.with("content_path", content_path);
         model.with("login", mentor.getLogin().getValue());
 
