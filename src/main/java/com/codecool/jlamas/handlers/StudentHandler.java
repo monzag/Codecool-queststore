@@ -4,6 +4,7 @@ import com.codecool.jlamas.controllers.*;
 import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
+import com.codecool.jlamas.models.level.Level;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import org.jtwig.JtwigModel;
@@ -32,6 +33,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
     private static final Integer TEAM_INDEX = 5;
 
     private WalletController walletController;
+    private LevelDAO levelDAO;
     private Map<String, Callable> getCommands = new HashMap<>();
     private Map<String, Callable> postCommands = new HashMap<>();
     private Student student;
@@ -95,6 +97,11 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
 
     protected JtwigModel getContent(String content_path) {
         JtwigModel model = JtwigModel.newModel();
+        walletController = new WalletController(student);
+        levelDAO = new LevelDAO();
+        Integer totalEarnings = walletController.getDoneQuestsValue();
+        Level level = levelDAO.getStudentLevel(totalEarnings);
+
 
         model.with("nav_path", NAV_MENU);
         model.with("logout_path", LOGOUT);
@@ -108,6 +115,7 @@ public class StudentHandler extends AbstractHandler implements HttpHandler {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = getContent(PROFILE);
         model.with("student", student);
+        model.with("level", level);
 
         return template.render(model);
     }

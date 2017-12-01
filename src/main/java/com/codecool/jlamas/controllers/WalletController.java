@@ -4,6 +4,8 @@ import com.codecool.jlamas.database.*;
 import com.codecool.jlamas.models.account.Student;
 import com.codecool.jlamas.models.artifact.Artifact;
 
+import java.util.List;
+
 public class WalletController {
 
     Student student;
@@ -30,4 +32,14 @@ public class WalletController {
         return ownedArtifactDAO.insert(this.student, artifact);
     }
 
+    public Integer getDoneQuestsValue() {
+        List<Quest> doneQuests = student.getWallet().getDoneQuests();
+        Integer totalValue = 0;
+
+        for (Quest quest : doneQuests) {
+            totalValue += quest.getReward();
+        }
+
+        return totalValue;
+    }
 }
