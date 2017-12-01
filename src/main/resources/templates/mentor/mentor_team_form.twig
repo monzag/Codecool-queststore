@@ -1,0 +1,33 @@
+<form id="2" class="add" method="POST">
+    {% if team != null %}
+    <h3>Edit team {{ team.getName }}</h3>
+    {% else %}
+    <h3>Add new team</h3>
+    {% endif %}
+
+    {% if name.length > 0 %}
+    <div class="fail">
+        <h5>Team with this name already exists!</h5>
+    </div>
+    {% endif %}
+
+    <table class="input-table">
+        <tr>
+            <th>Team Name:</th>
+        </tr>
+        <tr>
+            <th>Name:</th>
+            <th>
+                <input type="text" name="name"
+                       value="{{ team.getName }}{{ name }}"
+                       title="Name should be between 3 and 25 letters long"
+                       pattern="[a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ][ a-zA-ZąćęłńóśźżĄĆĘŁŃÓŚŹŻ]{2,25}"
+                       required="required">
+            </th>
+        </tr>
+    </table>
+    <button class="submit" type="submit" form="2">submit</button>
+</form>
+
+</body>
+</html>

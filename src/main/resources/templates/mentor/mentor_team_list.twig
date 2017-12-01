@@ -1,0 +1,30 @@
+<section class="users-table">
+    <div>
+        {% if (message.length > 0) %}
+        <img src="/static/assets/pics/web/OK.png" alt="OK" style="height:20px;width:20px;display:inline-block" ><h4>{{ message }}</h4>
+        {% endif %}
+    </div>
+    <h3>Teams:</h3>
+    <table style="width:100%">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Description</th>
+            <th>Price</th>
+        </tr>
+        <tr>
+            {% for team in teams %}
+        <tr>
+            <td>{{ team.getId }}</td>
+            <td>{{ team.getName }}</td>
+            <td><a class="btn" id="edit-btn" href="/mentor/teams/edit/{{ team.getId }}">Edit</a></td>
+            <td><a class="btn" id="remove-btn" href="/mentor/teams/remove/{{ team.getId }}">Remove</a></td>
+        </tr>
+        {% endfor %}
+        <tr>
+            <th class="btn" id="add-btn"><a href="/mentor/teams/add">Add new</a></th>
+        </tr>
+    </table>
+</section>
+</body>
+</html>
