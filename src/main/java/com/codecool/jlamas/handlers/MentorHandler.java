@@ -203,10 +203,10 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
     private String displayQuestsToMark(String message, HttpExchange httpExchange) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
         JtwigModel model = getContent(QUEST_MARK);
-        String login = this.parseStringFromURL(httpExchange, STUDENT_INDEX);
+        String login = this.parseStringFromURL(httpExchange, OBJ_INDEX);
         model.with("message", message);
         model.with("studentLogin", login);
-        model.with("questsList", questController.showAllQuests());
+        model.with("questsList", questController.getAll());
 
         return template.render(model);
     }
@@ -316,6 +316,7 @@ public class MentorHandler extends AbstractHandler implements HttpHandler {
 
     protected String displayEditPassword(String message) {
         JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
+
         JtwigModel model = getContent(CHANGE_PASSWORD);
         model.with("msg", message);
 

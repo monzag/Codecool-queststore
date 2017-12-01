@@ -353,14 +353,6 @@ public class AdminHandler extends AbstractHandler implements HttpHandler {
         return displayLevels();
     }
 
-    protected String displayEditPassword(String message) {
-        JtwigTemplate template = JtwigTemplate.classpathTemplate(MAIN);
-        JtwigModel model = getContent(CHANGE_PASSWORD);
-        model.with("msg", message);
-
-        return template.render(model);
-    }
-
     private String deleteLevel(HttpExchange httpExchange) {
         levelController = new LevelController();
         levelController.deleteLevel(this.parseStringFromURL(httpExchange, 4));
